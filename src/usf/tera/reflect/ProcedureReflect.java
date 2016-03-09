@@ -27,21 +27,22 @@ public class ProcedureReflect extends Reflect {
 	}
 	
 	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException {
-		ResultSet param = null;
-		try {
-			do {
-				String name = rs.getString("PROCEDURE_NAME");
-				List<Parameter> list = new ArrayList<Parameter>();
+		do {
+			String name = rs.getString("PROCEDURE_NAME");
+			adapter.performProcedureStart(name);
+			List<Parameter> list = new ArrayList<Parameter>();
+			ResultSet param = null;
+			try {
 				param = dm.getProcedureColumns("", env.getSchema(), name, "");
 				list = listColumns(param);
 				adapter.performProcedure(new Procedure(name, env.getSchema(), list.toArray(new Parameter[list.size()])));
-			}while(rs.next());
-		} catch (Exception e) {
-			adapter.onException(e);
-		}
-		finally {
-			if(param != null) param.close();
-		}
+			} catch (Exception e) {
+				adapter.onException(e);
+			}
+			finally {
+				if(param != null) param.close();
+			}
+		}while(rs.next());
 	}
 	
 	protected List<Parameter> listColumns(ResultSet rs) throws SQLException {

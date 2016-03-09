@@ -9,11 +9,11 @@ import usf.tera.reflect.field.Schema;
 public class PrintAdapter extends Adapter {
 
 	protected static final String SCHEM_FORMAT = "Schema : %s \n";
-	protected static final String PRROC_FORMAT = "  Procedure : %s \n";
-	protected static final String PARAM_FORMAT = "    [%-6s | %-25s | %-10s | %-8s]\n";
-	protected static final String PARAM_VALUE_FORMAT = "    [%-6s | %-25s | %-10s | %-8s| %-60s]\n";
+	protected static final String PRROC_FORMAT = "Procedure : %s \n\n";
+	protected static final String PARAM_FORMAT = "[%-6s | %-30s | %-10s | %-8s]\n";
+	protected static final String PARAM_VALUE_FORMAT = "[%-6s | %-30s | %-10s | %-8s| %-60s]\n";
 	
-	private PrintStream out;
+	protected PrintStream out;
 	
 	public PrintAdapter(PrintStream out) {
 		this.out = out;
@@ -26,9 +26,13 @@ public class PrintAdapter extends Adapter {
 	}
 	
 	@Override
+	public void performProcedureStart(String procedure) {
+		out.format(PRROC_FORMAT, procedure);
+	}
+	
+	@Override
 	public void performProcedure(Procedure proc) {
 		if(proc == null) return;
-		out.format(PRROC_FORMAT, proc.getName());
 		out.format(PARAM_FORMAT, "Column","Name","Type","Size");
 		for(Parameter p : proc.getParameters())
 			out.format(PARAM_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize());
@@ -42,7 +46,6 @@ public class PrintAdapter extends Adapter {
 	
 	protected void performProcedure(Procedure base, Procedure call) {
 		if(base == null || call==null) return;
-		out.format(PRROC_FORMAT, base.getName());
 		out.format(PARAM_VALUE_FORMAT, "Column","Name","Type","Size", "value");
 		for(int i=0; i<base.getParameters().length; i++) {
 			Parameter p = base.getParameters()[i];

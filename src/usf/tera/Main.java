@@ -34,23 +34,32 @@ public class Main {
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException {
-		
 		new TeraConfig().configure();
 		
+		ex2();
+	}
+	
+	
+	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
 		Procedure p = Procedure.build(query);
-//		Adapter a = new PrintAdapter(System.out);
 		
 		if(p==null) {
 			System.out.println("Procedure non valid");
 			return;
 		}
+		Adapter a = new PrintAdapter(System.out);
+		factory.get(ProcedureReflect.class, a).findAll();
+	}
+	
+	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
+		Procedure p = Procedure.build(query);
 		
+		if(p==null) {
+			System.out.println("Procedure non valid");
+			return;
+		}
 		Adapter a = new CheckAdapter(System.out, p);
-
-//		factory.get(SchemaReflect.class, a).findAll();
-		
 		factory.get(ProcedureReflect.class, a).find(p.getName());
-		
 	}
 
 }

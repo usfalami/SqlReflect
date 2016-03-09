@@ -17,14 +17,14 @@ public class CheckAdapter extends PrintAdapter {
 	public void performProcedure(Procedure proc) {
 		if(procedure == null) return; // do something
 		
-		if(proc == null) System.err.println("Procedure not exists");
+		if(proc == null) out.println("Procedure not exists");
 		else {
-			System.out.println("Procedure "+ proc.getName() + " exist in " + proc.getSchema());
+			out.println("\t\u2713 Exist in " + proc.getSchema() + " schema");
 			if(proc.getParameters().length != procedure.getParameters().length)
-				System.err.println("number of parameters are not equals");
+				out.println("number of parameters are not equals");
 			else {
-				System.out.println("Procedure parameters are OK");
-				System.out.println("Procedure " + proc.getName() + " is OK ! \n");
+				out.println("\t\u2713 Number of parameters is OK = " + proc.getParameters().length + "\n");
+				out.println("Procedure " + proc.getName() + " is OK ! \n");
 
 				super.performProcedure(proc, procedure);
 			}
