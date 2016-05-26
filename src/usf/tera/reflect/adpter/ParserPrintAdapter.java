@@ -31,10 +31,6 @@ public class ParserPrintAdapter implements ParserAdapter {
 			out.format(COLUMN_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize());
 		out.println(COLUMN_CADRE);
 	}
-	@Override
-	public void onException(Exception e) {
-		e.printStackTrace(out);
-	}	
 	
 	protected void performProcedure(Procedure base, Procedure call) {
 		if(base == null || call==null) return;
@@ -46,4 +42,10 @@ public class ParserPrintAdapter implements ParserAdapter {
 		}
 		out.println(COLUMN_PARAM_CADRE);
 	}
+	
+
+	@Override
+	public void onException(Exception e) {
+		e.printStackTrace(out);
+	}	
 }

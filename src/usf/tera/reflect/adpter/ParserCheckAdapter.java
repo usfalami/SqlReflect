@@ -31,9 +31,4 @@ public class ParserCheckAdapter extends ParserPrintAdapter {
 		}
 	}
 
-	@Override
-	public void onException(Exception e) {
-		e.printStackTrace();
-	}
-
 }
