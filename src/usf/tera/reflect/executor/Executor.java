@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import usf.tera.reflect.AbstractReflect;
 import usf.tera.reflect.adpter.ExecutorAdapter;
 
-public class AbstractExecutor<T extends ExecutorAdapter> extends AbstractReflect<T> {
+public class Executor<T extends ExecutorAdapter> extends AbstractReflect<T> {
 	
 	
 	public final void exec(String query, Serializable... params) throws SQLException {

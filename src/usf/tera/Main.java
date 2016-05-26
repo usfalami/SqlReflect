@@ -14,7 +14,7 @@ import usf.tera.reflect.adpter.Adapter;
 import usf.tera.reflect.adpter.ParserCheckAdapter;
 import usf.tera.reflect.adpter.ExecutorPerformAdapter;
 import usf.tera.reflect.adpter.ParserPrintAdapter;
-import usf.tera.reflect.executor.AbstractExecutor;
+import usf.tera.reflect.executor.Executor;
 import usf.tera.reflect.parser.ProcedureParser;
 
 public class Main {
@@ -56,8 +56,8 @@ public class Main {
 	public static void macro() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorPerformAdapter();
 		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
-		factory.get(AbstractExecutor.class, a).exec(macroNobi);
-		factory.get(AbstractExecutor.class, a).exec(macroBind, new Serializable[]{
+		factory.get(Executor.class, a).exec(macroNobi);
+		factory.get(Executor.class, a).exec(macroBind, new Serializable[]{
 				new Date(df.parse("1999-01-01").getTime()), 
 				new Date(df.parse("2015-12-31").getTime()), 
 				"90216111111177"});

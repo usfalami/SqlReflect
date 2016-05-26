@@ -1,13 +1,11 @@
-package usf.tera.reflect.executor;
+package usf.tera.reflect.adpter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import usf.tera.reflect.adpter.ExecutorAdapter;
-
-public class ColumnCheckExecutor implements ExecutorAdapter {
+public class ExecutorCheckAdapter implements ExecutorAdapter {
 
 	@Override
 	public void beforeExec(PreparedStatement s) {
