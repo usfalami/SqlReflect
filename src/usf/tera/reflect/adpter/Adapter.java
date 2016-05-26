@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public interface Adapter {
 
 	DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 	
 	//Custom parameters
@@ -20,8 +21,6 @@ public interface Adapter {
 	
 	//Format
 	
-	String SCHEM_FORMAT = "Schema : %s\n";
-	String PRROC_FORMAT = "Procedure : %s\n";
 	
 	String COLUMN_FORMAT = "|%"+COLUMN_NUM_LENGTH+"s| %"+COLUMN_NAME_LENGTH+"s| %"+COLUMN_TYPE_LENGTH+"s| %"+COLUMN_SIZE_LENGTH+"s|\n";
 	String COLUMN_PARAM_FORMAT = COLUMN_FORMAT.replace('\n', ' ')+"%"+COLUMN_PARAM_LENGTH+"s|\n";
@@ -31,6 +30,10 @@ public interface Adapter {
 	
 	String COLUMN = String.format(COLUMN_FORMAT, "N°", "Name", "Type", "Size");
 	String COLUMN_PARAM = String.format(COLUMN_PARAM_FORMAT, "N°", "Name", "Type", "Size", "Value");
+	
+
+	String SCHEM_FORMAT = "%-30s\n";
+	String PRROC_FORMAT = "| %-"+(COLUMN.length()-4)+"s|\n";
 	
 	String COLUMN_CADRE = String.format("+%"+(COLUMN.length()-3)+"s+\n","").replace(" ", "-");
 	String COLUMN_PARAM_CADRE = String.format("+%"+(COLUMN_PARAM.length()-3)+"s+\n","").replace(" ", "-");	

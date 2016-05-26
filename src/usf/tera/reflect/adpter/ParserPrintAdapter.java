@@ -21,7 +21,7 @@ public class ParserPrintAdapter implements ParserAdapter {
 	}
 	@Override
 	public void performProcedureStart(String procedure) {
-		out.format(PRROC_FORMAT, procedure);
+		out.format(COLUMN_CADRE+PRROC_FORMAT, procedure);
 	}
 	@Override
 	public void performProcedure(Procedure proc) {
@@ -32,18 +32,6 @@ public class ParserPrintAdapter implements ParserAdapter {
 		out.println(COLUMN_CADRE);
 	}
 	
-	protected void performProcedure(Procedure base, Procedure call) {
-		if(base == null || call==null) return;
-		out.print(COLUMN_PARAM_CADRE+COLUMN_PARAM+COLUMN_PARAM_CADRE);
-		for(int i=0; i<base.getParameters().length; i++) {
-			Parameter p = base.getParameters()[i];
-			Parameter c = call.getParameters()[i];
-			out.format(COLUMN_PARAM_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize(), c.getValue());
-		}
-		out.println(COLUMN_PARAM_CADRE);
-	}
-	
-
 	@Override
 	public void onException(Exception e) {
 		e.printStackTrace(out);
