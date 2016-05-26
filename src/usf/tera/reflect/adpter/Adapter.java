@@ -16,6 +16,8 @@ public interface Adapter {
 	int COLUMN_SIZE_LENGTH  =-8;
 	int COLUMN_PARAM_LENGTH =-60;
 	
+	int PERFORM_TEXT_LENGTH =-10;
+	
 	//Format
 	
 	String SCHEM_FORMAT = "Schema : %s\n";
@@ -24,14 +26,16 @@ public interface Adapter {
 	String COLUMN_FORMAT = "|%"+COLUMN_NUM_LENGTH+"s| %"+COLUMN_NAME_LENGTH+"s| %"+COLUMN_TYPE_LENGTH+"s| %"+COLUMN_SIZE_LENGTH+"s|\n";
 	String COLUMN_PARAM_FORMAT = COLUMN_FORMAT.replace('\n', ' ')+"%"+COLUMN_PARAM_LENGTH+"s|\n";
 	
+	String PERFORM_FORMAT="|%"+PERFORM_TEXT_LENGTH+"s | %"+PERFORM_TEXT_LENGTH+"s|\n";
+	
 	
 	String COLUMN = String.format(COLUMN_FORMAT, "N°", "Name", "Type", "Size");
 	String COLUMN_PARAM = String.format(COLUMN_PARAM_FORMAT, "N°", "Name", "Type", "Size", "Value");
 	
-	String CADRE = String.format("+%"+(COLUMN.length()-3)+"s+\n","").replace(" ", "-");
-	String CADRE_PARAM = String.format("+%"+(COLUMN_PARAM.length()-3)+"s+\n","").replace(" ", "-");
-	
-	
+	String COLUMN_CADRE = String.format("+%"+(COLUMN.length()-3)+"s+\n","").replace(" ", "-");
+	String COLUMN_PARAM_CADRE = String.format("+%"+(COLUMN_PARAM.length()-3)+"s+\n","").replace(" ", "-");	
+	String PERFORM_CADRE = String.format("+%23s+\n", "").replace(" ", "-");
+
 	public static class Utils{
 		
 	}

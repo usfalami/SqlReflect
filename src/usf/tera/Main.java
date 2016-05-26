@@ -45,6 +45,7 @@ public class Main {
 			System.out.println("Procedure non valid");
 			return;
 		}
+		System.out.println();
 		
 //		ex1(p);
 		test3(); System.out.println();
@@ -76,8 +77,6 @@ public class Main {
 		Adapter a = new ParserCheckAdapter(System.out, p);
 		factory.get(ProcedureParser.class, a).find(p.getName());
 	}
-	
-	
 	
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ReflectFactory factory = new ReflectFactory(env, user);
