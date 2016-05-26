@@ -17,7 +17,7 @@ public class Executor<T extends ExecutorAdapter> extends AbstractReflect<T> {
 			try {
 				ResultSet rs = null;
 				try {
-					s = con.prepareStatement(query, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+					s = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					if(params != null)
 						for(int i=0; i<params.length; i++)
 							s.setObject(i+1, params[i]);

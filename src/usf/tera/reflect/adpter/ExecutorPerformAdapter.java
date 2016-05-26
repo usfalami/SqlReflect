@@ -22,7 +22,14 @@ public class ExecutorPerformAdapter implements ExecutorAdapter {
 		System.out.print(PERFORM_CADRE);
 		System.out.format(PERFORM_FORMAT, "End", TIME_FORMATTER.format(end));
 		System.out.print(PERFORM_CADRE);
-		System.out.format(PERFORM_FORMAT, "Duration", (end.getTime() - start.getTime())+"ms");
+		System.out.format(PERFORM_FORMAT, "Duration", (end.getTime() - start.getTime())+" ms");
+		System.out.print(PERFORM_CADRE);
+		int count=0;
+		if(rs.next()){
+			rs.last();
+			count=rs.getRow();
+		}
+		System.out.format(PERFORM_FORMAT, "Count", count+" rows");
 		System.out.println(PERFORM_CADRE);
 	}
 

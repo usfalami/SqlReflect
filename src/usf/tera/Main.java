@@ -54,13 +54,13 @@ public class Main {
 		}
 		System.out.println();
 		
-//		ex1();
+		ex1();
 //		ex2();
 //		ex3(p);
 //		System.out.println();
 //		test3(); System.out.println();
 //		test1(); System.out.println();
-		test2(); System.out.println();
+//		test2(); System.out.println();
 	}
 	
 	
@@ -92,15 +92,15 @@ public class Main {
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorColumnAdapter();
-		factory.get(Executor.class, a).exec(query2);
+		factory.get(Executor.class, a).exec(query);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorPerformAdapter();
-		factory.get(Executor.class, a).exec(query2);
+		factory.get(Executor.class, a).exec(query);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorResultAdapter();
-		factory.get(Executor.class, a).exec(query2);
+		factory.get(Executor.class, a).exec(query);
 	}
 	
 	

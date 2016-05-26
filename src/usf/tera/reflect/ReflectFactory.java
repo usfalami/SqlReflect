@@ -30,7 +30,6 @@ public class ReflectFactory {
 		return new ReflectFactory(db, env, user);
 	}
 	
-	
 	public static class User {
 		private String login, pass;
 		public User(String login, String pass) {

@@ -20,8 +20,7 @@ public interface Adapter {
 	int PERFORM_TEXT_LENGTH =-10;
 	
 	//Format
-	
-	
+
 	String COLUMN_FORMAT = "|%"+COLUMN_NUM_LENGTH+"s| %"+COLUMN_NAME_LENGTH+"s| %"+COLUMN_TYPE_LENGTH+"s| %"+COLUMN_SIZE_LENGTH+"s|\n";
 	String COLUMN_PARAM_FORMAT = COLUMN_FORMAT.replace('\n', ' ')+"%"+COLUMN_PARAM_LENGTH+"s|\n";
 	
