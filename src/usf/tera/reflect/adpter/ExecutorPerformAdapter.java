@@ -7,31 +7,26 @@ import java.util.Date;
 
 public class ExecutorPerformAdapter implements ExecutorAdapter {
 	
-	private long time;
+	private Date start;
+	
+	public static final String format="|%-10s | %-10s|\n";
+	public static final String cadre=String.format("+%23s+\n", "").replace(" ", "-");
 
 	@Override
 	public void beforeExec(PreparedStatement s) {
-		Date d = new Date();
-		time = d.getTime();
-		System.out.println("Query : start execution at " + DATE_TIME_FORMATTER.format(d));
+		start = new Date();
 	}
 
 	@Override
 	public void afterExec(ResultSet rs) throws SQLException {
-		Date d = new Date();
-		time = d.getTime() - time;
-		System.out.println("Query : end execution at " + DATE_TIME_FORMATTER.format(d));
-		System.out.println(String.format("Elapsed time : %dms", time));
-		
-//		int count=0;
-//		
-//		if(rs.next()){
-//			rs.last();
-//			count=rs.getRow();
-//		    rs.beforeFirst();
-//		}
-//		
-//		System.out.println(count);
+		Date end = new Date();
+		System.out.print(cadre);
+		System.out.format(format, "Start", TIME_FORMATTER.format(start));
+		System.out.print(cadre);
+		System.out.format(format, "End", TIME_FORMATTER.format(end));
+		System.out.print(cadre);
+		System.out.format(format, "Duration", (end.getTime() - start.getTime())+"ms");
+		System.out.println(cadre);
 	}
 
 }

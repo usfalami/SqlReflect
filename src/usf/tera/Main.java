@@ -47,7 +47,9 @@ public class Main {
 		}
 		
 //		ex1(p);
-		test5();
+		test3(); System.out.println();
+		test1(); System.out.println();
+		test2(); System.out.println();
 	}
 	
 	
@@ -61,14 +63,7 @@ public class Main {
 				new Date(df.parse("2015-12-31").getTime()), 
 				"90216111111177"});
 	}
-	
-	public static void test5() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ReflectFactory factory = new ReflectFactory(env, user);
-		Adapter a = new ExecutorResultAdapter();
-		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
-		factory.get(Executor.class, a).exec(query2);
-	}
-	
+
 	
 	public static void ex1(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
 		ReflectFactory factory = new ReflectFactory(env, user);
@@ -81,5 +76,31 @@ public class Main {
 		Adapter a = new ParserCheckAdapter(System.out, p);
 		factory.get(ProcedureParser.class, a).find(p.getName());
 	}
+	
+	
+	
+	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ReflectFactory factory = new ReflectFactory(env, user);
+		Adapter a = new ExecutorColumnAdapter();
+		factory.get(Executor.class, a).exec(query2);
+	}
+	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ReflectFactory factory = new ReflectFactory(env, user);
+		Adapter a = new ExecutorPerformAdapter();
+		factory.get(Executor.class, a).exec(query2);
+	}
+	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ReflectFactory factory = new ReflectFactory(env, user);
+		Adapter a = new ExecutorResultAdapter();
+		factory.get(Executor.class, a).exec(query2);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public interface Adapter {
 
 	DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
 	
 	//Custom parameters
 	
