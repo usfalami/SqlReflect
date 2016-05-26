@@ -14,7 +14,7 @@ import usf.tera.reflect.adpter.ParserAdapter;
 public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> {
 	
 	@Override
-	protected void find(DatabaseMetaData dm, String name) throws SQLException {
+	protected void lookup(DatabaseMetaData dm, String name) throws SQLException {
 		ResultSet rs = dm.getProcedures("", env.getSchema(), name);
 		try {
 			if(!rs.next()) adapter.performProcedure(null);

@@ -9,11 +9,11 @@ import usf.tera.reflect.adpter.ParserAdapter;
 public abstract class AbstractParser<T extends ParserAdapter> extends AbstractReflect<T> {
 	
 	
-	public final void find(String name) throws SQLException {
+	public final void lookup(String name) throws SQLException {
 		if(adapter == null || con == null || env==null) return;
 		DatabaseMetaData dm = con.getMetaData();
 		try {
-			find(dm, name);
+			lookup(dm, name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -23,10 +23,10 @@ public abstract class AbstractParser<T extends ParserAdapter> extends AbstractRe
 		}
 	}
 	
-	protected abstract void find(DatabaseMetaData dm, String name) throws SQLException;
+	protected abstract void lookup(DatabaseMetaData dm, String name) throws SQLException;
 	
-	public void findAll() throws SQLException{
-		find(null);
+	public void lookup() throws SQLException{
+		lookup(null);
 	}
 
 }

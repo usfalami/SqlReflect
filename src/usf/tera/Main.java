@@ -17,6 +17,7 @@ import usf.tera.reflect.adpter.ParserCheckAdapter;
 import usf.tera.reflect.adpter.ParserPrintAdapter;
 import usf.tera.reflect.executor.Executor;
 import usf.tera.reflect.parser.ProcedureParser;
+import usf.tera.reflect.parser.SchemaParser;
 
 public class Main {
 	
@@ -47,10 +48,13 @@ public class Main {
 		}
 		System.out.println();
 		
-//		ex1(p);
-		test3(); System.out.println();
-		test1(); System.out.println();
-		test2(); System.out.println();
+		ex1();
+//		ex2();
+//		ex3(p);
+//		System.out.println();
+//		test3(); System.out.println();
+//		test1(); System.out.println();
+//		test2(); System.out.println();
 	}
 	
 	
@@ -65,19 +69,24 @@ public class Main {
 				"90216111111177"});
 	}
 
-	
-	public static void ex1(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
+
+	//Parsers & Adapters
+	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
 		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ParserPrintAdapter(System.out);
-		factory.get(ProcedureParser.class, a).findAll();
+		factory.get(ProcedureParser.class, a).lookup();
 	}
-	
-	public static void ex2(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
+	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
+		ReflectFactory factory = new ReflectFactory(env, user);
+		Adapter a = new ParserPrintAdapter(System.out);
+		factory.get(SchemaParser.class, a).lookup();
+	}
+	public static void ex3(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
 		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ParserCheckAdapter(System.out, p);
-		factory.get(ProcedureParser.class, a).find(p.getName());
+		factory.get(ProcedureParser.class, a).lookup(p.getName());
 	}
-	
+	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ExecutorColumnAdapter();
@@ -95,11 +104,4 @@ public class Main {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-
 }

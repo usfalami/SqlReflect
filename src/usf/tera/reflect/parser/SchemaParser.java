@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.tera.field.Schema;
-import usf.tera.reflect.AbstractReflect;
 import usf.tera.reflect.adpter.ParserAdapter;
 
 public class SchemaParser<T extends ParserAdapter> extends AbstractParser<T> {
 
 	@Override
-	protected void find(DatabaseMetaData dm, String name) throws SQLException {
+	protected void lookup(DatabaseMetaData dm, String name) throws SQLException {
 		ResultSet rs  = dm.getSchemas();
 		try {
 			while(rs.next()) {
