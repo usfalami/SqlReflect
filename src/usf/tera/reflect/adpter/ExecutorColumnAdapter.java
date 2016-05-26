@@ -5,35 +5,32 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class ExecutorCheckAdapter implements ExecutorAdapter {
+public class ExecutorColumnAdapter implements ExecutorAdapter {
 
 	@Override
 	public void beforeExec(PreparedStatement s) {
-		
+		System.out.println("List of columns : \n");
 	}
 	
 	@Override
-	public void afterExec(ResultSet rs) {
+	public void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md;
 		try {
 			md = rs.getMetaData();
-			int count;
-			System.out.println("Column count : " + (count = md.getColumnCount()));
-			
-			System.out.println(String.format("[%6s | %25s | %10s | %5s | %20s]", "Column","Name","Type","Size","Class"));
+			int count = md.getColumnCount();
+			System.out.print(CADRE+COLUMN+"\n"+CADRE);
 			
 			for(int i=1; i<=count; i++) {
-				System.out.println(String.format("[%6s | %25s | %10s | %5s | %20s]", 
+				System.out.format(PARAM_FORMAT+"\n", 
 						i,
 						md.getColumnName(i),
 						md.getColumnTypeName(i),
-						md.getColumnDisplaySize(i),
-						md.getColumnClassName(i)));
+						md.getColumnDisplaySize(i));
 			}
+			System.out.print(CADRE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
 	
 }

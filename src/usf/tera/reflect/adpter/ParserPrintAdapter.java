@@ -8,11 +8,6 @@ import usf.tera.field.Schema;
 
 public class ParserPrintAdapter implements ParserAdapter {
 
-	protected static final String SCHEM_FORMAT = "Schema : %s \n";
-	protected static final String PRROC_FORMAT = "Procedure : %s \n\n";
-	protected static final String PARAM_FORMAT = "[%-6s | %-30s | %-10s | %-8s]\n";
-	protected static final String PARAM_VALUE_FORMAT = "[%-6s | %-30s | %-10s | %-8s| %-60s]\n";
-	
 	protected PrintStream out;
 	
 	public ParserPrintAdapter(PrintStream out) {
@@ -24,21 +19,18 @@ public class ParserPrintAdapter implements ParserAdapter {
 		if(sc == null) return;
 		out.format(SCHEM_FORMAT, sc.getName());
 	}
-	
 	@Override
 	public void performProcedureStart(String procedure) {
 		out.format(PRROC_FORMAT, procedure);
 	}
-	
 	@Override
 	public void performProcedure(Procedure proc) {
 		if(proc == null) return;
-		out.format(PARAM_FORMAT, "Column","Name","Type","Size");
+		out.print(CADRE+COLUMN+"\n"+CADRE);
 		for(Parameter p : proc.getParameters())
-			out.format(PARAM_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize());
-		out.println();
+			out.format(PARAM_FORMAT+"\n", p.getIndex(), p.getName(), p.getType(), p.getSize());
+		out.println(CADRE);
 	}
-	
 	@Override
 	public void onException(Exception e) {
 		e.printStackTrace(out);
@@ -46,13 +38,12 @@ public class ParserPrintAdapter implements ParserAdapter {
 	
 	protected void performProcedure(Procedure base, Procedure call) {
 		if(base == null || call==null) return;
-		out.format(PARAM_VALUE_FORMAT, "Column","Name","Type","Size", "value");
+		out.print(CADRE_PARAM+COLUMN_VALUE+"\n"+CADRE_PARAM);
 		for(int i=0; i<base.getParameters().length; i++) {
 			Parameter p = base.getParameters()[i];
 			Parameter c = call.getParameters()[i];
-			out.format(PARAM_VALUE_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize(), c.getValue());
+			out.format(PARAM_VALUE_FORMAT+"\n", p.getIndex(), p.getName(), p.getType(), p.getSize(), c.getValue());
 		}
-		out.println();
+		out.println(CADRE_PARAM);
 	}
-
 }

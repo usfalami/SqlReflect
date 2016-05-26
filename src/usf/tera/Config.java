@@ -9,7 +9,6 @@ public interface Config {
 		public void configure() throws ClassNotFoundException {
 			Class.forName("com.teradata.jdbc.TeraDriver");
 		};
-		
 	}
 
 }
