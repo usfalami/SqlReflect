@@ -2,7 +2,7 @@ package usf.tera.reflect;
 
 import java.sql.Connection;
 
-import usf.tera.ReflectFactory.Env;
+import usf.tera.reflect.ReflectFactory.Env;
 import usf.tera.reflect.adpter.Adapter;
 
 public abstract class AbstractReflect<T extends Adapter> {

@@ -6,9 +6,12 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import usf.tera.ReflectFactory.Env;
-import usf.tera.ReflectFactory.User;
+import usf.tera.db.Database;
+import usf.tera.db.Teradata;
 import usf.tera.field.Procedure;
+import usf.tera.reflect.ReflectFactory;
+import usf.tera.reflect.ReflectFactory.Env;
+import usf.tera.reflect.ReflectFactory.User;
 import usf.tera.reflect.adpter.Adapter;
 import usf.tera.reflect.adpter.ExecutorColumnAdapter;
 import usf.tera.reflect.adpter.ExecutorPerformAdapter;
@@ -22,7 +25,10 @@ import usf.tera.reflect.parser.SchemaParser;
 public class Main {
 	
 	private static User user = new User("stm_dba_ra4", "stm_dba_ra4");
-	private static Env env = new Env("ZED395A1", "STM_IHM_RA4");
+	private static Env env = new Env("ZED395A1", "STM_IHM_RA4", 1025);
+	private static Database db = new Teradata();
+	
+	private static ReflectFactory factory = ReflectFactory.get(db, env, user);
 	
 	private static String query = "call STM_IHM_RA4.PRCD_E_SUP_240_HIST_PRCS_CMPT_HAB_020(CAST ('2015/12/15' AS DATE FORMAT 'YYYY/MM/DD'),CAST ('2016/02/15' AS DATE FORMAT 'YYYY/MM/DD'),NULL,NULL,NULL,NULL,'GASP',NULL,NULL,NULL,'OE15540N','SUPERVISION_COMPTAGE_INDUSTRIEL_UI','SDT_IHM-OI-SU',0,NULL,P_DEBUG_QRY,'I')";
 	
@@ -48,22 +54,22 @@ public class Main {
 		}
 		System.out.println();
 		
-		ex1();
+//		ex1();
 //		ex2();
 //		ex3(p);
 //		System.out.println();
 //		test3(); System.out.println();
 //		test1(); System.out.println();
-//		test2(); System.out.println();
+		test2(); System.out.println();
 	}
 	
 	
 	public static void macro() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ReflectFactory factory = new ReflectFactory(new Env("BDD_STM_PRA", "STM_IHM_PF1"), new User("STM_DBA_PF1", "BY9HLCYB"));
+		ReflectFactory factory2 = ReflectFactory.get(db, new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025), new User("STM_DBA_PF1", "BY9HLCYB"));
 		Adapter a = new ExecutorColumnAdapter();
 		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
-		factory.get(Executor.class, a).exec(macroNobi);
-		factory.get(Executor.class, a).exec(macroBind, new Serializable[]{
+		factory2.get(Executor.class, a).exec(macroNobi);
+		factory2.get(Executor.class, a).exec(macroBind, new Serializable[]{
 				new Date(df.parse("1999-01-01").getTime()), 
 				new Date(df.parse("2015-12-31").getTime()), 
 				"90216111111177"});
@@ -72,33 +78,27 @@ public class Main {
 
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ParserPrintAdapter(System.out);
 		factory.get(ProcedureParser.class, a).lookup();
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ParserPrintAdapter(System.out);
 		factory.get(SchemaParser.class, a).lookup();
 	}
 	public static void ex3(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ParserCheckAdapter(System.out, p);
 		factory.get(ProcedureParser.class, a).lookup(p.getName());
 	}
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ExecutorColumnAdapter();
 		factory.get(Executor.class, a).exec(query2);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ExecutorPerformAdapter();
 		factory.get(Executor.class, a).exec(query2);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ReflectFactory factory = new ReflectFactory(env, user);
 		Adapter a = new ExecutorResultAdapter();
 		factory.get(Executor.class, a).exec(query2);
 	}

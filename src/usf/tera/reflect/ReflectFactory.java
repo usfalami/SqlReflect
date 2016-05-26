@@ -1,28 +1,35 @@
-package usf.tera;
+package usf.tera.reflect;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import usf.tera.reflect.AbstractReflect;
+import usf.tera.db.Database;
 import usf.tera.reflect.adpter.Adapter;
 
 public class ReflectFactory {
 
+	protected Database db;
 	protected User user;
 	protected Env env;
 
-	public ReflectFactory(Env env, User user) {
+	private ReflectFactory(Database db, Env env, User user) {
+		this.db = db;
 		this.env = env;
 		this.user = user;
 	}
 	
 	public <E extends Adapter, T extends AbstractReflect<E>> T get(Class<T> clazz, E adapter) throws SQLException, InstantiationException, IllegalAccessException {
 		T c = clazz.newInstance();
-		c.setConnection(DriverManager.getConnection(env.makeURL(), user.getLogin(), user.getPass()));
+		c.setConnection(DriverManager.getConnection(db.makeURL(env), user.getLogin(), user.getPass()));
 		c.setEnvoronnement(env);
 		c.setAdapter(adapter);	
 		return c;
 	}
+	
+	public static final ReflectFactory get(Database db, Env env, User user){
+		return new ReflectFactory(db, env, user);
+	}
+	
 	
 	public static class User {
 		private String login, pass;
@@ -36,24 +43,24 @@ public class ReflectFactory {
 	
 	public static class Env {
 		
-		protected static final String URL_TEMPLATE = "jdbc:teradata://%s/database=%s,DBS_PORT=1025,tmode=TERA,charset=UTF8,%s";
-		
 		protected String host;
 		protected String schema;
+		protected int port;
 		protected String params;
-		
-		public Env(String host, String schema) {
-			this(host, schema, "");
+
+		public Env(String host, String schema, int port) {
+			this(host, schema, port, "");
 		}
-		public Env(String host, String schema, String params) {
+		public Env(String host, String schema, int port, String params) {
 			this.host = host;
 			this.schema = schema;
 			this.params = params;
+			this.port=port;
 		}
 		public String getHost() {return host;}
 		public String getSchema() {return schema;}
+		public int getPort() {return port;}
 		public String getParams() {return params;}
-		public String makeURL() {return String.format(URL_TEMPLATE, host, schema, params);}
 	}
 	
 	
