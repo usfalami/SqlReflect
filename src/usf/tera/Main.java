@@ -46,7 +46,8 @@ public class Main {
 			return;
 		}
 		
-		ex2(p);
+//		ex1(p);
+		test5();
 	}
 	
 	
@@ -63,7 +64,7 @@ public class Main {
 	
 	public static void test5() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ReflectFactory factory = new ReflectFactory(env, user);
-		Adapter a = new ExecutorPerformAdapter();
+		Adapter a = new ExecutorResultAdapter();
 		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
 		factory.get(Executor.class, a).exec(query2);
 	}

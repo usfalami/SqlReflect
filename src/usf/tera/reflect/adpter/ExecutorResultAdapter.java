@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ExecutorResultAdapter implements ExecutorAdapter {
 	
 	protected static final int size = -15;
-	protected static final String FORMAT = "%"+size+"s";
+	protected static final String FORMAT = "|%"+size+"s";
 
 	@Override
 	public void beforeExec(PreparedStatement s) {
@@ -25,4 +25,5 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 			System.out.println();
 		}
 	}
+
 }

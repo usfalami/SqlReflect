@@ -26,9 +26,9 @@ public class ParserPrintAdapter implements ParserAdapter {
 	@Override
 	public void performProcedure(Procedure proc) {
 		if(proc == null) return;
-		out.print(CADRE+COLUMN+"\n"+CADRE);
+		out.print(CADRE+COLUMN+CADRE);
 		for(Parameter p : proc.getParameters())
-			out.format(PARAM_FORMAT+"\n", p.getIndex(), p.getName(), p.getType(), p.getSize());
+			out.format(COLUMN_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize());
 		out.println(CADRE);
 	}
 	@Override
@@ -38,11 +38,11 @@ public class ParserPrintAdapter implements ParserAdapter {
 	
 	protected void performProcedure(Procedure base, Procedure call) {
 		if(base == null || call==null) return;
-		out.print(CADRE_PARAM+COLUMN_VALUE+"\n"+CADRE_PARAM);
+		out.print(CADRE_PARAM+COLUMN_PARAM+CADRE_PARAM);
 		for(int i=0; i<base.getParameters().length; i++) {
 			Parameter p = base.getParameters()[i];
 			Parameter c = call.getParameters()[i];
-			out.format(PARAM_VALUE_FORMAT+"\n", p.getIndex(), p.getName(), p.getType(), p.getSize(), c.getValue());
+			out.format(COLUMN_PARAM_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize(), c.getValue());
 		}
 		out.println(CADRE_PARAM);
 	}

@@ -18,10 +18,10 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 		try {
 			md = rs.getMetaData();
 			int count = md.getColumnCount();
-			System.out.print(CADRE+COLUMN+"\n"+CADRE);
+			System.out.print(CADRE+COLUMN+CADRE);
 			
 			for(int i=1; i<=count; i++) {
-				System.out.format(PARAM_FORMAT+"\n", 
+				System.out.format(COLUMN_FORMAT, 
 						i,
 						md.getColumnName(i),
 						md.getColumnTypeName(i),
