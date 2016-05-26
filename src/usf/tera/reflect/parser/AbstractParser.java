@@ -4,9 +4,9 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 import usf.tera.reflect.AbstractReflect;
-import usf.tera.reflect.adpter.ParsingAdapter;
+import usf.tera.reflect.adpter.ParserAdapter;
 
-public abstract class AbstractParser<T extends ParsingAdapter> extends AbstractReflect<T> {
+public abstract class AbstractParser<T extends ParserAdapter> extends AbstractReflect<T> {
 	
 	
 	public final void find(String name) throws SQLException {

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 import usf.tera.field.Schema;
 import usf.tera.reflect.AbstractReflect;
-import usf.tera.reflect.adpter.ParsingAdapter;
+import usf.tera.reflect.adpter.ParserAdapter;
 
-public class SchemaParser<T extends ParsingAdapter> extends AbstractParser<T> {
+public class SchemaParser<T extends ParserAdapter> extends AbstractParser<T> {
 
 	@Override
 	protected void find(DatabaseMetaData dm, String name) throws SQLException {

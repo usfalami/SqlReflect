@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class PerformExecutor implements ExecutorAdapter {
+public class ExecutorPerformAdapter implements ExecutorAdapter {
 	
 	private long time;
 

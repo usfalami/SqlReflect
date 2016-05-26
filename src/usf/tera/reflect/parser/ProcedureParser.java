@@ -9,9 +9,9 @@ import java.util.List;
 
 import usf.tera.field.Parameter;
 import usf.tera.field.Procedure;
-import usf.tera.reflect.adpter.ParsingAdapter;
+import usf.tera.reflect.adpter.ParserAdapter;
 
-public class ProcedureParser<T extends ParsingAdapter> extends AbstractParser<T> {
+public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> {
 	
 	@Override
 	protected void find(DatabaseMetaData dm, String name) throws SQLException {

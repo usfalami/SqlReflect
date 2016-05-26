@@ -3,7 +3,7 @@ package usf.tera.reflect.adpter;
 import usf.tera.field.Procedure;
 import usf.tera.field.Schema;
 
-public interface ParsingAdapter extends Adapter {
+public interface ParserAdapter extends Adapter {
 
 
 	public abstract void performSchema(Schema sc);

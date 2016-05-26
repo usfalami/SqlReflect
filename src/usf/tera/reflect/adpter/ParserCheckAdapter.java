@@ -4,11 +4,11 @@ import java.io.PrintStream;
 
 import usf.tera.field.Procedure;
 
-public class CheckAdapter extends PrintAdapter {
+public class ParserCheckAdapter extends ParserPrintAdapter {
 	
 	protected Procedure procedure;
 		
-	public CheckAdapter(PrintStream out, Procedure procedure){
+	public ParserCheckAdapter(PrintStream out, Procedure procedure){
 		super(out);
 		this.procedure = procedure;
 	}

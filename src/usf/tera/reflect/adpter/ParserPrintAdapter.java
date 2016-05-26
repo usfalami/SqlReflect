@@ -6,7 +6,7 @@ import usf.tera.field.Parameter;
 import usf.tera.field.Procedure;
 import usf.tera.field.Schema;
 
-public class PrintAdapter implements ParsingAdapter {
+public class ParserPrintAdapter implements ParserAdapter {
 
 	protected static final String SCHEM_FORMAT = "Schema : %s \n";
 	protected static final String PRROC_FORMAT = "Procedure : %s \n\n";
@@ -15,7 +15,7 @@ public class PrintAdapter implements ParsingAdapter {
 	
 	protected PrintStream out;
 	
-	public PrintAdapter(PrintStream out) {
+	public ParserPrintAdapter(PrintStream out) {
 		this.out = out;
 	}
 	

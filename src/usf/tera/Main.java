@@ -11,9 +11,9 @@ import usf.tera.ReflectFactory.Env;
 import usf.tera.ReflectFactory.User;
 import usf.tera.field.Procedure;
 import usf.tera.reflect.adpter.Adapter;
-import usf.tera.reflect.adpter.CheckAdapter;
-import usf.tera.reflect.adpter.PerformExecutor;
-import usf.tera.reflect.adpter.PrintAdapter;
+import usf.tera.reflect.adpter.ParserCheckAdapter;
+import usf.tera.reflect.adpter.ExecutorPerformAdapter;
+import usf.tera.reflect.adpter.ParserPrintAdapter;
 import usf.tera.reflect.executor.AbstractExecutor;
 import usf.tera.reflect.parser.ProcedureParser;
 
@@ -54,7 +54,7 @@ public class Main {
 	
 	
 	public static void macro() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new PerformExecutor();
+		Adapter a = new ExecutorPerformAdapter();
 		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
 		factory.get(AbstractExecutor.class, a).exec(macroNobi);
 		factory.get(AbstractExecutor.class, a).exec(macroBind, new Serializable[]{
@@ -65,12 +65,12 @@ public class Main {
 	
 	
 	public static void ex1(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new PrintAdapter(System.out);
+		Adapter a = new ParserPrintAdapter(System.out);
 		factory.get(ProcedureParser.class, a).findAll();
 	}
 	
 	public static void ex2(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new CheckAdapter(System.out, p);
+		Adapter a = new ParserCheckAdapter(System.out, p);
 		factory.get(ProcedureParser.class, a).find(p.getName());
 	}
 
