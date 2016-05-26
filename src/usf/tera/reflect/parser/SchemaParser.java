@@ -1,12 +1,14 @@
-package usf.tera.reflect;
+package usf.tera.reflect.parser;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.tera.reflect.field.Schema;
+import usf.tera.field.Schema;
+import usf.tera.reflect.AbstractReflect;
+import usf.tera.reflect.adpter.ParsingAdapter;
 
-public class SchemaReflect extends Reflect {
+public class SchemaParser<T extends ParsingAdapter> extends AbstractParser<T> {
 
 	@Override
 	protected void find(DatabaseMetaData dm, String name) throws SQLException {

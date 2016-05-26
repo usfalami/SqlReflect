@@ -1,23 +1,29 @@
 package usf.tera;
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import usf.tera.Config.TeraConfig;
 import usf.tera.ReflectFactory.Env;
 import usf.tera.ReflectFactory.User;
-import usf.tera.adpter.Adapter;
-import usf.tera.adpter.CheckAdapter;
-import usf.tera.adpter.PrintAdapter;
-import usf.tera.reflect.ProcedureReflect;
-import usf.tera.reflect.field.Procedure;
+import usf.tera.field.Procedure;
+import usf.tera.reflect.adpter.Adapter;
+import usf.tera.reflect.adpter.CheckAdapter;
+import usf.tera.reflect.adpter.PerformExecutor;
+import usf.tera.reflect.adpter.PrintAdapter;
+import usf.tera.reflect.executor.AbstractExecutor;
+import usf.tera.reflect.parser.ProcedureParser;
 
 public class Main {
 	
 	private static User user = new User("stm_dba_ra4", "stm_dba_ra4");
 	private static Env env = new Env("ZED395A1", "STM_IHM_RA4");
 
-	private static ReflectFactory factory = new ReflectFactory(env, user);
+//	private static ReflectFactory factory = new ReflectFactory(new Env("BDD_STM_DEV", "STM_IHM_DC9"), new User("stm_dba_dc9", "dc9_dev"));
+	private static ReflectFactory factory = new ReflectFactory(new Env("BDD_STM_PRA", "STM_IHM_PF1"), new User("STM_DBA_PF1", "BY9HLCYB"));
 	
 	
 	private static String query = "call STM_IHM_RA4.PRCD_E_SUP_240_HIST_PRCS_CMPT_HAB_020(CAST ('2015/12/15' AS DATE FORMAT 'YYYY/MM/DD'),CAST ('2016/02/15' AS DATE FORMAT 'YYYY/MM/DD'),NULL,NULL,NULL,NULL,'GASP',NULL,NULL,NULL,'OE15540N','SUPERVISION_COMPTAGE_INDUSTRIEL_UI','SDT_IHM-OI-SU',0,NULL,P_DEBUG_QRY,'I')";
@@ -31,35 +37,41 @@ public class Main {
 	private static String queryCurve = "CALL STM_IHM_RA4.PRCD_E_COUR_090_04_COVA (197424622, CAST ('2015/11/01 00:00:00' AS TIMESTAMP(0) WITH TIME ZONE), CAST ('2015/11/30 00:00:00' AS TIMESTAMP(0) WITH TIME ZONE), 'COVA', NULL, 'PREFACT', NULL, 'EA', O','X, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST ('2015/12/01 01:42:11' AS TIMESTAMP(0) WITH TIME ZONE), 'E_SUP_321', NULL, P_DEBUG_QRY, 'I')";
 	private static String queryCurvep = "CALL STM_IHM_RA4.PRCD_E_COUR_090_04_COVA (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?, ?, NULL, P_DEBUG_QRY, 'I')";
 	
-	
+	private static String macroNobi = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5('1999-01-01', '2015-12-31', '300')";
+	private static String macroBind = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5(?, ?, ?)";
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException {
-		new TeraConfig().configure();
+//		new TeraConfig().configure();
+//		
+//		Procedure p = Procedure.build(query);
+//		if(p==null) {
+//			System.out.println("Procedure non valid");
+//			return;
+//		}
 		
-		ex2();
+		macro();
 	}
 	
 	
-	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		Procedure p = Procedure.build(query);
-		
-		if(p==null) {
-			System.out.println("Procedure non valid");
-			return;
-		}
+	public static void macro() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		Adapter a = new PerformExecutor();
+		SimpleDateFormat df= new SimpleDateFormat("yyyy-mm-dd");
+		factory.get(AbstractExecutor.class, a).exec(macroNobi);
+		factory.get(AbstractExecutor.class, a).exec(macroBind, new Serializable[]{
+				new Date(df.parse("1999-01-01").getTime()), 
+				new Date(df.parse("2015-12-31").getTime()), 
+				"90216111111177"});
+	}
+	
+	
+	public static void ex1(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
 		Adapter a = new PrintAdapter(System.out);
-		factory.get(ProcedureReflect.class, a).findAll();
+		factory.get(ProcedureParser.class, a).findAll();
 	}
 	
-	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		Procedure p = Procedure.build(query);
-		
-		if(p==null) {
-			System.out.println("Procedure non valid");
-			return;
-		}
+	public static void ex2(Procedure p) throws InstantiationException, IllegalAccessException, SQLException{
 		Adapter a = new CheckAdapter(System.out, p);
-		factory.get(ProcedureReflect.class, a).find(p.getName());
+		factory.get(ProcedureParser.class, a).find(p.getName());
 	}
 
 }

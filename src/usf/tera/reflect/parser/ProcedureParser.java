@@ -1,4 +1,4 @@
-package usf.tera.reflect;
+package usf.tera.reflect.parser;
 
 import java.io.IOException;
 import java.sql.DatabaseMetaData;
@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.tera.reflect.field.Parameter;
-import usf.tera.reflect.field.Procedure;
+import usf.tera.field.Parameter;
+import usf.tera.field.Procedure;
+import usf.tera.reflect.adpter.ParsingAdapter;
 
-public class ProcedureReflect extends Reflect {
+public class ProcedureParser<T extends ParsingAdapter> extends AbstractParser<T> {
 	
 	@Override
 	protected void find(DatabaseMetaData dm, String name) throws SQLException {
@@ -26,8 +27,8 @@ public class ProcedureReflect extends Reflect {
 		}
 	}
 	
-	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException {
-		do {
+	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException { int cp=0;
+		do {System.out.printf("\n\n%s\n\n", ++cp);
 			String name = rs.getString("PROCEDURE_NAME");
 			adapter.performProcedureStart(name);
 			List<Parameter> list = new ArrayList<Parameter>();

@@ -1,8 +1,8 @@
-package usf.tera.adpter;
+package usf.tera.reflect.adpter;
 
 import java.io.PrintStream;
 
-import usf.tera.reflect.field.Procedure;
+import usf.tera.field.Procedure;
 
 public class CheckAdapter extends PrintAdapter {
 	

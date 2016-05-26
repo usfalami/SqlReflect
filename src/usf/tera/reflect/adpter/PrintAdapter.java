@@ -1,12 +1,12 @@
-package usf.tera.adpter;
+package usf.tera.reflect.adpter;
 
 import java.io.PrintStream;
 
-import usf.tera.reflect.field.Parameter;
-import usf.tera.reflect.field.Procedure;
-import usf.tera.reflect.field.Schema;
+import usf.tera.field.Parameter;
+import usf.tera.field.Procedure;
+import usf.tera.field.Schema;
 
-public class PrintAdapter extends Adapter {
+public class PrintAdapter implements ParsingAdapter {
 
 	protected static final String SCHEM_FORMAT = "Schema : %s \n";
 	protected static final String PRROC_FORMAT = "Procedure : %s \n\n";

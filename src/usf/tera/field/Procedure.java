@@ -1,8 +1,12 @@
-package usf.tera.reflect.field;
+package usf.tera.field;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 
+ * @author YAH
+ *
+ */
 public class Procedure {
 	
 	public static final Pattern patern = Pattern.compile("^call (\\w+)\\.(\\w+)\\s*\\((.+)\\)$", Pattern.CASE_INSENSITIVE);
@@ -11,7 +15,7 @@ public class Procedure {
 	protected Parameter[] parameters;
 	
 	public Procedure() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public Procedure(String name, String schema, Parameter[] parameters) {

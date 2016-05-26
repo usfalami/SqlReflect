@@ -1,30 +1,13 @@
-package usf.tera.reflect;
+package usf.tera.reflect.parser;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
-import usf.tera.ReflectFactory.Env;
-import usf.tera.adpter.Adapter;
+import usf.tera.reflect.AbstractReflect;
+import usf.tera.reflect.adpter.ParsingAdapter;
 
-public abstract class Reflect {
-
-	protected Connection con;
-	protected Env env;
-	protected Adapter adapter;
-
-	protected Reflect(){
-		
-	}
-	public void setConnection(Connection con) {
-		this.con = con;
-	}
-	public void setEnvoronnement(Env env) {
-		this.env = env;
-	}
-	public void setAdapter(Adapter adapter) {
-		this.adapter = adapter;
-	}
+public abstract class AbstractParser<T extends ParsingAdapter> extends AbstractReflect<T> {
+	
 	
 	public final void find(String name) throws SQLException {
 		if(adapter == null || con == null || env==null) return;
@@ -45,5 +28,5 @@ public abstract class Reflect {
 	public void findAll() throws SQLException{
 		find(null);
 	}
-	
+
 }
