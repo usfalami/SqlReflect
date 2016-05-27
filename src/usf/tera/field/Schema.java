@@ -1,6 +1,6 @@
 package usf.tera.field;
 
-public class Schema {
+public class Schema implements Field {
 	
 	protected String name;
 	

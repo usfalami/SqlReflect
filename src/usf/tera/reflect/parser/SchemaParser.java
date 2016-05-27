@@ -11,11 +11,9 @@ public class SchemaParser<T extends ParserAdapter> extends AbstractParser<T> {
 
 	@Override
 	protected void lookup(DatabaseMetaData dm, String name) throws SQLException {
-		ResultSet rs  = dm.getSchemas();
+		ResultSet rs = dm.getSchemas();
 		try {
-			while(rs.next()) {
-				adapter.performSchema(new Schema(rs.getString("TABLE_SCHEM")));
-			}
+			while(rs.next()) adapter.performSchema(new Schema(rs.getString("TABLE_SCHEM")));
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -24,5 +22,4 @@ public class SchemaParser<T extends ParserAdapter> extends AbstractParser<T> {
 			if(rs != null) rs.close();
 		}
 	}
-	
 }

@@ -1,5 +1,6 @@
 package usf.tera.reflect;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -20,10 +21,16 @@ public class ReflectFactory {
 	
 	public <E extends Adapter, T extends AbstractReflect<E>> T get(Class<T> clazz, E adapter) throws SQLException, InstantiationException, IllegalAccessException {
 		T c = clazz.newInstance();
-		c.setConnection(DriverManager.getConnection(db.makeURL(env), user.getLogin(), user.getPass()));
-		c.setEnvoronnement(env);
-		c.setAdapter(adapter);	
+		c.setReflectFactory(this);
+		c.setAdapter(adapter);
 		return c;
+	}
+	
+	public Connection newConnection() throws SQLException{
+		return DriverManager.getConnection(db.makeURL(env), user.getLogin(), user.getPass());
+	}
+	public Env getEnv() {
+		return env;
 	}
 	
 	public static final ReflectFactory get(Database db, Env env, User user){

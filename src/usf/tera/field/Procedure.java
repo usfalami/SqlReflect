@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @author YAH
  *
  */
-public class Procedure {
+public class Procedure implements Field {
 	
 	public static final Pattern patern = Pattern.compile("^call (\\w+)\\.(\\w+)\\s*\\((.+)\\)$", Pattern.CASE_INSENSITIVE);
 

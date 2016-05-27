@@ -19,10 +19,12 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 	public void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
-		while(rs.next()){
-			for(int i=1; i<=count; i++)
-				System.out.format(FORMAT, rs.getObject(i));
-			System.out.println();
+		synchronized(System.out) {
+			while(rs.next()){
+				for(int i=1; i<=count; i++)
+					System.out.format(FORMAT, rs.getObject(i));
+				System.out.println();
+			}
 		}
 	}
 

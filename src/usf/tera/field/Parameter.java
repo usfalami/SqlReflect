@@ -1,6 +1,6 @@
 package usf.tera.field;
 
-public class Parameter {
+public class Parameter implements Field {
 
 	protected String name, type, value, clazz;
 	protected int index, size;

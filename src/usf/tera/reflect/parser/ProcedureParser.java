@@ -15,7 +15,7 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 	
 	@Override
 	protected void lookup(DatabaseMetaData dm, String name) throws SQLException {
-		ResultSet rs = dm.getProcedures("", env.getSchema(), name);
+		ResultSet rs = dm.getProcedures("", rf.getEnv().getSchema(), name);
 		try {
 			if(!rs.next()) adapter.performProcedure(null);
 			else listProcs(rs, dm);
@@ -34,9 +34,9 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 			List<Parameter> list = new ArrayList<Parameter>();
 			ResultSet param = null;
 			try {
-				param = dm.getProcedureColumns("", env.getSchema(), name, "");
+				param = dm.getProcedureColumns("", rf.getEnv().getSchema(), name, "");
 				list = listColumns(param);
-				adapter.performProcedure(new Procedure(name, env.getSchema(), list.toArray(new Parameter[list.size()])));
+				adapter.performProcedure(new Procedure(name, rf.getEnv().getSchema(), list.toArray(new Parameter[list.size()])));
 			} catch (Exception e) {
 				adapter.onException(e);
 			}

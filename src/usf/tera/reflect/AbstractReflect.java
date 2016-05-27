@@ -1,26 +1,19 @@
 package usf.tera.reflect;
 
-import java.sql.Connection;
-
-import usf.tera.reflect.ReflectFactory.Env;
 import usf.tera.reflect.adpter.Adapter;
 
 public abstract class AbstractReflect<T extends Adapter> {
 
-	protected Connection con;
-	protected Env env;
+	protected ReflectFactory rf;
 	protected T adapter;
 
 	protected AbstractReflect(){
 		
 	}
-	public void setConnection(Connection con) {
-		this.con = con;
+	protected void setReflectFactory(ReflectFactory rf) {
+		this.rf = rf;
 	}
-	public void setEnvoronnement(Env env) {
-		this.env = env;
-	}
-	public void setAdapter(T adapter) {
+	protected void setAdapter(T adapter) {
 		this.adapter = adapter;
 	}
 	

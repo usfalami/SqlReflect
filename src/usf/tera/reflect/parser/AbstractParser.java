@@ -1,5 +1,6 @@
 package usf.tera.reflect.parser;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
@@ -10,15 +11,17 @@ public abstract class AbstractParser<T extends ParserAdapter> extends AbstractRe
 	
 	
 	public final void lookup(String name) throws SQLException {
-		if(adapter == null || con == null || env==null) return;
-		DatabaseMetaData dm = con.getMetaData();
+		if(adapter == null) return; //throw exception
+		Connection cnx = null;
 		try {
+			cnx = rf.newConnection();
+			DatabaseMetaData dm = cnx.getMetaData();
 			lookup(dm, name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
-			if(con!=null) con.close();
+			if(cnx!=null) cnx.close();
 			//log("Connection closed");
 		}
 	}
