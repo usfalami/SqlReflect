@@ -1,4 +1,4 @@
-package usf.tera.reflect.adpter;
+package usf.tera.adpter;
 
 import usf.tera.field.Procedure;
 import usf.tera.field.Schema;

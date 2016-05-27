@@ -1,4 +1,4 @@
-package usf.tera.reflect.adpter;
+package usf.tera.adpter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

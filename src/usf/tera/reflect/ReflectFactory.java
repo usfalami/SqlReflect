@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import usf.tera.adpter.Adapter;
 import usf.tera.db.Database;
-import usf.tera.reflect.adpter.Adapter;
 
 public class ReflectFactory {
 
@@ -27,7 +27,7 @@ public class ReflectFactory {
 	}
 	
 	public Connection newConnection() throws SQLException{
-		return DriverManager.getConnection(db.makeURL(env), user.getLogin(), user.getPass());
+		return DriverManager.getConnection(db.makeURL(env), user.getUser(), user.getPass());
 	}
 	public Env getEnv() {
 		return env;
@@ -38,12 +38,12 @@ public class ReflectFactory {
 	}
 	
 	public static class User {
-		private String login, pass;
+		private String user, pass;
 		public User(String login, String pass) {
-			this.login = login;
+			this.user = login;
 			this.pass = pass;
 		}
-		public String getLogin() {return login;}
+		public String getUser() {return user;}
 		public String getPass() {return pass;}
 	}
 	

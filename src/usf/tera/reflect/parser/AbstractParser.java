@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
+import usf.tera.adpter.ParserAdapter;
 import usf.tera.reflect.AbstractReflect;
-import usf.tera.reflect.adpter.ParserAdapter;
 
 public abstract class AbstractParser<T extends ParserAdapter> extends AbstractReflect<T> {
 	

@@ -1,4 +1,4 @@
-package usf.tera.reflect.adpter;
+package usf.tera.adpter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
