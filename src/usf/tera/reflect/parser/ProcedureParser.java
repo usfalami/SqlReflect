@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.tera.adpter.ParserAdapter;
+import usf.tera.adpter.parser.ParserAdapter;
 import usf.tera.field.Parameter;
 import usf.tera.field.Procedure;
 

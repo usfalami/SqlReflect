@@ -1,25 +1,33 @@
-package usf.tera.adpter;
+package usf.tera.adpter.executor;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class ExecutorPerformAdapter implements ExecutorAdapter {
-	
-	private Date start;
+import usf.tera.field.SQL;
+import usf.tera.formatter.AsciiFormatter;
+import usf.tera.formatter.Formatter;
 
+public class ExecutorPerformAdapter implements ExecutorAdapter {
+
+	private Formatter f;
+	private Date start;
+	
+	public ExecutorPerformAdapter() {
+		f = new AsciiFormatter(System.out, 4, PERFORM_TEXT_LENGTH);
+	}
+	
 	@Override
-	public void beforeExec(PreparedStatement s) throws SQLException {
+	public void beforeExec(SQL sql) throws SQLException {
 		start = new Date();
 	}
 
 	@Override
-	public void afterExec(ResultSet rs) throws SQLException {
+	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		Date end = new Date();
-		Formatter f = new Formatter(System.out, 4, PERFORM_TEXT_LENGTH);
 		synchronized(System.out) {
 			f.startTable();
+			f.formatTitle(sql.getName());
 			f.formatHeaders("Start", "End", "Count", "Duration");
 			int count=0;
 			if(rs.next()){

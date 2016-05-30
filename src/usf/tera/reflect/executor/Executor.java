@@ -1,17 +1,16 @@
 package usf.tera.reflect.executor;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.tera.adpter.ExecutorAdapter;
+import usf.tera.adpter.executor.ExecutorAdapter;
+import usf.tera.field.SQL;
 
 public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 		
-	public void exec(String query, Serializable... params) throws SQLException {
-		if(query == null || query.isEmpty()) return;
+	public void exec(SQL sql) throws SQLException {
 		Connection cnx = null;
 		try {
 			cnx = rf.newConnection();
@@ -19,13 +18,13 @@ public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 			try {
 				ResultSet rs = null;
 				try {
-					ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-					if(params != null)
-						for(int i=0; i<params.length; i++)
-							ps.setObject(i+1, params[i]);
-						adapter.beforeExec(ps);
+					ps = cnx.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					if(sql.getParametersToBing() != null)
+						for(int i=0; i<sql.getParametersToBing().length; i++)
+							ps.setObject(i+1, sql.getParametersToBing()[i]);
+						adapter.beforeExec(sql);
 						rs = ps.executeQuery();
-						adapter.afterExec(rs);
+						adapter.afterExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

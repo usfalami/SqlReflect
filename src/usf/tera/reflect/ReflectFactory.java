@@ -32,6 +32,9 @@ public class ReflectFactory {
 	public Env getEnv() {
 		return env;
 	}
+	public Database getDatabase() {
+		return db;
+	}
 	
 	public static final ReflectFactory get(Database db, Env env, User user){
 		return new ReflectFactory(db, env, user);

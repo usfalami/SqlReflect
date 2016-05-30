@@ -1,37 +1,36 @@
-package usf.tera.adpter;
-
-import java.io.PrintStream;
+package usf.tera.adpter.parser;
 
 import usf.tera.field.Parameter;
 import usf.tera.field.Procedure;
+import usf.tera.field.SQL;
+import usf.tera.formatter.AsciiFormatter;
 
 public class ParserCheckAdapter extends ParserPrintAdapter {
 	
-	protected Procedure procedure;
+	protected SQL sql;
 		
-	public ParserCheckAdapter(PrintStream out, Procedure procedure){
-		super(out);
-		this.procedure = procedure;
-		f = new Formatter(out, COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_PARAM_LENGTH);
+	public ParserCheckAdapter(SQL sql){
+		this.sql = sql;
+		f = new AsciiFormatter(System.out, COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_PARAM_LENGTH);
 	}
 
 	@Override
 	public void performProcedure(Procedure proc) {
-		if(procedure == null) return; // do something
+		if(sql == null) return; // do something
 		
-		if(proc == null) f.out.println("Procedure not exists");
+		if(proc == null) f.getOut().println("Procedure not exists");
 		else {
 			//out.println("\t\u2713 Exist in " + proc.getSchema() + " schema");
-			if(proc.getParameters().length != procedure.getParameters().length)
-				f.out.println("number of parameters are not equals"); //throw Exception
+			if(proc.getParameters().length != sql.getParameters().length)
+				f.getOut().println("number of parameters are not equals"); //throw Exception
 			else {
 				//out.println("\t\u2713 Number of parameters is OK = " + proc.getParameters().length + "\n");
 				//out.println("Procedure " + proc.getName() + " is OK ! \n");
-				performProcedure(proc, procedure);
+				performProcedure(proc, sql);
 			}
 		}
 	}
-	protected void performProcedure(Procedure base, Procedure call) {
+	protected void performProcedure(SQL base, SQL call) {
 		if(base == null || call==null) return;
 		f.formatHeaders("N°", "Name", "Type", "Size", "Value"); 
 		for(int i=0; i<base.getParameters().length; i++) {
