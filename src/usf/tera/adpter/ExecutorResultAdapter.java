@@ -6,9 +6,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class ExecutorResultAdapter implements ExecutorAdapter {
-	
-	protected static final int size = -15;
-	protected static final String FORMAT = "|%"+size+"s";
 
 	@Override
 	public void beforeExec(PreparedStatement s) {
@@ -19,12 +16,17 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 	public void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
+		Formatter f = new Formatter(System.out, count, VALUE_LENGTH);
+		Object[] param = new Object[count]; 
+		for(int i=1; i<=count; i++) param[i-1]=md.getColumnName(i);
 		synchronized(System.out) {
+			f.startTable();
+			f.formatHeaders(param);
 			while(rs.next()){
-				for(int i=1; i<=count; i++)
-					System.out.format(FORMAT, rs.getObject(i));
-				System.out.println();
+				for(int i=1; i<=count; i++) param[i-1]=rs.getObject(i);
+				f.formatRow(param);
 			}
+			f.endTable();
 		}
 	}
 

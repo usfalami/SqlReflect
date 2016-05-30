@@ -1,5 +1,6 @@
 package usf.tera.adpter;
 
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -19,27 +20,56 @@ public interface Adapter {
 	
 	int PERFORM_TEXT_LENGTH =-10;
 	
-	//Format
+	int VALUE_LENGTH =-21;
+	
+	
+	public static class Formatter{
 
-	String COLUMN_FORMAT = "|%"+COLUMN_NUM_LENGTH+"s| %"+COLUMN_NAME_LENGTH+"s| %"+COLUMN_TYPE_LENGTH+"s| %"+COLUMN_SIZE_LENGTH+"s|\n";
-	String COLUMN_PARAM_FORMAT = COLUMN_FORMAT.replace('\n', ' ')+"%"+COLUMN_PARAM_LENGTH+"s|\n";
-	
-	String PERFORM_FORMAT="|%"+PERFORM_TEXT_LENGTH+"s | %"+PERFORM_TEXT_LENGTH+"s|\n";
-	
-	
-	String COLUMN = String.format(COLUMN_FORMAT, "N°", "Name", "Type", "Size");
-	String COLUMN_PARAM = String.format(COLUMN_PARAM_FORMAT, "N°", "Name", "Type", "Size", "Value");
-	
-
-	String SCHEM_FORMAT = "%-30s\n";
-	String PRROC_FORMAT = "| %-"+(COLUMN.length()-4)+"s|\n";
-	
-	String COLUMN_CADRE = String.format("+%"+(COLUMN.length()-3)+"s+\n","").replace(" ", "-");
-	String COLUMN_PARAM_CADRE = String.format("+%"+(COLUMN_PARAM.length()-3)+"s+\n","").replace(" ", "-");	
-	String PERFORM_CADRE = String.format("+%23s+\n", "").replace(" ", "-");
-
-	public static class Utils{
+		public PrintStream out;
 		
+		String format;
+		String layout;
+		
+		public Formatter(PrintStream out, int cols, int size) {
+	        this.out=out;
+			StringBuilder s = new StringBuilder();
+			for(int i=0; i<cols; i++)
+				s.append("| %").append(size).append("s");
+			format = s.append("|\n").toString();
+			size=Math.abs(size);
+			layout = String.format("+%"+(cols*(size+2)-1)+"s+\n","").replace(' ', '-');
+		}
+		public Formatter(PrintStream out, int ...sizes) {
+	        this.out=out;
+			StringBuilder s = new StringBuilder();
+			int max=0;
+			for(int i=0; i<sizes.length; i++){
+				s.append("| %").append(sizes[i]).append("s");
+				max+=Math.abs(sizes[i])+2;
+			}
+			format = s.append("|\n").toString();
+			layout = String.format("+%"+(max-1)+"s+\n","").replace(' ', '-');			
+		}
+		
+		public void startTable(){
+			out.println();
+		}
+		public void formatTitle(String title){
+			out.print(layout);
+			out.format("| %"+(4-layout.length())+"s|\n", title);
+		}
+		public void formatHeaders(Object ...obj){
+			out.print(layout);
+			out.format(format, obj);
+			out.print(layout);
+		}
+		public void formatRow(Object ...obj){
+			out.format(format, obj);
+		}
+		public void endTable(){
+			out.print(layout);
+		}
 	}
+	
 	
 }

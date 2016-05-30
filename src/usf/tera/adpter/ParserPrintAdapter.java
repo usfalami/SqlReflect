@@ -8,32 +8,33 @@ import usf.tera.field.Schema;
 
 public class ParserPrintAdapter implements ParserAdapter {
 
-	protected PrintStream out;
+	protected Formatter f;
 	
 	public ParserPrintAdapter(PrintStream out) {
-		this.out = out;
+		f = new Formatter(out, COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH);
 	}
 	
 	@Override
 	public void performSchema(Schema sc) {
 		if(sc == null) return;
-		out.format(SCHEM_FORMAT, sc.getName());
+		f.out.format("%-30s\n", sc.getName());
 	}
 	@Override
 	public void performProcedureStart(String procedure) {
-		out.format(COLUMN_CADRE+PRROC_FORMAT, procedure);
+		f.startTable();
+		f.formatTitle(procedure);
 	}
 	@Override
 	public void performProcedure(Procedure proc) {
 		if(proc == null) return;
-		out.print(COLUMN_CADRE+COLUMN+COLUMN_CADRE);
+		f.formatHeaders("N°", "Name", "Type", "Size"); 
 		for(Parameter p : proc.getParameters())
-			out.format(COLUMN_FORMAT, p.getIndex(), p.getName(), p.getType(), p.getSize());
-		out.println(COLUMN_CADRE);
+			f.formatRow(p.getIndex(), p.getName(), p.getType(), p.getSize());
+		f.endTable();
 	}
 	
 	@Override
 	public void onException(Exception e) {
-		e.printStackTrace(out);
+		e.printStackTrace(f.out);
 	}	
 }

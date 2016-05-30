@@ -19,7 +19,6 @@ import usf.tera.reflect.ReflectFactory;
 import usf.tera.reflect.ReflectFactory.Env;
 import usf.tera.reflect.ReflectFactory.User;
 import usf.tera.reflect.executor.Executor;
-import usf.tera.reflect.executor.MultiExecutor;
 import usf.tera.reflect.parser.ProcedureParser;
 import usf.tera.reflect.parser.SchemaParser;
 
@@ -58,23 +57,17 @@ public class Main {
 			System.out.println("Procedure non valid");
 			return;
 		}
-		System.out.println();
 		
 //		macro();
+		
 //		ex1();
-//		ex2();
-//		ex3(p);
-//		System.out.println();
-
-//		test3(); System.out.println();
-//		test1(); System.out.println();
-//		test2(); System.out.println();
-		test2(); System.out.println();
-//		test5(); System.out.println();
-
-	
+		//ex2();
+		ex3(p);
+		
+//		test1(); 
+//		test2(); 
+//		test3(); 
 	}
-	
 	
 	public static void macro() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ReflectFactory factory2 = ReflectFactory.get(db, new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025), new User("STM_DBA_PF1", "BY9HLCYB"));
@@ -103,6 +96,7 @@ public class Main {
 	}
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ReflectFactory factory = ReflectFactory.get(db, new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025), new User("STM_DBA_PF1", "BY9HLCYB"));
 		Adapter a = new ExecutorColumnAdapter();
 		factory.get(Executor.class, a).exec(query2);
 	}
