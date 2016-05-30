@@ -5,10 +5,8 @@ import java.io.PrintStream;
 
 public class AsciiFormatter implements Formatter {
 
-	public PrintStream out;
-	
-	String format;
-	String layout;
+	private PrintStream out;
+	private String format, layout;
 
 	public AsciiFormatter(OutputStream out, int cols, int size) {
 		this.out = new PrintStream(out);

@@ -19,10 +19,7 @@ public class ParserPrintAdapter implements ParserAdapter {
 		if(sc == null) return;
 		f.getOut().format("%-30s\n", sc.getName());
 	}
-	@Override
-	public void performProcedureStart(String procedure) {
-		
-	}
+	
 	@Override
 	public void performProcedure(Procedure procedure) {
 		if(procedure == null) return;

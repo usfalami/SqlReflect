@@ -30,7 +30,6 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException { int cp=0;
 		do {
 			String name = rs.getString("PROCEDURE_NAME");
-			adapter.performProcedureStart(name);
 			List<Parameter> list = new ArrayList<Parameter>();
 			ResultSet param = null;
 			try {

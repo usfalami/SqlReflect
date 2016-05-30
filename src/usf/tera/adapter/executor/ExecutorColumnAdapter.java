@@ -18,6 +18,7 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 	
 	@Override
 	public void beforeExec(SQL sql) {
+		
 	}
 	
 	@Override
