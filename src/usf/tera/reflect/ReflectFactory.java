@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import usf.tera.adpter.Adapter;
+import usf.tera.adapter.Adapter;
 import usf.tera.db.Database;
 
 public class ReflectFactory {

@@ -1,6 +1,6 @@
 package usf.tera.reflect;
 
-import usf.tera.adpter.Adapter;
+import usf.tera.adapter.Adapter;
 
 public abstract class AbstractReflect<T extends Adapter> {
 

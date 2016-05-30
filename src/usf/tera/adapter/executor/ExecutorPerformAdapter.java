@@ -1,4 +1,4 @@
-package usf.tera.adpter.executor;
+package usf.tera.adapter.executor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.tera.adpter.executor.ExecutorAdapter;
+import usf.tera.adapter.executor.ExecutorAdapter;
 import usf.tera.field.SQL;
 
 public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {

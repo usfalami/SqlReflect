@@ -1,6 +1,6 @@
-package usf.tera.adpter.parser;
+package usf.tera.adapter.parser;
 
-import usf.tera.adpter.Adapter;
+import usf.tera.adapter.Adapter;
 import usf.tera.field.Procedure;
 import usf.tera.field.Schema;
 

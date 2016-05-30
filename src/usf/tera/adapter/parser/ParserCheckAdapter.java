@@ -1,4 +1,4 @@
-package usf.tera.adpter.parser;
+package usf.tera.adapter.parser;
 
 import usf.tera.field.Parameter;
 import usf.tera.field.Procedure;

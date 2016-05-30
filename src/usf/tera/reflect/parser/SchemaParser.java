@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.tera.adpter.parser.ParserAdapter;
+import usf.tera.adapter.parser.ParserAdapter;
 import usf.tera.field.Schema;
 
 public class SchemaParser<T extends ParserAdapter> extends AbstractParser<T> {

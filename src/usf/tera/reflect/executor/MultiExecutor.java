@@ -2,7 +2,7 @@ package usf.tera.reflect.executor;
 
 import java.sql.SQLException;
 
-import usf.tera.adpter.executor.ExecutorAdapter;
+import usf.tera.adapter.executor.ExecutorAdapter;
 
 public class MultiExecutor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 

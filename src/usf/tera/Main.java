@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import usf.tera.adpter.Adapter;
-import usf.tera.adpter.executor.ExecutorColumnAdapter;
-import usf.tera.adpter.executor.ExecutorPerformAdapter;
-import usf.tera.adpter.executor.ExecutorResultAdapter;
-import usf.tera.adpter.parser.ParserCheckAdapter;
-import usf.tera.adpter.parser.ParserPrintAdapter;
+import usf.tera.adapter.Adapter;
+import usf.tera.adapter.executor.ExecutorColumnAdapter;
+import usf.tera.adapter.executor.ExecutorPerformAdapter;
+import usf.tera.adapter.executor.ExecutorResultAdapter;
+import usf.tera.adapter.parser.ParserCheckAdapter;
+import usf.tera.adapter.parser.ParserPrintAdapter;
 import usf.tera.db.Database;
 import usf.tera.db.Teradata;
 import usf.tera.field.Procedure;
