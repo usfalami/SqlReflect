@@ -1,9 +1,11 @@
-package usf.java.db;
+package usf.java.db.type;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import usf.java.db.Database;
+import usf.java.db.Env;
 import usf.java.field.Macro;
 import usf.java.field.Parameter;
 import usf.java.field.Procedure;
