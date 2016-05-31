@@ -8,8 +8,12 @@ public class AsciiFormatter implements Formatter {
 	private PrintStream out;
 	private String format, layout;
 
-	public AsciiFormatter(OutputStream out, int cols, int size) {
+	public AsciiFormatter(OutputStream out) {
 		this.out = new PrintStream(out);
+	}
+	
+	@Override
+	public void configure(int cols, int size) {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < cols; i++)
 			s.append("| %").append(size).append("s");
@@ -17,9 +21,9 @@ public class AsciiFormatter implements Formatter {
 		size = Math.abs(size);
 		layout = String.format("+%" + (cols * (size + 2) - 1) + "s+\n", "").replace(' ', '-');
 	}
-
-	public AsciiFormatter(PrintStream out, int... sizes) {
-		this.out = out;
+	
+	@Override
+	public void configure(int... sizes) {
 		StringBuilder s = new StringBuilder();
 		int max = 0;
 		for (int i = 0; i < sizes.length; i++) {

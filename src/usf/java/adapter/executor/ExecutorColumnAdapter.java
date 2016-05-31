@@ -5,15 +5,15 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import usf.java.field.SQL;
-import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
 
 public class ExecutorColumnAdapter implements ExecutorAdapter {
 
-	private Formatter f;
+	protected Formatter formatter;
 	
-	public ExecutorColumnAdapter() {
-		f = new AsciiFormatter(System.out, COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH);
+	public ExecutorColumnAdapter(Formatter formatter) {
+		this.formatter = formatter;
+		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH);
 	}
 	
 	@Override
@@ -26,15 +26,15 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
 		synchronized(System.out) {
-			f.startTable();
-			f.formatTitle(sql.getName());
-			f.formatHeaders("N°", "Name", "Type", "Size"); 
+			formatter.startTable();
+			formatter.formatTitle(sql.getName());
+			formatter.formatHeaders("N°", "Name", "Type", "Size"); 
 			for(int i=1; i<=count; i++)
-				f.formatRow(i,
+				formatter.formatRow(i,
 						md.getColumnName(i),
 						md.getColumnTypeName(i),
 						md.getColumnDisplaySize(i));
-			f.endTable();
+			formatter.endTable();
 		}
 	}
 }

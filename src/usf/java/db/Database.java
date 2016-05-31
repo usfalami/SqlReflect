@@ -7,6 +7,7 @@ import usf.java.field.SQL;
 public interface Database {
 
 	String getDriver();
+	
 	String makeURL(Env env);
 	
 	SQL build(String sql, Serializable... parameters);
