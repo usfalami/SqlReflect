@@ -5,7 +5,7 @@ package usf.java.field;
  * @author YAH
  *
  */
-public class Procedure extends Macro {
+public class Procedure extends ComplexSQL {
 	
 	public Procedure(String call) {
 		super(call);
