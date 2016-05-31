@@ -3,7 +3,6 @@ package usf.java.db;
 import java.io.Serializable;
 
 import usf.java.field.SQL;
-import usf.java.reflect.ReflectFactory.Env;
 
 public interface Database {
 

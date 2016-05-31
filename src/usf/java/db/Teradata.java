@@ -8,7 +8,6 @@ import usf.java.field.Macro;
 import usf.java.field.Parameter;
 import usf.java.field.Procedure;
 import usf.java.field.SQL;
-import usf.java.reflect.ReflectFactory.Env;
 
 public class Teradata implements Database {
 	
