@@ -1,15 +1,13 @@
 package usf.java.formatter;
 
 import java.io.OutputStream;
-import java.io.PrintStream;
 
-public class AsciiFormatter implements Formatter {
+public class AsciiFormatter extends AbstractFormater {
 
-	private PrintStream out;
 	private String format, layout;
 
 	public AsciiFormatter(OutputStream out) {
-		this.out = new PrintStream(out);
+		super(out);
 	}
 	
 	@Override
@@ -58,8 +56,4 @@ public class AsciiFormatter implements Formatter {
 		out.print(layout);
 	}
 
-	@Override
-	public PrintStream getOut() {
-		return out;
-	}
 }

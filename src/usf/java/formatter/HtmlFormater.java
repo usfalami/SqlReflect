@@ -1,15 +1,13 @@
 package usf.java.formatter;
 
 import java.io.OutputStream;
-import java.io.PrintStream;
 
-public class HtmlFormater implements Formatter {
+public class HtmlFormater extends AbstractFormater {
 	
-	private PrintStream out;
 	private int cols;
 
 	public HtmlFormater(OutputStream out) {
-		this.out = new PrintStream(out);
+		super(out);
 	}
 
 	@Override
@@ -56,12 +54,5 @@ public class HtmlFormater implements Formatter {
 	public void endTable() {
 		out.println("</table>");
 		out.println("<br>");
-		out.println();
 	}
-
-	@Override
-	public PrintStream getOut() {
-		return out;
-	}
-
 }
