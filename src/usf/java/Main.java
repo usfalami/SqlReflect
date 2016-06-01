@@ -16,9 +16,7 @@ import usf.java.db.User;
 import usf.java.db.type.Teradata;
 import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
-import usf.java.formatter.CsvFormatter;
-import usf.java.formatter.Formatter;
-import usf.java.formatter.HtmlFormater;
+import usf.java.formatter.*;
 import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.executor.Executor;
 import usf.java.reflect.parser.ProcedureParser;
@@ -33,7 +31,7 @@ public class Main {
 //	private static ReflectFactory factory = ReflectFactory.get(db, env, user);
 	private static ReflectFactory factory = ReflectFactory.get(db, new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025), new User("STM_DBA_PF1", "BY9HLCYB"));
 	
-	public static final Formatter format = new CsvFormatter(System.out);
+	public static final Formatter format = new AsciiFormatter(System.out);
 //	public static final Formatter asciiFormat = new HtmlFormater(System.out);
 //	public static final Formatter csvFormat = new CsvFormatter(System.out);
 	
