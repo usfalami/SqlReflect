@@ -16,6 +16,8 @@ import usf.java.db.User;
 import usf.java.db.type.Teradata;
 import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
+import usf.java.formatter.Formatter;
+import usf.java.formatter.HtmlFormater;
 import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.executor.Executor;
 import usf.java.reflect.parser.ProcedureParser;
@@ -29,6 +31,11 @@ public class Main {
 	
 //	private static ReflectFactory factory = ReflectFactory.get(db, env, user);
 	private static ReflectFactory factory = ReflectFactory.get(db, new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025), new User("STM_DBA_PF1", "BY9HLCYB"));
+	
+	public static final Formatter htmlFormat = new HtmlFormater(System.out);
+	public static final Formatter asciiFormt = new HtmlFormater(System.out);
+	
+	
 	
 	private static String query = "call STM_IHM_RA4.PRCD_E_SUP_240_HIST_PRCS_CMPT_HAB_020(CAST ('2015/12/15' AS DATE FORMAT 'YYYY/MM/DD'),CAST ('2016/02/15' AS DATE FORMAT 'YYYY/MM/DD'),NULL,NULL,NULL,NULL,'GASP',NULL,NULL,NULL,'OE15540N','SUPERVISION_COMPTAGE_INDUSTRIEL_UI','SDT_IHM-OI-SU',0,NULL,P_DEBUG_QRY,'I')";
 	
@@ -51,8 +58,8 @@ public class Main {
 //		macro();
 		
 //		ex1();
-		ex2();
-		ex3();
+//		ex2();
+//		ex3();
 		
 		test1(); 
 		test2(); 
@@ -69,35 +76,36 @@ public class Main {
 //				new Date(df.parse("2015-12-31").getTime()), 
 //				"1007749"});
 	}
+	
 
 
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new ParserPrintAdapter(new AsciiFormatter(System.out));
+		Adapter a = new ParserPrintAdapter(htmlFormat);
 		factory.get(ProcedureParser.class, a).lookup();
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new ParserPrintAdapter(new AsciiFormatter(System.out));
+		Adapter a = new ParserPrintAdapter(htmlFormat);
 		factory.get(SchemaParser.class, a).lookup();
 	}
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
 		SQL sql = factory.getDatabase().build(query2);
-		Adapter a = new ParserCheckAdapter(new AsciiFormatter(System.out), sql);
+		Adapter a = new ParserCheckAdapter(htmlFormat, sql);
 		factory.get(ProcedureParser.class, a).lookup(sql.getName());
 	}
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorColumnAdapter(new AsciiFormatter(System.out));
+		Adapter a = new ExecutorColumnAdapter(htmlFormat);
 		SQL sql = factory.getDatabase().build(query2);
 		factory.get(Executor.class, a).exec(sql);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorPerformAdapter(new AsciiFormatter(System.out));
+		Adapter a = new ExecutorPerformAdapter(htmlFormat);
 		SQL sql = factory.getDatabase().build(query2);
 		factory.get(Executor.class, a).exec(sql);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorResultAdapter(new AsciiFormatter(System.out));
+		Adapter a = new ExecutorResultAdapter(htmlFormat);
 		SQL sql = factory.getDatabase().build(query2);
 		factory.get(Executor.class, a).exec(sql);
 	}
