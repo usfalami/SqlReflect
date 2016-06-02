@@ -37,4 +37,16 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 			formatter.endTable();
 		}
 	}
+	
+	@Override
+	public void beforeConnecion() {	}
+	
+	@Override
+	public void afterConnecion() { }
+	
+	@Override
+	public void beforeStatement() {	}
+	
+	@Override
+	public void afterStatement() { }
 }

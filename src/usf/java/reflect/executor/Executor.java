@@ -13,18 +13,22 @@ public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 	public void exec(SQL sql) throws SQLException {
 		Connection cnx = null;
 		try {
+			adapter.beforeConnecion();
 			cnx = rf.newConnection();
+			adapter.afterConnecion();
 			PreparedStatement ps = null;
 			try {
 				ResultSet rs = null;
 				try {
+					adapter.beforeStatement();
 					ps = cnx.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					if(sql.getParametersToBing() != null)
 						for(int i=0; i<sql.getParametersToBing().length; i++)
 							ps.setObject(i+1, sql.getParametersToBing()[i]);
-						adapter.beforeExec(sql);
-						rs = ps.executeQuery();
-						adapter.afterExec(sql, rs);
+					adapter.afterStatement();
+					adapter.beforeExec(sql);
+					rs = ps.executeQuery();
+					adapter.afterExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

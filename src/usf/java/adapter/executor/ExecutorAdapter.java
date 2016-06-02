@@ -8,6 +8,12 @@ import usf.java.field.SQL;
 
 public interface ExecutorAdapter extends Adapter {
 	
+	void beforeConnecion();
+	void afterConnecion();
+	
+	void beforeStatement();
+	void afterStatement();
+	
 	void beforeExec(SQL sql) throws SQLException ;
 	void afterExec(SQL sql, ResultSet rs) throws SQLException ;
 

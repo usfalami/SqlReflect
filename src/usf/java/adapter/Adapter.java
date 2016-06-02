@@ -7,7 +7,7 @@ public interface Adapter {
 
 	DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
-	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
+	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");
 	
 	//Custom parameters
 	
@@ -17,7 +17,7 @@ public interface Adapter {
 	int COLUMN_SIZE_LENGTH  =-8;
 	int COLUMN_PARAM_LENGTH =-60;
 	
-	int PERFORM_TEXT_LENGTH =-10;
+	int PERFORM_TEXT_LENGTH =-15;
 	
 	int VALUE_LENGTH =-21;
 
