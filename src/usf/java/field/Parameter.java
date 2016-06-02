@@ -8,6 +8,7 @@ public class Parameter implements Field {
 	public Parameter(int index, String value) {
 		this.value = value;
 		this.index = index;
+		System.out.println(isStatic() +" " + value);
 	}
 
 	public Parameter(int index, String name, String type, int size) {
@@ -51,6 +52,10 @@ public class Parameter implements Field {
 	}
 	public String getValue() {
 		return value;
+	}
+	
+	public boolean isStatic() {
+		return !"?".equals(value);
 	}
 
 }

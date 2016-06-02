@@ -2,11 +2,11 @@ package usf.java.formatter;
 
 import java.io.OutputStream;
 
-public class HtmlFormater extends AbstractFormater {
+public class HtmlFormatter extends AbstractFormatter {
 	
 	private int cols;
 
-	public HtmlFormater(OutputStream out) {
+	public HtmlFormatter(OutputStream out) {
 		super(out);
 	}
 

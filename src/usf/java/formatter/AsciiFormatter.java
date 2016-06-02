@@ -2,7 +2,7 @@ package usf.java.formatter;
 
 import java.io.OutputStream;
 
-public class AsciiFormatter extends AbstractFormater {
+public class AsciiFormatter extends AbstractFormatter {
 
 	private String format, layout;
 

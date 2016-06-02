@@ -1,7 +1,7 @@
 package usf.java;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,20 +29,24 @@ public class Main {
 	private static Database db = new Teradata();
 	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025);
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
-	
 	private static ReflectFactory factory = ReflectFactory.get(db, env, user);
 	
-	public static final Formatter format = new AsciiFormatter(System.out);
+	public static Formatter format = new AsciiFormatter(System.out);
 
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	static Serializable[] param;
+	
+	static String query = Queries.pom_search;
+	static Serializable[] param=null;
 	
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException {
-//		 param = new Serializable[]{
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException, FileNotFoundException {
+		
+//		query = Queries.macroBind;
+//		param = new Serializable[]{
 //				 new Date(sdf.parse("1999-01-01").getTime()),
 //				 new Date(sdf.parse("2015-12-31").getTime()),
 //				 "1007749"};
+		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 		test1();
 		test2(); 
 		test3(); 
@@ -66,17 +70,17 @@ public class Main {
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorPerformAdapter(format);
-		SQL sql = factory.parseSQL(Queries.pom_search);
+		SQL sql = factory.parseSQL(query);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorColumnAdapter(format);
-		SQL sql = factory.parseSQL(Queries.pom_search);
+		SQL sql = factory.parseSQL(query);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorResultAdapter(format);
-		SQL sql = factory.parseSQL(Queries.pom_search);
+		SQL sql = factory.parseSQL(query);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 }

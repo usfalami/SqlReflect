@@ -2,7 +2,7 @@ package usf.java.formatter;
 
 import java.io.OutputStream;
 
-public class CsvFormatter extends AbstractFormater {
+public class CsvFormatter extends AbstractFormatter {
 
 	public CsvFormatter(OutputStream out) {
 		super(out);
