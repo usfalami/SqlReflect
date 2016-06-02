@@ -16,5 +16,18 @@ public interface ExecutorAdapter extends Adapter {
 	
 	void beforeExec(SQL sql) throws SQLException ;
 	void afterExec(SQL sql, ResultSet rs) throws SQLException ;
+	
+	public static class Utils {
+		
+		public static int rowsCount(ResultSet rs) throws SQLException{
+			int count = 0;
+			if(rs.next()){
+				rs.last();
+				count=rs.getRow();
+				rs.beforeFirst();
+			}
+			return count;
+		}
+	}
 
 }

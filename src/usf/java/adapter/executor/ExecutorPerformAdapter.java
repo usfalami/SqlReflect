@@ -41,12 +41,7 @@ public class ExecutorPerformAdapter implements ExecutorAdapter {
 	@Override
 	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		execEnd = new Date();
-		int count=0;
-		if(rs.next()){
-			rs.last();
-			count=rs.getRow();
-			rs.beforeFirst();
-		}
+		int count=Utils.rowsCount(rs);
 		synchronized(System.out) {
 			formatter.startTable();
 			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));

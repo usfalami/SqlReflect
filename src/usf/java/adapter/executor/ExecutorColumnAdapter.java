@@ -13,7 +13,7 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 	
 	public ExecutorColumnAdapter(Formatter formatter) {
 		this.formatter = formatter;
-		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH);
+		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_CLASS_LENGTH);
 	}
 	
 	@Override
@@ -28,12 +28,13 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 		synchronized(System.out) {
 			formatter.startTable();
 			formatter.formatTitle(sql.getName());
-			formatter.formatHeaders("N°", "Name", "Type", "Size"); 
+			formatter.formatHeaders("N°", "Name", "Type", "Size", "Class"); 
 			for(int i=1; i<=count; i++)
 				formatter.formatRow(i,
 						md.getColumnName(i),
 						md.getColumnTypeName(i),
-						md.getColumnDisplaySize(i));
+						md.getColumnDisplaySize(i),
+						md.getColumnClassName(i));
 			formatter.endTable();
 		}
 	}

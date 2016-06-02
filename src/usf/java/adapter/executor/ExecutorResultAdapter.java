@@ -27,9 +27,10 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 		formatter.configure(count, VALUE_LENGTH);
 		Object[] param = new Object[count]; 
 		for(int i=1; i<=count; i++) param[i-1]=md.getColumnName(i);
+		count=Utils.rowsCount(rs);
 		synchronized(System.out) {
 			formatter.startTable();
-			formatter.formatTitle(sql.getName());
+			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
 			formatter.formatHeaders(param);
 			while(rs.next()){
 				for(int i=1; i<=count; i++) param[i-1]=rs.getObject(i);

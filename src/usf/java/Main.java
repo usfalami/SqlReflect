@@ -1,7 +1,10 @@
 package usf.java;
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import usf.java.adapter.Adapter;
 import usf.java.adapter.executor.ExecutorColumnAdapter;
@@ -30,15 +33,21 @@ public class Main {
 	private static ReflectFactory factory = ReflectFactory.get(db, env, user);
 	
 	public static final Formatter format = new AsciiFormatter(System.out);
+
+	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	static Serializable[] param;
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException {
-//		ex1();
-//		ex2();
-//		ex3();
-		//test1();
-			test2(); 
-		//test3(); 
+
+		 param = new Serializable[]{
+				 new Date(sdf.parse("1999-01-01").getTime()),
+				 new Date(sdf.parse("2015-12-31").getTime()),
+				 "1007749"};
+		
+		test1();
+		test2(); 
+		test3(); 
 	}
 	
 	//Parsers & Adapters
@@ -55,21 +64,21 @@ public class Main {
 		Adapter a = new ParserCheckAdapter(format, sql);
 		factory.get(ProcedureParser.class, a).lookup(sql.getName());
 	}
+	
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorColumnAdapter(format);
-		SQL sql = factory.parseSQL(Queries.query2);
-		factory.get(Executor.class, a).exec(sql);
+		Adapter a = new ExecutorPerformAdapter(format);
+		SQL sql = factory.parseSQL(Queries.macroBind);
+		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorPerformAdapter(format);
-		SQL sql = factory.parseSQL(Queries.query2);
-		for(int i=0; i<5; i++)
-			factory.get(Executor.class, a).exec(sql);
+		Adapter a = new ExecutorColumnAdapter(format);
+		SQL sql = factory.parseSQL(Queries.macroBind);
+		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorResultAdapter(format);
-		SQL sql = factory.parseSQL(Queries.query2);
-		factory.get(Executor.class, a).exec(sql);
+		SQL sql = factory.parseSQL(Queries.macroBind);
+		factory.get(Executor.class, a).exec(sql, param);
 	}
 }
