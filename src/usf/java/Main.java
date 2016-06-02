@@ -39,12 +39,10 @@ public class Main {
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException {
-
-		 param = new Serializable[]{
-				 new Date(sdf.parse("1999-01-01").getTime()),
-				 new Date(sdf.parse("2015-12-31").getTime()),
-				 "1007749"};
-		
+//		 param = new Serializable[]{
+//				 new Date(sdf.parse("1999-01-01").getTime()),
+//				 new Date(sdf.parse("2015-12-31").getTime()),
+//				 "1007749"};
 		test1();
 		test2(); 
 		test3(); 
@@ -60,7 +58,7 @@ public class Main {
 		factory.get(SchemaParser.class, a).lookup();
 	}
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-		SQL sql = factory.parseSQL(Queries.query2);
+		SQL sql = factory.parseSQL(Queries.pom_search);
 		Adapter a = new ParserCheckAdapter(format, sql);
 		factory.get(ProcedureParser.class, a).lookup(sql.getName());
 	}
@@ -68,17 +66,17 @@ public class Main {
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorPerformAdapter(format);
-		SQL sql = factory.parseSQL(Queries.macroBind);
+		SQL sql = factory.parseSQL(Queries.pom_search);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorColumnAdapter(format);
-		SQL sql = factory.parseSQL(Queries.macroBind);
+		SQL sql = factory.parseSQL(Queries.pom_search);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorResultAdapter(format);
-		SQL sql = factory.parseSQL(Queries.macroBind);
+		SQL sql = factory.parseSQL(Queries.pom_search);
 		factory.get(Executor.class, a).exec(sql, param);
 	}
 }

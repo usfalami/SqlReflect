@@ -23,17 +23,17 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 	@Override
 	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
-		int count = md.getColumnCount();
-		formatter.configure(count, VALUE_LENGTH);
-		Object[] param = new Object[count]; 
-		for(int i=1; i<=count; i++) param[i-1]=md.getColumnName(i);
-		count=Utils.rowsCount(rs);
+		int cols = md.getColumnCount();
+		formatter.configure(cols, VALUE_LENGTH);
+		Object[] param = new Object[cols]; 
+		for(int i=1; i<=cols; i++) param[i-1]=md.getColumnName(i);
+		int count=Utils.rowsCount(rs);
 		synchronized(System.out) {
 			formatter.startTable();
 			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
 			formatter.formatHeaders(param);
 			while(rs.next()){
-				for(int i=1; i<=count; i++) param[i-1]=rs.getObject(i);
+				for(int i=1; i<=cols; i++) param[i-1]=rs.getObject(i);
 				formatter.formatRow(param);
 			}
 			formatter.endTable();
