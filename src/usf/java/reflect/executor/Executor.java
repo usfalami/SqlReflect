@@ -1,5 +1,6 @@
 package usf.java.reflect.executor;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import usf.java.field.SQL;
 
 public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 		
-	public void exec(SQL sql) throws SQLException {
+	public void exec(SQL sql, Serializable... parameters) throws SQLException {
 		Connection cnx = null;
 		try {
 			adapter.beforeConnecion();
@@ -22,9 +23,9 @@ public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 				try {
 					adapter.beforeStatement();
 					ps = cnx.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-					if(sql.getParametersToBing() != null)
-						for(int i=0; i<sql.getParametersToBing().length; i++)
-							ps.setObject(i+1, sql.getParametersToBing()[i]);
+					if(parameters != null)
+						for(int i=0; i<parameters.length; i++)
+							ps.setObject(i+1, parameters[i]);
 					adapter.afterStatement();
 					adapter.beforeExec(sql);
 					rs = ps.executeQuery();

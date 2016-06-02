@@ -1,6 +1,5 @@
 package usf.java.field;
 
-import java.io.Serializable;
 
 public interface SQL extends Field {
 	
@@ -12,9 +11,6 @@ public interface SQL extends Field {
 	
 	public String getName() ;
 	public void setName(String name);
-	
-	void setParametersToBing(Serializable... params);
-	Serializable[] getParametersToBing();
 
 	void setParameters(Parameter... parameters);
 	Parameter[] getParameters();

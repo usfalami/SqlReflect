@@ -1,6 +1,5 @@
 package usf.java.field;
 
-import java.io.Serializable;
 
 public class Query implements SQL  {
 
@@ -38,18 +37,6 @@ public class Query implements SQL  {
 	public void setName(String name) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void setParametersToBing(Serializable... params) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Serializable[] getParametersToBing() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

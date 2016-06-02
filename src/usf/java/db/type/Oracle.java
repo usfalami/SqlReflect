@@ -1,7 +1,5 @@
 package usf.java.db.type;
 
-import java.io.Serializable;
-
 import usf.java.db.Database;
 import usf.java.db.Env;
 import usf.java.field.Macro;
@@ -23,17 +21,17 @@ public class Oracle implements Database {
 	}
 
 	@Override
-	public Macro parseMacro(String sql, Serializable... parameters) {
+	public Macro parseMacro(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Procedure parseProcedure(String sql, Serializable... parameters) {
+	public Procedure parseProcedure(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public Query parseQuery(String sql, Serializable... parameters) {
+	public Query parseQuery(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}

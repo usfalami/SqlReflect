@@ -1,7 +1,5 @@
 package usf.java.db;
 
-import java.io.Serializable;
-
 import usf.java.field.Macro;
 import usf.java.field.Parameter;
 import usf.java.field.Procedure;
@@ -13,11 +11,11 @@ public interface Database {
 	
 	String makeURL(Env env);
 	
-	Macro parseMacro(String sql, Serializable... parameters);
+	Macro parseMacro(String sql);
 	
-	Procedure parseProcedure(String sql, Serializable... parameters);
+	Procedure parseProcedure(String sql);
 	
-	Query parseQuery(String sql, Serializable... parameters);
+	Query parseQuery(String sql);
 	
 	
 	public static class Utils {

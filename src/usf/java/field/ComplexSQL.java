@@ -1,11 +1,9 @@
 package usf.java.field;
 
-import java.io.Serializable;
 
 public abstract class ComplexSQL implements SQL {
 	
 	protected String name, schema, sql;
-	protected Serializable[] parametersToBing;
 	protected Parameter[] parameters;
 	
 	public ComplexSQL(String exec) {
@@ -43,15 +41,6 @@ public abstract class ComplexSQL implements SQL {
 	@Override
 	public void setSchema(String schema) {
 		this.schema = schema;
-	}
-
-	@Override
-	public Serializable[] getParametersToBing() {
-		return parametersToBing;
-	}
-	@Override
-	public void setParametersToBing(Serializable... parametersToBing) {
-		this.parametersToBing=parametersToBing;
 	}
 
 	@Override

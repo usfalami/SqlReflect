@@ -1,6 +1,5 @@
 package usf.java.db.type;
 
-import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +26,7 @@ public class Teradata implements Database {
 	};
 	
 	@Override
-	public Macro parseMacro(String sql, Serializable... parameters) {
+	public Macro parseMacro(String sql) {
 		Macro macro = null;
 		if(sql.matches(MACRO_PATTERN)){
 			Pattern p = Pattern.compile(MACRO_PATTERN);
@@ -42,7 +41,7 @@ public class Teradata implements Database {
 		return macro;
 	}
 	@Override
-	public Procedure parseProcedure(String sql, Serializable... parameters) {
+	public Procedure parseProcedure(String sql) {
 		Procedure proc = null;
 		if(sql.matches(PROCEDURE_PATTERN)){
 			Pattern p = Pattern.compile(PROCEDURE_PATTERN);
@@ -57,7 +56,7 @@ public class Teradata implements Database {
 		return proc;
 	}
 	@Override
-	public Query parseQuery(String sql, Serializable... parameters) {
+	public Query parseQuery(String sql) {
 		return null;
 	}
 	
