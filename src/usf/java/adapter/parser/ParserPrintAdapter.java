@@ -29,13 +29,8 @@ public class ParserPrintAdapter implements ParserAdapter {
 		if(columns!=null)
 			for(int i=0; i<columns.length; i++){
 				Column c = columns[i];
-				formatter.formatRow(i, c.getName(), c.getValueType(), c.getSize(), c.getRole());
+				formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole());
 			}
 		formatter.endTable();
 	}
-	
-	@Override
-	public void onException(Exception e) {
-		e.printStackTrace();
-	}	
 }

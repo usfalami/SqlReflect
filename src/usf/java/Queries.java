@@ -12,6 +12,11 @@ public class Queries {
 	static String macroNobi = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5('1999-01-01', '2015-12-31', '1007749')";
 	static String macroBind = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5(?, ?, ?)";
 	
+	
+	static String cap1 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-05-27' , '2016-05-29' , '09781620756483' )";
+	static String cap2 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-01-01' , '2016-05-01' , 'PRM2_9000000000018851686.' )";
+	static String cap3 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-01-01' , '2016-05-01' , '19769319796190' )";
+
 
 	
 }

@@ -40,7 +40,7 @@ public class ParserCheckAdapter extends ParserPrintAdapter {
 		for(int i=0; i<columns.length; i++) {
 			Column c = columns[i];
 			String p = sql.getParameters()[i];
-			formatter.formatRow(i, c.getName(), c.getValueType(), c.getSize(), c.getRole(), p);
+			formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole(), p);
 		}
 		formatter.endTable();
 	}

@@ -35,7 +35,7 @@ public class Main {
 
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	static String query = Queries.pom_search;
+	static String query = Queries.cap1;
 	static Serializable[] param=null;
 	
 	
@@ -52,7 +52,7 @@ public class Main {
 		test3();
 		
 //		ex1();
-		ex3();
+//		ex3();
 	}
 	
 	//Parsers & Adapters

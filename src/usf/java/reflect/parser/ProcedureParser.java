@@ -20,14 +20,14 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 			if(!rs.next()) adapter.performProcedure(null);
 			else listProcs(rs, dm);
 		} catch (Exception e) {
-			adapter.onException(e);
+			e.printStackTrace();
 		}
 		finally {
 			if(rs != null) rs.close();
 		}
 	}
 	
-	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException { int cp=0;
+	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException {
 		do {
 			String name = rs.getString("PROCEDURE_NAME");
 			List<Column> list = new ArrayList<Column>();
@@ -37,7 +37,7 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 				list = listColumns(param);
 				adapter.performProcedure(new Procedure(rf.getEnv().getSchema(), name), list.toArray(new Column[list.size()]));
 			} catch (Exception e) {
-				adapter.onException(e);
+				e.printStackTrace();
 			}
 			finally {
 				if(param != null) param.close();
@@ -46,7 +46,6 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 	}
 	
 	protected List<Column> listColumns(ResultSet rs) throws SQLException {
-		int cp=0;
 		List<Column> list = new ArrayList<Column>();
 		while(rs.next()) { //2->schema; 3->name
 			list.add(new Column(
