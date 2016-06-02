@@ -1,5 +1,6 @@
 package usf.java.reflect;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import usf.java.adapter.Adapter;
 import usf.java.db.Database;
 import usf.java.db.Env;
 import usf.java.db.User;
+import usf.java.field.SQL;
 
 public class ReflectFactory {
 
@@ -40,6 +42,13 @@ public class ReflectFactory {
 	
 	public static final ReflectFactory get(Database db, Env env, User user){
 		return new ReflectFactory(db, env, user);
+	}
+	
+	public SQL parseSQL(String sql, Serializable... parameters) {
+		SQL obj = db.parseProcedure(sql, parameters);
+		if(obj == null) obj = db.parseMacro(sql, parameters);
+		if(obj == null) obj = db.parseQuery(sql, parameters);
+		return obj;
 	}
 	
 }

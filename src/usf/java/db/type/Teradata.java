@@ -7,9 +7,8 @@ import java.util.regex.Pattern;
 import usf.java.db.Database;
 import usf.java.db.Env;
 import usf.java.field.Macro;
-import usf.java.field.Parameter;
 import usf.java.field.Procedure;
-import usf.java.field.SQL;
+import usf.java.field.Query;
 
 public class Teradata implements Database {
 	
@@ -28,31 +27,38 @@ public class Teradata implements Database {
 	};
 	
 	@Override
-	public SQL build(String sql, Serializable... parameters){
-		Pattern p = null;
-		SQL res = null;
-		if(sql.matches(PROCEDURE_PATTERN)){
-			p = Pattern.compile(PROCEDURE_PATTERN);
-			res = new Procedure(sql);
+	public Macro parseMacro(String sql, Serializable... parameters) {
+		Macro macro = null;
+		if(sql.matches(MACRO_PATTERN)){
+			Pattern p = Pattern.compile(MACRO_PATTERN);
+			Matcher m = p.matcher(sql);
+			if(m.matches()){
+				macro = new Macro(sql);
+				macro.setName(m.group(2));
+				macro.setSchema(m.group(1)); 
+				macro.setParameters(Utils.build(m.group(3).split(",")));
+			}
 		}
-		else if(sql.matches(MACRO_PATTERN)){
-			p = Pattern.compile(MACRO_PATTERN);
-			res = new Macro(sql);
-		}//else query !!!
-		Matcher m = p.matcher(sql);
-		if(m.matches()){
-			res.setName(m.group(2));
-			res.setSchema(m.group(1)); 
-			res.setParameters(build(m.group(3).split(",")));
-		}
-		return res;
+		return macro;
 	}
-	
-	public static final Parameter[] build(String[] params){
-		Parameter[] paramerter = new Parameter[params.length];
-		for(int i=0; i<params.length; i++) 
-			paramerter[i] = new Parameter(i, params[i]);
-		return paramerter;
+	@Override
+	public Procedure parseProcedure(String sql, Serializable... parameters) {
+		Procedure proc = null;
+		if(sql.matches(PROCEDURE_PATTERN)){
+			Pattern p = Pattern.compile(PROCEDURE_PATTERN);
+			Matcher m = p.matcher(sql);
+			if(m.matches()){
+				proc = new Procedure(sql);
+				proc.setName(m.group(2));
+				proc.setSchema(m.group(1)); 
+				proc.setParameters(Utils.build(m.group(3).split(",")));
+			}
+		}
+		return proc;
+	}
+	@Override
+	public Query parseQuery(String sql, Serializable... parameters) {
+		return null;
 	}
 	
 }
