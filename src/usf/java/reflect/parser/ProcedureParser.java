@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usf.java.adapter.parser.ParserAdapter;
-import usf.java.field.Parameter;
+import usf.java.field.Column;
 import usf.java.field.Procedure;
 
 public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> {
@@ -30,12 +30,12 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException { int cp=0;
 		do {
 			String name = rs.getString("PROCEDURE_NAME");
-			List<Parameter> list = new ArrayList<Parameter>();
+			List<Column> list = new ArrayList<Column>();
 			ResultSet param = null;
 			try {
 				param = dm.getProcedureColumns("", rf.getEnv().getSchema(), name, "");
 				list = listColumns(param);
-				adapter.performProcedure(new Procedure(name, rf.getEnv().getSchema(), list.toArray(new Parameter[list.size()])));
+				adapter.performProcedure(new Procedure(rf.getEnv().getSchema(), name), list.toArray(new Column[list.size()]));
 			} catch (Exception e) {
 				adapter.onException(e);
 			}
@@ -45,14 +45,15 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 		}while(rs.next());
 	}
 	
-	protected List<Parameter> listColumns(ResultSet rs) throws SQLException {
+	protected List<Column> listColumns(ResultSet rs) throws SQLException {
 		int cp=0;
-		List<Parameter> list = new ArrayList<Parameter>();
+		List<Column> list = new ArrayList<Column>();
 		while(rs.next()) { //2->schema; 3->name
-			list.add(new Parameter(++cp,
+			list.add(new Column(
 				rs.getString("COLUMN_NAME").toString(),
 				rs.getString("TYPE_NAME").toString(),
-				rs.getInt("LENGTH")
+				rs.getInt("LENGTH"),
+				rs.getInt("COLUMN_TYPE")
 			));
 		}
 		return list;

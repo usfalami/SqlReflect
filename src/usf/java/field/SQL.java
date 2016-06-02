@@ -12,7 +12,7 @@ public interface SQL extends Field {
 	public String getName() ;
 	public void setName(String name);
 
-	void setParameters(Parameter... parameters);
-	Parameter[] getParameters();
+	void setParameters(String... parameters);
+	String[] getParameters();
 	
 }

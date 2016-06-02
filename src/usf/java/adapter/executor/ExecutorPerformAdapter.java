@@ -42,7 +42,7 @@ public class ExecutorPerformAdapter implements ExecutorAdapter {
 	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=Utils.rowsCount(rs);
-		synchronized(System.out) {
+		synchronized(formatter.getOut()) {
 			formatter.startTable();
 			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
 			formatter.formatHeaders("Action", "Start", "End", "Duration");

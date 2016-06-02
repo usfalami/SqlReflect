@@ -49,7 +49,10 @@ public class Main {
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 		test1();
 		test2(); 
-		test3(); 
+		test3();
+		
+//		ex1();
+		ex3();
 	}
 	
 	//Parsers & Adapters

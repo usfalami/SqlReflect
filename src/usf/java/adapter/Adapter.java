@@ -11,15 +11,16 @@ public interface Adapter {
 	
 	//Custom parameters
 	
-	int COLUMN_NUM_LENGTH    =-2;
-	int COLUMN_NAME_LENGTH   =-30;
-	int COLUMN_TYPE_LENGTH   =-10;
-	int COLUMN_SIZE_LENGTH   =-8;
-	int COLUMN_CLASS_LENGTH  =-30;
-	int COLUMN_PARAM_LENGTH  =-60;
+	int COLUMN_NUM_LENGTH    		= -2;
+	int COLUMN_NAME_LENGTH   		= -30;
+	int COLUMN_VALUE_TYPE_LENGTH	= -10;
+	int COLUMN_SIZE_LENGTH   	   	= -8;
+	int COLUMN_CLASS_LENGTH  		= -30;
+	int COLUMN_TYPE_LENGTH   		= -10;
+	int COLUMN_PARAM_LENGTH 		= -60;
 	
-	int PERFORM_TEXT_LENGTH =-15;
+	int PERFORM_TEXT_LENGTH 		=-15;
 	
-	int VALUE_LENGTH =-21;
+	int VALUE_LENGTH 				=-21;
 
 }

@@ -1,6 +1,6 @@
 package usf.java.adapter.parser;
 
-import usf.java.field.Parameter;
+import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
@@ -11,9 +11,8 @@ public class ParserPrintAdapter implements ParserAdapter {
 	
 	public ParserPrintAdapter(Formatter formatter) {
 		this.formatter = formatter;
-		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH);
+		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_TYPE_LENGTH);
 	}
-	
 	
 	@Override
 	public void performSchema(Schema sc) {
@@ -22,13 +21,16 @@ public class ParserPrintAdapter implements ParserAdapter {
 	}
 	
 	@Override
-	public void performProcedure(Procedure procedure) {
+	public void performProcedure(Procedure procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
 		formatter.formatTitle(procedure.getName());
-		formatter.formatHeaders("N°", "Name", "Type", "Size"); 
-		for(Parameter p : procedure.getParameters())
-			formatter.formatRow(p.getIndex(), p.getName(), p.getType(), p.getSize());
+		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
+		if(columns!=null)
+			for(int i=0; i<columns.length; i++){
+				Column c = columns[i];
+				formatter.formatRow(i, c.getName(), c.getValueType(), c.getSize(), c.getRole());
+			}
 		formatter.endTable();
 	}
 	

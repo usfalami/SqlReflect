@@ -3,17 +3,15 @@ package usf.java.field;
 
 public abstract class ComplexSQL implements SQL {
 	
-	protected String name, schema, sql;
-	protected Parameter[] parameters;
+	protected String name, schema, sql, parameters[];
 	
 	public ComplexSQL(String exec) {
 		this.sql = exec;
 	}
 	
-	public ComplexSQL(String schema, String name, Parameter[] parameter){
+	public ComplexSQL(String schema, String name){
 		this.schema=schema;
 		this.name=name;
-		this.parameters=parameter;
 	}	
 	
 	@Override
@@ -44,11 +42,11 @@ public abstract class ComplexSQL implements SQL {
 	}
 
 	@Override
-	public Parameter[] getParameters() {
+	public String[] getParameters() {
 		return parameters;
 	}
 	@Override
-	public void setParameters(Parameter ...parameters) {
+	public void setParameters(String ...parameters) {
 		this.parameters = parameters;
 	}
 

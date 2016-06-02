@@ -13,7 +13,7 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 	
 	public ExecutorColumnAdapter(Formatter formatter) {
 		this.formatter = formatter;
-		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_CLASS_LENGTH);
+		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_CLASS_LENGTH);
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
-		synchronized(System.out) {
+		synchronized(formatter.getOut()) {
 			formatter.startTable();
 			formatter.formatTitle(sql.getName());
 			formatter.formatHeaders("N°", "Name", "Type", "Size", "Class"); 

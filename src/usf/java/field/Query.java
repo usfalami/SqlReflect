@@ -40,13 +40,12 @@ public class Query implements SQL  {
 	}
 
 	@Override
-	public void setParameters(Parameter... parameters) {
+	public void setParameters(String... parameters) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public Parameter[] getParameters() {
+	public String[] getParameters() {
 		// TODO Auto-generated method stub
 		return null;
 	}
