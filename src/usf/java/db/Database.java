@@ -22,7 +22,7 @@ public interface Database {
 	
 	public static class Utils {
 		
-		public static final Parameter[] build(String[] params){
+		public static final Parameter[] buildParameters(String[] params){
 			Parameter[] paramerter = new Parameter[params.length];
 			for(int i=0; i<params.length; i++) 
 				paramerter[i] = new Parameter(i, params[i]);

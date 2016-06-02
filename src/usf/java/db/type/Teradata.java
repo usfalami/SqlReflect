@@ -36,7 +36,7 @@ public class Teradata implements Database {
 				macro = new Macro(sql);
 				macro.setName(m.group(2));
 				macro.setSchema(m.group(1)); 
-				macro.setParameters(Utils.build(m.group(3).split(",")));
+				macro.setParameters(Utils.buildParameters(m.group(3).split(",")));
 			}
 		}
 		return macro;
@@ -51,7 +51,7 @@ public class Teradata implements Database {
 				proc = new Procedure(sql);
 				proc.setName(m.group(2));
 				proc.setSchema(m.group(1)); 
-				proc.setParameters(Utils.build(m.group(3).split(",")));
+				proc.setParameters(Utils.buildParameters(m.group(3).split(",")));
 			}
 		}
 		return proc;
