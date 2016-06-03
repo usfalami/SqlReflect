@@ -6,18 +6,23 @@ import java.sql.SQLException;
 
 import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
+import usf.java.reflect.ReflectFactory;
+import usf.java.reflect.executor.ExecutorAdapter;
 
-public class ExecutorColumnAdapter implements ExecutorAdapter {
+public class ExecutorColumnAdapter extends ExecutorAdapter {
 
-	protected Formatter formatter;
-	
-	public ExecutorColumnAdapter(Formatter formatter) {
-		this.formatter = formatter;
-		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_CLASS_LENGTH);
+	public ExecutorColumnAdapter(ReflectFactory rf, Formatter formatter) {
+		super(rf, formatter);
+		this.formatter.configure(
+				COLUMN_NUM_LENGTH, 
+				COLUMN_NAME_LENGTH, 
+				COLUMN_VALUE_TYPE_LENGTH, 
+				COLUMN_SIZE_LENGTH, 
+				COLUMN_CLASS_LENGTH);
 	}
 	
 	@Override
-	public void beforeExec(SQL sql) {
+	protected void beforeExec(SQL sql) {
 		
 	}
 	
@@ -40,14 +45,14 @@ public class ExecutorColumnAdapter implements ExecutorAdapter {
 	}
 	
 	@Override
-	public void beforeConnecion() {	}
+	protected void beforeConnecion() {	}
 	
 	@Override
-	public void afterConnecion() { }
+	protected void afterConnecion() { }
 	
 	@Override
-	public void beforeStatement() {	}
+	protected void beforeStatement() {	}
 	
 	@Override
-	public void afterStatement() { }
+	protected void afterStatement() { }
 }

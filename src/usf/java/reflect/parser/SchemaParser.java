@@ -5,16 +5,17 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.adapter.parser.ParserAdapter;
 import usf.java.field.Schema;
-import usf.java.reflect.AbstractReflect;
+import usf.java.reflect.Reflector;
 
-public class SchemaParser<T extends ParserAdapter> extends AbstractReflect<T> {
+public class SchemaParser implements Reflector<ParserAdapter> {
 
-	public void list(String schema) throws SQLException {
+	@Override
+	public void run(ParserAdapter adapter) throws SQLException {
+		//String schema = adapter.getSchema();
 		Connection cnx = null;
 		try {
-			cnx = rf.newConnection();
+			cnx = adapter.getRf().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet rs = null;
 			try {
@@ -32,7 +33,7 @@ public class SchemaParser<T extends ParserAdapter> extends AbstractReflect<T> {
 			e.printStackTrace();
 		}
 		finally {
-			rf.CloseConnection(cnx);
+			adapter.getRf().CloseConnection(cnx);
 		}
 	}
 }

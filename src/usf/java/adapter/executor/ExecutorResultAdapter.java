@@ -6,28 +6,28 @@ import java.sql.SQLException;
 
 import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
+import usf.java.reflect.ReflectFactory;
+import usf.java.reflect.executor.ExecutorAdapter;
 
-public class ExecutorResultAdapter implements ExecutorAdapter {
-
-	protected Formatter formatter;
+public class ExecutorResultAdapter extends ExecutorAdapter {
 	
-	public ExecutorResultAdapter(Formatter formatter) {
-		this.formatter = formatter;
+	public ExecutorResultAdapter(ReflectFactory rf, Formatter formatter) {
+		super(rf, formatter);
 	}
 	
 	@Override
-	public void beforeExec(SQL sql) {
+	protected void beforeExec(SQL sql) {
 		
 	}
 
 	@Override
-	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
+	protected void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		formatter.configure(cols, VALUE_LENGTH);
 		Object[] param = new Object[cols]; 
 		for(int i=1; i<=cols; i++) param[i-1]=md.getColumnName(i);
-		int count=Utils.rowsCount(rs);
+		int count=rowsCount(rs);
 		synchronized(formatter.getOut()) {
 			formatter.startTable();
 			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
@@ -42,15 +42,15 @@ public class ExecutorResultAdapter implements ExecutorAdapter {
 	
 
 	@Override
-	public void beforeConnecion() {	}
+	protected void beforeConnecion() {	}
 	
 	@Override
-	public void afterConnecion() { }
+	protected void afterConnecion() { }
 
 	@Override
-	public void beforeStatement() {	}
+	protected void beforeStatement() {	}
 	
 	@Override
-	public void afterStatement() { }
+	protected void afterStatement() { }
 
 }

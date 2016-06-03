@@ -2,12 +2,10 @@ package usf.java;
 
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import usf.java.adapter.Adapter;
 import usf.java.adapter.executor.ExecutorColumnAdapter;
 import usf.java.adapter.executor.ExecutorPerformAdapter;
 import usf.java.adapter.executor.ExecutorResultAdapter;
@@ -21,9 +19,8 @@ import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
 import usf.java.reflect.ReflectFactory;
-import usf.java.reflect.executor.Executor;
-import usf.java.reflect.parser.ProcedureParser;
-import usf.java.reflect.parser.SchemaParser;
+import usf.java.reflect.executor.ExecutorAdapter;
+import usf.java.reflect.parser.ParserAdapter;
 
 public class Main {
 
@@ -64,47 +61,41 @@ public class Main {
 		System.out.println(query);
 		
 		
-//		test1();
-//		test2(); 
-//		test3();
-		ex3();
-		ex2();
-		//ex1();
+		test1();
+		test2(); 
+		test3();
+//		ex3();
+//		ex1();
+//		ex2();
 	}
 
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorPerformAdapter(format);
-		SQL sql = factory.parseSQL(query);
-		//for(int i=0; i<5; i++)
-			factory.get(Executor.class, a).exec(sql, param);
+		ExecutorAdapter a = new ExecutorPerformAdapter(factory, format);
+		a.execute(query, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorColumnAdapter(format);
-		SQL sql = factory.parseSQL(query);
-		factory.get(Executor.class, a).exec(sql, param);
+		ExecutorAdapter a = new ExecutorColumnAdapter(factory, format);
+		a.execute(query, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		Adapter a = new ExecutorResultAdapter(format);
-		SQL sql = factory.parseSQL(query);
-		factory.get(Executor.class, a).exec(sql, param);
+		ExecutorAdapter a = new ExecutorResultAdapter(factory, format);
+		a.execute(query, param);
 	}
-	
-	
 	
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new ParserPrintAdapter(format);
-		factory.get(ProcedureParser.class, a).list(null, null);
+		ParserAdapter a = new ParserPrintAdapter(factory, format);
+		a.listSchema(null);
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		Adapter a = new ParserPrintAdapter(format);
-		factory.get(SchemaParser.class, a).list(null);
+		ParserAdapter a = new ParserPrintAdapter(factory, format);
+		a.listProcedure(null, null);
 	}
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
 		SQL sql = factory.parseSQL(query);
-		Adapter a = new ParserCheckAdapter(format, sql);
-		factory.get(ProcedureParser.class, a).list(null, sql.getName());
+		ParserAdapter a = new ParserCheckAdapter(factory, format, sql);
+		a.listProcedure(null, sql.getName());
 	}
 	
 }

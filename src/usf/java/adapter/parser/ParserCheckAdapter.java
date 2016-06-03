@@ -3,20 +3,23 @@ package usf.java.adapter.parser;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.SQL;
+import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
+import usf.java.reflect.ReflectFactory;
+import usf.java.reflect.parser.ParserAdapter;
 
-public class ParserCheckAdapter extends ParserPrintAdapter {
+public class ParserCheckAdapter extends ParserAdapter {
 	
 	protected SQL sql;
 		
-	public ParserCheckAdapter(Formatter formatter, SQL sql){
-		super(formatter);
+	public ParserCheckAdapter(ReflectFactory rf, Formatter formatter, SQL sql){
+		super(rf, formatter);
 		this.sql = sql;
 		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_PARAM_LENGTH);
 	}
 
 	@Override
-	public void performProcedure(Procedure proc, Column ...parameters) {
+	protected void performProcedure(Procedure proc, Column ...parameters) {
 		if(sql == null) return; // do something
 		
 		if(proc == null) formatter.getOut().println("Procedure not exists");
@@ -43,6 +46,12 @@ public class ParserCheckAdapter extends ParserPrintAdapter {
 			formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole(), p);
 		}
 		formatter.endTable();
+	}
+
+	@Override
+	protected void performSchema(Schema sc) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

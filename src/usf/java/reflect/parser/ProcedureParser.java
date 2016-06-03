@@ -7,18 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.adapter.parser.ParserAdapter;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
-import usf.java.reflect.AbstractReflect;
+import usf.java.reflect.Reflector;
 
-public class ProcedureParser<T extends ParserAdapter> extends AbstractReflect<T> {
-
+public class ProcedureParser implements Reflector<ParserAdapter> {
 	
-	public void list(String schema, String procedure) throws SQLException{
+	public void run(ParserAdapter adapter) throws SQLException{
+		String schema = adapter.getSchema(), procedure = adapter.getPattern();
 		Connection cnx = null;
 		try {
-			cnx = rf.newConnection();
+			cnx = adapter.getRf().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet procs = null;
 			try {
@@ -47,9 +46,8 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractReflect<T>
 			e.printStackTrace();
 		}
 		finally {
-			rf.CloseConnection(cnx);
+			adapter.getRf().CloseConnection(cnx);
 		}
-		
 	}
 	
 	protected Column[] listColumns(ResultSet rs) throws SQLException {

@@ -6,17 +6,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.adapter.executor.ExecutorAdapter;
 import usf.java.field.SQL;
-import usf.java.reflect.AbstractReflect;
+import usf.java.reflect.Reflector;
 
-public class Executor<T extends ExecutorAdapter> extends AbstractReflect<T> {
+public class Executor implements Reflector<ExecutorAdapter> {
 		
-	public void exec(SQL sql, Serializable... parameters) throws SQLException {
+	public void run(ExecutorAdapter adapter) throws SQLException {
+		
+		SQL sql = adapter.getSQL();
+		Serializable[] parameters = adapter.getParametters();
+		
 		Connection cnx = null;
 		try {
 			adapter.beforeConnecion();
-			cnx = rf.newConnection();
+			cnx = adapter.getRf().newConnection();
 			adapter.afterConnecion();
 			
 			PreparedStatement ps = null;
@@ -52,7 +55,7 @@ public class Executor<T extends ExecutorAdapter> extends AbstractReflect<T> {
 			e.printStackTrace();
 		}
 		finally {
-			rf.CloseConnection(cnx);
+			adapter.getRf().CloseConnection(cnx);
 		}
 	}
 

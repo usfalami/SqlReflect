@@ -6,42 +6,43 @@ import java.util.Date;
 
 import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
+import usf.java.reflect.ReflectFactory;
+import usf.java.reflect.executor.ExecutorAdapter;
 
-public class ExecutorPerformAdapter implements ExecutorAdapter {
+public class ExecutorPerformAdapter extends ExecutorAdapter {
 
-	protected Formatter formatter;
 	protected Date cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	
-	public ExecutorPerformAdapter(Formatter formatter) {
-		this.formatter = formatter;
+	public ExecutorPerformAdapter(ReflectFactory rf, Formatter formatter) {
+		super(rf, formatter);
 		formatter.configure(4, PERFORM_TEXT_LENGTH);
 	}
 
 	@Override
-	public void beforeConnecion() {	
+	protected void beforeConnecion() {	
 		cnxStart = new Date();
 	}
 	@Override
-	public void afterConnecion() { 
+	protected void afterConnecion() { 
 		cnxEnd = new Date();
 	}
 	@Override
-	public void beforeStatement() {
+	protected void beforeStatement() {
 		statStart = new Date();
 	}
 	@Override
-	public void afterStatement() {
+	protected void afterStatement() {
 		statEnd = new Date();
 	}
 
 	@Override
-	public void beforeExec(SQL sql) throws SQLException {
+	protected void beforeExec(SQL sql) throws SQLException {
 		execStart = new Date();
 	}
 	@Override
-	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
+	protected void afterExec(SQL sql, ResultSet rs) throws SQLException {
 		execEnd = new Date();
-		int count=Utils.rowsCount(rs);
+		int count=rowsCount(rs);
 		synchronized(formatter.getOut()) {
 			formatter.startTable();
 			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
