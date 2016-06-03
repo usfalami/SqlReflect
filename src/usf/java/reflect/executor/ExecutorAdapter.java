@@ -27,7 +27,7 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	public void execute(String sql, Serializable... parameters) throws SQLException {
 		this.sql = rf.parseSQL(sql);
 		this.parameters = parameters;
-		(parameters == null ? new StatmentExecutor() : new PreparedStatmentExecutor()).run(this);
+		(parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor()).run(this);
 	}
 	
 	public void execute(int times, String sql, Serializable... parameters) throws SQLException {
