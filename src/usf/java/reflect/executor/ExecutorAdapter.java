@@ -30,6 +30,10 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 		(parameters == null ? new StatmentExecutor() : new PreparedStatmentExecutor()).run(this);
 	}
 	
+	public void execute(int times, String sql, Serializable... parameters) throws SQLException {
+		for(int i=0; i<times; i++) 
+			execute(sql, parameters);
+	}
 	
 	protected abstract void beforeConnecion();
 	protected abstract void afterConnecion();

@@ -29,6 +29,7 @@ public class Main {
 	private static Database db = new Teradata();
 	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025);
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
+	
 	private static ConnectionManager factory = new SingleConnectionManager(db, env, user);
 	
 	public static Formatter format = new AsciiFormatter(System.out);
@@ -47,17 +48,17 @@ public class Main {
 //					 new Date(sdf.parse("2016-05-29").getTime()),
 //					 "09781620756483"};
 
-//		query = Queries.cap2_Bind;
-//		param = new Serializable[]{
-//				 new Date(sdf.parse("2013-07-01").getTime()),
-//				 new Date(sdf.parse("2015-07-01").getTime()),
-//				 "19090984",
-//				 30,
-//				 "CONS",
-//				 "EA",
-//				 "COMPB",
-//				 new Date(sdf.parse("2014-07-01").getTime()) , 
-//				 new Date(sdf.parse("2015-01-01").getTime())};
+		query = Queries.cap2_Bind;
+		param = new Serializable[]{
+				 new Date(sdf.parse("2013-07-01").getTime()),
+				 new Date(sdf.parse("2015-07-01").getTime()),
+				 "19090984",
+				 30,
+				 "CONS",
+				 "EA",
+				 "COMPB",
+				 new Date(sdf.parse("2014-07-01").getTime()) , 
+				 new Date(sdf.parse("2015-01-01").getTime())};
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 		System.out.println(query);
@@ -73,8 +74,7 @@ public class Main {
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorPerformAdapter(factory, format);
-		for(int i=0; i<5; i++)
-			a.execute(query, param);
+		a.execute(5, query, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorColumnAdapter(factory, format);
