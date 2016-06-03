@@ -9,15 +9,13 @@ import java.util.List;
 
 import usf.java.field.Column;
 import usf.java.field.Procedure;
-import usf.java.reflect.Reflector;
 
-public class ProcedureParser implements Reflector<ParserAdapter> {
+public class ProcedureParser implements Parser {
 	
-	public void run(ParserAdapter adapter) throws SQLException{
-		String schema = adapter.getSchema(), procedure = adapter.getPattern();
+	public void run(ParserAdapter adapter, String schema, String procedure) throws SQLException{
 		Connection cnx = null;
 		try {
-			cnx = adapter.getRf().newConnection();
+			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet procs = null;
 			try {
@@ -46,8 +44,17 @@ public class ProcedureParser implements Reflector<ParserAdapter> {
 			e.printStackTrace();
 		}
 		finally {
-			adapter.getRf().CloseConnection(cnx);
+			adapter.getConnectionManager().closeConnection(cnx);
 		}
+	}
+	
+	@Override
+	public void run(ParserAdapter adapter) throws SQLException {
+		run(adapter, null, null);
+	}
+	@Override
+	public void run(ParserAdapter adapter, String schema) throws SQLException {
+		run(adapter, schema, null);
 	}
 	
 	protected Column[] listColumns(ResultSet rs) throws SQLException {

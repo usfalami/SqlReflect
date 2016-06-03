@@ -12,8 +12,8 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 
 	protected Date cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	
-	public ExecutorPerformAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public ExecutorPerformAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 		formatter.configure(4, PERFORM_TEXT_LENGTH);
 	}
 

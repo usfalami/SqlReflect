@@ -11,10 +11,10 @@ import usf.java.formatter.Formatter;
 
 public abstract class ParserAdapter extends AbstractAdapter {
 	
-	private String schema, pattern; 
+	protected String schema, pattern; 
 
-	public ParserAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public ParserAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 	}
 	
 	public String getSchema() {
@@ -31,7 +31,7 @@ public abstract class ParserAdapter extends AbstractAdapter {
 	public void listProcedure(String schema, String pattern) throws SQLException{
 		this.schema = schema;
 		this.pattern = pattern;
-		new ProcedureParser().run(this);
+		new ProcedureParser().run(this, schema);
 	}
 	
 	protected abstract void performSchema(Schema sc);

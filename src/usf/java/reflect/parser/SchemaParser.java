@@ -6,16 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.field.Schema;
-import usf.java.reflect.Reflector;
 
-public class SchemaParser implements Reflector<ParserAdapter> {
+public class SchemaParser implements Parser {
 
 	@Override
-	public void run(ParserAdapter adapter) throws SQLException {
+	public void run(ParserAdapter adapter, String schema) throws SQLException {
 		//String schema = adapter.getSchema();
 		Connection cnx = null;
 		try {
-			cnx = adapter.getRf().newConnection();
+			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet rs = null;
 			try {
@@ -33,7 +32,12 @@ public class SchemaParser implements Reflector<ParserAdapter> {
 			e.printStackTrace();
 		}
 		finally {
-			adapter.getRf().CloseConnection(cnx);
+			adapter.getConnectionManager().closeConnection(cnx);
 		}
 	}
+	
+	@Override
+	public void run(ParserAdapter adapter) throws SQLException {
+		run(adapter, null);
+	}	
 }

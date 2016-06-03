@@ -32,7 +32,7 @@ public class ConnectionManager {
 		return obj;
 	}
 	
-	public void CloseConnection(Connection cnx) throws SQLException {
+	public void closeConnection(Connection cnx) throws SQLException {
 		if(cnx==null)return;
 		cnx.close();
 	}

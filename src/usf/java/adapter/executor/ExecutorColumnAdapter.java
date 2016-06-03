@@ -10,8 +10,8 @@ import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorColumnAdapter extends ExecutorAdapter {
 
-	public ExecutorColumnAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public ExecutorColumnAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
 				COLUMN_NAME_LENGTH, 

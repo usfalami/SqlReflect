@@ -7,6 +7,6 @@ import usf.java.reflect.Reflector;
 
 public interface Executor extends Reflector<ExecutorAdapter> {
 	
-	public abstract void run(ExecutorAdapter adapter, String query, Serializable ... parametters) throws SQLException ;
+	public abstract void run(ExecutorAdapter adapter, String query, Serializable ... parameters) throws SQLException ;
 
 }

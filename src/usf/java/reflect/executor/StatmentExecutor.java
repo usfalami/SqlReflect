@@ -1,22 +1,19 @@
 package usf.java.reflect.executor;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.reflect.Reflector;
-
-public class StatmentExecutor implements Reflector<ExecutorAdapter> {
+public class StatmentExecutor implements Executor {
 		
-	public void run(ExecutorAdapter adapter) throws SQLException {
-		
-		String sql = adapter.getSQL();
+	public void run(ExecutorAdapter adapter,  String query, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
 			adapter.beforeConnecion();
-			cnx = adapter.getRf().newConnection();
+			cnx = adapter.getConnectionManager().newConnection();
 			adapter.afterConnecion();
 			
 			Statement ps = null;
@@ -29,7 +26,7 @@ public class StatmentExecutor implements Reflector<ExecutorAdapter> {
 				ResultSet rs = null;
 				try {
 					adapter.beforeExec();
-					rs = ps.executeQuery(sql);
+					rs = ps.executeQuery(query);
 					adapter.afterExec(rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -49,7 +46,7 @@ public class StatmentExecutor implements Reflector<ExecutorAdapter> {
 			e.printStackTrace();
 		}
 		finally {
-			adapter.getRf().CloseConnection(cnx);
+			adapter.getConnectionManager().closeConnection(cnx);
 		}
 	}
 

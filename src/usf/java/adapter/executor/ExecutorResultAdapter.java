@@ -10,8 +10,8 @@ import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorResultAdapter extends ExecutorAdapter {
 	
-	public ExecutorResultAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public ExecutorResultAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 	}
 	
 	@Override

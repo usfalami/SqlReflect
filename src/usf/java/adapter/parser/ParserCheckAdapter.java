@@ -12,8 +12,8 @@ public class ParserCheckAdapter extends ParserAdapter {
 	
 	protected SQL sql;
 		
-	public ParserCheckAdapter(ConnectionManager rf, Formatter formatter, SQL sql){
-		super(rf, formatter);
+	public ParserCheckAdapter(ConnectionManager cm, Formatter formatter, SQL sql){
+		super(cm, formatter);
 		this.sql = sql;
 		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_PARAM_LENGTH);
 	}

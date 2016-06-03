@@ -9,8 +9,8 @@ import usf.java.reflect.parser.ParserAdapter;
 
 public class ParserPrintAdapter extends ParserAdapter {
 	
-	public ParserPrintAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public ParserPrintAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
 				COLUMN_NAME_LENGTH, 

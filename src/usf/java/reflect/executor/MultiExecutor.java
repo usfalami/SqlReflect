@@ -1,13 +1,13 @@
 package usf.java.reflect.executor;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
-import usf.java.reflect.Reflector;
-
-public class MultiExecutor implements Reflector<ExecutorAdapter> {
+public class MultiExecutor implements Executor {
 
 	@Override
-	public void run(ExecutorAdapter adapter) throws SQLException {
+	public void run(ExecutorAdapter adapter, String query, Serializable... parametters) throws SQLException {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -14,20 +14,15 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	protected SQL sql;
 	protected Serializable[] parameters;
 	
-	public ExecutorAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
-	}
-	public String getSQL() {
-		return sql.getSql();
-	}
-	public Serializable[] getParametters() {
-		return parameters;
+	public ExecutorAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 	}
 	
-	public void execute(String sql, Serializable... parameters) throws SQLException {
-		this.sql = rf.parseSQL(sql);
+	public void execute(String query, Serializable... parameters) throws SQLException {
+		this.sql = cm.parseSQL(query);
 		this.parameters = parameters;
-		(parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor()).run(this);
+		Executor e = parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor();
+		e.run(this, query, parameters);
 	}
 	
 	public void execute(int times, String sql, Serializable... parameters) throws SQLException {

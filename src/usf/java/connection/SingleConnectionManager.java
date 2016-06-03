@@ -23,7 +23,7 @@ public class SingleConnectionManager extends ConnectionManager {
 	}
 	
 	@Override
-	public void CloseConnection(Connection cnx) throws SQLException {
+	public void closeConnection(Connection cnx) throws SQLException {
 		//super.CloseConnection(cnx);
 	}
 

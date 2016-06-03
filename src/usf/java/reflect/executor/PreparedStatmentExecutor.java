@@ -6,26 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.reflect.Reflector;
-
-public class PreparedStatmentExecutor implements Reflector<ExecutorAdapter> {
+public class PreparedStatmentExecutor implements Executor {
 		
-	public void run(ExecutorAdapter adapter) throws SQLException {
-		
-		String sql = adapter.getSQL();
-		Serializable[] parameters = adapter.getParametters();
+	public void run(ExecutorAdapter adapter, String query, Serializable ... parameters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
 			adapter.beforeConnecion();
-			cnx = adapter.getRf().newConnection();
+			cnx = adapter.getConnectionManager().newConnection();
 			adapter.afterConnecion();
 			
 			PreparedStatement ps = null;
 			try {
 				
 				adapter.beforeStatement();
-				ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);
@@ -54,7 +49,7 @@ public class PreparedStatmentExecutor implements Reflector<ExecutorAdapter> {
 			e.printStackTrace();
 		}
 		finally {
-			adapter.getRf().CloseConnection(cnx);
+			adapter.getConnectionManager().closeConnection(cnx);
 		}
 	}
 

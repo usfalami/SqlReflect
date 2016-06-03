@@ -9,15 +9,15 @@ import usf.java.formatter.Formatter;
 public abstract class AbstractAdapter {
 	
 	protected Formatter formatter;
-	protected ConnectionManager rf;
+	protected ConnectionManager cm;
 	
 	public AbstractAdapter(ConnectionManager rf, Formatter formatter) {
-		this.rf = rf;
+		this.cm = rf;
 		this.formatter = formatter;
 	}
 	
-	public ConnectionManager getRf() {
-		return rf;
+	public ConnectionManager getConnectionManager() {
+		return cm;
 	}
 	
 	public static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
