@@ -46,7 +46,7 @@ public class Executor<T extends ExecutorAdapter> extends AbstractExcecutor<T> {
 			e.printStackTrace();
 		}
 		finally {
-			if(cnx!=null) cnx.close();
+			rf.CloseConnection(cnx);
 		}
 	}
 

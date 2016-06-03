@@ -21,7 +21,7 @@ public abstract class AbstractParser<T extends ParserAdapter> extends AbstractRe
 			e.printStackTrace();
 		}
 		finally {
-			if(cnx!=null) cnx.close();
+			rf.CloseConnection(cnx);
 			//log("Connection closed");
 		}
 	}

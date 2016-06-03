@@ -15,7 +15,8 @@ public class ReflectFactory {
 	protected Database db;
 	protected User user;
 	protected Env env;
-
+	
+	
 	private ReflectFactory(Database db, Env env, User user) {
 		this.db = db;
 		this.env = env;
@@ -48,6 +49,11 @@ public class ReflectFactory {
 		if(obj == null) obj = db.parseMacro(sql);
 		if(obj == null) obj = db.parseQuery(sql);
 		return obj;
+	}
+	
+	public void CloseConnection(Connection cnx) throws SQLException {
+		if(cnx==null)return;
+		cnx.close();
 	}
 	
 }

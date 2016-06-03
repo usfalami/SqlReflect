@@ -3,20 +3,16 @@ package usf.java;
 public class Queries {
 	
 	static String pom_search = "CALL STM_IHM_PF1.PRCD_RECH_POM_ID_HAB_020('PRM', '30000120139847', '0', CAST ('2016/02/15 23:59:59' AS TIMESTAMP(0) WITH TIME ZONE), 'OE15540N', 'POM_SEARCH_UI', 'SDT_IHM-OI-SU', 0, NULL, P_DEBUG_QRY,'N')";
-	
-	static String query3 = "show procedure PRCD_E_SUP_240_HIST_PRCS_CMPT_HAB_020";
-	
-	static String queryCurve = "CALL STM_IHM_PF1.PRCD_E_COUR_090_04_COVA (197424622, CAST ('2015/11/01 00:00:00' AS TIMESTAMP(0) WITH TIME ZONE), CAST ('2015/11/30 00:00:00' AS TIMESTAMP(0) WITH TIME ZONE), 'COVA', NULL, 'PREFACT', NULL, 'EA', O','X, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, CAST ('2015/12/01 01:42:11' AS TIMESTAMP(0) WITH TIME ZONE), 'E_SUP_321', NULL, P_DEBUG_QRY, 'I')";
-	static String queryCurvep = "CALL STM_IHM_RA4.PRCD_E_COUR_090_04_COVA (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?, ?, NULL, P_DEBUG_QRY, 'I')";
-	
-	static String macroNobi = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5('1999-01-01', '2015-12-31', '1007749')";
-	static String macroBind = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5(?, ?, ?)";
-	
-	
-	static String cap1 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-05-27' , '2016-05-29' , '09781620756483' )";
-	static String cap2 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-01-01' , '2016-05-01' , 'PRM2_9000000000018851686.' )";
-	static String cap3 = "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-01-01' , '2016-05-01' , '19769319796190' )";
 
+	static String cap1 		= "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5 ( '2016-05-27' , '2016-05-29' , '09781620756483' )";
+	static String cap1_Bind = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5(?, ?, ?)";
+
+	static String cap2		= "exec STM_IHM_pf1.MACR_CONS_MESR_C5EM_PDC_PARL ( '2013-07-01' , '2015-07-01' , '19090984' , 30 , 'CONS' , 'EA' , 'COMPB' , '2014-07-01' , '2015-01-01' )";
+	static String cap2_Bind	= "exec STM_IHM_pf1.MACR_CONS_MESR_C5EM_PDC_PARL (?,?,?,?,?,?,?,?,?)";
+	
+	static String cap3 		= "exec STM_IHM_pf1.MACR_CONS_MESR_C1C4_PDC_PARL ( '2013-07-01' , '2015-07-01' , '19090984' , 30 , 'CONS' , 'EA' , 'COMPB' , '2014-07-01' , '2015-01-01' )";
+	static String cap3_Bind	= "exec STM_IHM_pf1.MACR_CONS_MESR_C1C4_PDC_PARL (?,?,?,?,?,?,?,?,?)";
+	
 
 	
 }
