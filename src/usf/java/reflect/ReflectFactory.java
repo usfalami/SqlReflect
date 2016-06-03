@@ -16,6 +16,8 @@ public class ReflectFactory {
 	protected User user;
 	protected Env env;
 	
+	protected Manager manager;
+	
 	
 	private ReflectFactory(Database db, Env env, User user) {
 		this.db = db;

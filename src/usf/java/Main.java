@@ -36,17 +36,17 @@ public class Main {
 
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	static String query = Queries.cap3;
+	static String query = Queries.pom_search;
 	static Serializable[] param=null;
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException, FileNotFoundException {
 		
-//		query = Queries.cap1_Bind;
-//		param = new Serializable[]{
-//				 new Date(sdf.parse("2016-05-27").getTime()),
-//				 new Date(sdf.parse("2016-05-29").getTime()),
-//				 "09781620756483"};
+//			query = Queries.cap1_Bind;
+//			param = new Serializable[]{
+//					 new Date(sdf.parse("2016-05-27").getTime()),
+//					 new Date(sdf.parse("2016-05-29").getTime()),
+//					 "09781620756483"};
 
 //		query = Queries.cap3_Bind;
 //		param = new Serializable[]{
@@ -61,21 +61,22 @@ public class Main {
 //				 new Date(sdf.parse("2015-01-01").getTime())};
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
+		System.out.println(query);
 		
-		test1();
+		
+//		test1();
 //		test2(); 
 //		test3();
-		
-//		ex1();
-//		ex3();
+		ex3();
+		ex2();
+		//ex1();
 	}
 
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Adapter a = new ExecutorPerformAdapter(format);
-		System.out.println(query);
 		SQL sql = factory.parseSQL(query);
-		for(int i=0; i<5; i++)
+		//for(int i=0; i<5; i++)
 			factory.get(Executor.class, a).exec(sql, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
@@ -94,16 +95,16 @@ public class Main {
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
 		Adapter a = new ParserPrintAdapter(format);
-		factory.get(ProcedureParser.class, a).lookup();
+		factory.get(ProcedureParser.class, a).list(null, null);
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
 		Adapter a = new ParserPrintAdapter(format);
-		factory.get(SchemaParser.class, a).lookup();
+		factory.get(SchemaParser.class, a).list(null);
 	}
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-		SQL sql = factory.parseSQL(Queries.pom_search);
+		SQL sql = factory.parseSQL(query);
 		Adapter a = new ParserCheckAdapter(format, sql);
-		factory.get(ProcedureParser.class, a).lookup(sql.getName());
+		factory.get(ProcedureParser.class, a).list(null, sql.getName());
 	}
 	
 }

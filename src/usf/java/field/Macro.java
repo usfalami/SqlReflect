@@ -6,8 +6,8 @@ public class Macro extends ComplexSQL {
 		super(exec);
 	}
 
-	public Macro(String schema, String name) {
-		super(schema, name);
+	public Macro(String schema, String name, String type) {
+		super(schema, name, type);
 	}
 	
 }

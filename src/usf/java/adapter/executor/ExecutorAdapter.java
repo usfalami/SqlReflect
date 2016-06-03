@@ -15,7 +15,7 @@ public interface ExecutorAdapter extends Adapter {
 	void afterStatement();
 	
 	void beforeExec(SQL sql) throws SQLException ;
-	void afterExec(SQL sql, ResultSet rs) throws SQLException ;
+	void afterExec(SQL sql, ResultSet rs) throws SQLException;
 	
 	public static class Utils {
 		

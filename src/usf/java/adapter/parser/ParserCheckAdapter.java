@@ -35,7 +35,7 @@ public class ParserCheckAdapter extends ParserPrintAdapter {
 	protected void performProcedure2(SQL base, Column ...columns) {
 		if(base == null) return;
 		formatter.startTable();
-		formatter.formatTitle(base.getName());
+		formatter.formatTitle(String.format("%s.%s", base.getSchema(), base.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value"); 
 		for(int i=0; i<columns.length; i++) {
 			Column c = columns[i];

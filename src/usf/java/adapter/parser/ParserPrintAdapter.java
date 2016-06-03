@@ -24,7 +24,7 @@ public class ParserPrintAdapter implements ParserAdapter {
 	public void performProcedure(Procedure procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
-		formatter.formatTitle(procedure.getName());
+		formatter.formatTitle(String.format("%s.%s", procedure.getSchema(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
 		if(columns!=null)
 			for(int i=0; i<columns.length; i++){

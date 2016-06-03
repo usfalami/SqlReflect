@@ -1,6 +1,6 @@
 package usf.java.reflect.parser;
 
-import java.io.IOException;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,42 +10,49 @@ import java.util.List;
 import usf.java.adapter.parser.ParserAdapter;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
+import usf.java.reflect.AbstractReflect;
 
-public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> {
+public class ProcedureParser<T extends ParserAdapter> extends AbstractReflect<T> {
+
 	
-	@Override
-	protected void lookup(DatabaseMetaData dm, String name) throws SQLException {
-		ResultSet rs = dm.getProcedures("", rf.getEnv().getSchema(), name);
+	public void list(String schema, String procedure) throws SQLException{
+		Connection cnx = null;
 		try {
-			if(!rs.next()) adapter.performProcedure(null);
-			else listProcs(rs, dm);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			if(rs != null) rs.close();
-		}
-	}
-	
-	protected void listProcs(ResultSet rs, DatabaseMetaData dm) throws SQLException, IOException {
-		do {
-			String name = rs.getString("PROCEDURE_NAME");
-			List<Column> list = new ArrayList<Column>();
-			ResultSet param = null;
+			cnx = rf.newConnection();
+			DatabaseMetaData dm = cnx.getMetaData();
+			ResultSet procs = null;
 			try {
-				param = dm.getProcedureColumns("", rf.getEnv().getSchema(), name, "");
-				list = listColumns(param);
-				adapter.performProcedure(new Procedure(rf.getEnv().getSchema(), name), list.toArray(new Column[list.size()]));
+				procs = dm.getProcedures(null, schema, procedure);
+				while(procs.next()){
+					Procedure p = new Procedure(procs.getString("PROCEDURE_SCHEM"), procs.getString("PROCEDURE_NAME"), procs.getString("PROCEDURE_TYPE"));
+					ResultSet cols = null;
+					try {
+						cols = dm.getProcedureColumns(null, p.getSchema(), p.getName(), null);
+						Column[] list = listColumns(cols);
+						adapter.performProcedure(p, list);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					finally {
+						if(cols != null) cols.close();
+					}
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			finally {
-				if(param != null) param.close();
+				if(procs != null) procs.close();
 			}
-		}while(rs.next());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			rf.CloseConnection(cnx);
+		}
+		
 	}
 	
-	protected List<Column> listColumns(ResultSet rs) throws SQLException {
+	protected Column[] listColumns(ResultSet rs) throws SQLException {
 		List<Column> list = new ArrayList<Column>();
 		while(rs.next()) { //2->schema; 3->name
 			list.add(new Column(
@@ -55,6 +62,7 @@ public class ProcedureParser<T extends ParserAdapter> extends AbstractParser<T> 
 				rs.getInt("COLUMN_TYPE")
 			));
 		}
-		return list;
+		return list.toArray(new Column[list.size()]);
 	}
+	
 }
