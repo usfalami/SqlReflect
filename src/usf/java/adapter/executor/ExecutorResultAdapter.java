@@ -4,24 +4,23 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import usf.java.field.SQL;
+import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorResultAdapter extends ExecutorAdapter {
 	
-	public ExecutorResultAdapter(ReflectFactory rf, Formatter formatter) {
+	public ExecutorResultAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
 	}
 	
 	@Override
-	protected void beforeExec(SQL sql) {
+	protected void beforeExec() {
 		
 	}
 
 	@Override
-	protected void afterExec(SQL sql, ResultSet rs) throws SQLException {
+	protected void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		formatter.configure(cols, VALUE_LENGTH);

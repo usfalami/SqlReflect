@@ -4,16 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-import usf.java.field.SQL;
+import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorPerformAdapter extends ExecutorAdapter {
 
 	protected Date cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	
-	public ExecutorPerformAdapter(ReflectFactory rf, Formatter formatter) {
+	public ExecutorPerformAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
 		formatter.configure(4, PERFORM_TEXT_LENGTH);
 	}
@@ -36,11 +35,11 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 	}
 
 	@Override
-	protected void beforeExec(SQL sql) throws SQLException {
+	protected void beforeExec() throws SQLException {
 		execStart = new Date();
 	}
 	@Override
-	protected void afterExec(SQL sql, ResultSet rs) throws SQLException {
+	protected void afterExec(ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=rowsCount(rs);
 		synchronized(formatter.getOut()) {

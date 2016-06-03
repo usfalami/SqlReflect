@@ -1,15 +1,15 @@
 package usf.java.adapter.parser;
 
+import usf.java.connection.ConnectionManager;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.parser.ParserAdapter;
 
 public class ParserPrintAdapter extends ParserAdapter {
 	
-	public ParserPrintAdapter(ReflectFactory rf, Formatter formatter) {
+	public ParserPrintAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 

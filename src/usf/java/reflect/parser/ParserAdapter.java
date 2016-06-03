@@ -2,18 +2,18 @@ package usf.java.reflect.parser;
 
 import java.sql.SQLException;
 
-import usf.java.adapter.Adapter;
+import usf.java.adapter.AbstractAdapter;
+import usf.java.connection.ConnectionManager;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 
-public abstract class ParserAdapter extends Adapter {
+public abstract class ParserAdapter extends AbstractAdapter {
 	
 	private String schema, pattern; 
 
-	public ParserAdapter(ReflectFactory rf, Formatter formatter) {
+	public ParserAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
 	}
 	

@@ -4,14 +4,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import usf.java.field.SQL;
+import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorColumnAdapter extends ExecutorAdapter {
 
-	public ExecutorColumnAdapter(ReflectFactory rf, Formatter formatter) {
+	public ExecutorColumnAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
@@ -22,12 +21,12 @@ public class ExecutorColumnAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	protected void beforeExec(SQL sql) {
+	protected void beforeExec() {
 		
 	}
 	
 	@Override
-	public void afterExec(SQL sql, ResultSet rs) throws SQLException {
+	public void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
 		synchronized(formatter.getOut()) {

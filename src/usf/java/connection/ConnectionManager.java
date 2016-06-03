@@ -1,4 +1,4 @@
-package usf.java.reflect;
+package usf.java.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,13 +9,13 @@ import usf.java.db.Env;
 import usf.java.db.User;
 import usf.java.field.SQL;
 
-public class ReflectFactory {
+public class ConnectionManager {
 
 	protected Database db;
 	protected User user;
 	protected Env env;
 	
-	private ReflectFactory(Database db, Env env, User user) {
+	public ConnectionManager(Database db, Env env, User user) {
 		this.db = db;
 		this.env = env;
 		this.user = user;
@@ -23,16 +23,6 @@ public class ReflectFactory {
 		
 	public Connection newConnection() throws SQLException{
 		return DriverManager.getConnection(db.makeURL(env), user.getUser(), user.getPass());
-	}
-	public Env getEnv() {
-		return env;
-	}
-	public Database getDatabase() {
-		return db;
-	}
-	
-	public static final ReflectFactory get(Database db, Env env, User user){
-		return new ReflectFactory(db, env, user);
 	}
 	
 	public SQL parseSQL(String sql) {

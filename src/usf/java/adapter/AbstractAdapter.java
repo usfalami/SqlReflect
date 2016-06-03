@@ -3,20 +3,20 @@ package usf.java.adapter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 
-public abstract class Adapter {
+public abstract class AbstractAdapter {
 	
 	protected Formatter formatter;
-	protected ReflectFactory rf;
+	protected ConnectionManager rf;
 	
-	public Adapter(ReflectFactory rf, Formatter formatter) {
+	public AbstractAdapter(ConnectionManager rf, Formatter formatter) {
 		this.rf = rf;
 		this.formatter = formatter;
 	}
 	
-	public ReflectFactory getRf() {
+	public ConnectionManager getRf() {
 		return rf;
 	}
 	

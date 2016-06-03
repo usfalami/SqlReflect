@@ -1,18 +1,18 @@
 package usf.java.adapter.parser;
 
+import usf.java.connection.ConnectionManager;
 import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.SQL;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.ReflectFactory;
 import usf.java.reflect.parser.ParserAdapter;
 
 public class ParserCheckAdapter extends ParserAdapter {
 	
 	protected SQL sql;
 		
-	public ParserCheckAdapter(ReflectFactory rf, Formatter formatter, SQL sql){
+	public ParserCheckAdapter(ConnectionManager rf, Formatter formatter, SQL sql){
 		super(rf, formatter);
 		this.sql = sql;
 		this.formatter.configure(COLUMN_NUM_LENGTH, COLUMN_NAME_LENGTH, COLUMN_VALUE_TYPE_LENGTH, COLUMN_SIZE_LENGTH, COLUMN_TYPE_LENGTH, COLUMN_PARAM_LENGTH);
