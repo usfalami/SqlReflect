@@ -96,10 +96,7 @@ public class Main {
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorPerformAdapter(factory, format);
-		for(int i=0; i<it.length; i++){
-			System.out.println(it[i]);
-			a.execute(it[i]);
-		}
+		a.execute(query);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorColumnAdapter(factory, format);

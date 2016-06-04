@@ -21,9 +21,7 @@ public class ExecutorColumnAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	protected void beforeExec() {
-		
-	}
+	protected void beforeExec() { }
 	
 	@Override
 	public void afterExec(ResultSet rs) throws SQLException {
@@ -35,10 +33,10 @@ public class ExecutorColumnAdapter extends ExecutorAdapter {
 			formatter.formatHeaders("N°", "Name", "Type", "Size", "Class"); 
 			for(int i=1; i<=count; i++)
 				formatter.formatRow(i,
-						md.getColumnName(i),
-						md.getColumnTypeName(i),
-						md.getColumnDisplaySize(i),
-						md.getColumnClassName(i));
+					md.getColumnName(i),
+					md.getColumnTypeName(i),
+					md.getColumnDisplaySize(i),
+					md.getColumnClassName(i));
 			formatter.endTable();
 		}
 	}

@@ -16,14 +16,7 @@ public abstract class ParserAdapter extends AbstractAdapter {
 	public ParserAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 	}
-	
-	public String getSchema() {
-		return schema;
-	}
-	public String getPattern() {
-		return pattern;
-	}
-	
+
 	public void listSchema(String schema) throws SQLException{
 		this.schema = schema;
 		new SchemaParser().run(this);
