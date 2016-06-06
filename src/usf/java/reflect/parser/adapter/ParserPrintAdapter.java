@@ -1,4 +1,4 @@
-package usf.java.adapter.parser;
+package usf.java.reflect.parser.adapter;
 
 import usf.java.connection.ConnectionManager;
 import usf.java.field.Column;

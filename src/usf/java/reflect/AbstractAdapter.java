@@ -1,4 +1,4 @@
-package usf.java.adapter;
+package usf.java.reflect;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

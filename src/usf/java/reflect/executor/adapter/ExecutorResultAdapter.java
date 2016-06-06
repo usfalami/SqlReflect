@@ -1,4 +1,4 @@
-package usf.java.adapter.executor;
+package usf.java.reflect.executor.adapter;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -15,12 +15,12 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	protected void beforeExec() {
+	public void beforeExec() {
 		
 	}
 
 	@Override
-	protected void afterExec(ResultSet rs) throws SQLException {
+	public void afterExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		formatter.configure(cols, VALUE_LENGTH);
@@ -41,15 +41,15 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 	
 
 	@Override
-	protected void beforeConnecion() {	}
+	public void beforeConnecion() {	}
 	
 	@Override
-	protected void afterConnecion() { }
+	public void afterConnecion() { }
 
 	@Override
-	protected void beforeStatement() {	}
+	public void beforeStatement() {	}
 	
 	@Override
-	protected void afterStatement() { }
+	public void afterStatement() { }
 
 }

@@ -8,11 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
-import usf.java.adapter.executor.ExecutorColumnAdapter;
-import usf.java.adapter.executor.ExecutorPerformAdapter;
-import usf.java.adapter.executor.ExecutorResultAdapter;
-import usf.java.adapter.parser.ParserCheckAdapter;
-import usf.java.adapter.parser.ParserPrintAdapter;
 import usf.java.connection.ConnectionManager;
 import usf.java.connection.SingleConnectionManager;
 import usf.java.db.Database;
@@ -23,7 +18,12 @@ import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
 import usf.java.reflect.executor.ExecutorAdapter;
+import usf.java.reflect.executor.adapter.ExecutorColumnAdapter;
+import usf.java.reflect.executor.adapter.ExecutorPerformAdapter;
+import usf.java.reflect.executor.adapter.ExecutorResultAdapter;
 import usf.java.reflect.parser.ParserAdapter;
+import usf.java.reflect.parser.adapter.ParserCheckAdapter;
+import usf.java.reflect.parser.adapter.ParserPrintAdapter;
 
 public class Main {
 

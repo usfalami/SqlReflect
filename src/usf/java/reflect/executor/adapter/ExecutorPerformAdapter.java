@@ -1,4 +1,4 @@
-package usf.java.adapter.executor;
+package usf.java.reflect.executor.adapter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,28 +18,28 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 	}
 
 	@Override
-	protected void beforeConnecion() {	
+	public void beforeConnecion() {	
 		cnxStart = new Date();
 	}
 	@Override
-	protected void afterConnecion() { 
+	public void afterConnecion() { 
 		cnxEnd = new Date();
 	}
 	@Override
-	protected void beforeStatement() {
+	public void beforeStatement() {
 		statStart = new Date();
 	}
 	@Override
-	protected void afterStatement() {
+	public void afterStatement() {
 		statEnd = new Date();
 	}
 
 	@Override
-	protected void beforeExec() throws SQLException {
+	public void beforeExec() throws SQLException {
 		execStart = new Date();
 	}
 	@Override
-	protected void afterExec(ResultSet rs) throws SQLException {
+	public void afterExec(ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=rowsCount(rs);
 		synchronized(formatter.getOut()) {

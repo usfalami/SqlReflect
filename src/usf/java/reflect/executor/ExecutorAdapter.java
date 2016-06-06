@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.adapter.AbstractAdapter;
 import usf.java.connection.ConnectionManager;
 import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
+import usf.java.reflect.AbstractAdapter;
 
 public abstract class ExecutorAdapter extends AbstractAdapter {
 	
@@ -30,14 +30,14 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 			execute(sql, parameters);
 	}
 	
-	protected abstract void beforeConnecion();
-	protected abstract void afterConnecion();
+	public abstract void beforeConnecion();
+	public abstract void afterConnecion();
 	
-	protected abstract void beforeStatement();
-	protected abstract void afterStatement();
+	public abstract void beforeStatement();
+	public abstract void afterStatement();
 	
-	protected abstract void beforeExec() throws SQLException ;
-	protected abstract void afterExec(ResultSet rs) throws SQLException;
+	public abstract void beforeExec() throws SQLException ;
+	public abstract void afterExec(ResultSet rs) throws SQLException;
 	
 	
 	public static int rowsCount(ResultSet rs) throws SQLException{
