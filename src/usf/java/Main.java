@@ -12,7 +12,6 @@ import usf.java.db.Database;
 import usf.java.db.Env;
 import usf.java.db.User;
 import usf.java.db.type.Teradata;
-import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
 import usf.java.reflect.executor.adapter.ExecutorAdapter;
@@ -21,7 +20,6 @@ import usf.java.reflect.executor.adapter.ExecutorPerformAdapter;
 import usf.java.reflect.executor.adapter.ExecutorResultAdapter;
 import usf.java.reflect.executor.adapter.MultiExecutorAdapter;
 import usf.java.reflect.parser.adapter.ParserAdapter;
-import usf.java.reflect.parser.adapter.ParserCheckAdapter;
 import usf.java.reflect.parser.adapter.ParserPrintAdapter;
 
 public class Main {
@@ -30,7 +28,7 @@ public class Main {
 	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025);
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
 	
-	private static ConnectionManager factory = new SingleConnectionManager(db, env, user);
+	private static ConnectionManager cm = new SingleConnectionManager(db, env, user);
 	
 	public static Formatter format = new AsciiFormatter(System.out);
 
@@ -66,50 +64,55 @@ public class Main {
 //		test1();
 //		test2(); 
 //		test3();
-		test4();
-//		ex3();
-//		ex1();
-//		ex2();
+//		test4();
+		
+		ex1();
+		ex2();
+		ex3();
 	}
 
 	//Excecutors & Adapters
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorPerformAdapter(factory, format);
+		ExecutorAdapter a = new ExecutorPerformAdapter(cm, format);
 		a.execute(query, param);
 	}
 	public static void test2() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorColumnAdapter(factory, format);
+		ExecutorAdapter a = new ExecutorColumnAdapter(cm, format);
 		a.execute(query, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorResultAdapter(factory, format);
+		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
 		a.execute(query, param);
 	}
 	
 	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
 //		OutputStream out  = new FileOutputStream("output/usf.html");
-		MultiExecutorAdapter a = new MultiExecutorAdapter(factory, format);
+		MultiExecutorAdapter a = new MultiExecutorAdapter(cm, format);
 		a.setAdapters( 
-			new ExecutorResultAdapter(factory, new AsciiFormatter(System.out)),
-			new ExecutorPerformAdapter(factory, new AsciiFormatter(System.out)),
-			new ExecutorColumnAdapter(factory, new AsciiFormatter(System.out))
+			//new ExecutorResultAdapter(factory, new AsciiFormatter(System.out)),
+			new ExecutorPerformAdapter(cm, new AsciiFormatter(System.out)),
+			new ExecutorColumnAdapter(cm, new AsciiFormatter(System.out))
 		);
-		a.execute(Queries.cap);
+		a.execute(5, Queries.cap);
 	}
 	
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		ParserAdapter a = new ParserPrintAdapter(factory, format);
+		ParserAdapter a = new ParserPrintAdapter(cm, format);
 		a.listSchema(null);
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		ParserAdapter a = new ParserPrintAdapter(factory, format);
-		a.listProcedure(null, null);
-	}
+		ParserAdapter a = new ParserPrintAdapter(cm, format);
+		a.listProcedure(env.getSchema(), "%RECH%POM%");
+	}	
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-		SQL sql = factory.parseSQL(query);
-		ParserAdapter a = new ParserCheckAdapter(factory, format, sql);
-		a.listProcedure(null, sql.getName());
+		ParserAdapter a = new ParserPrintAdapter(cm, format);
+		a.listProcedure(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
+//	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
+//		SQL sql = cm.parseSQL(query);
+//		ParserAdapter a = new ParserCheckAdapter(cm, format);
+//		a.listProcedure(null, sql.getName());
+//	}
 	
 }

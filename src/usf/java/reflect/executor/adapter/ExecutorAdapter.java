@@ -21,18 +21,23 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	public void execute(String query, Serializable... parameters) throws SQLException {
 		this.execute(1, query, parameters);
 	}
+	public void execute(String... queries) throws SQLException {
+		this.execute(1, queries);
+	}
 	public void execute(int times, String query, Serializable... parameters) throws SQLException {
 		Executor e = executorFor(parameters);
 		SQL sql = cm.parseSQL(query);
 		for(int i=0; i<times; i++) 
 			e.run(this, sql, parameters);
 	}
-	public void execute(String... queries) throws SQLException {
+	public void execute(int times, String... queries) throws SQLException {
 		if(queries == null) return;
 		Executor e = new StatmentExecutor();
-		for(String query : queries) {
-			SQL sql = cm.parseSQL(query);
-			e.run(this, sql);
+		for(int i=0; i<times; i++){
+			for(String query : queries) {
+				SQL sql = cm.parseSQL(query);
+				e.run(this, sql);
+			}
 		}
 	}
 	

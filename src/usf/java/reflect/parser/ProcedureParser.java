@@ -22,7 +22,10 @@ public class ProcedureParser implements Parser {
 			try {
 				procs = dm.getProcedures(null, schema, procedure);
 				while(procs.next()){
-					Procedure p = new Procedure(procs.getString("PROCEDURE_SCHEM"), procs.getString("PROCEDURE_NAME"), procs.getString("PROCEDURE_TYPE"));
+					Procedure p = new Procedure(
+							procs.getString("PROCEDURE_SCHEM"), 
+							procs.getString("PROCEDURE_NAME"), 
+							procs.getString("PROCEDURE_TYPE"));
 					ResultSet cols = null;
 					try {
 						cols = dm.getProcedureColumns(null, p.getSchema(), p.getName(), null);

@@ -51,6 +51,13 @@ public class HtmlFormatter extends AbstractFormatter {
 	}
 
 	@Override
+	public void formatFooter(String footer) {
+		out.println(" <tr>");
+		out.println("  <td colspan='"+cols+"'>"+footer+"</td>");
+		out.println(" </tr>");
+	}
+	
+	@Override
 	public void endTable() {
 		out.println("</table>");
 		out.println("<br>");

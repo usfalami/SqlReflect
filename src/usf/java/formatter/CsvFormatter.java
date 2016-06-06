@@ -39,6 +39,11 @@ public class CsvFormatter extends AbstractFormatter {
 			out.print(o+";");
 		out.println();
 	}
+	
+	@Override
+	public void formatFooter(String footer) {
+		out.println(footer+";");
+	}
 
 	@Override
 	public void endTable() {

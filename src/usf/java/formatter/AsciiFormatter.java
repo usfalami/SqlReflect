@@ -52,6 +52,10 @@ public class AsciiFormatter extends AbstractFormatter {
 		out.format(format, obj);
 	}
 	@Override
+	public void formatFooter(String footer) {
+		out.format("| %" + (4 - layout.length()) + "s|\n", footer);
+	}
+	@Override
 	public void endTable() {
 		out.print(layout);
 	}

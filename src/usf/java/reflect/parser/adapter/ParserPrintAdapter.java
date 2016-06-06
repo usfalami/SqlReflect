@@ -30,7 +30,9 @@ public class ParserPrintAdapter extends ParserAdapter {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getSchema(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
-		if(columns!=null)
+		if(columns== null || columns.length == 0)
+			formatter.formatFooter("This procedure has no paramters");
+		else
 			for(int i=0; i<columns.length; i++){
 				Column c = columns[i];
 				formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole());
