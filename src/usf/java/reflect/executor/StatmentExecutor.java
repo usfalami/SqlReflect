@@ -34,6 +34,7 @@ public class StatmentExecutor implements Executor {
 					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
+					throw e;
 				}
 				finally {
 					if(rs!=null) rs.close();
@@ -41,6 +42,7 @@ public class StatmentExecutor implements Executor {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 			finally {
 				if(ps!=null) ps.close();
@@ -48,6 +50,7 @@ public class StatmentExecutor implements Executor {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);
