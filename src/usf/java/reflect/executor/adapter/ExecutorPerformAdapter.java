@@ -17,28 +17,28 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 	}
 
 	@Override
-	public void beforeConnecion() {	
+	public void preConnecion() {	
 		cnxStart = new Date();
 	}
 	@Override
-	public void afterConnecion() { 
+	public void postConnecion() { 
 		cnxEnd = new Date();
 	}
 	@Override
-	public void beforeStatement() {
+	public void preStatement() {
 		statStart = new Date();
 	}
 	@Override
-	public void afterStatement() {
+	public void postStatement() {
 		statEnd = new Date();
 	}
 
 	@Override
-	public void beforeExec() throws SQLException {
+	public void preExec() throws SQLException {
 		execStart = new Date();
 	}
 	@Override
-	public void afterExec(ResultSet rs) throws SQLException {
+	public void postExec(ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=rowsCount(rs);
 		formatter.startTable();

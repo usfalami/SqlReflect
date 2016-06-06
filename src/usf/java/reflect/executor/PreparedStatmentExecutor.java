@@ -14,25 +14,25 @@ public class PreparedStatmentExecutor implements Executor {
 		
 		Connection cnx = null;
 		try {
-			adapter.beforeConnecion();
+			adapter.preConnecion();
 			cnx = adapter.getConnectionManager().newConnection();
-			adapter.afterConnecion();
+			adapter.postConnecion();
 			
 			PreparedStatement ps = null;
 			try {
 				
-				adapter.beforeStatement();
+				adapter.preStatement();
 				ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);
-				adapter.afterStatement();
+				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
-					adapter.beforeExec();
+					adapter.preExec();
 					rs = ps.executeQuery();
-					adapter.afterExec(rs);
+					adapter.postExec(rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

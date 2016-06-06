@@ -28,19 +28,31 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 		e.run(this, query, parameters);
 	}
 	
-	public void execute(int times, String sql, Serializable... parameters) throws SQLException {
+	public void execute(int times, String query, Serializable... parameters) throws SQLException {
+		Executor e = parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor();
+		this.sql = cm.parseSQL(query);
+		this.parameters = parameters;
 		for(int i=0; i<times; i++) 
-			execute(sql, parameters);
+			e.run(this, query, parameters);
 	}
 	
-	public abstract void beforeConnecion();
-	public abstract void afterConnecion();
+	public void execute(String... queries) throws SQLException {
+		if(queries == null) return;
+		Executor e = new StatmentExecutor();
+		for(String query : queries) {
+			this.sql = cm.parseSQL(query);
+			e.run(this, query);
+		}
+	}
 	
-	public abstract void beforeStatement();
-	public abstract void afterStatement();
+	public abstract void preConnecion();
+	public abstract void postConnecion();
 	
-	public abstract void beforeExec() throws SQLException ;
-	public abstract void afterExec(ResultSet rs) throws SQLException;
+	public abstract void preStatement();
+	public abstract void postStatement();
+	
+	public abstract void preExec() throws SQLException ;
+	public abstract void postExec(ResultSet rs) throws SQLException;
 	
 	
 	public static int rowsCount(ResultSet rs) throws SQLException{

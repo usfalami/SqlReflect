@@ -14,12 +14,12 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	public void beforeExec() {
+	public void preExec() {
 		
 	}
 
 	@Override
-	public void afterExec(ResultSet rs) throws SQLException {
+	public void postExec(ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		formatter.configure(cols, VALUE_LENGTH);
@@ -38,15 +38,15 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 	
 
 	@Override
-	public void beforeConnecion() {	}
+	public void preConnecion() {	}
 	
 	@Override
-	public void afterConnecion() { }
+	public void postConnecion() { }
 
 	@Override
-	public void beforeStatement() {	}
+	public void preStatement() {	}
 	
 	@Override
-	public void afterStatement() { }
+	public void postStatement() { }
 
 }

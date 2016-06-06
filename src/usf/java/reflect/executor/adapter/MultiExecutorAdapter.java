@@ -26,40 +26,40 @@ public class MultiExecutorAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	public void beforeConnecion() {
+	public void preConnecion() {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.beforeConnecion();
+			a.preConnecion();
 	}
 	@Override
-	public void afterConnecion() {
+	public void postConnecion() {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.afterConnecion();
+			a.postConnecion();
 	}
 	@Override
-	public void beforeStatement() {
+	public void preStatement() {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.beforeStatement();
+			a.preStatement();
 	}
 	@Override
-	public void afterStatement() {
+	public void postStatement() {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.afterStatement();
+			a.postStatement();
 	}
 	@Override
-	public void beforeExec() throws SQLException {
+	public void preExec() throws SQLException {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.beforeExec();
+			a.preExec();
 	}
 	@Override
-	public void afterExec(ResultSet rs) throws SQLException {
+	public void postExec(ResultSet rs) throws SQLException {
 		if(adapters==null) return;
 		for(ExecutorAdapter a : adapters)
-			a.afterExec(rs);
+			a.postExec(rs);
 	}
 	
 	public void execute(String query, Serializable... parameters) throws SQLException {

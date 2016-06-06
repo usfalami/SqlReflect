@@ -1,10 +1,7 @@
 package usf.java;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +15,6 @@ import usf.java.db.type.Teradata;
 import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
-import usf.java.formatter.HtmlFormatter;
 import usf.java.reflect.executor.adapter.ExecutorAdapter;
 import usf.java.reflect.executor.adapter.ExecutorColumnAdapter;
 import usf.java.reflect.executor.adapter.ExecutorPerformAdapter;
@@ -98,7 +94,7 @@ public class Main {
 			new ExecutorPerformAdapter(factory, new AsciiFormatter(System.out)),
 			new ExecutorColumnAdapter(factory, new AsciiFormatter(System.out))
 		);
-		a.execute(5, query, param);
+		a.execute(query, param);
 	}
 	
 	//Parsers & Adapters

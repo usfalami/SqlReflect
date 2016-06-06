@@ -14,22 +14,22 @@ public class StatmentExecutor implements Executor {
 		
 		Connection cnx = null;
 		try {
-			adapter.beforeConnecion();
+			adapter.preConnecion();
 			cnx = adapter.getConnectionManager().newConnection();
-			adapter.afterConnecion();
+			adapter.postConnecion();
 			
 			Statement ps = null;
 			try {
 				
-				adapter.beforeStatement();
+				adapter.preStatement();
 				ps = cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-				adapter.afterStatement();
+				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
-					adapter.beforeExec();
+					adapter.preExec();
 					rs = ps.executeQuery(query);
-					adapter.afterExec(rs);
+					adapter.postExec(rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
