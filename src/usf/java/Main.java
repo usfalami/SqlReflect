@@ -1,6 +1,8 @@
 package usf.java;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,7 +15,9 @@ import usf.java.db.Env;
 import usf.java.db.User;
 import usf.java.db.type.Teradata;
 import usf.java.formatter.AsciiFormatter;
+import usf.java.formatter.CsvFormatter;
 import usf.java.formatter.Formatter;
+import usf.java.formatter.HtmlFormatter;
 import usf.java.reflect.executor.adapter.ExecutorAdapter;
 import usf.java.reflect.executor.adapter.ExecutorColumnAdapter;
 import usf.java.reflect.executor.adapter.ExecutorPerformAdapter;
@@ -60,15 +64,15 @@ public class Main {
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 		System.out.println(query);
-		
+//		
 //		test1();
 //		test2(); 
 //		test3();
-//		test4();
+		test4();
 		
-		ex1();
-		ex2();
-		ex3();
+//		ex1();
+//		ex2();
+//		ex3();
 	}
 
 	//Excecutors & Adapters
@@ -86,14 +90,13 @@ public class Main {
 	}
 	
 	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
-//		OutputStream out  = new FileOutputStream("output/usf.html");
 		MultiExecutorAdapter a = new MultiExecutorAdapter(cm, format);
 		a.setAdapters( 
-			//new ExecutorResultAdapter(factory, new AsciiFormatter(System.out)),
-			new ExecutorPerformAdapter(cm, new AsciiFormatter(System.out)),
-			new ExecutorColumnAdapter(cm, new AsciiFormatter(System.out))
+			new ExecutorColumnAdapter(cm, new HtmlFormatter(new FileOutputStream("output/usf.html"))),
+			new ExecutorColumnAdapter(cm, new CsvFormatter(new FileOutputStream("output/usf.csv"))),
+			new ExecutorColumnAdapter(cm, new AsciiFormatter(new FileOutputStream("output/usf.txt")))
 		);
-		a.execute(5, Queries.cap);
+		a.execute(Queries.cap);
 	}
 	
 	//Parsers & Adapters
