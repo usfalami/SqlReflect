@@ -94,7 +94,7 @@ public class Main {
 			new ExecutorPerformAdapter(factory, new AsciiFormatter(System.out)),
 			new ExecutorColumnAdapter(factory, new AsciiFormatter(System.out))
 		);
-		a.execute(query, param);
+		a.execute(Queries.cap);
 	}
 	
 	//Parsers & Adapters

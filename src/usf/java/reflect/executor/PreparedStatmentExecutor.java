@@ -6,11 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.field.SQL;
 import usf.java.reflect.executor.adapter.ExecutorAdapter;
 
 public class PreparedStatmentExecutor implements Executor {
-		
-	public void run(ExecutorAdapter adapter, String query, Serializable ... parameters) throws SQLException {
+
+	@Override
+	public void run(ExecutorAdapter adapter, SQL sql, Serializable ... parameters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -22,7 +24,7 @@ public class PreparedStatmentExecutor implements Executor {
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(sql.Query(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);
@@ -30,9 +32,9 @@ public class PreparedStatmentExecutor implements Executor {
 				
 				ResultSet rs = null;
 				try {
-					adapter.preExec();
+					adapter.preExec(sql);
 					rs = ps.executeQuery();
-					adapter.postExec(rs);
+					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

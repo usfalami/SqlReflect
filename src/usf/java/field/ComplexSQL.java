@@ -1,9 +1,9 @@
 package usf.java.field;
 
-
 public abstract class ComplexSQL implements SQL {
 	
 	protected String name, schema, type, sql, parameters[];
+	protected int[] bindableParameters;
 	
 	public ComplexSQL(String exec) {
 		this.sql = exec;
@@ -15,7 +15,7 @@ public abstract class ComplexSQL implements SQL {
 	}	
 	
 	@Override
-	public String getSql() {
+	public String Query() {
 		return sql;
 	}
 	@Override
@@ -57,7 +57,14 @@ public abstract class ComplexSQL implements SQL {
 	public void setParameters(String ...parameters) {
 		this.parameters = parameters;
 	}
-
+	
+	public void setBindableParameters(int[] bindableParameters) {
+		this.bindableParameters = bindableParameters;
+	}
+	public int[] getBindableParameters() {
+		return bindableParameters;
+	}
+	
 	@Override
 	public String toString() {
 		return sql;

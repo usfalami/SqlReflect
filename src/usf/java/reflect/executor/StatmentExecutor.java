@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.field.SQL;
 import usf.java.reflect.executor.adapter.ExecutorAdapter;
 
 public class StatmentExecutor implements Executor {
-		
-	public void run(ExecutorAdapter adapter,  String query, Serializable ... parametters) throws SQLException {
+
+	@Override
+	public void run(ExecutorAdapter adapter,  SQL sql, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -27,9 +29,9 @@ public class StatmentExecutor implements Executor {
 				
 				ResultSet rs = null;
 				try {
-					adapter.preExec();
-					rs = ps.executeQuery(query);
-					adapter.postExec(rs);
+					adapter.preExec(sql);
+					rs = ps.executeQuery(sql.Query());
+					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

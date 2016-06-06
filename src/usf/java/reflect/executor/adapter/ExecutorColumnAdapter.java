@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import usf.java.connection.ConnectionManager;
+import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
 
 public class ExecutorColumnAdapter extends ExecutorAdapter {
@@ -20,10 +21,10 @@ public class ExecutorColumnAdapter extends ExecutorAdapter {
 	}
 	
 	@Override
-	public void preExec() { }
+	public void preExec(SQL sql) { }
 	
 	@Override
-	public void postExec(ResultSet rs) throws SQLException {
+	public void postExec(SQL sql, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int count = md.getColumnCount();
 		formatter.startTable();

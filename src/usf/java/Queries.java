@@ -15,4 +15,6 @@ public class Queries {
 	static String cap3_Bind	= "exec STM_IHM_pf1.MACR_CONS_MESR_C1C4_PDC_PARL_SES (?,?,?,?,?,?,?,?,?)";
 	
 	
+	static String[] cap = {cap1, cap2, cap3};
+	
 }

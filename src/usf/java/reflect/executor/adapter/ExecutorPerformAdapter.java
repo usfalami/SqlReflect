@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import usf.java.connection.ConnectionManager;
+import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
 
 public class ExecutorPerformAdapter extends ExecutorAdapter {
@@ -34,11 +35,11 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 	}
 
 	@Override
-	public void preExec() throws SQLException {
+	public void preExec(SQL sql) throws SQLException {
 		execStart = new Date();
 	}
 	@Override
-	public void postExec(ResultSet rs) throws SQLException {
+	public void postExec(SQL sql, ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=rowsCount(rs);
 		formatter.startTable();
