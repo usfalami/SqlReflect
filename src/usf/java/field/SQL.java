@@ -3,7 +3,7 @@ package usf.java.field;
 
 public interface SQL extends Field {
 	
-	public String Query();
+	public String getQuery();
 	public void setSql(String query);
 
 	public String getSchema();

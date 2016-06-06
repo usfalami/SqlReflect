@@ -24,7 +24,7 @@ public class PreparedStatmentExecutor implements Executor {
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.prepareStatement(sql.Query(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(sql.getQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);
@@ -37,6 +37,7 @@ public class PreparedStatmentExecutor implements Executor {
 					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
+					throw e;
 				}
 				finally {
 					if(rs!=null) rs.close();
@@ -44,6 +45,7 @@ public class PreparedStatmentExecutor implements Executor {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 			finally {
 				if(ps!=null) ps.close();
@@ -51,6 +53,7 @@ public class PreparedStatmentExecutor implements Executor {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);

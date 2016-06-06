@@ -15,7 +15,7 @@ public abstract class ComplexSQL implements SQL {
 	}	
 	
 	@Override
-	public String Query() {
+	public String getQuery() {
 		return sql;
 	}
 	@Override

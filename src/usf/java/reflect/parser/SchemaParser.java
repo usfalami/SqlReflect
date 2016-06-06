@@ -25,12 +25,14 @@ public class SchemaParser implements Parser {
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 			finally {
 				if(rs != null) rs.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);

@@ -4,7 +4,7 @@ package usf.java.field;
 public class Query implements SQL  {
 
 	@Override
-	public String Query() {
+	public String getQuery() {
 		// TODO Auto-generated method stub
 		return null;
 	}
