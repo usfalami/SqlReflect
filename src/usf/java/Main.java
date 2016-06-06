@@ -40,7 +40,7 @@ public class Main {
 
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	static String query = Queries.cap3;
+	static String query = Queries.cap1;
 	static Serializable[] param=null;
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException, FileNotFoundException {
@@ -91,14 +91,14 @@ public class Main {
 	}
 	
 	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
-		OutputStream out  = new FileOutputStream("output/usf.html");
+//		OutputStream out  = new FileOutputStream("output/usf.html");
 		MultiExecutorAdapter a = new MultiExecutorAdapter(factory, format);
 		a.setAdapters( 
-			new ExecutorResultAdapter(factory, new HtmlFormatter(out)),
-			new ExecutorPerformAdapter(factory, new HtmlFormatter(out)),
-			new ExecutorColumnAdapter(factory, new HtmlFormatter(out))
+			new ExecutorResultAdapter(factory, new AsciiFormatter(System.out)),
+			new ExecutorPerformAdapter(factory, new AsciiFormatter(System.out)),
+			new ExecutorColumnAdapter(factory, new AsciiFormatter(System.out))
 		);
-		a.execute(query, param);
+		a.execute(5, query, param);
 	}
 	
 	//Parsers & Adapters
