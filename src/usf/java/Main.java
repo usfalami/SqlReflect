@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 import usf.java.connection.ConnectionManager;
 import usf.java.connection.SingleConnectionManager;
@@ -17,11 +16,12 @@ import usf.java.db.type.Teradata;
 import usf.java.field.SQL;
 import usf.java.formatter.AsciiFormatter;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.executor.ExecutorAdapter;
+import usf.java.reflect.executor.adapter.ExecutorAdapter;
 import usf.java.reflect.executor.adapter.ExecutorColumnAdapter;
 import usf.java.reflect.executor.adapter.ExecutorPerformAdapter;
 import usf.java.reflect.executor.adapter.ExecutorResultAdapter;
-import usf.java.reflect.parser.ParserAdapter;
+import usf.java.reflect.executor.adapter.MultiExecutorAdapter;
+import usf.java.reflect.parser.adapter.ParserAdapter;
 import usf.java.reflect.parser.adapter.ParserCheckAdapter;
 import usf.java.reflect.parser.adapter.ParserPrintAdapter;
 
@@ -37,16 +37,16 @@ public class Main {
 
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	static String query = Queries.cap1_Bind;
+	static String query = Queries.cap3;
 	static Serializable[] param=null;
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException, FileNotFoundException {
 		
-		query = Queries.cap1_Bind;
-		param = new Serializable[]{
-				 new Date(sdf.parse("2016-05-27").getTime()),
-				 new Date(sdf.parse("2016-05-29").getTime()),
-				 "09781620756483"};
+//		query = Queries.cap1_Bind;
+//		param = new Serializable[]{
+//				 new Date(sdf.parse("2016-05-27").getTime()),
+//				 new Date(sdf.parse("2016-05-29").getTime()),
+//				 "09781620756483"};
 		
 //		query = Queries.cap2_Bind;
 //		query = Queries.cap3_Bind;
@@ -64,9 +64,10 @@ public class Main {
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 		System.out.println(query);
 		
-		test1();
-		test2(); 
-		test3();
+//		test1();
+//		test2(); 
+//		test3();
+		test4();
 //		ex3();
 //		ex1();
 //		ex2();
@@ -83,6 +84,16 @@ public class Main {
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorResultAdapter(factory, format);
+		a.execute(query, param);
+	}
+	
+	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		MultiExecutorAdapter a = new MultiExecutorAdapter(factory, format);
+		a.setAdapters( 
+			new ExecutorResultAdapter(factory, new AsciiFormatter(System.out)),
+			new ExecutorPerformAdapter(factory, new AsciiFormatter(System.out)),
+			new ExecutorColumnAdapter(factory, new AsciiFormatter(System.out))
+		);
 		a.execute(query, param);
 	}
 	

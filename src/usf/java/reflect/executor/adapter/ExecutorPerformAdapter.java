@@ -6,7 +6,6 @@ import java.util.Date;
 
 import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorPerformAdapter extends ExecutorAdapter {
 
@@ -42,28 +41,26 @@ public class ExecutorPerformAdapter extends ExecutorAdapter {
 	public void afterExec(ResultSet rs) throws SQLException {
 		execEnd = new Date();
 		int count=rowsCount(rs);
-		synchronized(formatter.getOut()) {
-			formatter.startTable();
-			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
-			formatter.formatHeaders("Action", "Start", "End", "Duration");
-			formatter.formatRow("Connection",
-				TIME_FORMATTER.format(cnxStart),
-				TIME_FORMATTER.format(cnxEnd),
-				String.format("%5d ms",cnxEnd.getTime()-cnxStart.getTime()));
-			formatter.formatRow("Statment",
-				TIME_FORMATTER.format(statStart),
-				TIME_FORMATTER.format(statEnd),
-				String.format("%5d ms",statEnd.getTime()-statStart.getTime()));
-			formatter.formatRow("Execution",
-				TIME_FORMATTER.format(execStart),
-				TIME_FORMATTER.format(execEnd),
-				String.format("%5d ms",execEnd.getTime()-execStart.getTime()));
-			formatter.formatRow("Total",
-				TIME_FORMATTER.format(cnxStart),
-				TIME_FORMATTER.format(execEnd),
-				String.format("%5d ms",execEnd.getTime()-cnxStart.getTime()));
-			formatter.endTable();
-		}
+		formatter.startTable();
+		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
+		formatter.formatHeaders("Action", "Start", "End", "Duration");
+		formatter.formatRow("Connection",
+			TIME_FORMATTER.format(cnxStart),
+			TIME_FORMATTER.format(cnxEnd),
+			String.format("%5d ms",cnxEnd.getTime()-cnxStart.getTime()));
+		formatter.formatRow("Statment",
+			TIME_FORMATTER.format(statStart),
+			TIME_FORMATTER.format(statEnd),
+			String.format("%5d ms",statEnd.getTime()-statStart.getTime()));
+		formatter.formatRow("Execution",
+			TIME_FORMATTER.format(execStart),
+			TIME_FORMATTER.format(execEnd),
+			String.format("%5d ms",execEnd.getTime()-execStart.getTime()));
+		formatter.formatRow("Total",
+			TIME_FORMATTER.format(cnxStart),
+			TIME_FORMATTER.format(execEnd),
+			String.format("%5d ms",execEnd.getTime()-cnxStart.getTime()));
+		formatter.endTable();
 	}
 
 }

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 import usf.java.connection.ConnectionManager;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.executor.ExecutorAdapter;
 
 public class ExecutorResultAdapter extends ExecutorAdapter {
 	
@@ -27,16 +26,14 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 		Object[] param = new Object[cols]; 
 		for(int i=1; i<=cols; i++) param[i-1]=md.getColumnName(i);
 		int count=rowsCount(rs);
-		synchronized(formatter.getOut()) {
-			formatter.startTable();
-			formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
-			formatter.formatHeaders(param);
-			while(rs.next()){
-				for(int i=1; i<=cols; i++) param[i-1]=rs.getObject(i);
-				formatter.formatRow(param);
-			}
-			formatter.endTable();
+		formatter.startTable();
+		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
+		formatter.formatHeaders(param);
+		while(rs.next()){
+			for(int i=1; i<=cols; i++) param[i-1]=rs.getObject(i);
+			formatter.formatRow(param);
 		}
+		formatter.endTable();
 	}
 	
 

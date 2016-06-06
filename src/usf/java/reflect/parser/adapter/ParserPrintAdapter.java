@@ -5,7 +5,6 @@ import usf.java.field.Column;
 import usf.java.field.Procedure;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.parser.ParserAdapter;
 
 public class ParserPrintAdapter extends ParserAdapter {
 	
@@ -20,13 +19,13 @@ public class ParserPrintAdapter extends ParserAdapter {
 	}
 	
 	@Override
-	protected void performSchema(Schema sc) {
+	public void performSchema(Schema sc) {
 		if(sc == null) return;
 		formatter.getOut().format("%-30s\n", sc.getName());
 	}
 	
 	@Override
-	protected void performProcedure(Procedure procedure, Column ...columns) {
+	public void performProcedure(Procedure procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getSchema(), procedure.getName()));

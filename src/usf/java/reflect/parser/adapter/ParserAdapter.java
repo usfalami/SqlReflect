@@ -1,4 +1,4 @@
-package usf.java.reflect.parser;
+package usf.java.reflect.parser.adapter;
 
 import java.sql.SQLException;
 
@@ -8,6 +8,8 @@ import usf.java.field.Procedure;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
 import usf.java.reflect.AbstractAdapter;
+import usf.java.reflect.parser.ProcedureParser;
+import usf.java.reflect.parser.SchemaParser;
 
 public abstract class ParserAdapter extends AbstractAdapter {
 	
@@ -27,7 +29,7 @@ public abstract class ParserAdapter extends AbstractAdapter {
 		new ProcedureParser().run(this, schema);
 	}
 	
-	protected abstract void performSchema(Schema sc);
-	protected abstract void performProcedure(Procedure procedure, Column ...columns);
+	public abstract void performSchema(Schema sc);
+	public abstract void performProcedure(Procedure procedure, Column ...columns);
 	
 }

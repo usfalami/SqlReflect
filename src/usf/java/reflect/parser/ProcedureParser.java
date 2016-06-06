@@ -9,6 +9,7 @@ import java.util.List;
 
 import usf.java.field.Column;
 import usf.java.field.Procedure;
+import usf.java.reflect.parser.adapter.ParserAdapter;
 
 public class ProcedureParser implements Parser {
 	

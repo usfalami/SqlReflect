@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 
 import usf.java.reflect.Reflector;
+import usf.java.reflect.executor.adapter.ExecutorAdapter;
 
 public interface Executor extends Reflector<ExecutorAdapter> {
 	

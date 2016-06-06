@@ -1,4 +1,4 @@
-package usf.java.reflect.executor;
+package usf.java.reflect.executor.adapter;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -8,6 +8,9 @@ import usf.java.connection.ConnectionManager;
 import usf.java.field.SQL;
 import usf.java.formatter.Formatter;
 import usf.java.reflect.AbstractAdapter;
+import usf.java.reflect.executor.Executor;
+import usf.java.reflect.executor.PreparedStatmentExecutor;
+import usf.java.reflect.executor.StatmentExecutor;
 
 public abstract class ExecutorAdapter extends AbstractAdapter {
 	
@@ -19,9 +22,9 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	}
 	
 	public void execute(String query, Serializable... parameters) throws SQLException {
+		Executor e = parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor();
 		this.sql = cm.parseSQL(query);
 		this.parameters = parameters;
-		Executor e = parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor();
 		e.run(this, query, parameters);
 	}
 	
@@ -48,6 +51,11 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 			rs.beforeFirst();
 		}
 		return count;
+	}
+
+	public void set(SQL sql, Serializable... parameters) {
+		this.sql = sql;
+		this.parameters = parameters;
 	}
 
 }

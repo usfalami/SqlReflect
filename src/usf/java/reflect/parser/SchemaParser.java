@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.field.Schema;
+import usf.java.reflect.parser.adapter.ParserAdapter;
 
 public class SchemaParser implements Parser {
 

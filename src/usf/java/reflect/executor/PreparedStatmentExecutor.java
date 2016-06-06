@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.reflect.executor.adapter.ExecutorAdapter;
+
 public class PreparedStatmentExecutor implements Executor {
 		
 	public void run(ExecutorAdapter adapter, String query, Serializable ... parameters) throws SQLException {

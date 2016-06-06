@@ -6,7 +6,6 @@ import usf.java.field.Procedure;
 import usf.java.field.SQL;
 import usf.java.field.Schema;
 import usf.java.formatter.Formatter;
-import usf.java.reflect.parser.ParserAdapter;
 
 public class ParserCheckAdapter extends ParserAdapter {
 	
@@ -19,7 +18,7 @@ public class ParserCheckAdapter extends ParserAdapter {
 	}
 
 	@Override
-	protected void performProcedure(Procedure proc, Column ...parameters) {
+	public void performProcedure(Procedure proc, Column ...parameters) {
 		if(sql == null) return; // do something
 		
 		if(proc == null) formatter.getOut().println("Procedure not exists");
@@ -49,7 +48,7 @@ public class ParserCheckAdapter extends ParserAdapter {
 	}
 
 	@Override
-	protected void performSchema(Schema sc) {
+	public void performSchema(Schema sc) {
 		// TODO Auto-generated method stub
 		
 	}
