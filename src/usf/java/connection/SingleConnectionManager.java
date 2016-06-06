@@ -7,7 +7,7 @@ import usf.java.db.Database;
 import usf.java.db.Env;
 import usf.java.db.User;
 
-public class SingleConnectionManager extends ConnectionManager {
+public class SingleConnectionManager extends SimpleConnectionManager {
 	
 	private Connection cnx;
 	
