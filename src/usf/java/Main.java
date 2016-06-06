@@ -92,9 +92,10 @@ public class Main {
 	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
 		MultiExecutorAdapter a = new MultiExecutorAdapter(cm, format);
 		a.setAdapters( 
-			new ExecutorColumnAdapter(cm, new HtmlFormatter(new FileOutputStream("output/usf.html"))),
+			new ExecutorColumnAdapter(cm, new AsciiFormatter(System.out)),
+			new ExecutorColumnAdapter(cm, new AsciiFormatter(new FileOutputStream("output/usf.txt"))),
 			new ExecutorColumnAdapter(cm, new CsvFormatter(new FileOutputStream("output/usf.csv"))),
-			new ExecutorColumnAdapter(cm, new AsciiFormatter(new FileOutputStream("output/usf.txt")))
+			new ExecutorColumnAdapter(cm, new HtmlFormatter(new FileOutputStream("output/usf.html")))
 		);
 		a.execute(Queries.cap);
 	}
