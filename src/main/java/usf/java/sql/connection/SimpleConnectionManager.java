@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import usf.java.sql.db.Database;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.User;
-import usf.java.sql.field.SQL;
+import usf.java.sql.db.field.SQL;
 
 public class SimpleConnectionManager implements ConnectionManager {
 

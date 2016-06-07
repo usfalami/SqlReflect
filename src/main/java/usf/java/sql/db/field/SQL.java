@@ -1,4 +1,4 @@
-package usf.java.sql.field;
+package usf.java.sql.db.field;
 
 
 public interface SQL extends Field {

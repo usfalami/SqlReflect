@@ -1,9 +1,9 @@
 package usf.java.sql.reflect.parser.adapter;
 
 import usf.java.sql.connection.ConnectionManager;
-import usf.java.sql.field.Column;
-import usf.java.sql.field.Procedure;
-import usf.java.sql.field.Schema;
+import usf.java.sql.db.field.Column;
+import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Schema;
 import usf.java.sql.formatter.Formatter;
 
 public class ParserPrintAdapter extends ParserAdapter {

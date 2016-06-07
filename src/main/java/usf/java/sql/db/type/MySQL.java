@@ -2,9 +2,9 @@ package usf.java.sql.db.type;
 
 import usf.java.sql.db.Database;
 import usf.java.sql.db.Env;
-import usf.java.sql.field.Macro;
-import usf.java.sql.field.Procedure;
-import usf.java.sql.field.Query;
+import usf.java.sql.db.field.Macro;
+import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Query;
 
 public class MySQL implements Database {
 

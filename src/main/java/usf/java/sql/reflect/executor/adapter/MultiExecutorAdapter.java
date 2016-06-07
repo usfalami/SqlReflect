@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.connection.ConnectionManager;
-import usf.java.sql.field.SQL;
+import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 
 public class MultiExecutorAdapter extends ExecutorAdapter {

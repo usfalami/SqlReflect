@@ -3,7 +3,7 @@ package usf.java.sql.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sql.field.SQL;
+import usf.java.sql.db.field.SQL;
 
 public interface ConnectionManager {
 

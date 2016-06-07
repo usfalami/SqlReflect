@@ -3,9 +3,9 @@ package usf.java.sql.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.field.Macro;
-import usf.java.sql.field.Procedure;
-import usf.java.sql.field.Query;
+import usf.java.sql.db.field.Macro;
+import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Query;
 
 public interface Database {
 

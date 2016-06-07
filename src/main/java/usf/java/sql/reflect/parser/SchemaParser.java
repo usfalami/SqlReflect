@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.field.Schema;
+import usf.java.sql.db.field.Schema;
 import usf.java.sql.reflect.parser.adapter.ParserAdapter;
 
 public class SchemaParser implements Parser {

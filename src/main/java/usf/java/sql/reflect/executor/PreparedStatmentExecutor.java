@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.field.SQL;
+import usf.java.sql.db.field.SQL;
 import usf.java.sql.reflect.executor.adapter.ExecutorAdapter;
 
 public class PreparedStatmentExecutor implements Executor {

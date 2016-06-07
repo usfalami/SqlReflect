@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.field.Column;
-import usf.java.sql.field.Procedure;
+import usf.java.sql.db.field.Column;
+import usf.java.sql.db.field.Procedure;
 import usf.java.sql.reflect.parser.adapter.ParserAdapter;
 
 public class ProcedureParser implements Parser {

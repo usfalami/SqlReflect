@@ -1,4 +1,4 @@
-package usf.java.sql.field;
+package usf.java.sql.db.field;
 
 public abstract class ComplexSQL implements SQL {
 	
