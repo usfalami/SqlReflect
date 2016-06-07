@@ -69,7 +69,7 @@ public class Main {
 //		test1();
 //		test2(); 
 //		test3();
-		test5();
+		test();
 		
 //		ex1();
 //		ex2();
@@ -77,6 +77,14 @@ public class Main {
 	}
 
 	//Excecutors & Adapters
+	
+	
+	
+	public static void test() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
+		a.execute("SELECT 1", "SELECT database");
+	}
+	
 	public static void test1() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorPerformAdapter(cm, format);
 		a.execute(query, param);
@@ -119,11 +127,5 @@ public class Main {
 //		ParserAdapter a = new ParserCheckAdapter(cm, format);
 //		a.listProcedure(null, sql.getName());
 //	}
-	
-	
-	public static void test5() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
-		a.execute("SELECT 1", param);
-	}
-	
+
 }

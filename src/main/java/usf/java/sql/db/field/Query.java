@@ -28,7 +28,6 @@ public class Query implements SQL  {
 	@Override
 	public void setSchema(String schema) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

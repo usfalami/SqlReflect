@@ -31,7 +31,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 	public Connection newConnection() throws SQLException{
 		return DriverManager.getConnection(db.makeURL(env), user.getUser(), user.getPass());
 	}
-
 	
 	@Override
 	public SQL parseSQL(String sql) {
