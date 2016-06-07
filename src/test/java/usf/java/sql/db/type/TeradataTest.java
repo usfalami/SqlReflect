@@ -1,5 +1,7 @@
 package usf.java.sql.db.type;
 
+import java.util.Arrays;
+
 import usf.java.sql.db.Database;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.field.Procedure;
@@ -23,8 +25,13 @@ public class TeradataTest extends TestCase {
 		Database db = new Teradata();
 		assertNull(db.parseProcedure("select database"));
 		assertNull(db.parseProcedure("exec test_macro(?,?,?)"));
-		Procedure p = db.parseProcedure("call sc_1.test_proc(?,?,?)");
+		String query = "call sc_1.test_proc(?,?,?,'param')";
+		Procedure p = db.parseProcedure(query);
 		assertNotNull(p);
+		assertEquals(p.getName(), "test_proc");
+		assertEquals(p.getSchema(), "sc_1");
+		assertEquals(p.getQuery(), query);
+		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
 	}
 	
 }
