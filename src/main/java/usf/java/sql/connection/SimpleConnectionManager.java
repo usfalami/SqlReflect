@@ -38,7 +38,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 		SQL obj = db.parseProcedure(sql);
 		if(obj == null) obj = db.parseMacro(sql);
 		if(obj == null) obj = db.parseQuery(sql);
-		//TODO otherCases
 		return obj;
 	}
 	

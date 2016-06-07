@@ -2,17 +2,21 @@ package usf.java.sql.db.field;
 
 
 public class Query implements SQL  {
+	
+	protected String query;
+
+	public Query(String query) {
+		this.query = query;
+	}
 
 	@Override
 	public String getQuery() {
-		// TODO Auto-generated method stub
-		return null;
+		return query;
 	}
 
 	@Override
 	public void setSql(String query) {
-		// TODO Auto-generated method stub
-		
+		this.query = query;
 	}
 
 	@Override
@@ -29,8 +33,7 @@ public class Query implements SQL  {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Query";
 	}
 
 	@Override

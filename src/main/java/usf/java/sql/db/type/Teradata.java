@@ -57,7 +57,7 @@ public class Teradata implements Database {
 	}
 	@Override
 	public Query parseQuery(String sql) {
-		return null;
+		return new Query(sql);
 	}
 	
 }

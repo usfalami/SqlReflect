@@ -44,6 +44,7 @@ public class Main {
 		
 		cm.configure();
 		
+		
 //		query = Queries.cap1_Bind;
 //		param = new Serializable[]{
 //				 new Date(sdf.parse("2016-05-27").getTime()),
@@ -64,12 +65,11 @@ public class Main {
 //				 new Date(sdf.parse("2015-01-01").getTime())};
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
-		System.out.println(query);
 //		
 //		test1();
 //		test2(); 
 //		test3();
-		test4();
+		test5();
 		
 //		ex1();
 //		ex2();
@@ -119,5 +119,11 @@ public class Main {
 //		ParserAdapter a = new ParserCheckAdapter(cm, format);
 //		a.listProcedure(null, sql.getName());
 //	}
+	
+	
+	public static void test5() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
+		a.execute("SELECT 1", param);
+	}
 	
 }
