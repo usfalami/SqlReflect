@@ -18,7 +18,7 @@ public abstract class ParserAdapter extends AbstractAdapter {
 	}
 
 	public void listSchema(String schema) throws SQLException{
-		new SchemaParser().run(this);
+		new SchemaParser().run(this, schema);
 	}
 	public void listProcedure(String schema, String pattern) throws SQLException{
 		new ProcedureParser().run(this, schema, pattern);

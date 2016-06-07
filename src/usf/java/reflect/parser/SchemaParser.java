@@ -11,16 +11,14 @@ import usf.java.reflect.parser.adapter.ParserAdapter;
 public class SchemaParser implements Parser {
 
 	@Override
-	public void run(ParserAdapter adapter, String schema) throws SQLException {
-		//String schema = adapter.getSchema();
+	public void run(ParserAdapter adapter, String pattern) throws SQLException {
 		Connection cnx = null;
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet rs = null;
 			try {
-				//rs = dm.getSchemas(null, schema);
-				rs = dm.getSchemas();
+				rs = dm.getSchemas(); //rs = dm.getSchemas(null, schema); thorw exception
 				while(rs.next()) adapter.performSchema(new Schema(rs.getString("TABLE_SCHEM")));
 			}
 			catch(SQLException e) {

@@ -13,14 +13,14 @@ import usf.java.reflect.parser.adapter.ParserAdapter;
 
 public class ProcedureParser implements Parser {
 	
-	public void run(ParserAdapter adapter, String schema, String procedure) throws SQLException{
+	public void run(ParserAdapter adapter, String schema, String pattern) throws SQLException{
 		Connection cnx = null;
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet procs = null;
 			try {
-				procs = dm.getProcedures(null, schema, procedure);
+				procs = dm.getProcedures(null, schema, pattern);
 				while(procs.next()){
 					Procedure p = new Procedure(
 							procs.getString("PROCEDURE_SCHEM"), 

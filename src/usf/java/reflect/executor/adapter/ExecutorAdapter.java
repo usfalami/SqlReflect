@@ -18,13 +18,13 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 		super(cm, formatter);
 	}
 	
-	public void execute(String query, Serializable... parameters) throws SQLException {
+	public void execute(String query, Serializable... parameters) throws SQLException { //one preparedStatement
 		Executor e = executorFor(parameters);
 		SQL sql = cm.parseSQL(query);
 		if(sql != null)
 			e.run(this, sql, parameters);
 	}
-	public void execute(String... queries) throws SQLException { // only statment
+	public void execute(String... queries) throws SQLException { // only statments
 		if(queries == null) return;
 		Executor e = new StatmentExecutor();
 		for(String query : queries)

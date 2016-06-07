@@ -12,7 +12,7 @@ import usf.java.reflect.executor.adapter.ExecutorAdapter;
 public class StatmentExecutor implements Executor {
 
 	@Override
-	public void run(ExecutorAdapter adapter,  SQL sql, Serializable ... parametters) throws SQLException {
+	public void run(ExecutorAdapter adapter, SQL sql, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -39,7 +39,6 @@ public class StatmentExecutor implements Executor {
 				finally {
 					if(rs!=null) rs.close();
 				}
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
