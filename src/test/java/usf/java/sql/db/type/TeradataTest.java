@@ -21,8 +21,8 @@ public class TeradataTest extends TestCase {
 		String url = db.makeURL(new Env("localhost", "db_1", 6655));
 		String exp = "jdbc:teradata://localhost/database=db_1,dbs_port=6655,";
 		assertEquals(exp, url);
-		url = db.makeURL(new Env("localhost", "db_1", 6655, "tmode=tera,charset=utf8"));
-		exp = "jdbc:teradata://localhost/database=db_1,dbs_port=6655,tmode=tera,charset=utf8";
+		url = db.makeURL(new Env("127.0.0.1", "db_2", 7001, "tmode=tera,charset=utf8"));
+		exp = "jdbc:teradata://127.0.0.1/database=db_2,dbs_port=7001,tmode=tera,charset=utf8";
 		assertEquals(exp, url);
 	}
 	
