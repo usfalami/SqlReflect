@@ -35,8 +35,8 @@ public abstract class AbstractReflectorAdapter {
 	public static final int COLUMN_TYPE_LENGTH   		= -10;
 	public static final int COLUMN_PARAM_LENGTH 		= -60;
 	
-	public static final int PERFORM_TEXT_LENGTH 		=-15;
+	public static final int PERFORM_TEXT_LENGTH 		= -15;
 	
-	public static final int VALUE_LENGTH 				=-21;
+	public static final int VALUE_LENGTH 				= -21;
 
 }

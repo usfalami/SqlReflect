@@ -14,7 +14,7 @@ public abstract class AbstractDatabaseParserAdapter extends AbstractReflectorAda
 		super(cm, formatter);
 	}
 	
-	public void listAll() throws SQLException{
+	public void list() throws SQLException{
 		new SchemaParser().run(this, null);
 	}
 

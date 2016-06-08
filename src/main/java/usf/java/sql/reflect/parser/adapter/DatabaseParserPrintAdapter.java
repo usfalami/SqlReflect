@@ -10,17 +10,16 @@ public class DatabaseParserPrintAdapter extends AbstractDatabaseParserAdapter {
 		super(rf, formatter);
 		formatter.configure(DATABASE_NAME_LENGTH);
 	}
-
-	@Override
-	public void performDatabase(Database db) {
-		if(db == null) return;
-		formatter.formatRow(db.getName());
-	}
-
+	
 	@Override
 	public void start() {
 		formatter.startTable();
 		formatter.formatHeaders("Database");
+	}
+
+	@Override
+	public void performDatabase(Database db) {
+		formatter.formatRow(db.getName());
 	}
 
 	@Override

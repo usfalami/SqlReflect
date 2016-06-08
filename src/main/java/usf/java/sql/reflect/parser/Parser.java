@@ -9,8 +9,8 @@ public interface Parser<T extends Parser.Adapter> extends Reflector<T> {
 	
 	public static interface Adapter extends Reflector.Adapter {
 
-		public abstract void start();
-		public abstract void finish();
+		void start();
+		void finish();
 		
 	}
 	

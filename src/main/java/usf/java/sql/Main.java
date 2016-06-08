@@ -74,10 +74,9 @@ public class Main {
 //		test3();
 //		test4();
 		
-//		ex1();
-//		ex2();
-//		ex3();
-//		
+		ex1();
+		ex2();
+		ex3();
 		ex4();
 	}
 
@@ -113,29 +112,25 @@ public class Main {
 	}
 	
 	//Parsers & Adapters
+	
+	//list all server databases  
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
 		AbstractDatabaseParserAdapter a = new DatabaseParserPrintAdapter(cm, format);
-		a.list(null);
+		a.list();
 	}
+	//Search PRCD_RECH_POM_ID_HAB_020 procedure in all Databases 
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
-		a.list(env.getDatabase(), "%RECH%POM%");
-	}	
-	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
 		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
 		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
-	
+	//Search any procdure that contains 'RECH' & 'POM' in current database
+	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
+		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
+		a.list(env.getDatabase(), "%RECH%POM%");
+	}
+	//Search and compare PRCD_RECH_POM_ID_HAB_020 procedure environnement
 	public static void ex4() throws InstantiationException, IllegalAccessException, SQLException{
 		AbstractFunctionParserAdapter a = new FunctionColumnComparatorAdapter(cm, format);
 		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
-	
-	
-//	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-//		SQL sql = cm.parseSQL(query);
-//		ParserAdapter a = new ParserCheckAdapter(cm, format);
-//		a.listProcedure(null, sql.getName());
-//	}
-
 }
