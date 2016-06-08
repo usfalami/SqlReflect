@@ -22,7 +22,7 @@ public interface Parser<T extends Parser.Adapter> extends Reflector<T> {
 	
 	public static interface FunctionAdapter extends Parser.Adapter {
 		
-		public abstract void performFunction(Function procedure, Column ...columns);
+		void performFunction(Function procedure, Column ...columns);
 	
 	}
 	
