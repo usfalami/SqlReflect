@@ -8,10 +8,7 @@ public interface Reflector<T extends Reflector.Adapter> {
 	public static interface Adapter {
 
 		ConnectionManager getConnectionManager();
-
-		void start();
-		void finish();
-		
+	
 	}
 
 }
