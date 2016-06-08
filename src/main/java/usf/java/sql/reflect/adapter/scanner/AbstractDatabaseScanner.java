@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.adapter.parser;
+package usf.java.sql.reflect.adapter.scanner;
 
 import java.sql.SQLException;
 

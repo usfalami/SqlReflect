@@ -1,9 +1,10 @@
-package usf.java.sql.reflect.adapter.parser;
+package usf.java.sql.reflect.adapter.scanner.printer;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
+import usf.java.sql.reflect.adapter.scanner.AbstractFunctionScnner;
 
 public class FunctionScannerPrinter extends AbstractFunctionScnner {
 	

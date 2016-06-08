@@ -22,11 +22,11 @@ import usf.java.sql.reflect.adapter.executor.ExecutorColumnAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorPerformAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorResultAdapter;
 import usf.java.sql.reflect.adapter.executor.MultiExecutorAdapter;
-import usf.java.sql.reflect.adapter.parser.AbstractDatabaseScanner;
-import usf.java.sql.reflect.adapter.parser.AbstractFunctionScnner;
-import usf.java.sql.reflect.adapter.parser.DatabaseScannerPrinter;
-import usf.java.sql.reflect.adapter.parser.FunctionColumnComparator;
-import usf.java.sql.reflect.adapter.parser.FunctionScannerPrinter;
+import usf.java.sql.reflect.adapter.scanner.AbstractDatabaseScanner;
+import usf.java.sql.reflect.adapter.scanner.AbstractFunctionScnner;
+import usf.java.sql.reflect.adapter.scanner.comparator.FunctionColumnComparator;
+import usf.java.sql.reflect.adapter.scanner.printer.DatabaseScannerPrinter;
+import usf.java.sql.reflect.adapter.scanner.printer.FunctionScannerPrinter;
 
 public class Main {
 
