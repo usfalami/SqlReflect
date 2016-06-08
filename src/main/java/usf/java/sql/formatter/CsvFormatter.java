@@ -47,6 +47,6 @@ public class CsvFormatter extends AbstractFormatter {
 
 	@Override
 	public void endTable() {
-		
+		out.println();
 	}
 }

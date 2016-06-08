@@ -4,7 +4,7 @@ import java.io.OutputStream;
 
 public class AsciiFormatter extends AbstractFormatter {
 
-	private String format, layout, row;
+	private String columns, layout, row;
 
 	public AsciiFormatter(OutputStream out) {
 		super(out);
@@ -15,23 +15,23 @@ public class AsciiFormatter extends AbstractFormatter {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < cols; i++)
 			s.append("| %").append(size).append("s");
-		format = s.append("|\n").toString();
-		size = Math.abs(size);
-		layout = String.format("+%" + (cols * (size + 2) - 1) + "s+"+System.lineSeparator(), "").replace(' ', '-');
-		row = "| %" + (4+1 - layout.length()) + "s|" + System.lineSeparator();
+		columns = s.append("|").append(System.lineSeparator()).toString();
+		int length = cols * (Math.abs(size) + 2) +1;//col size + "/ "
+		layout = String.format("+%" + (2-length) + "s+"+System.lineSeparator(), "").replace(' ', '-');
+		row = "| %" + (3-length) + "s|" + System.lineSeparator();
 	}
 	
 	@Override
 	public void configure(int... sizes) {
 		StringBuilder s = new StringBuilder();
-		int max = 0;
+		int length = 1;
 		for (int i = 0; i < sizes.length; i++) {
 			s.append("| %").append(sizes[i]).append("s");
-			max += Math.abs(sizes[i]) + 2;
+			length += Math.abs(sizes[i]) + 2;
 		}
-		format = s.append("|\n").toString();
-		layout = String.format("+%" + (max - 1) + "s+"+System.lineSeparator(), "").replace(' ', '-');
-		row = "| %" + (4+1 - layout.length()) + "s|" + System.lineSeparator();
+		columns = s.append("|").append(System.lineSeparator()).toString();
+		layout = String.format("+%" + (length - 2) + "s+"+System.lineSeparator(), "").replace(' ', '-');
+		row = "| %" + (3-length) + "s|" + System.lineSeparator();
 	}
 
 	@Override
@@ -46,12 +46,12 @@ public class AsciiFormatter extends AbstractFormatter {
 	@Override
 	public void formatHeaders(Object... obj) {
 		out.print(layout);
-		out.format(format, obj);
+		out.format(columns, obj);
 		out.print(layout);
 	}
 	@Override
 	public void formatRow(Object... obj) {
-		out.format(format, obj);
+		out.format(columns, obj);
 	}
 	@Override
 	public void formatFooter(String footer) {

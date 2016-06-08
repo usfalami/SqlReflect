@@ -39,9 +39,9 @@ public class CsvFormatterTest extends TestCase {
 		OutputStream o = new ByteArrayOutputStream();
 		AbstractFormatter format = new CsvFormatter(o);
 		Date d = new Date();
-		Object[] headers = {"value 1", 3.55, 5566, d};
+		Object[] headers = {"value 1", 3.55, 5566, d, true};
 		format.formatHeaders(headers);
-		assertEquals(o.toString(), "value 1;3.55;5566;"+d+";"+System.lineSeparator());
+		assertEquals(o.toString(), "value 1;3.55;5566;"+d+";true;"+System.lineSeparator());
 		o.close();
 	}
 	
@@ -53,4 +53,13 @@ public class CsvFormatterTest extends TestCase {
 		assertEquals(o.toString(), title+";"+System.lineSeparator());
 		o.close();
 	}
+	
+	public void testEndTable() throws IOException {
+		OutputStream o = new ByteArrayOutputStream();
+		AbstractFormatter format = new CsvFormatter(o);
+		format.startTable();
+		assertEquals(o.toString(), System.lineSeparator());
+		o.close();
+	}
+	
 }

@@ -78,7 +78,7 @@ public class Main {
 	//Excecutors & Adapters
 	
 	public static void test() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
+		ExecutorAdapter a = new ExecutorColumnAdapter(cm, format);
 		a.execute("SELECT 1", "SELECT database");
 	}
 	
