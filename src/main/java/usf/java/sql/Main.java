@@ -65,10 +65,10 @@ public class Main {
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 //		
-//		test1();
-//		test2(); 
-//		test3();
 		test();
+		test1();
+		test2(); 
+		test3();
 		
 //		ex1();
 //		ex2();
@@ -78,7 +78,7 @@ public class Main {
 	//Excecutors & Adapters
 	
 	public static void test() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		ExecutorAdapter a = new ExecutorColumnAdapter(cm, format);
+		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);
 		a.execute("SELECT 1", "SELECT database");
 	}
 	

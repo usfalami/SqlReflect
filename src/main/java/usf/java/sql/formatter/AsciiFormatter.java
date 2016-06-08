@@ -3,6 +3,9 @@ package usf.java.sql.formatter;
 import java.io.OutputStream;
 
 public class AsciiFormatter extends AbstractFormatter {
+	
+	private static final String COLOMN_SEPAR = "|";
+	private static final String TABLE_CORN = "+";
 
 	private String columns, layout, row;
 
@@ -14,24 +17,25 @@ public class AsciiFormatter extends AbstractFormatter {
 	public void configure(int cols, int size) {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < cols; i++)
-			s.append("| %").append(size).append("s");
-		columns = s.append("|").append(System.lineSeparator()).toString();
-		int length = cols * (Math.abs(size) + 2) +1;//col size + "/ "
-		layout = String.format("+%" + (2-length) + "s+"+System.lineSeparator(), "").replace(' ', '-');
-		row = "| %" + (3-length) + "s|" + System.lineSeparator();
+			s.append(COLOMN_SEPAR).append("%").append(size).append("s");
+		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
+		int length = cols * (Math.abs(size) + COLOMN_SEPAR.length()) + COLOMN_SEPAR.length();
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', '-');
+		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
 	}
 	
 	@Override
 	public void configure(int... sizes) {
 		StringBuilder s = new StringBuilder();
-		int length = 1;
+		int length = 0;
 		for (int i = 0; i < sizes.length; i++) {
-			s.append("| %").append(sizes[i]).append("s");
-			length += Math.abs(sizes[i]) + 2;
+			s.append(COLOMN_SEPAR).append("%").append(sizes[i]).append("s");
+			length += Math.abs(sizes[i]) + COLOMN_SEPAR.length();
 		}
-		columns = s.append("|").append(System.lineSeparator()).toString();
-		layout = String.format("+%" + (length - 2) + "s+"+System.lineSeparator(), "").replace(' ', '-');
-		row = "| %" + (3-length) + "s|" + System.lineSeparator();
+		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
+		length += COLOMN_SEPAR.length();
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', '-');
+		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
 	}
 
 	@Override
