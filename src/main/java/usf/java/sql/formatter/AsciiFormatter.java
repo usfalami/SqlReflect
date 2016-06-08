@@ -4,7 +4,7 @@ import java.io.OutputStream;
 
 public class AsciiFormatter extends AbstractFormatter {
 
-	private String format, layout;
+	private String format, layout, row;
 
 	public AsciiFormatter(OutputStream out) {
 		super(out);
@@ -17,7 +17,8 @@ public class AsciiFormatter extends AbstractFormatter {
 			s.append("| %").append(size).append("s");
 		format = s.append("|\n").toString();
 		size = Math.abs(size);
-		layout = String.format("+%" + (cols * (size + 2) - 1) + "s+\n", "").replace(' ', '-');
+		layout = String.format("+%" + (cols * (size + 2) - 1) + "s+"+System.lineSeparator(), "").replace(' ', '-');
+		row = "| %" + (4+1 - layout.length()) + "s|" + System.lineSeparator();
 	}
 	
 	@Override
@@ -29,7 +30,8 @@ public class AsciiFormatter extends AbstractFormatter {
 			max += Math.abs(sizes[i]) + 2;
 		}
 		format = s.append("|\n").toString();
-		layout = String.format("+%" + (max - 1) + "s+\n", "").replace(' ', '-');
+		layout = String.format("+%" + (max - 1) + "s+"+System.lineSeparator(), "").replace(' ', '-');
+		row = "| %" + (4+1 - layout.length()) + "s|" + System.lineSeparator();
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class AsciiFormatter extends AbstractFormatter {
 	@Override
 	public void formatTitle(String title) {
 		out.print(layout);
-		out.format("| %" + (4 - layout.length()) + "s|\n", title);
+		out.format(row, title);
 	}
 	@Override
 	public void formatHeaders(Object... obj) {
@@ -53,7 +55,7 @@ public class AsciiFormatter extends AbstractFormatter {
 	}
 	@Override
 	public void formatFooter(String footer) {
-		out.format("| %" + (4 - layout.length()) + "s|\n", footer);
+		out.format(row, footer);
 	}
 	@Override
 	public void endTable() {
