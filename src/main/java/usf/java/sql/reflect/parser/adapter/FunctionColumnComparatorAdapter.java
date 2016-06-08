@@ -9,9 +9,8 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.FunctionParserAdapter;
 
-public class FunctionColumnComparatorAdapter extends FunctionParserAdapter {
+public class FunctionColumnComparatorAdapter extends AbstractFunctionParserAdapter {
 	
 	protected String pattern;
 	protected List<Function> functions;
@@ -54,10 +53,10 @@ public class FunctionColumnComparatorAdapter extends FunctionParserAdapter {
 	}
 	
 	@Override
-	public void listProcedure(String database, String pattern) throws SQLException {
+	public void list(String database, String pattern) throws SQLException {
 		this.pattern = pattern;
 		if(pattern == null || pattern.isEmpty()) return;
-		super.listProcedure(database, pattern);
+		super.list(database, pattern);
 	}
 
 }

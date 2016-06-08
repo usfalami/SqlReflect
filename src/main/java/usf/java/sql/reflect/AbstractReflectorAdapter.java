@@ -6,12 +6,12 @@ import java.text.SimpleDateFormat;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.formatter.Formatter;
 
-public abstract class AbstractAdapter {
+public abstract class AbstractReflectorAdapter {
 	
 	protected Formatter formatter;
 	protected ConnectionManager cm;
 	
-	public AbstractAdapter(ConnectionManager rf, Formatter formatter) {
+	public AbstractReflectorAdapter(ConnectionManager rf, Formatter formatter) {
 		this.cm = rf;
 		this.formatter = formatter;
 	}

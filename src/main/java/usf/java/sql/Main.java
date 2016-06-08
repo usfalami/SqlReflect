@@ -22,8 +22,8 @@ import usf.java.sql.reflect.executor.adapter.ExecutorColumnAdapter;
 import usf.java.sql.reflect.executor.adapter.ExecutorPerformAdapter;
 import usf.java.sql.reflect.executor.adapter.ExecutorResultAdapter;
 import usf.java.sql.reflect.executor.adapter.MultiExecutorAdapter;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.DatabaseParserAdapter;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.FunctionParserAdapter;
+import usf.java.sql.reflect.parser.adapter.AbstractDatabaseParserAdapter;
+import usf.java.sql.reflect.parser.adapter.AbstractFunctionParserAdapter;
 import usf.java.sql.reflect.parser.adapter.DatabaseParserPrintAdapter;
 import usf.java.sql.reflect.parser.adapter.FunctionColumnComparatorAdapter;
 import usf.java.sql.reflect.parser.adapter.FunctionParserPrintAdapter;
@@ -74,11 +74,11 @@ public class Main {
 //		test3();
 //		test4();
 		
-		ex1();
+//		ex1();
 //		ex2();
 //		ex3();
 //		
-//		ex4();
+		ex4();
 	}
 
 	//Excecutors & Adapters
@@ -114,21 +114,21 @@ public class Main {
 	
 	//Parsers & Adapters
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		DatabaseParserAdapter a = new DatabaseParserPrintAdapter(cm, format);
-		a.listSchema(null);
+		AbstractDatabaseParserAdapter a = new DatabaseParserPrintAdapter(cm, format);
+		a.list(null);
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		FunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
-		a.listProcedure(env.getDatabase(), "%RECH%POM%");
+		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
+		a.list(env.getDatabase(), "%RECH%POM%");
 	}	
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-		FunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
-		a.listProcedure(null, "PRCD_RECH_POM_ID_HAB_020");
+		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
+		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
 	
 	public static void ex4() throws InstantiationException, IllegalAccessException, SQLException{
-		FunctionParserAdapter a = new FunctionColumnComparatorAdapter(cm, format);
-		a.listProcedure(null, "PRCD_RECH_POM_ID_HAB_020");
+		AbstractFunctionParserAdapter a = new FunctionColumnComparatorAdapter(cm, format);
+		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
 	
 	

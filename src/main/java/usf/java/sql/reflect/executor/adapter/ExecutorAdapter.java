@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.AbstractAdapter;
+import usf.java.sql.reflect.AbstractReflectorAdapter;
 import usf.java.sql.reflect.executor.Executor;
 import usf.java.sql.reflect.executor.PreparedStatementExecutor;
 import usf.java.sql.reflect.executor.StatementExecutor;
 
-public abstract class ExecutorAdapter extends AbstractAdapter {
+public abstract class ExecutorAdapter extends AbstractReflectorAdapter implements Executor.Adapter {
 	
 	public ExecutorAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -35,15 +35,6 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 		for(int i=0; i<queries.length; i++)
 			this.execute(queries[i], parameters[i]);
 	}
-
-	public abstract void preConnecion();
-	public abstract void postConnecion();
-	
-	public abstract void preStatement();
-	public abstract void postStatement();
-	
-	public abstract void preExec(SQL SQL) throws SQLException ;
-	public abstract void postExec(SQL SQL, ResultSet rs) throws SQLException;
 	
 	protected Executor executorFor(Serializable... parameters) {
 		return parameters==null || parameters.length==0 ? new StatementExecutor() : new PreparedStatementExecutor();

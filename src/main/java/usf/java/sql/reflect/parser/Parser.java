@@ -1,14 +1,30 @@
 package usf.java.sql.reflect.parser;
 
-import java.sql.SQLException;
-
+import usf.java.sql.db.field.Column;
+import usf.java.sql.db.field.Database;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.reflect.Reflector;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter;
 
-public interface Parser<T extends AbstractParserAdapter> extends Reflector<T> {
+public interface Parser<T extends Parser.Adapter> extends Reflector<T> {
+	
+	public static interface Adapter extends Reflector.Adapter {
 
-	public abstract void run(T adapter) throws SQLException ;
-
-	public abstract void run(T adapter, String pattern) throws SQLException ;
+		public abstract void start();
+		public abstract void finish();
+		
+	}
+	
+	public static interface DatabaseAdapter extends Parser.Adapter {
+		
+		void performDatabase(Database db);
+	
+	}
+	
+	public static interface FunctionAdapter extends Parser.Adapter {
+		
+		public abstract void performFunction(Function procedure, Column ...columns);
+	
+	}
+	
 		
 }

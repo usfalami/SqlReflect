@@ -3,9 +3,8 @@ package usf.java.sql.reflect.parser.adapter;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Database;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.DatabaseParserAdapter;
 
-public class DatabaseParserPrintAdapter extends DatabaseParserAdapter {
+public class DatabaseParserPrintAdapter extends AbstractDatabaseParserAdapter {
 
 	public DatabaseParserPrintAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);

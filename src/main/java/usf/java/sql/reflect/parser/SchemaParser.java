@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.db.field.Database;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.DatabaseParserAdapter;
 
-public class SchemaParser implements Parser<DatabaseParserAdapter> {
+public class SchemaParser implements Parser<Parser.DatabaseAdapter> {
 
-	@Override
-	public void run(DatabaseParserAdapter adapter, String database) throws SQLException {
+	public void run(Parser.DatabaseAdapter adapter, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -19,7 +17,7 @@ public class SchemaParser implements Parser<DatabaseParserAdapter> {
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet rs = null;
 			try {
-				rs = dm.getSchemas(); //rs = dm.getSchemas(null, database); thorw exception
+				rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
 				while(rs.next()) adapter.performDatabase(new Database(rs.getString("TABLE_SCHEM")));
 			}
 			catch(SQLException e) {
@@ -39,8 +37,4 @@ public class SchemaParser implements Parser<DatabaseParserAdapter> {
 		adapter.finish();
 	}
 	
-	@Override
-	public void run(DatabaseParserAdapter adapter) throws SQLException {
-		run(adapter, null);
-	}	
 }

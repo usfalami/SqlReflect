@@ -7,12 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.db.field.SQL;
-import usf.java.sql.reflect.executor.adapter.ExecutorAdapter;
 
 public class PreparedStatementExecutor implements Executor {
 
 	@Override
-	public void run(ExecutorAdapter adapter, SQL sql, Serializable ... parameters) throws SQLException {
+	public void run(Adapter adapter, SQL sql, Serializable ... parameters) throws SQLException {
 		
 		Connection cnx = null;
 		try {

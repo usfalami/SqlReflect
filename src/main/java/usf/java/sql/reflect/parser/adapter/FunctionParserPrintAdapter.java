@@ -4,9 +4,8 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.FunctionParserAdapter;
 
-public class FunctionParserPrintAdapter extends FunctionParserAdapter {
+public class FunctionParserPrintAdapter extends AbstractFunctionParserAdapter {
 	
 	public FunctionParserPrintAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
