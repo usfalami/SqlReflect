@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import usf.java.sql.connection.ConnectionManager;
-import usf.java.sql.connection.SingleConnectionManager;
+import usf.java.sql.connection.SimpleConnectionManager;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
 import usf.java.sql.db.User;
@@ -31,7 +31,7 @@ public class Main {
 	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025, "tmode=tera,charset=utf8");
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
 	
-	private static ConnectionManager cm = new SingleConnectionManager(db, env, user);
+	private static ConnectionManager cm = new SimpleConnectionManager(db, env, user);
 	
 	public static Formatter format = new AsciiFormatter(System.out);
 
@@ -99,10 +99,10 @@ public class Main {
 	public static void test4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
 		MultiExecutorAdapter a = new MultiExecutorAdapter(cm, format);
 		a.setAdapters( 
-			new ExecutorColumnAdapter(cm, new AsciiFormatter(System.out)),
-			new ExecutorColumnAdapter(cm, new AsciiFormatter(new FileOutputStream("target/usf.txt"))),
-			new ExecutorColumnAdapter(cm, new CsvFormatter(new FileOutputStream("target/usf.csv"))),
-			new ExecutorColumnAdapter(cm, new HtmlFormatter(new FileOutputStream("target/usf.html")))
+			new ExecutorPerformAdapter(cm, new AsciiFormatter(System.out)),
+			new ExecutorPerformAdapter(cm, new AsciiFormatter(new FileOutputStream("target/usf.txt"))),
+			new ExecutorPerformAdapter(cm, new CsvFormatter(new FileOutputStream("target/usf.csv"))),
+			new ExecutorPerformAdapter(cm, new HtmlFormatter(new FileOutputStream("target/usf.html")))
 		);
 		a.execute(Queries.cap);
 	}
