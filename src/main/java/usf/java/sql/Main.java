@@ -17,16 +17,16 @@ import usf.java.sql.formatter.AsciiFormatter;
 import usf.java.sql.formatter.CsvFormatter;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.formatter.HtmlFormatter;
-import usf.java.sql.reflect.executor.adapter.ExecutorAdapter;
-import usf.java.sql.reflect.executor.adapter.ExecutorColumnAdapter;
-import usf.java.sql.reflect.executor.adapter.ExecutorPerformAdapter;
-import usf.java.sql.reflect.executor.adapter.ExecutorResultAdapter;
-import usf.java.sql.reflect.executor.adapter.MultiExecutorAdapter;
-import usf.java.sql.reflect.parser.adapter.AbstractDatabaseParserAdapter;
-import usf.java.sql.reflect.parser.adapter.AbstractFunctionParserAdapter;
-import usf.java.sql.reflect.parser.adapter.DatabaseParserPrintAdapter;
-import usf.java.sql.reflect.parser.adapter.FunctionColumnComparatorAdapter;
-import usf.java.sql.reflect.parser.adapter.FunctionParserPrintAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorColumnAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorPerformAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorResultAdapter;
+import usf.java.sql.reflect.adapter.executor.MultiExecutorAdapter;
+import usf.java.sql.reflect.adapter.parser.AbstractDatabaseScanner;
+import usf.java.sql.reflect.adapter.parser.AbstractFunctionScnner;
+import usf.java.sql.reflect.adapter.parser.DatabaseScannerPrinter;
+import usf.java.sql.reflect.adapter.parser.FunctionColumnComparator;
+import usf.java.sql.reflect.adapter.parser.FunctionScannerPrinter;
 
 public class Main {
 
@@ -115,22 +115,22 @@ public class Main {
 	
 	//list all server databases  
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
-		AbstractDatabaseParserAdapter a = new DatabaseParserPrintAdapter(cm, format);
+		AbstractDatabaseScanner a = new DatabaseScannerPrinter(cm, format);
 		a.list();
 	}
 	//Search PRCD_RECH_POM_ID_HAB_020 procedure in all Databases 
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
-		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
+		AbstractFunctionScnner a = new FunctionScannerPrinter(cm, format);
 		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
 	//Search any procdure that contains 'RECH' & 'POM' in current database
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
-		AbstractFunctionParserAdapter a = new FunctionParserPrintAdapter(cm, format);
+		AbstractFunctionScnner a = new FunctionScannerPrinter(cm, format);
 		a.list(env.getDatabase(), "%RECH%POM%");
 	}
 	//Search and compare PRCD_RECH_POM_ID_HAB_020 procedure environnement
 	public static void ex4() throws InstantiationException, IllegalAccessException, SQLException{
-		AbstractFunctionParserAdapter a = new FunctionColumnComparatorAdapter(cm, format);
+		AbstractFunctionScnner a = new FunctionColumnComparator(cm, format);
 		a.list(null, "PRCD_RECH_POM_ID_HAB_020");
 	}
 }

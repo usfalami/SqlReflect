@@ -1,4 +1,4 @@
-package usf.java.sql.reflect;
+package usf.java.sql.reflect.core;
 
 import usf.java.sql.connection.ConnectionManager;
 

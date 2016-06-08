@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.executor.adapter;
+package usf.java.sql.reflect.adapter.executor;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

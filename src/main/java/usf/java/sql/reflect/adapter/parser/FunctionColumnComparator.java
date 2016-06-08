@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.parser.adapter;
+package usf.java.sql.reflect.adapter.parser;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,13 +10,13 @@ import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
 
-public class FunctionColumnComparatorAdapter extends AbstractFunctionParserAdapter {
+public class FunctionColumnComparator extends AbstractFunctionScnner {
 	
 	protected String pattern;
 	protected List<Function> functions;
 	protected List<Column[]> columnsList;
 
-	public FunctionColumnComparatorAdapter(ConnectionManager cm, Formatter formatter) {
+	public FunctionColumnComparator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 		functions = new ArrayList<Function>();
 		columnsList = new ArrayList<Column[]>();

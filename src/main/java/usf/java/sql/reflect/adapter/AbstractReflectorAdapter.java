@@ -1,4 +1,4 @@
-package usf.java.sql.reflect;
+package usf.java.sql.reflect.adapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

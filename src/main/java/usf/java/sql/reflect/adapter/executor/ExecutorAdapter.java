@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.executor.adapter;
+package usf.java.sql.reflect.adapter.executor;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.AbstractReflectorAdapter;
-import usf.java.sql.reflect.executor.Executor;
-import usf.java.sql.reflect.executor.PreparedStatementExecutor;
-import usf.java.sql.reflect.executor.StatementExecutor;
+import usf.java.sql.reflect.adapter.AbstractReflectorAdapter;
+import usf.java.sql.reflect.core.excutor.Executor;
+import usf.java.sql.reflect.core.excutor.PreparedStatementExecutor;
+import usf.java.sql.reflect.core.excutor.StatementExecutor;
 
 public abstract class ExecutorAdapter extends AbstractReflectorAdapter implements Executor.Adapter {
 	

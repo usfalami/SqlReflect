@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.parser;
+package usf.java.sql.reflect.core.scanner;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 import usf.java.sql.db.field.Database;
 
-public class SchemaParser implements Parser<Parser.DatabaseAdapter> {
+public class DatabaseScanner implements Scanner<Scanner.DatabaseAdapter> {
 
-	public void run(Parser.DatabaseAdapter adapter, String database) throws SQLException {
+	public void run(Scanner.DatabaseAdapter adapter, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {

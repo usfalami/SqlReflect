@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.parser;
+package usf.java.sql.reflect.core.scanner;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -10,9 +10,9 @@ import java.util.List;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 
-public class ProcedureParser implements Parser<Parser.FunctionAdapter> {
+public class ProcedureScanner implements Scanner<Scanner.FunctionAdapter> {
 	
-	public void run(Parser.FunctionAdapter adapter, String database, String procedure) throws SQLException{
+	public void run(Scanner.FunctionAdapter adapter, String database, String procedure) throws SQLException{
 		adapter.start();
 		Connection cnx = null;
 		try {

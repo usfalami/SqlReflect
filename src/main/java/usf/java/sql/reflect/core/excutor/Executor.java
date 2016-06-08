@@ -1,11 +1,11 @@
-package usf.java.sql.reflect.executor;
+package usf.java.sql.reflect.core.excutor;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.db.field.SQL;
-import usf.java.sql.reflect.Reflector;
+import usf.java.sql.reflect.core.Reflector;
 
 public interface Executor extends Reflector<Executor.Adapter> {
 	

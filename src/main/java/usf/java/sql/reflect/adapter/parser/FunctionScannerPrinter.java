@@ -1,13 +1,13 @@
-package usf.java.sql.reflect.parser.adapter;
+package usf.java.sql.reflect.adapter.parser;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
 
-public class FunctionParserPrintAdapter extends AbstractFunctionParserAdapter {
+public class FunctionScannerPrinter extends AbstractFunctionScnner {
 	
-	public FunctionParserPrintAdapter(ConnectionManager cm, Formatter formatter) {
+	public FunctionScannerPrinter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 

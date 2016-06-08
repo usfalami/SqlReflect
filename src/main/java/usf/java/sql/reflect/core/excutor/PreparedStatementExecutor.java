@@ -1,17 +1,17 @@
-package usf.java.sql.reflect.executor;
+package usf.java.sql.reflect.core.excutor;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import usf.java.sql.db.field.SQL;
 
-public class StatementExecutor implements Executor {
+public class PreparedStatementExecutor implements Executor {
 
 	@Override
-	public void run(Adapter adapter, SQL sql, Serializable ... parametters) throws SQLException {
+	public void run(Adapter adapter, SQL sql, Serializable ... parameters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -19,17 +19,20 @@ public class StatementExecutor implements Executor {
 			cnx = adapter.getConnectionManager().newConnection();
 			adapter.postConnecion();
 			
-			Statement ps = null;
+			PreparedStatement ps = null;
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(sql.get(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				if(parameters != null)
+					for(int i=0; i<parameters.length; i++)
+						ps.setObject(i+1, parameters[i]);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
 					adapter.preExec(sql);
-					rs = ps.executeQuery(sql.get());
+					rs = ps.executeQuery();
 					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -38,6 +41,7 @@ public class StatementExecutor implements Executor {
 				finally {
 					if(rs!=null) rs.close();
 				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
