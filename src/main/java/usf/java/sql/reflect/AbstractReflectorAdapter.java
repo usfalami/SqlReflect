@@ -24,6 +24,9 @@ public abstract class AbstractReflectorAdapter {
 	public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 	public static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");
 	//Custom parameters
+
+	public static final int DATABASE_NAME_LENGTH 		= -50;
+	
 	public static final int COLUMN_NUM_LENGTH    		= -2;
 	public static final int COLUMN_NAME_LENGTH   		= -30;
 	public static final int COLUMN_VALUE_TYPE_LENGTH	= -10;

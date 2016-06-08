@@ -8,7 +8,7 @@ public class DatabaseParserPrintAdapter extends AbstractDatabaseParserAdapter {
 
 	public DatabaseParserPrintAdapter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
-		formatter.configure(-50);
+		formatter.configure(DATABASE_NAME_LENGTH);
 	}
 
 	@Override
