@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.db.field.Database;
-import usf.java.sql.reflect.parser.adapter.ParserAdapter;
+import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.DatabaseParserAdapter;
 
-public class SchemaParser implements Parser {
+public class SchemaParser implements Parser<DatabaseParserAdapter> {
 
 	@Override
-	public void run(ParserAdapter adapter, String database) throws SQLException {
+	public void run(DatabaseParserAdapter adapter, String database) throws SQLException {
+		adapter.start();
 		Connection cnx = null;
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
@@ -35,10 +36,11 @@ public class SchemaParser implements Parser {
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);
 		}
+		adapter.finish();
 	}
 	
 	@Override
-	public void run(ParserAdapter adapter) throws SQLException {
+	public void run(DatabaseParserAdapter adapter) throws SQLException {
 		run(adapter, null);
 	}	
 }

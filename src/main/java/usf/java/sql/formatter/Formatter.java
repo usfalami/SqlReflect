@@ -1,7 +1,5 @@
 package usf.java.sql.formatter;
 
-import java.io.PrintStream;
-
 public interface Formatter {
 	
 	void configure(int cols, int size);
@@ -14,6 +12,4 @@ public interface Formatter {
 	void formatFooter(String footer);
 	void endTable();
 	
-	PrintStream getOut();
-
 }

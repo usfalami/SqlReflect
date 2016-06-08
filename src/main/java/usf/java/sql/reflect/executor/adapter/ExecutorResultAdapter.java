@@ -39,13 +39,13 @@ public class ExecutorResultAdapter extends ExecutorAdapter {
 	
 
 	@Override
-	public void preConnecion() {	}
+	public void preConnecion() { }
 	
 	@Override
 	public void postConnecion() { }
 
 	@Override
-	public void preStatement() {	}
+	public void preStatement() { }
 	
 	@Override
 	public void postStatement() { }

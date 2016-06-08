@@ -2,13 +2,13 @@ package usf.java.sql.reflect.parser.adapter;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
-import usf.java.sql.db.field.Database;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
+import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.FunctionParserAdapter;
 
-public class ParserPrintAdapter extends ParserAdapter {
+public class FunctionParserPrintAdapter extends FunctionParserAdapter {
 	
-	public ParserPrintAdapter(ConnectionManager cm, Formatter formatter) {
+	public FunctionParserPrintAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
@@ -17,15 +17,10 @@ public class ParserPrintAdapter extends ParserAdapter {
 				COLUMN_SIZE_LENGTH, 
 				COLUMN_TYPE_LENGTH);
 	}
+
 	
 	@Override
-	public void performDatabase(Database sc) {
-		if(sc == null) return;
-		formatter.getOut().format("%-30s\n", sc.getName());
-	}
-	
-	@Override
-	public void performProcedure(Function procedure, Column ...columns) {
+	public void performFunction(Function procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
@@ -39,4 +34,12 @@ public class ParserPrintAdapter extends ParserAdapter {
 			}
 		formatter.endTable();
 	}
+
+	@Override
+	public void start() { }
+	
+	@Override
+	public void finish() { }
+	
+	
 }

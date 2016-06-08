@@ -10,10 +10,4 @@ public abstract class AbstractFormatter implements Formatter {
 	public AbstractFormatter(OutputStream out) {
 		this.out = new PrintStream(out);
 	}
-
-	@Override
-	public PrintStream getOut() {
-		return out;
-	}
-
 }

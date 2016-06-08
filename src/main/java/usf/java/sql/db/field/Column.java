@@ -1,5 +1,7 @@
 package usf.java.sql.db.field;
 
+import java.util.Objects;
+
 import usf.java.sql.db.ColumnRoles;
 
 public class Column implements Field {
@@ -39,6 +41,23 @@ public class Column implements Field {
 	}
 	public void setRole(ColumnRoles role) {
 		this.role = role;
+	}
+	
+	@Override
+	public boolean equals(Object arg0) {
+		if(arg0 == null) return false; 
+		if(!arg0.getClass().equals(this.getClass())) return false;
+		Column c = (Column)arg0;
+		return Objects.equals(name, c.name) && 
+				Objects.equals(type, c.type) &&
+				Objects.equals(role, c.role) && 
+				Objects.equals(size, c.size); 
+	}
+
+	@Override
+	public String toString() {
+		return "Column [name=" + name + ", type=" + type + ", clazz=" + clazz
+				+ ", role=" + role + ", size=" + size + "]";
 	}
 
 }

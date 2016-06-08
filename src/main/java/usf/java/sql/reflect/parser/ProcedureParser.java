@@ -9,11 +9,12 @@ import java.util.List;
 
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
-import usf.java.sql.reflect.parser.adapter.ParserAdapter;
+import usf.java.sql.reflect.parser.adapter.AbstractParserAdapter.FunctionParserAdapter;
 
-public class ProcedureParser implements Parser {
+public class ProcedureParser implements Parser<FunctionParserAdapter> {
 	
-	public void run(ParserAdapter adapter, String database, String procedure) throws SQLException{
+	public void run(FunctionParserAdapter adapter, String database, String procedure) throws SQLException{
+		adapter.start();
 		Connection cnx = null;
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
@@ -30,7 +31,7 @@ public class ProcedureParser implements Parser {
 					try {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
 						Column[] list = listColumns(cols);
-						adapter.performProcedure(p, list);
+						adapter.performFunction(p, list);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -50,14 +51,15 @@ public class ProcedureParser implements Parser {
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);
 		}
+		adapter.finish();
 	}
 	
 	@Override
-	public void run(ParserAdapter adapter) throws SQLException {
+	public void run(FunctionParserAdapter adapter) throws SQLException {
 		run(adapter, null, null);
 	}
 	@Override
-	public void run(ParserAdapter adapter, String database) throws SQLException {
+	public void run(FunctionParserAdapter adapter, String database) throws SQLException {
 		run(adapter, database, null);
 	}
 	
