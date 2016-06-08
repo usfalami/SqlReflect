@@ -1,6 +1,5 @@
 package usf.java.sql.db.field;
 
-
 public interface SQL extends Field {
 	
 	public String getQuery();

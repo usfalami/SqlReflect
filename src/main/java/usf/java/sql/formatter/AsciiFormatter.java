@@ -6,6 +6,7 @@ public class AsciiFormatter extends AbstractFormatter {
 	
 	private static final String COLOMN_SEPAR = "|";
 	private static final String TABLE_CORN = "+";
+	private static final char TABLE_BORDER = '-';
 
 	private String columns, layout, row;
 
@@ -20,7 +21,7 @@ public class AsciiFormatter extends AbstractFormatter {
 			s.append(COLOMN_SEPAR).append("%").append(size).append("s");
 		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
 		int length = cols * (Math.abs(size) + COLOMN_SEPAR.length()) + COLOMN_SEPAR.length();
-		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', '-');
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', TABLE_BORDER);
 		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
 	}
 	

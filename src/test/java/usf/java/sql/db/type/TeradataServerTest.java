@@ -9,7 +9,7 @@ import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.server.TeradataServer;
 import junit.framework.TestCase;
 
-public class TeradataTest extends TestCase {
+public class TeradataServerTest extends TestCase {
 	
 	public void testGetDriver() {
 		Server db = new TeradataServer();
