@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usf.java.sql.db.field.Column;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.reflect.parser.adapter.ParserAdapter;
 
 public class ProcedureParser implements Parser {
@@ -22,10 +22,10 @@ public class ProcedureParser implements Parser {
 			try {
 				procs = dm.getProcedures(null, database, procedure);
 				while(procs.next()){
-					Procedure p = new Procedure(
+					Function p = new Function(
 							procs.getString("PROCEDURE_SCHEM"), 
-							procs.getString("PROCEDURE_NAME"), 
-							procs.getString("PROCEDURE_TYPE"));
+							procs.getString("PROCEDURE_NAME"));
+							//procs.getString("PROCEDURE_TYPE")
 					ResultSet cols = null;
 					try {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);

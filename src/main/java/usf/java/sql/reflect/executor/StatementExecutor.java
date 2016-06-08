@@ -30,7 +30,7 @@ public class StatementExecutor implements Executor {
 				ResultSet rs = null;
 				try {
 					adapter.preExec(sql);
-					rs = ps.executeQuery(sql.getQuery());
+					rs = ps.executeQuery(sql.get());
 					adapter.postExec(sql, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();

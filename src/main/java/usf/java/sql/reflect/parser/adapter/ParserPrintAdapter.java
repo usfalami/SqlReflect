@@ -3,7 +3,7 @@ package usf.java.sql.reflect.parser.adapter;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Database;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
 
 public class ParserPrintAdapter extends ParserAdapter {
@@ -25,7 +25,7 @@ public class ParserPrintAdapter extends ParserAdapter {
 	}
 	
 	@Override
-	public void performProcedure(Procedure procedure, Column ...columns) {
+	public void performProcedure(Function procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));

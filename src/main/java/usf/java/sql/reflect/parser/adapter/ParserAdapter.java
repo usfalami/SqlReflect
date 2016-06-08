@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Database;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.reflect.AbstractAdapter;
 import usf.java.sql.reflect.parser.ProcedureParser;
@@ -25,6 +25,6 @@ public abstract class ParserAdapter extends AbstractAdapter {
 	}
 	
 	public abstract void performDatabase(Database sc);
-	public abstract void performProcedure(Procedure procedure, Column ...columns);
+	public abstract void performProcedure(Function procedure, Column ...columns);
 	
 }

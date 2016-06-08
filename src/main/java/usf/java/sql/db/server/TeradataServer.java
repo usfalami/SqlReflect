@@ -5,16 +5,14 @@ import java.util.regex.Pattern;
 
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
-import usf.java.sql.db.field.Macro;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.db.field.Query;
 
 public class TeradataServer implements Server {
 	
 	private static final String URL_TEMPLATE = "jdbc:teradata://%s/database=%s,dbs_port=%d,%s";
 
-	private static final String PROCEDURE_PATTERN = "(?i)^(call)\\s*(\\w+)\\.(\\w+)\\s*\\((.+)\\)$";
-	private static final String MACRO_PATTERN = "(?i)^(exec|execute)\\s*(\\w+)\\.(\\w+)\\s*\\((.+)\\)$";
+	private static final String FUNCTION_PATTERN = "(?i)^(call|exec|execute)\\s*(\\w+)\\.(\\w+)\\s*\\((.+)\\)$";
 	
 	@Override
 	public String makeURL(Env env) {
@@ -26,35 +24,22 @@ public class TeradataServer implements Server {
 	};
 	
 	@Override
-	public Macro parseMacro(String sql) {
-		Macro macro = null;
-		if(sql.matches(MACRO_PATTERN)){
-			Pattern p = Pattern.compile(MACRO_PATTERN);
+	public Function parseFunction(String sql) {
+		Function funct = null;
+		if(sql.matches(FUNCTION_PATTERN)){
+			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());
 			if(m.matches()){
-				macro = new Macro(sql);
-				macro.setDatabase(m.group(2)); 
-				macro.setName(m.group(3));
-				macro.setParameters(m.group(4).split("\\s*,\\s*"));
+				funct = new Function(sql);
+				funct.setType(m.group(1).toLowerCase().equals("call")?"PROCEDURE":"MACRO");
+				funct.setDatabase(m.group(2)); 
+				funct.setName(m.group(3));
+				funct.setParameters(m.group(4).split("\\s*,\\s*"));
 			}
 		}
-		return macro;
+		return funct;
 	}
-	@Override
-	public Procedure parseProcedure(String sql) {
-		Procedure proc = null;
-		if(sql.matches(PROCEDURE_PATTERN)){
-			Pattern p = Pattern.compile(PROCEDURE_PATTERN);
-			Matcher m = p.matcher(sql.trim());
-			if(m.matches()){
-				proc = new Procedure(sql);
-				proc.setDatabase(m.group(2)); 
-				proc.setName(m.group(3));
-				proc.setParameters(m.group(4).split("\\s*,\\s*"));
-			}
-		}
-		return proc;
-	}
+	
 	@Override
 	public Query parseQuery(String sql) {
 		return new Query(sql);

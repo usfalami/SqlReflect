@@ -24,7 +24,7 @@ public class PreparedStatementExecutor implements Executor {
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.prepareStatement(sql.getQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(sql.get(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);

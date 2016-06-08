@@ -1,24 +1,24 @@
 package usf.java.sql.db.field;
 
-public abstract class ComplexSQL implements SQL {
+public class Function implements SQL {
 	
 	protected String name, database, type, sql, parameters[];
 	
-	public ComplexSQL(String exec) {
-		this.sql = exec;
+	public Function(String sql) {
+		this.sql = sql;
 	}
 	
-	public ComplexSQL(String database, String name, String type){
+	public Function(String database, String name){
 		this.database=database;
 		this.name=name;
 	}	
 	
 	@Override
-	public String getQuery() {
+	public String get() {
 		return sql;
 	}
 	@Override
-	public void setSql(String sql) {
+	public void set(String sql) {
 		this.sql = sql;
 	}
 

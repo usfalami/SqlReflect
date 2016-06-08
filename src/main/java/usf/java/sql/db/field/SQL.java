@@ -1,9 +1,7 @@
 package usf.java.sql.db.field;
 
 public interface SQL extends Field {
-	
-	public String getQuery();
-	public void setSql(String query);
+
 
 	public String getDatabase();
 	public void setDatabase(String database);
@@ -13,6 +11,9 @@ public interface SQL extends Field {
 	
 	public String getType() ;
 	public void setType(String type);
+	
+	public String get();
+	public void set(String sql);
 
 	void setParameters(String... parameters);
 	String[] getParameters();

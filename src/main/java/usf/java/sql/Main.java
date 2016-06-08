@@ -71,9 +71,9 @@ public class Main {
 		test3();
 		test4();
 		
-//		ex1();
-//		ex2();
-//		ex3();
+		ex1();
+		ex2();
+		ex3();
 	}
 
 	//Excecutors & Adapters

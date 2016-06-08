@@ -2,12 +2,12 @@ package usf.java.sql.db.type;
 
 import java.util.Arrays;
 
+import junit.framework.TestCase;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
-import usf.java.sql.db.field.Macro;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.SQL;
 import usf.java.sql.db.server.TeradataServer;
-import junit.framework.TestCase;
+
 
 public class TeradataServerTest extends TestCase {
 	
@@ -26,30 +26,27 @@ public class TeradataServerTest extends TestCase {
 		assertEquals(exp, url);
 	}
 	
-	public void testParseProcedure() {
+	public void testParseFuncion() {
 		Server db = new TeradataServer();
-		assertNull(db.parseProcedure("select database"));
-		assertNull(db.parseProcedure("exec test_macro(?,?,?)"));
+		assertNull(db.parseFunction("select database"));
+		assertNull(db.parseFunction("exc sc_1.test_macro(?,?,?)"));
+		assertNull(db.parseFunction("cal sc_1.test_proc(?,?,?)"));
+		
 		String query = "call sc_1.test_proc(?,?,?,'param')";
-		Procedure p = db.parseProcedure(query);
+		SQL p = db.parseFunction(query);
 		assertNotNull(p);
 		assertEquals(p.getName(), "test_proc");
 		assertEquals(p.getDatabase(), "sc_1");
-		assertEquals(p.getQuery(), query);
+		assertEquals(p.get(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
-	}
-	
-	public void testParseMacro() {
-		Server db = new TeradataServer();
-		assertNull(db.parseMacro("select database"));
-		assertNull(db.parseMacro("call sc_1.test_proc(?,?,?)"));
-		String query = "exec sc_1.test_macro(?,?,?,'param')";
-		Macro p = db.parseMacro(query);
+
+		query = "exec sc_1.test_macro(1223, true, ?,'param')";
+		p = db.parseFunction(query);
 		assertNotNull(p);
 		assertEquals(p.getName(), "test_macro");
 		assertEquals(p.getDatabase(), "sc_1");
-		assertEquals(p.getQuery(), query);
-		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
+		assertEquals(p.get(), query);
+		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
 	}
 	
 }

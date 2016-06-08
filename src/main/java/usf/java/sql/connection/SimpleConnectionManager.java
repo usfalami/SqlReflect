@@ -34,8 +34,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	
 	@Override
 	public SQL parseSQL(String sql) {
-		SQL obj = db.parseProcedure(sql);
-		if(obj == null) obj = db.parseMacro(sql);
+		SQL obj = db.parseFunction(sql);
 		if(obj == null) obj = db.parseQuery(sql);
 		return obj;
 	}

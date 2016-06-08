@@ -3,8 +3,7 @@ package usf.java.sql.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.db.field.Macro;
-import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.field.Function;
 import usf.java.sql.db.field.Query;
 
 public interface Server {
@@ -13,9 +12,7 @@ public interface Server {
 	
 	String makeURL(Env env);
 	
-	Macro parseMacro(String sql);
-	
-	Procedure parseProcedure(String sql);
+	Function parseFunction(String sql);
 	
 	Query parseQuery(String sql);
 	

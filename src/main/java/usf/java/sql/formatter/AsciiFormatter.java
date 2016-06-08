@@ -35,7 +35,7 @@ public class AsciiFormatter extends AbstractFormatter {
 		}
 		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
 		length += COLOMN_SEPAR.length();
-		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', '-');
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', TABLE_BORDER);
 		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
 	}
 

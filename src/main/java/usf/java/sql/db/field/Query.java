@@ -10,12 +10,12 @@ public class Query implements SQL  {
 	}
 
 	@Override
-	public String getQuery() {
+	public String get() {
 		return query;
 	}
 
 	@Override
-	public void setSql(String query) {
+	public void set(String query) {
 		this.query = query;
 	}
 
