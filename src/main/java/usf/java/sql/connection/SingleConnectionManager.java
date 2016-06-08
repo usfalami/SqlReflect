@@ -3,7 +3,7 @@ package usf.java.sql.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sql.db.Database;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.User;
 
@@ -11,7 +11,7 @@ public class SingleConnectionManager extends SimpleConnectionManager {
 	
 	private Connection cnx;
 	
-	public SingleConnectionManager(Database db, Env env, User user) {
+	public SingleConnectionManager(Server db, Env env, User user) {
 		super(db, env, user);
 	}
 	

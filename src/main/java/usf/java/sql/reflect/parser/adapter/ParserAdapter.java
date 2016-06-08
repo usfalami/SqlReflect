@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Procedure;
-import usf.java.sql.db.field.Schema;
+import usf.java.sql.db.field.Database;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.reflect.AbstractAdapter;
 import usf.java.sql.reflect.parser.ProcedureParser;
@@ -17,14 +17,14 @@ public abstract class ParserAdapter extends AbstractAdapter {
 		super(cm, formatter);
 	}
 
-	public void listSchema(String schema) throws SQLException{
-		new SchemaParser().run(this, schema);
+	public void listSchema(String database) throws SQLException{
+		new SchemaParser().run(this, database);
 	}
-	public void listProcedure(String schema, String pattern) throws SQLException{
-		new ProcedureParser().run(this, schema, pattern);
+	public void listProcedure(String database, String pattern) throws SQLException{
+		new ProcedureParser().run(this, database, pattern);
 	}
 	
-	public abstract void performSchema(Schema sc);
+	public abstract void performDatabase(Database sc);
 	public abstract void performProcedure(Procedure procedure, Column ...columns);
 	
 }

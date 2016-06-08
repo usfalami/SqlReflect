@@ -4,18 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import usf.java.sql.db.Database;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.User;
 import usf.java.sql.db.field.SQL;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
-	protected Database db;
+	protected Server db;
 	protected User user;
 	protected Env env;
 	
-	public SimpleConnectionManager(Database db, Env env, User user) {
+	public SimpleConnectionManager(Server db, Env env, User user) {
 		this.db = db;
 		this.env = env;
 		this.user = user;

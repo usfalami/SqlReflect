@@ -3,7 +3,7 @@ package usf.java.sql.reflect.parser.adapter;
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Procedure;
-import usf.java.sql.db.field.Schema;
+import usf.java.sql.db.field.Database;
 import usf.java.sql.formatter.Formatter;
 
 public class ParserPrintAdapter extends ParserAdapter {
@@ -19,7 +19,7 @@ public class ParserPrintAdapter extends ParserAdapter {
 	}
 	
 	@Override
-	public void performSchema(Schema sc) {
+	public void performDatabase(Database sc) {
 		if(sc == null) return;
 		formatter.getOut().format("%-30s\n", sc.getName());
 	}
@@ -28,7 +28,7 @@ public class ParserPrintAdapter extends ParserAdapter {
 	public void performProcedure(Procedure procedure, Column ...columns) {
 		if(procedure == null) return;
 		formatter.startTable();
-		formatter.formatTitle(String.format("%s.%s", procedure.getSchema(), procedure.getName()));
+		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
 		if(columns== null || columns.length == 0)
 			formatter.formatFooter("This procedure has no paramters");

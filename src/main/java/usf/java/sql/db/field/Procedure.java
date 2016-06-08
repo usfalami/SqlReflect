@@ -11,7 +11,7 @@ public class Procedure extends ComplexSQL {
 		super(call);
 	}
 	
-	public Procedure(String schema, String name, String type){
-		super(schema, name, type);
+	public Procedure(String database, String name, String type){
+		super(database, name, type);
 	}
 }

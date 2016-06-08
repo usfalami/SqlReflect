@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.connection.SingleConnectionManager;
-import usf.java.sql.db.Database;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.User;
 import usf.java.sql.db.type.Teradata;
@@ -27,8 +27,8 @@ import usf.java.sql.reflect.parser.adapter.ParserPrintAdapter;
 
 public class Main {
 
-	private static Database db = new Teradata();
-	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025);
+	private static Server db = new Teradata();
+	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025, "tmode=tera,charset=utf8");
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
 	
 	private static ConnectionManager cm = new SingleConnectionManager(db, env, user);
@@ -116,7 +116,7 @@ public class Main {
 	}
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{
 		ParserAdapter a = new ParserPrintAdapter(cm, format);
-		a.listProcedure(env.getSchema(), "%RECH%POM%");
+		a.listProcedure(env.getDatabase(), "%RECH%POM%");
 	}	
 	public static void ex3() throws InstantiationException, IllegalAccessException, SQLException{
 		ParserAdapter a = new ParserPrintAdapter(cm, format);

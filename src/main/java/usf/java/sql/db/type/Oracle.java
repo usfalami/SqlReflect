@@ -1,12 +1,12 @@
 package usf.java.sql.db.type;
 
-import usf.java.sql.db.Database;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public class Oracle implements Database {
+public class Oracle implements Server {
 
 	@Override
 	public String getDriver() {

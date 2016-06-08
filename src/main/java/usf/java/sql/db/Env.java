@@ -3,17 +3,17 @@ package usf.java.sql.db;
 public class Env {
 
 	protected String host;
-	protected String schema;
+	protected String database;
 	protected int port;
 	protected String params;
 
-	public Env(String host, String schema, int port) {
-		this(host, schema, port, "");
+	public Env(String host, String database, int port) {
+		this(host, database, port, "");
 	}
 
-	public Env(String host, String schema, int port, String params) {
+	public Env(String host, String database, int port, String params) {
 		this.host = host;
-		this.schema = schema;
+		this.database = database;
 		this.params = params;
 		this.port = port;
 	}
@@ -21,8 +21,8 @@ public class Env {
 	public String getHost() {
 		return host;
 	}
-	public String getSchema() {
-		return schema;
+	public String getDatabase() {
+		return database;
 	}
 	public int getPort() {
 		return port;

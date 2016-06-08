@@ -1,14 +1,14 @@
 package usf.java.sql.db.field;
 
-public class Schema implements Field {
+public class Database implements Field {
 	
 	protected String name;
 	
-	public Schema() {
+	public Database() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Schema(String name) {
+	public Database(String name) {
 		super();
 		this.name = name;
 	}

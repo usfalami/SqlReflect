@@ -7,7 +7,7 @@ import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public interface Database {
+public interface Server {
 
 	String getDriver();
 	

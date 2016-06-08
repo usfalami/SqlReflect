@@ -13,14 +13,14 @@ import usf.java.sql.reflect.parser.adapter.ParserAdapter;
 
 public class ProcedureParser implements Parser {
 	
-	public void run(ParserAdapter adapter, String schema, String procedure) throws SQLException{
+	public void run(ParserAdapter adapter, String database, String procedure) throws SQLException{
 		Connection cnx = null;
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			ResultSet procs = null;
 			try {
-				procs = dm.getProcedures(null, schema, procedure);
+				procs = dm.getProcedures(null, database, procedure);
 				while(procs.next()){
 					Procedure p = new Procedure(
 							procs.getString("PROCEDURE_SCHEM"), 
@@ -28,7 +28,7 @@ public class ProcedureParser implements Parser {
 							procs.getString("PROCEDURE_TYPE"));
 					ResultSet cols = null;
 					try {
-						cols = dm.getProcedureColumns(null, p.getSchema(), p.getName(), null);
+						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
 						Column[] list = listColumns(cols);
 						adapter.performProcedure(p, list);
 					} catch (Exception e) {
@@ -57,13 +57,13 @@ public class ProcedureParser implements Parser {
 		run(adapter, null, null);
 	}
 	@Override
-	public void run(ParserAdapter adapter, String schema) throws SQLException {
-		run(adapter, schema, null);
+	public void run(ParserAdapter adapter, String database) throws SQLException {
+		run(adapter, database, null);
 	}
 	
 	protected Column[] listColumns(ResultSet rs) throws SQLException {
 		List<Column> list = new ArrayList<Column>();
-		while(rs.next()) { //2->schema; 3->name
+		while(rs.next()) { //2->database; 3->name
 			list.add(new Column(
 				rs.getString("COLUMN_NAME").toString(),
 				rs.getString("TYPE_NAME").toString(),

@@ -1,12 +1,12 @@
 package usf.java.sql.db.type;
 
-import usf.java.sql.db.Database;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public class MySQL implements Database {
+public class MySQL implements Server {
 
 	@Override
 	public String getDriver() {

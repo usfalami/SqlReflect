@@ -9,8 +9,8 @@ import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.reflect.AbstractAdapter;
 import usf.java.sql.reflect.executor.Executor;
-import usf.java.sql.reflect.executor.PreparedStatmentExecutor;
-import usf.java.sql.reflect.executor.StatmentExecutor;
+import usf.java.sql.reflect.executor.PreparedStatementExecutor;
+import usf.java.sql.reflect.executor.StatementExecutor;
 
 public abstract class ExecutorAdapter extends AbstractAdapter {
 	
@@ -26,7 +26,7 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	}
 	public void execute(String... queries) throws SQLException { // only statments
 		if(queries == null) return;
-		Executor e = new StatmentExecutor();
+		Executor e = new StatementExecutor();
 		for(String query : queries)
 			e.run(this, cm.parseSQL(query));
 	}
@@ -46,7 +46,7 @@ public abstract class ExecutorAdapter extends AbstractAdapter {
 	public abstract void postExec(SQL SQL, ResultSet rs) throws SQLException;
 	
 	protected Executor executorFor(Serializable... parameters) {
-		return parameters==null || parameters.length==0 ? new StatmentExecutor() : new PreparedStatmentExecutor();
+		return parameters==null || parameters.length==0 ? new StatementExecutor() : new PreparedStatementExecutor();
 	}
 	
 	public static int rowsCount(ResultSet rs) throws SQLException{

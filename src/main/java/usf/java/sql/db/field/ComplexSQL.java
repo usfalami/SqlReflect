@@ -2,14 +2,14 @@ package usf.java.sql.db.field;
 
 public abstract class ComplexSQL implements SQL {
 	
-	protected String name, schema, type, sql, parameters[];
+	protected String name, database, type, sql, parameters[];
 	
 	public ComplexSQL(String exec) {
 		this.sql = exec;
 	}
 	
-	public ComplexSQL(String schema, String name, String type){
-		this.schema=schema;
+	public ComplexSQL(String database, String name, String type){
+		this.database=database;
 		this.name=name;
 	}	
 	
@@ -32,12 +32,12 @@ public abstract class ComplexSQL implements SQL {
 	}
 
 	@Override
-	public String getSchema() {
-		return schema;
+	public String getDatabase() {
+		return database;
 	}
 	@Override
-	public void setSchema(String schema) {
-		this.schema = schema;
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 
 	@Override

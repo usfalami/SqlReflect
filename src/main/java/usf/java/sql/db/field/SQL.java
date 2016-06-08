@@ -6,8 +6,8 @@ public interface SQL extends Field {
 	public String getQuery();
 	public void setSql(String query);
 
-	public String getSchema();
-	public void setSchema(String schema);
+	public String getDatabase();
+	public void setDatabase(String database);
 	
 	public String getName() ;
 	public void setName(String name);
