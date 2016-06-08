@@ -4,9 +4,9 @@ import java.io.OutputStream;
 
 public class AsciiFormatter extends AbstractFormatter {
 	
-	private static final String COLOMN_SEPAR = "|";
-	private static final String TABLE_CORN = "+";
-	private static final char TABLE_BORDER = '-';
+	public static final String COLOMN_SEPAR = "|";
+	public static final String TABLE_CORN = "+";
+	public static final char TABLE_BORDER = '-';
 
 	private String columns, layout, row;
 
