@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.User;
 import usf.java.sql.db.field.SQL;
 

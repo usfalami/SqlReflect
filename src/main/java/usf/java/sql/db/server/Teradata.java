@@ -1,10 +1,10 @@
-package usf.java.sql.db.type;
+package usf.java.sql.db.server;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;

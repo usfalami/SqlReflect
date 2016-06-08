@@ -9,10 +9,10 @@ import java.text.SimpleDateFormat;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.connection.SingleConnectionManager;
-import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.User;
-import usf.java.sql.db.type.Teradata;
+import usf.java.sql.db.server.Teradata;
 import usf.java.sql.formatter.AsciiFormatter;
 import usf.java.sql.formatter.CsvFormatter;
 import usf.java.sql.formatter.Formatter;
@@ -43,7 +43,6 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, ParseException, FileNotFoundException {
 		
 		cm.configure();
-		
 		
 //		query = Queries.cap1_Bind;
 //		param = new Serializable[]{
@@ -77,8 +76,6 @@ public class Main {
 	}
 
 	//Excecutors & Adapters
-	
-	
 	
 	public static void test() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		ExecutorAdapter a = new ExecutorResultAdapter(cm, format);

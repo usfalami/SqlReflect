@@ -2,10 +2,11 @@ package usf.java.sql.db.type;
 
 import java.util.Arrays;
 
-import usf.java.sql.db.Server;
 import usf.java.sql.db.Env;
+import usf.java.sql.db.Server;
 import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
+import usf.java.sql.db.server.Teradata;
 import junit.framework.TestCase;
 
 public class TeradataTest extends TestCase {
