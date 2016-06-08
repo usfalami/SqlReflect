@@ -6,7 +6,7 @@ import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public class MySQL implements Server {
+public class MySqlServer implements Server {
 
 	@Override
 	public String getDriver() {

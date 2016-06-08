@@ -9,7 +9,7 @@ import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public class Teradata implements Server {
+public class TeradataServer implements Server {
 	
 	private static final String URL_TEMPLATE = "jdbc:teradata://%s/database=%s,dbs_port=%d,%s";
 

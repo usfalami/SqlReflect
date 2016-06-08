@@ -12,7 +12,7 @@ import usf.java.sql.connection.SingleConnectionManager;
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
 import usf.java.sql.db.User;
-import usf.java.sql.db.server.Teradata;
+import usf.java.sql.db.server.TeradataServer;
 import usf.java.sql.formatter.AsciiFormatter;
 import usf.java.sql.formatter.CsvFormatter;
 import usf.java.sql.formatter.Formatter;
@@ -27,7 +27,7 @@ import usf.java.sql.reflect.parser.adapter.ParserPrintAdapter;
 
 public class Main {
 
-	private static Server db = new Teradata();
+	private static Server db = new TeradataServer();
 	private static Env env = new Env("BDD_STM_PRA", "STM_IHM_PF1", 1025, "tmode=tera,charset=utf8");
 	private static User user = new User("STM_DBA_PF1", "BY9HLCYB");
 	

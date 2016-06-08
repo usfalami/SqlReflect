@@ -6,18 +6,18 @@ import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
 import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
-import usf.java.sql.db.server.Teradata;
+import usf.java.sql.db.server.TeradataServer;
 import junit.framework.TestCase;
 
 public class TeradataTest extends TestCase {
 	
 	public void testGetDriver() {
-		Server db = new Teradata();
+		Server db = new TeradataServer();
 		assertNotNull(db.getDriver());
 	}
 	
 	public void testMakeURL() {
-		Server db = new Teradata();
+		Server db = new TeradataServer();
 		String url = db.makeURL(new Env("localhost", "db_1", 6655));
 		String exp = "jdbc:teradata://localhost/database=db_1,dbs_port=6655,";
 		assertEquals(exp, url);
@@ -27,7 +27,7 @@ public class TeradataTest extends TestCase {
 	}
 	
 	public void testParseProcedure() {
-		Server db = new Teradata();
+		Server db = new TeradataServer();
 		assertNull(db.parseProcedure("select database"));
 		assertNull(db.parseProcedure("exec test_macro(?,?,?)"));
 		String query = "call sc_1.test_proc(?,?,?,'param')";
@@ -40,7 +40,7 @@ public class TeradataTest extends TestCase {
 	}
 	
 	public void testParseMacro() {
-		Server db = new Teradata();
+		Server db = new TeradataServer();
 		assertNull(db.parseMacro("select database"));
 		assertNull(db.parseMacro("call sc_1.test_proc(?,?,?)"));
 		String query = "exec sc_1.test_macro(?,?,?,'param')";

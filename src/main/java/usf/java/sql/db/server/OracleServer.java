@@ -6,7 +6,7 @@ import usf.java.sql.db.field.Macro;
 import usf.java.sql.db.field.Procedure;
 import usf.java.sql.db.field.Query;
 
-public class Oracle implements Server {
+public class OracleServer implements Server {
 
 	@Override
 	public String getDriver() {
