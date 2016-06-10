@@ -1,18 +1,19 @@
 package usf.java.sql.reflect.adapter.scanner;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 
+import com.sun.swing.internal.plaf.basic.resources.basic;
+
 import usf.java.sql.connection.ConnectionManager;
-import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Callable;
+import usf.java.sql.db.field.Column;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Validator;
 import usf.java.sql.reflect.core.scanner.ProcedureScanner;
 
 public class ProcedureValidator extends AbstractScannerAdapter implements Validator {
 	
-	protected Callable function;
+	protected Callable procedure;
 
 	public ProcedureValidator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -29,22 +30,35 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 	public void start() { }
 
 	@Override
-	public void adapte(Callable function, Column... columns) {
+	public void adapte(Callable callable, Column... columns) {
 		formatter.startTable();
-		formatter.formatTitle(String.format("%s.%s", function.getDatabase(), function.getName()));
-		formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");
-		if(columns.length != this.function.getParameters().length)
-			formatter.formatFooter("Error ......");
-		else {
-			if(columns== null || columns.length == 0)
+		formatter.formatTitle(String.format("%s.%s", callable.getDatabase(), callable.getName()));
+		
+		if(columns==null || columns.length==0) {
+			if(procedure.getParameters().length == 0)
 				formatter.formatFooter("This procedure has no paramters");
-			else {
-				String[] params = this.function.getParameters();
-				for(int i=0; i<columns.length; i++){
-					Column c = columns[i];
-					formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole(), params[i]);
-				}
+			else 
+				formatter.formatFooter("Too many parameters : expected 0 parameters");
+		}
+		
+		else if(procedure.getParameters().length > columns.length)
+			formatter.formatFooter("Too many parameters : expected " + columns.length + " parameters");
+		
+		else if(procedure.getParameters().length < columns.length)
+			formatter.formatFooter("Too few parameters : expected " + columns.length + " parameters");
+
+		else {
+			formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");
+			formatter.startRows();
+			String[] params = procedure.getParameters();
+			int bindable = 0;
+			for(int i=0; i<columns.length; i++){
+				Column c = columns[i];
+				formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole(), params[i]);
+				if("?".equals(params[i])) bindable++;
 			}
+			formatter.endRows();
+			formatter.formatFooter(bindable + " Bindable(s) parameter(s), " + (params.length-bindable) + " Static parameter(s)" );
 		}
 		formatter.endTable();
 	}
@@ -53,8 +67,8 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 	public void finish() { }
 
 	@Override
-	public void validate(String callable, Serializable... parameters) throws SQLException {
-		this.function = cm.getServer().parseFunction(callable);
-		new ProcedureScanner().run(this, function.getDatabase(), function.getName());
+	public void validate(String callable) throws SQLException {
+		this.procedure = cm.getServer().parseFunction(callable);
+		new ProcedureScanner().run(this, procedure.getDatabase(), procedure.getName());
 	}
 }

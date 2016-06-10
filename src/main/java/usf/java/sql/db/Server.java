@@ -1,8 +1,5 @@
 package usf.java.sql.db;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import usf.java.sql.db.field.Callable;
 import usf.java.sql.db.field.Query;
 
@@ -18,12 +15,11 @@ public interface Server {
 	
 	public static class Utils {
 		
-		public Integer[] bindableParameterIndexs(String... parameters) {
-			if(parameters == null) return null;
-			List<Integer> list = new ArrayList<Integer>();
+		public static int bindableParameterIndexs(String... parameters) {
+			int cp=0;
 			for(int i=0; i<parameters.length; i++)
-				if("?".equals(parameters[i])) list.add(i);
-			return list.toArray(new Integer[list.size()]);
+				if("?".equals(parameters[i])) cp++;
+			return cp;
 		}
 		
 	}

@@ -41,22 +41,28 @@ public class AsciiFormatter extends AbstractFormatter {
 
 	@Override
 	public void startTable() {
-		out.println();
+		out.print(layout);
 	}
 	@Override
 	public void formatTitle(String title) {
-		out.print(layout);
 		out.format(row, title);
+		out.print(layout);
 	}
 	@Override
 	public void formatHeaders(Object... obj) {
-		out.print(layout);
 		out.format(columns, obj);
+	}
+	@Override
+	public void startRows() {
 		out.print(layout);
 	}
 	@Override
 	public void formatRow(Object... obj) {
 		out.format(columns, obj);
+	}
+	@Override
+	public void endRows() {
+		out.print(layout);
 	}
 	@Override
 	public void formatFooter(String footer) {

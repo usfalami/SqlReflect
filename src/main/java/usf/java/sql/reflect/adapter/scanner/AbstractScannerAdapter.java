@@ -1,6 +1,5 @@
 package usf.java.sql.reflect.adapter.scanner;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 
 import usf.java.sql.connection.ConnectionManager;
@@ -31,7 +30,7 @@ public class AbstractScannerAdapter extends AbstractReflectorAdapter {
 	
 	public static interface Validator extends HasFunctionAdapter {
 
-		void validate(String callable, Serializable... parameters) throws SQLException;
+		void validate(String callable) throws SQLException;
 
 	}
 	

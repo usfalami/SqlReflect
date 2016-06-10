@@ -32,12 +32,22 @@ public class CsvFormatter extends AbstractFormatter {
 	public void formatHeaders(Object... obj) {
 		this.formatRow(obj);
 	}
+	
+	@Override
+	public void startRows() {
+
+	}
 
 	@Override
 	public void formatRow(Object... obj) {
 		for(Object o : obj)
 			out.print(o+";");
 		out.println();
+	}
+	
+	@Override
+	public void endRows() {
+
 	}
 	
 	@Override

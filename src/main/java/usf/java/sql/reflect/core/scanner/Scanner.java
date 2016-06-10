@@ -26,5 +26,4 @@ public interface Scanner<T extends Scanner.HasAdapter> extends Reflector<T> {
 
 	}
 	
-		
 }

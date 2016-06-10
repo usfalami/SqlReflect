@@ -25,19 +25,19 @@ public class TeradataServer implements Server {
 	
 	@Override
 	public Callable parseFunction(String sql) {
-		Callable funct = null;
+		Callable callable = null;
 		if(sql.matches(FUNCTION_PATTERN)){
 			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());
 			if(m.matches()){
-				funct = new Callable(sql);
-				funct.setType(m.group(1).toLowerCase().equals("call")?"PROCEDURE":"MACRO");
-				funct.setDatabase(m.group(2)); 
-				funct.setName(m.group(3));
-				funct.setParameters(m.group(4).split("\\s*,\\s*"));
+				callable = new Callable(sql);
+				callable.setType(m.group(1).toLowerCase().equals("call")?"PROCEDURE":"MACRO");
+				callable.setDatabase(m.group(2)); 
+				callable.setName(m.group(3));
+				callable.setParameters(m.group(4).split("\\s*,\\s*"));
 			}
 		}
-		return funct;
+		return callable;
 	}
 	
 	@Override

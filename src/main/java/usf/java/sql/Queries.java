@@ -3,8 +3,11 @@ package usf.java.sql;
 
 public class Queries {
 	
-	static String pom_search = "CALL STM_IHM_PF1.PRCD_RECH_POM_ID_HAB_020('PRM', '30000120139847', '0', CAST ('2016/02/15 23:59:59' AS TIMESTAMP(0) WITH TIME ZONE), 'OE15540N', 'POM_SEARCH_UI', 'SDT_IHM-OI-SU', 0, NULL, P_DEBUG_QRY,'N')";
+	static String pom_search 		= "CALL STM_IHM_PF1.PRCD_RECH_POM_ID_HAB_020('PRM', '30000120139847', '0', CAST ('2016/02/15 23:59:59' AS TIMESTAMP(0) WITH TIME ZONE), 'OE15540N', 'POM_SEARCH_UI', 'SDT_IHM-OI-SU', 0, NULL, P_DEBUG_QRY,'N')";
+	static String pom_search_bind 	= "CALL STM_IHM_PF1.PRCD_RECH_POM_ID_HAB_020(?, ?, '0', ?, 'OE15540N', 'POM_SEARCH_UI', 'SDT_IHM-OI-SU', 0, NULL, P_DEBUG_QRY,'N')";
 
+	
+	
 	static String cap1 		= "exec STM_IHM_pf1.MACR_RECH_SEGM_PRM_C1C5_SES ( '2016-05-27' , '2016-05-29' , '09781620756483' )";
 	static String cap1_Bind = "exec STM_IHM_PF1.MACR_RECH_SEGM_PRM_C1C5_SES(?, ?, ?)";
 

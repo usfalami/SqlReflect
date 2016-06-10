@@ -42,11 +42,21 @@ public class HtmlFormatter extends AbstractFormatter {
 	}
 
 	@Override
+	public void startRows() {
+		out.print("<tbody>");
+	}
+	
+	@Override
 	public void formatRow(Object... obj) {
 		out.print("<tr>");
 		for(Object o : obj)
 			out.print("<td>"+o+"</td>");
 		out.print("</tr>");
+	}
+	
+	@Override
+	public void endRows() {
+		out.print("</tbody>");
 	}
 
 	@Override

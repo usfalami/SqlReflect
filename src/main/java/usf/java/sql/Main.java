@@ -3,6 +3,7 @@ package usf.java.sql;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,18 +19,18 @@ import usf.java.sql.formatter.CsvFormatter;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.formatter.HtmlFormatter;
 import usf.java.sql.reflect.adapter.executor.AbstractExecutorAdapter;
-import usf.java.sql.reflect.adapter.executor.ExecutorResultColumnAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorMultiAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorPerformAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorResultAdapter;
-import usf.java.sql.reflect.adapter.executor.ExecutorMultiAdapter;
-import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.DatabasePrinter;
-import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Validator;
+import usf.java.sql.reflect.adapter.executor.ExecutorResultColumnAdapter;
 import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Comparator;
+import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.DatabasePrinter;
 import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Printer;
+import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Validator;
 import usf.java.sql.reflect.adapter.scanner.DatabaseScannerPrinter;
 import usf.java.sql.reflect.adapter.scanner.ProcedureColumnsComparator;
-import usf.java.sql.reflect.adapter.scanner.ProcedureValidator;
 import usf.java.sql.reflect.adapter.scanner.ProcedureScannerPrinter;
+import usf.java.sql.reflect.adapter.scanner.ProcedureValidator;
 
 public class Main {
 
@@ -50,11 +51,11 @@ public class Main {
 		
 		cm.configure();
 		
-//		query = Queries.cap1_Bind;
-//		param = new Serializable[]{
-//				 new Date(sdf.parse("2016-05-27").getTime()),
-//				 new Date(sdf.parse("2016-05-29").getTime()),
-//				 "09781620756483"};
+		query = Queries.cap1_Bind;
+		param = new Serializable[]{
+				 new Date(sdf.parse("2016-05-27").getTime()),
+				 new Date(sdf.parse("2016-05-29").getTime()),
+				 "09781620756483"};
 		
 //		query = Queries.cap2_Bind;
 //		query = Queries.cap3_Bind;
@@ -71,12 +72,12 @@ public class Main {
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 //		
-//		test();
-//		test1();
-//		test2(); 
-//		test3();
+		test();
+		test1();
+		test2(); 
+		test3();
 		
-//		test4();
+		test4();
 		
 		ex1();
 		ex2();
@@ -139,8 +140,8 @@ public class Main {
 		a.compare("PRCD_RECH_POM_ID_HAB_020");
 	}
 	//Check parameters call
-	public static void ex5() throws InstantiationException, IllegalAccessException, SQLException{
+	public static void ex5() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
 		Validator a = new ProcedureValidator(cm, format);
-		a.validate(Queries.pom_search);
+		a.validate(Queries.pom_search_bind);
 	}
 }
