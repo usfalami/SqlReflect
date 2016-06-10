@@ -1,11 +1,14 @@
-package usf.java.sql.reflect.adapter.scanner.printer;
+package usf.java.sql.reflect.adapter.scanner;
+
+import java.sql.SQLException;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Database;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.AbstractDatabaseScanner;
+import usf.java.sql.reflect.adapter.scanner.AbstractScanner.DatabasePrinter;
+import usf.java.sql.reflect.core.scanner.DatabaseScanner;
 
-public class DatabaseScannerPrinter extends AbstractDatabaseScanner {
+public class DatabaseScannerPrinter extends AbstractScanner implements DatabasePrinter {
 
 	public DatabaseScannerPrinter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);
@@ -26,5 +29,14 @@ public class DatabaseScannerPrinter extends AbstractDatabaseScanner {
 	@Override
 	public void finish() {
 		formatter.endTable();
+	}
+
+	@Override
+	public void listDatabase() throws SQLException{
+		this.listDatabase(null);
+	}
+	@Override
+	public void listDatabase(String pattern) throws SQLException{
+		new DatabaseScanner().run(this, pattern);
 	}
 }

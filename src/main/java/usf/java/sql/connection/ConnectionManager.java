@@ -3,6 +3,7 @@ package usf.java.sql.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import usf.java.sql.db.Server;
 import usf.java.sql.db.field.SQL;
 
 public interface ConnectionManager {
@@ -14,6 +15,8 @@ public interface ConnectionManager {
 	public SQL parseSQL(String sql);
 
 	public void closeConnection(Connection cnx) throws SQLException;
+	
+	Server getServer();
 
 	
 }

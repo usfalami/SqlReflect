@@ -11,12 +11,12 @@ import usf.java.sql.db.field.SQL;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
-	protected Server db;
+	protected Server server;
 	protected User user;
 	protected Env env;
 	
 	public SimpleConnectionManager(Server db, Env env, User user) {
-		this.db = db;
+		this.server = db;
 		this.env = env;
 		this.user = user;
 	}
@@ -24,18 +24,18 @@ public class SimpleConnectionManager implements ConnectionManager {
 	
 	@Override
 	public void configure() throws ClassNotFoundException{
-		Class.forName(db.getDriver());
+		Class.forName(server.getDriver());
 	}
 	
 	@Override	
 	public Connection newConnection() throws SQLException{
-		return DriverManager.getConnection(db.makeURL(env), user.getUser(), user.getPass());
+		return DriverManager.getConnection(server.makeURL(env), user.getUser(), user.getPass());
 	}
 	
 	@Override
 	public SQL parseSQL(String sql) {
-		SQL obj = db.parseFunction(sql);
-		if(obj == null) obj = db.parseQuery(sql);
+		SQL obj = server.parseFunction(sql);
+		if(obj == null) obj = server.parseQuery(sql);
 		return obj;
 	}
 	
@@ -43,6 +43,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 	public void closeConnection(Connection cnx) throws SQLException {
 		if(cnx==null)return;
 		cnx.close();
+	}
+	
+	@Override
+	public Server getServer() {
+		return server;
 	}
 	
 }

@@ -20,6 +20,8 @@ public abstract class AbstractReflectorAdapter {
 		return cm;
 	}
 	
+	
+	
 	public static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 	public static final DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");

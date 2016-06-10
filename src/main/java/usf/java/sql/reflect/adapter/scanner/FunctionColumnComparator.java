@@ -1,4 +1,4 @@
-package usf.java.sql.reflect.adapter.scanner.comparator;
+package usf.java.sql.reflect.adapter.scanner;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,11 +9,12 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.AbstractFunctionScnner;
+import usf.java.sql.reflect.adapter.scanner.AbstractScanner.FunctionComparator;
+import usf.java.sql.reflect.core.scanner.ProcedureScanner;
 
-public class FunctionColumnComparator extends AbstractFunctionScnner {
+public class FunctionColumnComparator extends AbstractScanner implements FunctionComparator {
 	
-	protected String pattern;
+	protected String callableName;
 	protected List<Function> functions;
 	protected List<Column[]> columnsList;
 
@@ -28,7 +29,7 @@ public class FunctionColumnComparator extends AbstractFunctionScnner {
 
 	@Override
 	public void performFunction(Function procedure, Column... columns) {
-		if(pattern.equals(procedure.getName())){
+		if(callableName.equals(procedure.getName())){
 			functions.add(procedure);
 			columnsList.add(columns);
 		}
@@ -54,10 +55,10 @@ public class FunctionColumnComparator extends AbstractFunctionScnner {
 	}
 	
 	@Override
-	public void list(String database, String pattern) throws SQLException {
-		this.pattern = pattern;
-		if(pattern == null || pattern.isEmpty()) return;
-		super.list(database, pattern);
+	public void compareFunction(String callableName) throws SQLException {
+		this.callableName = callableName;
+		if(callableName == null || callableName.isEmpty()) return;
+		new ProcedureScanner().run(this, null, callableName);
 	}
 
 }

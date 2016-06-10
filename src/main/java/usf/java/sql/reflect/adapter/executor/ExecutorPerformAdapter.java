@@ -7,7 +7,7 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 
-public class ExecutorPerformAdapter extends ExecutorAdapter {
+public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 
 	protected long cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	

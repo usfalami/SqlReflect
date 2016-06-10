@@ -1,12 +1,15 @@
-package usf.java.sql.reflect.adapter.scanner.printer;
+package usf.java.sql.reflect.adapter.scanner;
+
+import java.sql.SQLException;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.AbstractFunctionScnner;
+import usf.java.sql.reflect.adapter.scanner.AbstractScanner.FunctionPrinter;
+import usf.java.sql.reflect.core.scanner.ProcedureScanner;
 
-public class FunctionScannerPrinter extends AbstractFunctionScnner {
+public class FunctionScannerPrinter extends AbstractScanner implements FunctionPrinter {
 	
 	public FunctionScannerPrinter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -18,10 +21,11 @@ public class FunctionScannerPrinter extends AbstractFunctionScnner {
 				COLUMN_TYPE_LENGTH);
 	}
 
+	@Override
+	public void start() { }
 	
 	@Override
 	public void performFunction(Function procedure, Column ...columns) {
-		if(procedure == null) return;
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
@@ -36,10 +40,16 @@ public class FunctionScannerPrinter extends AbstractFunctionScnner {
 	}
 
 	@Override
-	public void start() { }
-	
-	@Override
 	public void finish() { }
 	
+	
+	@Override
+	public void listFunction(String database) throws SQLException{
+		new ProcedureScanner().run(this, database, null);
+	}
+	@Override
+	public void listFunction(String database, String pattern) throws SQLException{
+		new ProcedureScanner().run(this, database, pattern);
+	}
 	
 }

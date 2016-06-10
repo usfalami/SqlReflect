@@ -12,9 +12,9 @@ import usf.java.sql.reflect.core.excutor.Executor;
 import usf.java.sql.reflect.core.excutor.PreparedStatementExecutor;
 import usf.java.sql.reflect.core.excutor.StatementExecutor;
 
-public abstract class ExecutorAdapter extends AbstractReflectorAdapter implements Executor.Adapter {
+public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements Executor.Adapter {
 	
-	public ExecutorAdapter(ConnectionManager cm, Formatter formatter) {
+	public AbstractExecutorAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 	}
 	

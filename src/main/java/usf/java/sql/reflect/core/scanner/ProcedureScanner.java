@@ -10,9 +10,9 @@ import java.util.List;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Function;
 
-public class ProcedureScanner implements Scanner<Scanner.FunctionAdapter> {
+public class ProcedureScanner implements Scanner<Scanner.HasFunctionAdapter> {
 	
-	public void run(Scanner.FunctionAdapter adapter, String database, String procedure) throws SQLException{
+	public void run(Scanner.HasFunctionAdapter adapter, String database, String procedure) throws SQLException{
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -31,21 +31,24 @@ public class ProcedureScanner implements Scanner<Scanner.FunctionAdapter> {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
 						Column[] list = listColumns(cols);
 						adapter.performFunction(p, list);
-					} catch (Exception e) {
+					} catch (SQLException e) {
 						e.printStackTrace();
+						throw e;
 					}
 					finally {
 						if(cols != null) cols.close();
 					}
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
+				throw e;
 			}
 			finally {
 				if(procs != null) procs.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		finally {
 			adapter.getConnectionManager().closeConnection(cnx);
