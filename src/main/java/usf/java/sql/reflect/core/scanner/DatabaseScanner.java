@@ -18,7 +18,7 @@ public class DatabaseScanner implements Scanner<Scanner.HasDatabaseAdapter> {
 			ResultSet rs = null;
 			try {
 				rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
-				while(rs.next()) adapter.performDatabase(new Database(rs.getString("TABLE_SCHEM")));
+				while(rs.next()) adapter.adapte(new Database(rs.getString("TABLE_SCHEM")));
 			}
 			catch(SQLException e) {
 				e.printStackTrace();

@@ -30,7 +30,7 @@ public class ProcedureScanner implements Scanner<Scanner.HasFunctionAdapter> {
 					try {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
 						Column[] list = listColumns(cols);
-						adapter.performFunction(p, list);
+						adapter.adapte(p, list);
 					} catch (SQLException e) {
 						e.printStackTrace();
 						throw e;

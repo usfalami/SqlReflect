@@ -22,7 +22,7 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter implements Da
 	}
 
 	@Override
-	public void performDatabase(Database db) {
+	public void adapte(Database db) {
 		formatter.formatRow(db.getName());
 	}
 

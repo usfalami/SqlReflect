@@ -29,7 +29,7 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 	public void start() { }
 
 	@Override
-	public void performFunction(Callable function, Column... columns) {
+	public void adapte(Callable function, Column... columns) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", function.getDatabase(), function.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");

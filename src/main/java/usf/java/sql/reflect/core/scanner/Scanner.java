@@ -16,13 +16,13 @@ public interface Scanner<T extends Scanner.HasAdapter> extends Reflector<T> {
 	
 	public static interface HasDatabaseAdapter extends Scanner.HasAdapter {
 		
-		void performDatabase(Database db);
+		void adapte(Database db);
 	
 	}
 	
 	public static interface HasFunctionAdapter extends Scanner.HasAdapter {
 		
-		void performFunction(Callable procedure, Column ...columns);
+		void adapte(Callable procedure, Column ...columns);
 
 	}
 	
