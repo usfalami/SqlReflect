@@ -1,14 +1,14 @@
 package usf.java.sql.db.field;
 
-public class Function implements SQL {
+public class Callable implements SQL {
 	
 	protected String name, database, type, sql, parameters[];
 	
-	public Function(String sql) {
+	public Callable(String sql) {
 		this.sql = sql;
 	}
 	
-	public Function(String database, String name){
+	public Callable(String database, String name){
 		this.database=database;
 		this.name=name;
 	}	

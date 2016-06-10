@@ -2,7 +2,7 @@ package usf.java.sql.db.server;
 
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 import usf.java.sql.db.field.Query;
 
 public class MySqlServer implements Server {
@@ -20,7 +20,7 @@ public class MySqlServer implements Server {
 	}
 
 	@Override
-	public Function parseFunction(String sql) {
+	public Callable parseFunction(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}

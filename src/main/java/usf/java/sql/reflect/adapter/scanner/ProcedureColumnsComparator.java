@@ -7,20 +7,20 @@ import java.util.List;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.AbstractScanner.FunctionComparator;
+import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Comparator;
 import usf.java.sql.reflect.core.scanner.ProcedureScanner;
 
-public class FunctionColumnComparator extends AbstractScanner implements FunctionComparator {
+public class ProcedureColumnsComparator extends AbstractScannerAdapter implements Comparator {
 	
 	protected String callableName;
-	protected List<Function> functions;
+	protected List<Callable> functions;
 	protected List<Column[]> columnsList;
 
-	public FunctionColumnComparator(ConnectionManager cm, Formatter formatter) {
+	public ProcedureColumnsComparator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
-		functions = new ArrayList<Function>();
+		functions = new ArrayList<Callable>();
 		columnsList = new ArrayList<Column[]>();
 	}
 
@@ -28,7 +28,7 @@ public class FunctionColumnComparator extends AbstractScanner implements Functio
 	public void start() { }
 
 	@Override
-	public void performFunction(Function procedure, Column... columns) {
+	public void performFunction(Callable procedure, Column... columns) {
 		if(callableName.equals(procedure.getName())){
 			functions.add(procedure);
 			columnsList.add(columns);
@@ -38,7 +38,7 @@ public class FunctionColumnComparator extends AbstractScanner implements Functio
 	@Override
 	public void finish() {
 		Column[] c1, c2;
-		Function f1, f2;
+		Callable f1, f2;
 		for(int i=0; i<columnsList.size()-1; i++){
 			f1=functions.get(i);
 			c1=columnsList.get(i);
@@ -55,7 +55,7 @@ public class FunctionColumnComparator extends AbstractScanner implements Functio
 	}
 	
 	@Override
-	public void compareFunction(String callableName) throws SQLException {
+	public void compare(String callableName) throws SQLException {
 		this.callableName = callableName;
 		if(callableName == null || callableName.isEmpty()) return;
 		new ProcedureScanner().run(this, null, callableName);

@@ -3,7 +3,7 @@ package usf.java.sql.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 import usf.java.sql.db.field.Query;
 
 public interface Server {
@@ -12,7 +12,7 @@ public interface Server {
 	
 	String makeURL(Env env);
 	
-	Function parseFunction(String sql);
+	Callable parseFunction(String sql);
 	
 	Query parseQuery(String sql);
 	

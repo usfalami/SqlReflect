@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import usf.java.sql.db.Env;
 import usf.java.sql.db.Server;
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 import usf.java.sql.db.field.Query;
 
 public class TeradataServer implements Server {
@@ -24,13 +24,13 @@ public class TeradataServer implements Server {
 	};
 	
 	@Override
-	public Function parseFunction(String sql) {
-		Function funct = null;
+	public Callable parseFunction(String sql) {
+		Callable funct = null;
 		if(sql.matches(FUNCTION_PATTERN)){
 			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());
 			if(m.matches()){
-				funct = new Function(sql);
+				funct = new Callable(sql);
 				funct.setType(m.group(1).toLowerCase().equals("call")?"PROCEDURE":"MACRO");
 				funct.setDatabase(m.group(2)); 
 				funct.setName(m.group(3));

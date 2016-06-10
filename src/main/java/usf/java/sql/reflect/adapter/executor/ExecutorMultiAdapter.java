@@ -7,11 +7,11 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 
-public class MultiExecutorAdapter extends AbstractExecutorAdapter {
+public class ExecutorMultiAdapter extends AbstractExecutorAdapter {
 	
 	protected AbstractExecutorAdapter[] adapters;
 
-	public MultiExecutorAdapter(ConnectionManager cm, Formatter formatter) {
+	public ExecutorMultiAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 	}
 	

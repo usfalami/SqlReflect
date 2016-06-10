@@ -1,19 +1,20 @@
 package usf.java.sql.reflect.adapter.scanner;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Column;
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.AbstractScanner.FunctionChecker;
+import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Validator;
 import usf.java.sql.reflect.core.scanner.ProcedureScanner;
 
-public class FunctionColumnsChecker extends AbstractScanner implements FunctionChecker {
+public class ProcedureValidator extends AbstractScannerAdapter implements Validator {
 	
-	protected Function function;
+	protected Callable function;
 
-	public FunctionColumnsChecker(ConnectionManager cm, Formatter formatter) {
+	public ProcedureValidator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
@@ -28,7 +29,7 @@ public class FunctionColumnsChecker extends AbstractScanner implements FunctionC
 	public void start() { }
 
 	@Override
-	public void performFunction(Function function, Column... columns) {
+	public void performFunction(Callable function, Column... columns) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", function.getDatabase(), function.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");
@@ -52,7 +53,7 @@ public class FunctionColumnsChecker extends AbstractScanner implements FunctionC
 	public void finish() { }
 
 	@Override
-	public void checkFunction(String callable) throws SQLException {
+	public void validate(String callable, Serializable... parameters) throws SQLException {
 		this.function = cm.getServer().parseFunction(callable);
 		new ProcedureScanner().run(this, function.getDatabase(), function.getName());
 	}

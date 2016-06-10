@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usf.java.sql.db.field.Column;
-import usf.java.sql.db.field.Function;
+import usf.java.sql.db.field.Callable;
 
 public class ProcedureScanner implements Scanner<Scanner.HasFunctionAdapter> {
 	
@@ -22,7 +22,7 @@ public class ProcedureScanner implements Scanner<Scanner.HasFunctionAdapter> {
 			try {
 				procs = dm.getProcedures(null, database, procedure);
 				while(procs.next()){
-					Function p = new Function(
+					Callable p = new Callable(
 							procs.getString("PROCEDURE_SCHEM"), 
 							procs.getString("PROCEDURE_NAME"));
 							//procs.getString("PROCEDURE_TYPE")
