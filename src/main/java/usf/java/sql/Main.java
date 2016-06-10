@@ -79,10 +79,10 @@ public class Main {
 //		test4();
 		
 		ex1();
-//		ex2();
-//		ex3();
-//		ex4();
-//		ex5();
+		ex2();
+		ex3();
+		ex4();
+		ex5();
 	}
 
 	//Excecutors & Adapters
@@ -121,7 +121,7 @@ public class Main {
 	//list all server databases  
 	public static void ex1() throws InstantiationException, IllegalAccessException, SQLException{
 		DatabasePrinter a = new DatabaseScannerPrinter(cm, format);
-		a.listDatabase();
+		a.list();
 	}
 	//Search PRCD_RECH_POM_ID_HAB_020 procedure in all Databases 
 	public static void ex2() throws InstantiationException, IllegalAccessException, SQLException{

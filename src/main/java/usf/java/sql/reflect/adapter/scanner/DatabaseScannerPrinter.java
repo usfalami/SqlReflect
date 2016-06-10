@@ -32,11 +32,11 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter implements Da
 	}
 
 	@Override
-	public void listDatabase() throws SQLException{
-		this.listDatabase(null);
+	public void list() throws SQLException{
+		this.list(null);
 	}
 	@Override
-	public void listDatabase(String pattern) throws SQLException{
+	public void list(String pattern) throws SQLException{
 		new DatabaseScanner().run(this, pattern);
 	}
 }

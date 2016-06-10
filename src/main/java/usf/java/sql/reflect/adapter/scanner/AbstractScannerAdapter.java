@@ -17,8 +17,8 @@ public class AbstractScannerAdapter extends AbstractReflectorAdapter {
 	
 	public static interface DatabasePrinter extends HasDatabaseAdapter {
 
-		void listDatabase() throws SQLException;
-		void listDatabase(String pattern) throws SQLException;
+		void list() throws SQLException;
+		void list(String pattern) throws SQLException;
 
 	}
 	
