@@ -2,8 +2,6 @@ package usf.java.sql.reflect.adapter.scanner;
 
 import java.sql.SQLException;
 
-import com.sun.swing.internal.plaf.basic.resources.basic;
-
 import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.Callable;
 import usf.java.sql.db.field.Column;
@@ -58,7 +56,7 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 				if("?".equals(params[i])) bindable++;
 			}
 			formatter.endRows();
-			formatter.formatFooter(bindable + " Bindable(s) parameter(s), " + (params.length-bindable) + " Static parameter(s)" );
+			formatter.formatFooter(bindable + " Bindable(s) parameter(s), " + (params.length-bindable) + " Static parameter(s)");
 		}
 		formatter.endTable();
 	}

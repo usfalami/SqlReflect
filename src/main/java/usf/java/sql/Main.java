@@ -72,17 +72,17 @@ public class Main {
 		
 		//format = new AsciiFormatter(new FileOutputStream("output/usf.txt"));
 //		
-		test();
-		test1();
-		test2(); 
-		test3();
-		
-		test4();
-		
-		ex1();
-		ex2();
-		ex3();
-		ex4();
+//		test();
+//		test1();
+//		test2(); 
+//		test3();
+//		
+//		test4();
+//		
+//		ex1();
+//		ex2();
+//		ex3();
+//		ex4();
 		ex5();
 	}
 

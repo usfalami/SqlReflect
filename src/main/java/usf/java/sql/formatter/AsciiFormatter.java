@@ -71,6 +71,7 @@ public class AsciiFormatter extends AbstractFormatter {
 	@Override
 	public void endTable() {
 		out.print(layout);
+		out.println();
 	}
 
 }
