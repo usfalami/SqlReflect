@@ -21,7 +21,7 @@ import usf.java.sql.formatter.HtmlFormatter;
 import usf.java.sql.reflect.adapter.executor.AbstractExecutorAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorMultiAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorPerformAdapter;
-import usf.java.sql.reflect.adapter.executor.ExecutorResultAdapter;
+import usf.java.sql.reflect.adapter.executor.ExecutorResultSetAdapter;
 import usf.java.sql.reflect.adapter.executor.ExecutorResultColumnAdapter;
 import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Comparator;
 import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.DatabasePrinter;
@@ -89,7 +89,7 @@ public class Main {
 	//Excecutors & Adapters
 	
 	public static void test() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		AbstractExecutorAdapter a = new ExecutorResultAdapter(cm, format);
+		AbstractExecutorAdapter a = new ExecutorResultSetAdapter(cm, format);
 		a.execute("SELECT 1", "SELECT database");
 	}
 	
@@ -102,7 +102,7 @@ public class Main {
 		a.execute(query, param);
 	}
 	public static void test3() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-		AbstractExecutorAdapter a = new ExecutorResultAdapter(cm, format);
+		AbstractExecutorAdapter a = new ExecutorResultSetAdapter(cm, format);
 		a.execute(query, param);
 	}
 	

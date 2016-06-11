@@ -8,9 +8,9 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 
-public class ExecutorResultAdapter extends AbstractExecutorAdapter {
+public class ExecutorResultSetAdapter extends AbstractExecutorAdapter {
 	
-	public ExecutorResultAdapter(ConnectionManager cm, Formatter formatter) {
+	public ExecutorResultSetAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
 	}
 	
