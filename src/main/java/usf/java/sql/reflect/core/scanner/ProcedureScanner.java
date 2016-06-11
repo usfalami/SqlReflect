@@ -10,9 +10,9 @@ import java.util.List;
 import usf.java.sql.db.field.Column;
 import usf.java.sql.db.field.Callable;
 
-public class ProcedureScanner implements Scanner<Scanner.HasFunctionAdapter> {
+public class ProcedureScanner implements Scanner<Scanner.HasCallableScanner> {
 	
-	public void run(Scanner.HasFunctionAdapter adapter, String database, String procedure) throws SQLException{
+	public void run(Scanner.HasCallableScanner adapter, String database, String procedure) throws SQLException{
 		adapter.start();
 		Connection cnx = null;
 		try {

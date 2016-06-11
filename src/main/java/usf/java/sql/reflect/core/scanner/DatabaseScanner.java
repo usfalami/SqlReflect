@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 import usf.java.sql.db.field.Database;
 
-public class DatabaseScanner implements Scanner<Scanner.HasDatabaseAdapter> {
+public class DatabaseScanner implements Scanner<Scanner.HasDatabaseScanner> {
 
-	public void run(Scanner.HasDatabaseAdapter adapter, String database) throws SQLException {
+	public void run(Scanner.HasDatabaseScanner adapter, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {

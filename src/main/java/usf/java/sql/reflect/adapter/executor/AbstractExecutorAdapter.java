@@ -8,11 +8,11 @@ import usf.java.sql.connection.ConnectionManager;
 import usf.java.sql.db.field.SQL;
 import usf.java.sql.formatter.Formatter;
 import usf.java.sql.reflect.adapter.AbstractReflectorAdapter;
-import usf.java.sql.reflect.core.excutor.Executor;
-import usf.java.sql.reflect.core.excutor.PreparedStatementExecutor;
-import usf.java.sql.reflect.core.excutor.StatementExecutor;
+import usf.java.sql.reflect.core.executor.Executor;
+import usf.java.sql.reflect.core.executor.PreparedStatementExecutor;
+import usf.java.sql.reflect.core.executor.StatementExecutor;
 
-public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements Executor.Adapter {
+public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements Executor.HasExecutor {
 	
 	public AbstractExecutorAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
