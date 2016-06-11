@@ -7,7 +7,8 @@ import usf.java.sql.reflect.core.Reflector;
 
 public interface Scanner<T extends Scanner.HasScanner> extends Reflector<T> {
 	
-	public static interface HasScanner extends Reflector.Adapter {
+	
+	public static interface HasScanner extends Reflector.HasReflector {
 
 		void start();
 		void finish();
