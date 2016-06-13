@@ -67,7 +67,7 @@ public class StmQueriesTest extends TestCase {
 	public void testExecutor4() throws InstantiationException, IllegalAccessException, SQLException, ParseException, FileNotFoundException{
 		ExecutorMultiAdapter a = new ExecutorMultiAdapter(cm, format);
 		a.setAdapters( 
-			new ExecutorPerformAdapter(cm, new AsciiFormatter(System.out)),
+			//new ExecutorPerformAdapter(cm, new AsciiFormatter(System.out)),
 			new ExecutorPerformAdapter(cm, new AsciiFormatter(new FileOutputStream("target/usf.txt"))),
 			new ExecutorPerformAdapter(cm, new CsvFormatter(new FileOutputStream("target/usf.csv"))),
 			new ExecutorPerformAdapter(cm, new HtmlFormatter(new FileOutputStream("target/usf.html")))

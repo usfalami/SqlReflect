@@ -36,14 +36,14 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 			if(procedure.getParameters().length == 0)
 				formatter.formatFooter("This procedure has no paramters");
 			else 
-				formatter.formatFooter("Too many parameters : expected 0 parameters");
+				formatter.formatFooter("[Error] Too many parameters : expected 0 parameters");
 		}
 		
 		else if(procedure.getParameters().length > columns.length)
-			formatter.formatFooter("Too many parameters : expected " + columns.length + " parameters");
+			formatter.formatFooter("[Error] Too many parameters : expected " + columns.length + " parameters");
 		
 		else if(procedure.getParameters().length < columns.length)
-			formatter.formatFooter("Too few parameters : expected " + columns.length + " parameters");
+			formatter.formatFooter("[Error] Too few parameters : expected " + columns.length + " parameters");
 
 		else {
 			formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");
