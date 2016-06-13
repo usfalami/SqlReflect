@@ -67,10 +67,10 @@ public class AsciiFormatter extends AbstractFormatter {
 	@Override
 	public void formatFooter(String footer) {
 		out.format(row, footer);
+		out.print(layout);
 	}
 	@Override
 	public void endTable() {
-		out.print(layout);
 		out.println();
 	}
 

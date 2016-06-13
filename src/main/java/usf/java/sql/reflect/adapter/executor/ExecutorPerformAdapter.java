@@ -44,6 +44,7 @@ public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
 		formatter.formatHeaders("Action", "Start", "End", "Duration");
+		formatter.startRows();
 		formatter.formatRow("Connection",
 			TIME_FORMATTER.format(cnxStart),
 			TIME_FORMATTER.format(cnxEnd),
@@ -60,6 +61,7 @@ public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 			TIME_FORMATTER.format(cnxStart),
 			TIME_FORMATTER.format(execEnd),
 			String.format("%5d ms",execEnd-cnxStart));
+		formatter.endRows();
 		formatter.endTable();
 	}
 

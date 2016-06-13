@@ -30,12 +30,14 @@ public class ExecutorResultColumnAdapter extends AbstractExecutorAdapter {
 		formatter.startTable();
 		formatter.formatTitle(sql.getName());
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "Class"); 
+		formatter.startRows();
 		for(int i=1; i<=count; i++)
 			formatter.formatRow(i,
 				md.getColumnName(i),
 				md.getColumnTypeName(i),
 				md.getColumnDisplaySize(i),
 				md.getColumnClassName(i));
+		formatter.endRows();
 		formatter.endTable();
 	}
 	

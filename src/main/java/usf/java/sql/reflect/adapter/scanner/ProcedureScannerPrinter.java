@@ -29,6 +29,7 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter implements P
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
+		formatter.startRows();
 		if(columns== null || columns.length == 0)
 			formatter.formatFooter("This procedure has no paramters");
 		else
@@ -36,6 +37,7 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter implements P
 				Column c = columns[i];
 				formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole());
 			}
+		formatter.endRows();
 		formatter.endTable();
 	}
 

@@ -19,6 +19,7 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter implements Da
 	public void start() {
 		formatter.startTable();
 		formatter.formatHeaders("Database");
+		formatter.startRows();
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter implements Da
 
 	@Override
 	public void finish() {
+		formatter.endRows();
 		formatter.endTable();
 	}
 
