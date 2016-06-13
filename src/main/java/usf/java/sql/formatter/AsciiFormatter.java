@@ -15,7 +15,7 @@ public class AsciiFormatter extends AbstractFormatter {
 	}
 	
 	@Override
-	public void configure(int cols, int size) {
+	public void configureAll(int cols, int size) {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < cols; i++)
 			s.append(COLOMN_SEPAR).append("%").append(size).append("s");

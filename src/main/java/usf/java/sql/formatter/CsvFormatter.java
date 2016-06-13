@@ -9,7 +9,7 @@ public class CsvFormatter extends AbstractFormatter {
 	}
 	
 	@Override
-	public void configure(int cols, int size) {
+	public void configureAll(int cols, int size) {
 		// TODO Auto-generated method stub
 	}
 

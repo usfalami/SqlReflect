@@ -2,8 +2,8 @@ package usf.java.sql.formatter;
 
 public interface Formatter {
 	
-	void configure(int cols, int size);
 	void configure(int... sizes);
+	void configureAll(int count, int size);
 	
 	void startTable();
 	void formatTitle(String title);

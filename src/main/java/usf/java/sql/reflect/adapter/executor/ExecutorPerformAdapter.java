@@ -13,7 +13,7 @@ public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 	
 	public ExecutorPerformAdapter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
-		formatter.configure(4, PERFORM_TEXT_LENGTH);
+		formatter.configureAll(4, PERFORM_TEXT_LENGTH);
 	}
 
 	@Override

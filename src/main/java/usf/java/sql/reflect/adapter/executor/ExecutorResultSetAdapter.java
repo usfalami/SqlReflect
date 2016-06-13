@@ -23,7 +23,7 @@ public class ExecutorResultSetAdapter extends AbstractExecutorAdapter {
 	public void postExec(SQL sql, ResultSet rs) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
-		formatter.configure(cols, VALUE_LENGTH);
+		formatter.configureAll(cols, VALUE_LENGTH);
 		Object[] param = new Object[cols]; 
 		for(int i=1; i<=cols; i++) param[i-1]=md.getColumnName(i);
 		int count=rowsCount(rs);

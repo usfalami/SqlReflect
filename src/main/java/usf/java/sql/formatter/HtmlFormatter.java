@@ -11,7 +11,7 @@ public class HtmlFormatter extends AbstractFormatter {
 	}
 
 	@Override
-	public void configure(int cols, int size) {
+	public void configureAll(int cols, int size) {
 		this.cols = cols;		
 	}
 
