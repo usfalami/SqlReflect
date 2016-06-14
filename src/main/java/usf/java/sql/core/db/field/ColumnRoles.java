@@ -1,4 +1,4 @@
-package usf.java.sql.core.db;
+package usf.java.sql.core.db.field;
 
 public enum ColumnRoles {
 

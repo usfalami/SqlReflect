@@ -2,8 +2,6 @@ package usf.java.sql.core.db.field;
 
 import java.util.Objects;
 
-import usf.java.sql.core.db.ColumnRoles;
-
 public class Column implements Field {
 
 	protected String name, type, clazz;
