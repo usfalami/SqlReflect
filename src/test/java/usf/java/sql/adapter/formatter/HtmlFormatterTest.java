@@ -1,4 +1,4 @@
-package usf.java.sql.formatter;
+package usf.java.sql.adapter.formatter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
