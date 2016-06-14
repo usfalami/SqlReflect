@@ -23,7 +23,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 		this.user = user;
 	}
 
-	
 	@Override
 	public void configure() throws ClassNotFoundException{
 		Class.forName(server.getDriver());
