@@ -10,7 +10,7 @@ import usf.java.sql.core.db.field.Column;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureValidator extends AbstractScannerAdapter implements Validator {
+public class ProcedureValidator extends AbstractScannerAdapter implements Validator<Callable> {
 	
 	protected Callable procedure;
 

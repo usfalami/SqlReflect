@@ -13,7 +13,7 @@ import usf.java.sql.core.db.field.Column;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureColumnsComparator extends AbstractScannerAdapter implements Comparator {
+public class ProcedureColumnsComparator extends AbstractScannerAdapter implements Comparator<Callable> {
 	
 	protected String callableName;
 	protected List<Callable> functions;

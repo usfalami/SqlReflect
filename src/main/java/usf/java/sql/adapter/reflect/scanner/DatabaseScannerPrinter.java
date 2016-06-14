@@ -9,7 +9,7 @@ import usf.java.sql.core.db.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 
-public class DatabaseScannerPrinter extends AbstractScannerAdapter implements DatabasePrinter {
+public class DatabaseScannerPrinter extends AbstractScannerAdapter implements DatabasePrinter<Database> {
 
 	public DatabaseScannerPrinter(ConnectionManager rf, Formatter formatter) {
 		super(rf, formatter);

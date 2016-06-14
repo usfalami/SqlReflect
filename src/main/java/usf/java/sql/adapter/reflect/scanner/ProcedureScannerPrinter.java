@@ -10,7 +10,7 @@ import usf.java.sql.core.db.field.Column;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureScannerPrinter extends AbstractScannerAdapter implements Printer {
+public class ProcedureScannerPrinter extends AbstractScannerAdapter implements Printer<Callable> {
 	
 	public ProcedureScannerPrinter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);

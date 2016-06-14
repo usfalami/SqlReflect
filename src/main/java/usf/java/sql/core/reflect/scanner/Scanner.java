@@ -7,7 +7,6 @@ import usf.java.sql.core.reflect.Reflector;
 
 public interface Scanner extends Reflector {
 	
-	
 	public static interface HasScanner extends Reflector.HasReflector {
 
 		void start();
@@ -15,15 +14,15 @@ public interface Scanner extends Reflector {
 		
 	}
 	
-	public static interface HasDatabaseScanner extends Scanner.HasScanner {
+	public static interface HasDatabaseScanner<T extends Database> extends HasScanner {
 		
-		void adapte(Database db);
+		void adapte(T db);
 	
 	}
 	
-	public static interface HasCallableScanner extends Scanner.HasScanner {
+	public static interface HasCallableScanner<T extends Callable> extends HasScanner {//T can be a proceduure, macro or function
 		
-		void adapte(Callable procedure, Column ...columns);
+		void adapte(T procedure, Column ...columns);
 
 	}
 	

@@ -10,7 +10,7 @@ import usf.java.sql.core.mapper.BeanMapper;
 
 public class DatabaseScanner implements Scanner {
 
-	public void run(HasDatabaseScanner adapter, BeanMapper<?extends Database> mapper, String database) throws SQLException {
+	public <T extends Database> void run(HasDatabaseScanner<T> adapter, BeanMapper<T> mapper, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -20,7 +20,10 @@ public class DatabaseScanner implements Scanner {
 			try {
 				rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
 				int i=1;
-				while(rs.next()) adapter.adapte(mapper.map(rs, i++));
+				while(rs.next()){
+					T db = mapper.map(rs, i++);
+					adapter.adapte(db);
+				}
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
