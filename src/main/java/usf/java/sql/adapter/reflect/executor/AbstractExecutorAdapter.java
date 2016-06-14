@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
+import usf.java.sql.adapter.reflect.ExecutorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.db.field.SQL;
 import usf.java.sql.core.reflect.executor.Executor;

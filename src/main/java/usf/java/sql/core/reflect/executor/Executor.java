@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import usf.java.sql.core.db.field.SQL;
 import usf.java.sql.core.reflect.Reflector;
 
-public interface Executor extends Reflector<Executor.HasExecutor> {
+public interface Executor extends Reflector {
 	
-	public abstract void run(Executor.HasExecutor adapter, SQL query, Serializable ... parameters) throws SQLException;
+	public abstract void run(HasExecutor adapter, SQL query, Serializable ... parameters) throws SQLException;
 	
 	public static interface HasExecutor extends Reflector.HasReflector {
 

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import usf.java.sql.core.db.field.Database;
 import usf.java.sql.core.mapper.BeanMapper;
 
-public class DatabaseScanner implements Scanner<Scanner.HasDatabaseScanner> {
+public class DatabaseScanner implements Scanner {
 
-	public void run(Scanner.HasDatabaseScanner adapter, BeanMapper<?extends Database> mapper, String database) throws SQLException {
+	public void run(HasDatabaseScanner adapter, BeanMapper<?extends Database> mapper, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {

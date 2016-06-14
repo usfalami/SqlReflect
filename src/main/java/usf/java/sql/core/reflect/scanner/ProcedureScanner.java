@@ -12,9 +12,9 @@ import usf.java.sql.core.db.field.Column;
 import usf.java.sql.core.mapper.BeanMapper;
 import usf.java.sql.core.mapper.ColumnMapper;
 
-public class ProcedureScanner implements Scanner<Scanner.HasCallableScanner> {
+public class ProcedureScanner implements Scanner {
 	
-	public void run(Scanner.HasCallableScanner adapter, BeanMapper<?extends Callable> mapper, String database, String procedure) throws SQLException{
+	public void run(HasCallableScanner adapter, BeanMapper<?extends Callable> mapper, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		ColumnMapper colMapper = new ColumnMapper(); //TODO

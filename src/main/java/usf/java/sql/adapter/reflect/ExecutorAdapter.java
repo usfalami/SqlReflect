@@ -1,4 +1,4 @@
-package usf.java.sql.adapter.reflect.executor;
+package usf.java.sql.adapter.reflect;
 
 import java.io.Serializable;
 import java.sql.ResultSet;

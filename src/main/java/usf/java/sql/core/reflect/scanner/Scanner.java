@@ -5,7 +5,7 @@ import usf.java.sql.core.db.field.Column;
 import usf.java.sql.core.db.field.Database;
 import usf.java.sql.core.reflect.Reflector;
 
-public interface Scanner<T extends Scanner.HasScanner> extends Reflector<T> {
+public interface Scanner extends Reflector {
 	
 	
 	public static interface HasScanner extends Reflector.HasReflector {
