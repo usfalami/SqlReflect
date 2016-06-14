@@ -1,4 +1,4 @@
-package usf.java.sql.core.db.type;
+package usf.java.sql.core.db.server;
 
 import java.util.Arrays;
 
