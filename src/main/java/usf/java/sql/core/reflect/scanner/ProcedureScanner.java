@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.db.field.Callable;
-import usf.java.sql.core.db.field.Column;
+import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Column;
 import usf.java.sql.core.mapper.BeanMapper;
 import usf.java.sql.core.mapper.ColumnMapper;
 

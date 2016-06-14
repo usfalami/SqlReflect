@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.db.field.SQL;
+import usf.java.sql.core.field.SQL;
 
 public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 

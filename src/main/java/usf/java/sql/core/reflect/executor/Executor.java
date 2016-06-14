@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.field.SQL;
+import usf.java.sql.core.field.SQL;
 import usf.java.sql.core.reflect.Reflector;
 
 public interface Executor extends Reflector {

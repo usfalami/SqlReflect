@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.db.field.SQL;
+import usf.java.sql.core.field.SQL;
 
 public class StatementExecutor implements Executor {
 

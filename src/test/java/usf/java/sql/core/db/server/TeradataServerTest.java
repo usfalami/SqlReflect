@@ -3,10 +3,10 @@ package usf.java.sql.core.db.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sql.core.db.Env;
-import usf.java.sql.core.db.Server;
-import usf.java.sql.core.db.field.SQL;
-import usf.java.sql.core.db.server.TeradataServer;
+import usf.java.sql.core.field.Env;
+import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.server.Server;
+import usf.java.sql.core.server.TeradataServer;
 
 
 public class TeradataServerTest extends TestCase {

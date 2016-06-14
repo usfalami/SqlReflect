@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.db.Server;
-import usf.java.sql.core.db.field.SQL;
+import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.server.Server;
 
 public interface ConnectionManager {
 

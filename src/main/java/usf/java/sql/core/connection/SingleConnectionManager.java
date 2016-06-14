@@ -3,9 +3,9 @@ package usf.java.sql.core.connection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.Env;
-import usf.java.sql.core.db.Server;
-import usf.java.sql.core.db.User;
+import usf.java.sql.core.field.Env;
+import usf.java.sql.core.field.User;
+import usf.java.sql.core.server.Server;
 
 public class SingleConnectionManager extends SimpleConnectionManager {
 	

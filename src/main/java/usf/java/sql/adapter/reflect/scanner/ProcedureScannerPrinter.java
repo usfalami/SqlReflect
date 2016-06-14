@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallablePrinter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.db.field.Column;
-import usf.java.sql.core.db.field.Procedure;
+import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 

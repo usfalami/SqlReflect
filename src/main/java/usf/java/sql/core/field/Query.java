@@ -1,4 +1,4 @@
-package usf.java.sql.core.db.field;
+package usf.java.sql.core.field;
 
 public class Query implements SQL  {
 	

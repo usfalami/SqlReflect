@@ -1,7 +1,6 @@
-package usf.java.sql.core.db.field;
+package usf.java.sql.core.field;
 
 public interface SQL extends Field {
-
 
 	public String getDatabase();
 	public void setDatabase(String database);

@@ -1,8 +1,8 @@
 package usf.java.sql.core.reflect.scanner;
 
-import usf.java.sql.core.db.field.Callable;
-import usf.java.sql.core.db.field.Column;
-import usf.java.sql.core.db.field.Database;
+import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Database;
 import usf.java.sql.core.reflect.Reflector;
 
 public interface Scanner extends Reflector {
@@ -20,7 +20,7 @@ public interface Scanner extends Reflector {
 	
 	}
 	
-	public static interface HasCallableScanner<T extends Callable> extends HasScanner {//T can be a proceduure, macro or function
+	public static interface HasCallableScanner<T extends Callable> extends HasScanner {
 		
 		void adapte(T procedure, Column ...columns);
 

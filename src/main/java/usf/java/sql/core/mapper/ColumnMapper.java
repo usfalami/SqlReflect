@@ -3,7 +3,7 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.field.Column;
+import usf.java.sql.core.field.Column;
 
 public class ColumnMapper implements BeanMapper<Column> {
 

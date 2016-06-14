@@ -1,14 +1,13 @@
-package usf.java.sql.core.db.server;
+package usf.java.sql.core.server;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import usf.java.sql.core.db.Env;
-import usf.java.sql.core.db.Server;
-import usf.java.sql.core.db.field.Callable;
-import usf.java.sql.core.db.field.Macro;
-import usf.java.sql.core.db.field.Procedure;
-import usf.java.sql.core.db.field.Query;
+import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Env;
+import usf.java.sql.core.field.Macro;
+import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.field.Query;
 
 public class TeradataServer implements Server {
 	

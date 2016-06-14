@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.field.Database;
+import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.BeanMapper;
 
 public class DatabaseScanner implements Scanner {

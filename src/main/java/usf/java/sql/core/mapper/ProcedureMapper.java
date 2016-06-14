@@ -3,7 +3,7 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.field.Procedure;
+import usf.java.sql.core.field.Procedure;
 
 public class ProcedureMapper implements BeanMapper<Procedure> {
 
