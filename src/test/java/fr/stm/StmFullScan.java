@@ -6,20 +6,20 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import junit.framework.TestCase;
-import usf.java.sql.connection.ConnectionManager;
-import usf.java.sql.connection.SimpleConnectionManager;
-import usf.java.sql.db.Env;
-import usf.java.sql.db.Server;
-import usf.java.sql.db.User;
-import usf.java.sql.db.server.TeradataServer;
-import usf.java.sql.formatter.AsciiFormatter;
-import usf.java.sql.formatter.Formatter;
-import usf.java.sql.reflect.adapter.scanner.ProcedureValidator;
-import usf.java.sql.reflect.adapter.scanner.AbstractScannerAdapter.Validator;
+import usf.java.sql.adapter.formatter.AsciiFormatter;
+import usf.java.sql.adapter.formatter.Formatter;
+import usf.java.sql.adapter.reflect.scanner.ProcedureValidator;
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.Validator;
+import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.SimpleConnectionManager;
+import usf.java.sql.core.db.Env;
+import usf.java.sql.core.db.Server;
+import usf.java.sql.core.db.User;
+import usf.java.sql.core.db.server.TeradataServer;
 
 public class StmFullScan extends TestCase {
 
-private static Server db = new TeradataServer();
+	private static Server db = new TeradataServer();
 	
 	private static Env env_ra4 = new Env("BDD_STM_DEV", "STM_IHM_RA4", 1025, "tmode=tera,charset=utf8");
 	private static User user_ra4 = new User("stm_dba_ra4", "stm_dba_ra4");

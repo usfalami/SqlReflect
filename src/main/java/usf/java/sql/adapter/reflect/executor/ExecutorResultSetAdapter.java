@@ -1,0 +1,55 @@
+package usf.java.sql.adapter.reflect.executor;
+
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+import usf.java.sql.adapter.formatter.Formatter;
+import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.db.field.SQL;
+
+public class ExecutorResultSetAdapter extends AbstractExecutorAdapter {
+	
+	public ExecutorResultSetAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
+	}
+	
+	@Override
+	public void preExec(SQL sql) {
+		
+	}
+
+	@Override
+	public void postExec(SQL sql, ResultSet rs) throws SQLException {
+		ResultSetMetaData md = rs.getMetaData();
+		int cols = md.getColumnCount();
+		formatter.configureAll(cols, VALUE_LENGTH);
+		Object[] param = new Object[cols]; 
+		for(int i=1; i<=cols; i++) param[i-1]=md.getColumnName(i);
+		int count = Utils.rowsCount(rs);
+		formatter.startTable();
+		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
+		formatter.formatHeaders(param);
+		formatter.startRows();
+		while(rs.next()){
+			for(int i=1; i<=cols; i++) param[i-1]=rs.getObject(i);
+			formatter.formatRow(param);
+		}
+		formatter.endRows();
+		formatter.endTable();
+	}
+	
+
+	@Override
+	public void preConnecion() { }
+	
+	@Override
+	public void postConnecion() { }
+
+	@Override
+	public void preStatement() { }
+	
+	@Override
+	public void postStatement() { }
+
+}

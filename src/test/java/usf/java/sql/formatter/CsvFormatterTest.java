@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
+import usf.java.sql.adapter.formatter.AbstractFormatter;
+import usf.java.sql.adapter.formatter.CsvFormatter;
 import junit.framework.TestCase;
 
 public class CsvFormatterTest extends TestCase {

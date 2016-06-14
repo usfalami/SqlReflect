@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
+import usf.java.sql.adapter.formatter.AbstractFormatter;
+import usf.java.sql.adapter.formatter.HtmlFormatter;
 import junit.framework.TestCase;
 
 public class HtmlFormatterTest extends TestCase {
