@@ -37,7 +37,7 @@ public class ProcedureScanner implements Scanner {
 						throw e;
 					}
 					finally {
-						if(cols != null) cols.close();
+						adapter.getConnectionManager().close(cols);
 					}
 				}
 			} catch (SQLException e) {
@@ -45,14 +45,14 @@ public class ProcedureScanner implements Scanner {
 				throw e;
 			}
 			finally {
-				if(procs != null) procs.close();
+				adapter.getConnectionManager().close(procs);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().closeConnection(cnx);
+			adapter.getConnectionManager().close(cnx);
 		}
 		adapter.finish();
 	}

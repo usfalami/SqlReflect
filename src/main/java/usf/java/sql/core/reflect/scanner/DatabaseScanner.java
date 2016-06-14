@@ -30,14 +30,14 @@ public class DatabaseScanner implements Scanner {
 				throw e;
 			}
 			finally {
-				if(rs != null) rs.close();
+				adapter.getConnectionManager().close(rs);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().closeConnection(cnx);
+			adapter.getConnectionManager().close(cnx);
 		}
 		adapter.finish();
 	}

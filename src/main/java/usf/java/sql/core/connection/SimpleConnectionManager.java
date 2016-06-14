@@ -2,7 +2,9 @@ package usf.java.sql.core.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import usf.java.sql.core.db.Env;
 import usf.java.sql.core.db.Server;
@@ -27,6 +29,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 		Class.forName(server.getDriver());
 	}
 	
+	@Override
+	public Server getServer() {
+		return server;
+	}
+	
 	@Override	
 	public Connection newConnection() throws SQLException{
 		return DriverManager.getConnection(server.makeURL(env), user.getUser(), user.getPass());
@@ -40,14 +47,20 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public void closeConnection(Connection cnx) throws SQLException {
+	public void close(Connection cnx) throws SQLException {
 		if(cnx == null) return;
 		cnx.close();
 	}
-	
 	@Override
-	public Server getServer() {
-		return server;
+	public void close(Statement stmt) throws SQLException {
+		if(stmt == null) return;
+		stmt.close();
 	}
+	@Override
+	public void close(ResultSet rs) throws SQLException {
+		if(rs == null) return;
+		rs.close();
+	}
+
 	
 }

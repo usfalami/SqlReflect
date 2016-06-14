@@ -36,14 +36,14 @@ public class StatementExecutor implements Executor {
 					throw e;
 				}
 				finally {
-					if(rs!=null) rs.close();
+					adapter.getConnectionManager().close(rs);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
 			}
 			finally {
-				if(ps!=null) ps.close();
+				adapter.getConnectionManager().close(ps);
 			}
 		
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class StatementExecutor implements Executor {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().closeConnection(cnx);
+			adapter.getConnectionManager().close(cnx);
 		}
 	}
 
