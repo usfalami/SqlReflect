@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import usf.java.sql.core.db.Env;
 import usf.java.sql.core.db.Server;
 import usf.java.sql.core.db.field.Callable;
+import usf.java.sql.core.db.field.Macro;
+import usf.java.sql.core.db.field.Procedure;
 import usf.java.sql.core.db.field.Query;
 
 public class TeradataServer implements Server {
@@ -30,8 +32,7 @@ public class TeradataServer implements Server {
 			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());
 			if(m.matches()){
-				callable = new Callable(sql);
-				callable.setType(m.group(1).toLowerCase().equals("call")?"PROCEDURE":"MACRO");
+				callable = m.group(1).toLowerCase().equals("call") ? new Procedure(sql) : new Macro(sql);
 				callable.setDatabase(m.group(2)); 
 				callable.setName(m.group(3));
 				callable.setParameters(m.group(4).split("\\s*,\\s*"));

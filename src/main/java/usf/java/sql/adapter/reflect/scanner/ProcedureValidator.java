@@ -3,14 +3,15 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.Validator;
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallableValidator;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.db.field.Callable;
 import usf.java.sql.core.db.field.Column;
+import usf.java.sql.core.db.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureValidator extends AbstractScannerAdapter implements Validator<Callable> {
+public class ProcedureValidator extends AbstractScannerAdapter implements CallableValidator<Procedure> {
 	
 	protected Callable procedure;
 
@@ -29,7 +30,7 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Valida
 	public void start() { }
 
 	@Override
-	public void adapte(Callable callable, Column... columns) {
+	public void adapte(Procedure callable, Column... columns) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", callable.getDatabase(), callable.getName()));
 		

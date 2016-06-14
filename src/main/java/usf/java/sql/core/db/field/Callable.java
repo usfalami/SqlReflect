@@ -1,8 +1,8 @@
 package usf.java.sql.core.db.field;
 
-public class Callable implements SQL {
+public abstract class Callable implements SQL {
 	
-	protected String name, database, type, sql, parameters[];
+	protected String name, database, sql, parameters[];
 	
 	public Callable(String sql) {
 		this.sql = sql;
@@ -39,14 +39,6 @@ public class Callable implements SQL {
 	public void setDatabase(String database) {
 		this.database = database;
 	}
-
-	@Override
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	};
 	
 	@Override
 	public String[] getParameters() {

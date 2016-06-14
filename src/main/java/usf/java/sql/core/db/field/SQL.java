@@ -8,10 +8,7 @@ public interface SQL extends Field {
 	
 	public String getName() ;
 	public void setName(String name);
-	
-	public String getType() ;
-	public void setType(String type);
-	
+
 	public String get();
 	public void set(String sql);
 

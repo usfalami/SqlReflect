@@ -1,6 +1,5 @@
 package usf.java.sql.core.db.field;
 
-
 public class Query implements SQL  {
 	
 	protected String query;
@@ -51,17 +50,4 @@ public class Query implements SQL  {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setType(String type) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

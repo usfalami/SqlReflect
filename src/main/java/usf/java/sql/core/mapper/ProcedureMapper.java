@@ -3,13 +3,13 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.db.field.Callable;
+import usf.java.sql.core.db.field.Procedure;
 
-public class ProcedureMapper implements BeanMapper<Callable> {
+public class ProcedureMapper implements BeanMapper<Procedure> {
 
 	@Override
-	public Callable map(ResultSet rs, int row) throws SQLException {
-		return new Callable(
+	public Procedure map(ResultSet rs, int row) throws SQLException {
+		return new Procedure(
 				rs.getString("PROCEDURE_SCHEM"), 
 				rs.getString("PROCEDURE_NAME"));
 				//rs.getString("PROCEDURE_TYPE")

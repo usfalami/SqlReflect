@@ -23,20 +23,20 @@ public class AbstractScannerAdapter extends AbstractReflectorAdapter {
 
 	}
 	
-	public static interface Printer<T extends Callable> extends HasCallableScanner<T> {
+	public static interface CallablePrinter<T extends Callable> extends HasCallableScanner<T> {
 
 		void list(String database) throws SQLException;
 		void list(String database, String pattern) throws SQLException;
 
 	}
 	
-	public static interface Validator<T extends Callable> extends HasCallableScanner<T>  {
+	public static interface CallableValidator<T extends Callable> extends HasCallableScanner<T>  {
 
 		void validate(String callable) throws SQLException;
 
 	}
 	
-	public static interface Comparator<T extends Callable> extends HasCallableScanner<T>  {
+	public static interface CallableComparator<T extends Callable> extends HasCallableScanner<T>  {
 
 		void compare(String callableName) throws SQLException;
 

@@ -3,14 +3,14 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.Printer;
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallablePrinter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.db.field.Callable;
 import usf.java.sql.core.db.field.Column;
+import usf.java.sql.core.db.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureScannerPrinter extends AbstractScannerAdapter implements Printer<Callable> {
+public class ProcedureScannerPrinter extends AbstractScannerAdapter implements CallablePrinter<Procedure> {
 	
 	public ProcedureScannerPrinter(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -26,7 +26,7 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter implements P
 	public void start() { }
 	
 	@Override
-	public void adapte(Callable procedure, Column ...columns) {
+	public void adapte(Procedure procedure, Column ...columns) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");

@@ -6,14 +6,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.Comparator;
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallableComparator;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.db.field.Callable;
 import usf.java.sql.core.db.field.Column;
+import usf.java.sql.core.db.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureColumnsComparator extends AbstractScannerAdapter implements Comparator<Callable> {
+public class ProcedureColumnsComparator extends AbstractScannerAdapter implements CallableComparator<Procedure> {
 	
 	protected String callableName;
 	protected List<Callable> functions;
@@ -29,7 +30,7 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter implement
 	public void start() { }
 
 	@Override
-	public void adapte(Callable procedure, Column... columns) {
+	public void adapte(Procedure procedure, Column... columns) {
 		if(callableName.equals(procedure.getName())){
 			functions.add(procedure);
 			columnsList.add(columns);
