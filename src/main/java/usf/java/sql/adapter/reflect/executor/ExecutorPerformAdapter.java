@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 
 public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 
@@ -34,11 +34,11 @@ public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 	}
 
 	@Override
-	public void preExec(SQL sql) throws SQLException {
+	public void preExec(Callable sql) throws SQLException {
 		execStart = System.currentTimeMillis();
 	}
 	@Override
-	public void postExec(SQL sql, ResultSet rs) throws SQLException {
+	public void postExec(Callable sql, ResultSet rs) throws SQLException {
 		execEnd = System.currentTimeMillis();
 		int count = Utils.rowsCount(rs);
 		formatter.startTable();

@@ -3,7 +3,7 @@ package usf.java.sql.core.server;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Env;
 import usf.java.sql.core.field.Macro;
 import usf.java.sql.core.field.Procedure;
@@ -25,8 +25,8 @@ public class TeradataServer implements Server {
 	};
 	
 	@Override
-	public Callable parseFunction(String sql) {
-		Callable callable = null;
+	public Function parseCallable(String sql) {
+		Function callable = null;
 		if(sql.matches(FUNCTION_PATTERN)){
 			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());

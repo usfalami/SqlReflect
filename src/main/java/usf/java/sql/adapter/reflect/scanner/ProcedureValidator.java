@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallableValidator;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
@@ -13,7 +13,7 @@ import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureValidator extends AbstractScannerAdapter implements CallableValidator<Procedure> {
 	
-	protected Callable procedure;
+	protected Function procedure;
 
 	public ProcedureValidator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -68,7 +68,7 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Callab
 
 	@Override
 	public void validate(String callable) throws SQLException {
-		this.procedure = cm.getServer().parseFunction(callable);
+		this.procedure = cm.getServer().parseCallable(callable);
 		new ProcedureScanner().run(this, new ProcedureMapper(), procedure.getDatabase(), procedure.getName());
 	}
 }

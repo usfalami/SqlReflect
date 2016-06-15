@@ -1,6 +1,6 @@
 package usf.java.sql.core.field;
 
-public class Query implements SQL  {
+public class Query implements Callable  {
 	
 	protected String query;
 
@@ -9,13 +9,8 @@ public class Query implements SQL  {
 	}
 
 	@Override
-	public String get() {
+	public String getSQL() {
 		return query;
-	}
-
-	@Override
-	public void set(String query) {
-		this.query = query;
 	}
 
 	@Override

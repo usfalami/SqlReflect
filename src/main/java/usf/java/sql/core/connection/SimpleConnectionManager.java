@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.User;
 import usf.java.sql.core.server.Server;
 
@@ -39,8 +39,8 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public SQL parseSQL(String sql) {
-		SQL obj = server.parseFunction(sql);
+	public Callable parseSQL(String sql) {
+		Callable obj = server.parseCallable(sql);
 		if(obj == null) obj = server.parseQuery(sql);
 		return obj;
 	}

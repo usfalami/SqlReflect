@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.server.Server;
 
 public interface ConnectionManager {
@@ -16,7 +16,7 @@ public interface ConnectionManager {
 	
 	public Connection newConnection() throws SQLException;	
 	
-	public SQL parseSQL(String sql);
+	public Callable parseSQL(String sql);
 
 	public void close(Connection cnx) throws SQLException;
 	

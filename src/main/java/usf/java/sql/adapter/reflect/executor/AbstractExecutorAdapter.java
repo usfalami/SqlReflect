@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.reflect.executor.Executor;
 import usf.java.sql.core.reflect.executor.StatementExecutor;
 
@@ -19,7 +19,7 @@ public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter i
 	@Override
 	public void execute(String query, Serializable... parameters) throws SQLException { //one preparedStatement
 		Executor e = Utils.executorFor(parameters);
-		SQL sql = cm.parseSQL(query);
+		Callable sql = cm.parseSQL(query);
 		if(sql != null)
 			e.run(this, sql, parameters);
 	}

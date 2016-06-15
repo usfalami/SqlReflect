@@ -1,6 +1,6 @@
 package usf.java.sql.core.field;
 
-public class Procedure extends Callable {
+public class Procedure extends Function {
 
 	public Procedure(String database, String name) {
 		super(database, name);

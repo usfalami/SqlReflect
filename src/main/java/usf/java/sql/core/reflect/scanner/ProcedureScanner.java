@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.mapper.BeanMapper;
 import usf.java.sql.core.mapper.ColumnMapper;
 
 public class ProcedureScanner implements Scanner {
 	
-	public <T extends Callable> void run(HasCallableScanner<T> adapter, BeanMapper<T> mapper, String database, String procedure) throws SQLException {
+	public <T extends Function> void run(HasCallableScanner<T> adapter, BeanMapper<T> mapper, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		ColumnMapper colMapper = new ColumnMapper(); //TODO

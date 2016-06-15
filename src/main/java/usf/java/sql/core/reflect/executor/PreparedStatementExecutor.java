@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 
 public class PreparedStatementExecutor implements Executor {
 
 	@Override
-	public void run(HasExecutor adapter, SQL sql, Serializable ... parameters) throws SQLException {
+	public void run(HasExecutor adapter, Callable sql, Serializable ... parameters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -23,7 +23,7 @@ public class PreparedStatementExecutor implements Executor {
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.prepareStatement(sql.get(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = cnx.prepareStatement(sql.getSQL(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				if(parameters != null)
 					for(int i=0; i<parameters.length; i++)
 						ps.setObject(i+1, parameters[i]);

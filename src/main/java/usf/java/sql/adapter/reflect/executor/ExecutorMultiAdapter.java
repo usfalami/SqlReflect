@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 
 public class ExecutorMultiAdapter extends AbstractExecutorAdapter {
 	
@@ -47,13 +47,13 @@ public class ExecutorMultiAdapter extends AbstractExecutorAdapter {
 			a.postStatement();
 	}
 	@Override
-	public void preExec(SQL sql) throws SQLException {
+	public void preExec(Callable sql) throws SQLException {
 		if(adapters==null) return;
 		for(AbstractExecutorAdapter a : adapters)
 			a.preExec(sql);
 	}
 	@Override
-	public void postExec(SQL sql, ResultSet rs) throws SQLException {
+	public void postExec(Callable sql, ResultSet rs) throws SQLException {
 		if(adapters==null) return;
 		for(AbstractExecutorAdapter a : adapters)
 			a.postExec(sql, rs);

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.SQL;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.server.Server;
 import usf.java.sql.core.server.TeradataServer;
 
@@ -28,24 +28,24 @@ public class TeradataServerTest extends TestCase {
 	
 	public void testParseFuncion() {
 		Server db = new TeradataServer();
-		assertNull(db.parseFunction("select database"));
-		assertNull(db.parseFunction("exc sc_1.test_macro(?,?,?)"));
-		assertNull(db.parseFunction("cal sc_1.test_proc(?,?,?)"));
+		assertNull(db.parseCallable("select database"));
+		assertNull(db.parseCallable("exc bd_1.test_macro(?,?,?)"));
+		assertNull(db.parseCallable("cal bd_1.test_proc(?,?,?)"));
 		
-		String query = "call sc_1.test_proc(?,?,?,'param')";
-		SQL p = db.parseFunction(query);
+		String query = "call bd_1.test_proc(?,?,?,'param')";
+		Callable p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getName(), "test_proc");
-		assertEquals(p.getDatabase(), "sc_1");
-		assertEquals(p.get(), query);
+		assertEquals(p.getDatabase(), "bd_1");
+		assertEquals(p.getSQL(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
 
-		query = "exec sc_1.test_macro(1223, true, ?,'param')";
-		p = db.parseFunction(query);
+		query = "exec bd_1.test_macro(1223, true, ?,'param')";
+		p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getName(), "test_macro");
-		assertEquals(p.getDatabase(), "sc_1");
-		assertEquals(p.get(), query);
+		assertEquals(p.getDatabase(), "bd_1");
+		assertEquals(p.getSQL(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
 	}
 	
