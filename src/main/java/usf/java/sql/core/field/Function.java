@@ -1,6 +1,6 @@
 package usf.java.sql.core.field;
 
-public abstract class Function implements Callable {
+public abstract class Function implements Callable, HasColumns {
 	
 	protected String name, database, sql, parameters[];
 	
