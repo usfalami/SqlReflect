@@ -10,7 +10,7 @@ import usf.java.sql.core.mapper.BeanMapper;
 
 public class DatabaseScanner implements Scanner {
 
-	public <T extends Database> void run(HasDatabaseScanner<T> adapter, BeanMapper<T> mapper, String database) throws SQLException {
+	public <T extends Database> void run(HasScanner<T> adapter, BeanMapper<T> mapper, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {

@@ -3,6 +3,7 @@ package usf.java.sql.core.field;
 public abstract class Function implements Callable, HasColumns {
 	
 	protected String name, database, sql, parameters[];
+	protected Column[] columns;
 	
 	public Function(String sql) {
 		this.sql = sql;
@@ -45,8 +46,20 @@ public abstract class Function implements Callable, HasColumns {
 		this.parameters = parameters;
 	}
 	
+
+	@Override
+	public Column[] getColumns() {
+		return columns;
+	}
+	@Override
+	public void setColumns(Column... columns) {
+		this.columns = columns;
+	}
+
 	@Override
 	public String toString() {
 		return sql;
 	}
+	
+	
 }

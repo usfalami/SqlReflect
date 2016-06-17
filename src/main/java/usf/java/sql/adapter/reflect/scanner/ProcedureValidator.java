@@ -13,7 +13,7 @@ import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureValidator extends AbstractScannerAdapter implements CallableValidator<Procedure> {
 	
-	protected Function procedure;
+	protected Function callable;
 
 	public ProcedureValidator(ConnectionManager cm, Formatter formatter) {
 		super(cm, formatter);
@@ -30,27 +30,28 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Callab
 	public void start() { }
 
 	@Override
-	public void adapte(Procedure callable, Column... columns) {
+	public void adapte(Procedure procedure) {
 		formatter.startTable();
-		formatter.formatTitle(String.format("%s.%s", callable.getDatabase(), callable.getName()));
+		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		
+		Column[] columns = procedure.getColumns();
 		if(columns==null || columns.length==0) {
-			if(procedure.getParameters().length == 0)
+			if(callable.getParameters().length == 0)
 				formatter.formatFooter("This procedure has no paramters");
 			else 
 				formatter.formatFooter("[Error] Too many parameters : expected 0 parameters");
 		}
 		
-		else if(procedure.getParameters().length > columns.length)
+		else if(callable.getParameters().length > columns.length)
 			formatter.formatFooter("[Error] Too many parameters : expected " + columns.length + " parameters");
 		
-		else if(procedure.getParameters().length < columns.length)
+		else if(callable.getParameters().length < columns.length)
 			formatter.formatFooter("[Error] Too few parameters : expected " + columns.length + " parameters");
 
 		else {
 			formatter.formatHeaders("N°", "Name", "Type", "Size", "As", "Value");
 			formatter.startRows();
-			String[] params = procedure.getParameters();
+			String[] params = callable.getParameters();
 			int bindable = 0;
 			for(int i=0; i<columns.length; i++){
 				Column c = columns[i];
@@ -68,7 +69,7 @@ public class ProcedureValidator extends AbstractScannerAdapter implements Callab
 
 	@Override
 	public void validate(String callable) throws SQLException {
-		this.procedure = cm.getServer().parseCallable(callable);
-		new ProcedureScanner().run(this, new ProcedureMapper(), procedure.getDatabase(), procedure.getName());
+		this.callable = cm.getServer().parseCallable(callable);
+		new ProcedureScanner().run(this, new ProcedureMapper(), this.callable.getDatabase(), this.callable.getName());
 	}
 }

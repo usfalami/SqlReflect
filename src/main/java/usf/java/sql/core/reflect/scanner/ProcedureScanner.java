@@ -14,7 +14,7 @@ import usf.java.sql.core.mapper.ColumnMapper;
 
 public class ProcedureScanner implements Scanner {
 	
-	public <T extends Function> void run(HasCallableScanner<T> adapter, BeanMapper<T> mapper, String database, String procedure) throws SQLException {
+	public <T extends Function> void run(HasScanner<T> adapter, BeanMapper<T> mapper, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		ColumnMapper colMapper = new ColumnMapper(); //TODO
@@ -30,8 +30,8 @@ public class ProcedureScanner implements Scanner {
 					ResultSet cols = null;
 					try {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
-						Column[] list = listColumns(cols, colMapper);
-						adapter.adapte(p, list);
+						p.setColumns(listColumns(cols, colMapper));
+						adapter.adapte(p);
 					} catch (SQLException e) {
 						e.printStackTrace();
 						throw e;

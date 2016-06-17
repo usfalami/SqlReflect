@@ -26,11 +26,13 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter implements C
 	public void start() { }
 	
 	@Override
-	public void adapte(Procedure procedure, Column ...columns) {
+	public void adapte(Procedure procedure) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
 		formatter.startRows();
+
+		Column[] columns = procedure.getColumns();
 		if(columns== null || columns.length == 0)
 			formatter.formatFooter("This procedure has no paramters");
 		else
