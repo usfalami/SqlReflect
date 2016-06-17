@@ -3,8 +3,8 @@ package usf.java.sql.core.db.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sql.core.field.Env;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Env;
 import usf.java.sql.core.field.Macro;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.server.Server;
