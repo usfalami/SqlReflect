@@ -2,16 +2,17 @@ package usf.java.sql.core.reflect.executor;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.field.Callable;
 
-public class StatementExecutor implements Executor {
+public class SimpleExecutor implements Executor {
 
 	@Override
-	public void run(HasExecutor adapter, Callable sql, Serializable ... parametters) throws SQLException {
+	public void run(HasExecutor adapter, Callable callable, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
@@ -19,18 +20,19 @@ public class StatementExecutor implements Executor {
 			cnx = adapter.getConnectionManager().newConnection();
 			adapter.postConnecion();
 			
-			Statement ps = null;
+			Statement stmt = null;
 			try {
 				
 				adapter.preStatement();
-				ps = cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				stmt = adapter.getConnectionManager().buildStatement(cnx, callable.getSQL(), parametters);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
-					adapter.preExec(sql);
-					rs = ps.executeQuery(sql.getSQL());
-					adapter.postExec(sql, rs);
+					adapter.preExec(callable);
+					rs = stmt instanceof Statement ? 
+							stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
+					adapter.postExec(callable, rs);
 				} catch (SQLException e) {
 					e.printStackTrace();
 					throw e;
@@ -43,7 +45,7 @@ public class StatementExecutor implements Executor {
 				throw e;
 			}
 			finally {
-				adapter.getConnectionManager().close(ps);
+				adapter.getConnectionManager().close(stmt);
 			}
 		
 		} catch (SQLException e) {

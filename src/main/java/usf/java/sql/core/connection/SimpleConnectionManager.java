@@ -1,7 +1,9 @@
 package usf.java.sql.core.connection;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,8 +31,10 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Server getServer() {
-		return server;
+	public Callable parseSQL(String sql) {
+		Callable obj = server.parseCallable(sql);
+		if(obj == null) obj = server.parseQuery(sql);
+		return obj;
 	}
 	
 	@Override	
@@ -39,12 +43,18 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Callable parseSQL(String sql) {
-		Callable obj = server.parseCallable(sql);
-		if(obj == null) obj = server.parseQuery(sql);
-		return obj;
-	}
-	
+	public Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException  {
+		if(parameters == null || parameters.length ==0) 
+			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		else{
+			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			if(parameters != null)
+				for(int i=0; i<parameters.length; i++)
+					ps.setObject(i+1, parameters[i]);
+			return ps;
+		}
+	}	
+
 	@Override
 	public void close(Connection cnx) throws SQLException {
 		if(cnx == null) return;
@@ -61,5 +71,9 @@ public class SimpleConnectionManager implements ConnectionManager {
 		rs.close();
 	}
 
-	
+	@Override
+	public Server getServer() {
+		return server;
+	}
+
 }

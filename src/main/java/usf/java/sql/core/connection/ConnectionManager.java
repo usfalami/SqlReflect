@@ -1,5 +1,6 @@
 package usf.java.sql.core.connection;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +13,18 @@ public interface ConnectionManager {
 
 	void configure() throws ClassNotFoundException;
 
-	Server getServer();
+	Callable parseSQL(String sql);
 	
-	public Connection newConnection() throws SQLException;	
+	Connection newConnection() throws SQLException;
 	
-	public Callable parseSQL(String sql);
+	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
 
-	public void close(Connection cnx) throws SQLException;
+	void close(Connection cnx) throws SQLException;
 	
-	public void close(Statement stmt) throws SQLException;
+	void close(Statement stmt) throws SQLException;
 	
-	public void close(ResultSet rs) throws SQLException;
+	void close(ResultSet rs) throws SQLException;
+
+	Server getServer();
 	
 }
