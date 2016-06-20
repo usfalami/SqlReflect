@@ -11,8 +11,8 @@ import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
 
 public class AbstractScannerAdapter extends AbstractReflectorAdapter {
 
-	public AbstractScannerAdapter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public AbstractScannerAdapter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 	}
 	
 	public static interface DatabasePrinter<T extends Database> extends HasScanner<T> {

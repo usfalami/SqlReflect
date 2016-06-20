@@ -11,8 +11,8 @@ import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 
 public class DatabaseScannerPrinter extends AbstractScannerAdapter implements DatabasePrinter<Database> {
 
-	public DatabaseScannerPrinter(ConnectionManager rf, Formatter formatter) {
-		super(rf, formatter);
+	public DatabaseScannerPrinter(ConnectionManager cm, Formatter formatter) {
+		super(cm, formatter);
 		formatter.configure(DATABASE_NAME_LENGTH);
 	}
 	
