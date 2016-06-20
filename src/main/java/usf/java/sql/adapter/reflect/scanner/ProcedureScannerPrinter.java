@@ -1,12 +1,14 @@
 package usf.java.sql.adapter.reflect.scanner;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallablePrinter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
@@ -32,12 +34,12 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");
 		formatter.startRows();
 
-		Column[] columns = procedure.getColumns();
-		if(columns== null || columns.length == 0)
+		List<?extends Column>columns = procedure.getColumns();
+		if(columns== null || columns.size() == 0)
 			formatter.formatFooter("This procedure has no paramters");
 		else
-			for(int i=0; i<columns.length; i++){
-				Column c = columns[i];
+			for(int i=0; i<columns.size(); i++){
+				Column c = columns.get(i);
 				formatter.formatRow(i+1, c.getName(), c.getValueType(), c.getSize(), c.getRole());
 			}
 		formatter.endRows();
@@ -50,11 +52,11 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 	
 	@Override
 	public void list(String database) throws SQLException{
-		new ProcedureScanner().run(this, database, null);
+		new ProcedureScanner().run(this, new ColumnMapper(), database, null);
 	}
 	@Override
 	public void list(String database, String pattern) throws SQLException{
-		new ProcedureScanner().run(this, database, pattern);
+		new ProcedureScanner().run(this, new ColumnMapper(), database, pattern);
 	}
 	
 }

@@ -1,9 +1,11 @@
 package usf.java.sql.core.field;
 
+import java.util.List;
+
 public abstract class Function implements Callable, HasColumns {
 	
 	protected String name, database, sql, parameters[];
-	protected Column[] columns;
+	protected List<?extends Column> columns;
 	
 	public Function(String sql) {
 		this.sql = sql;
@@ -48,11 +50,11 @@ public abstract class Function implements Callable, HasColumns {
 	
 
 	@Override
-	public Column[] getColumns() {
+	public List<?extends Column> getColumns() {
 		return columns;
 	}
 	@Override
-	public void setColumns(Column... columns) {
+	public void setColumns(List<?extends Column> columns) {
 		this.columns = columns;
 	}
 

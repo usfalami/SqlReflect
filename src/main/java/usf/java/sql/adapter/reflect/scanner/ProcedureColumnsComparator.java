@@ -11,6 +11,7 @@ import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
@@ -32,9 +33,9 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	@Override
 	public void adapte(Procedure procedure, int index) {
 		if(callableName.equals(procedure.getName())){
-			Column[] columns = procedure.getColumns();
-			functions.add(procedure);
-			columnsList.add(columns);
+//			Column[] columns = procedure.getColumns();
+//			functions.add(procedure);
+//			columnsList.add(columns);
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	public void compare(String callableName) throws SQLException {
 		this.callableName = callableName;
 		if(callableName == null || callableName.isEmpty()) return;
-		new ProcedureScanner().run(this, null, callableName);
+		new ProcedureScanner().run(this, new ColumnMapper(), null, callableName);
 	}
 
 }
