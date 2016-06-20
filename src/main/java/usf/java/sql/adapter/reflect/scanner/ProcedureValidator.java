@@ -30,7 +30,7 @@ public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implem
 	public void start() { }
 
 	@Override
-	public void adapte(Procedure procedure) {
+	public void adapte(Procedure procedure, int index) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		

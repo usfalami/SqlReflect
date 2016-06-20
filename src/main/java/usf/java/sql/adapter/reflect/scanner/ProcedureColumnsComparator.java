@@ -30,7 +30,7 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	public void start() { }
 
 	@Override
-	public void adapte(Procedure procedure) {
+	public void adapte(Procedure procedure, int index) {
 		if(callableName.equals(procedure.getName())){
 			Column[] columns = procedure.getColumns();
 			functions.add(procedure);

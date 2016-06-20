@@ -26,7 +26,7 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 	public void start() { }
 	
 	@Override
-	public void adapte(Procedure procedure) {
+	public void adapte(Procedure procedure, int index) {
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s.%s", procedure.getDatabase(), procedure.getName()));
 		formatter.formatHeaders("N°", "Name", "Type", "Size", "As");

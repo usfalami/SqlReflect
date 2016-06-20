@@ -17,36 +17,10 @@ public class ProcedureScanner implements Scanner {
 	public <T extends Function> void run(HasScanner<T> adapter, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
-		ColumnMapper colMapper = new ColumnMapper(); //TODO
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			ResultSet procs = null;
-			try {
-				int row = 1;
-				procs = dm.getProcedures(null, database, procedure);
-				while(procs.next()){
-					T p = adapter.getMapper().map(procs, row++);
-					ResultSet cols = null;
-					try {
-						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
-						p.setColumns(listColumns(cols, colMapper));
-						adapter.adapte(p);
-					} catch (SQLException e) {
-						e.printStackTrace();
-						throw e;
-					}
-					finally {
-						adapter.getConnectionManager().close(cols);
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
-			}
-			finally {
-				adapter.getConnectionManager().close(procs);
-			}
+			run(dm, adapter, database, procedure);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -55,6 +29,38 @@ public class ProcedureScanner implements Scanner {
 			adapter.getConnectionManager().close(cnx);
 		}
 		adapter.finish();
+	}
+	
+	public <T extends Function> void run(DatabaseMetaData dm, HasScanner<T> adapter, String database, String procedure) throws SQLException {
+		adapter.start();
+		ColumnMapper colMapper = new ColumnMapper(); //TODO
+		ResultSet procs = null;
+		try {
+			int row = 0;
+			procs = dm.getProcedures(null, database, procedure);
+			while(procs.next()){
+				T p = adapter.getMapper().map(procs, row+1);
+				ResultSet cols = null;
+				try {
+					cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);
+					p.setColumns(listColumns(cols, colMapper));
+					adapter.adapte(p, row++);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw e;
+				}
+				finally {
+					adapter.getConnectionManager().close(cols);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			adapter.getConnectionManager().close(procs);
+			adapter.finish();
+		}
 	}
 	
 	protected Column[] listColumns(ResultSet rs, Mapper<?extends Column> mapper) throws SQLException {

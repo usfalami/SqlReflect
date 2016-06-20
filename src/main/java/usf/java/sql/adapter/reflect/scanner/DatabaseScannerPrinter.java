@@ -24,7 +24,7 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> imp
 	}
 
 	@Override
-	public void adapte(Database db) {
+	public void adapte(Database db, int index) {
 		formatter.formatRow(db.getName());
 	}
 

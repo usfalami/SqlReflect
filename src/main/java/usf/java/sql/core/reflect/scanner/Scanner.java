@@ -9,7 +9,7 @@ public interface Scanner extends Reflector {
 	public static interface HasScanner<T extends Field> extends HasReflector {
 
 		void start();
-		void adapte(T field);
+		void adapte(T field, int index);
 		void finish();
 		Mapper<T> getMapper();
 		
