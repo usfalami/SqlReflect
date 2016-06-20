@@ -39,7 +39,7 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	}
 	
 	@Override
-	public void finish() {
+	public void end() {
 		Column[] c1, c2;
 		Function f1, f2;
 		for(int i=0; i<columnsList.size()-1; i++){

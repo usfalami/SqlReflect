@@ -29,7 +29,7 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> imp
 	}
 
 	@Override
-	public void finish() {
+	public void end() {
 		formatter.endRows();
 		formatter.endTable();
 	}

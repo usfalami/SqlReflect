@@ -45,7 +45,7 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 	}
 
 	@Override
-	public void finish() { }
+	public void end() { }
 	
 	
 	@Override

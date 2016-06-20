@@ -28,7 +28,7 @@ public class ProcedureScanner implements Scanner {
 		finally {
 			adapter.getConnectionManager().close(cnx);
 		}
-		adapter.finish();
+		adapter.end();
 	}
 	
 	public <T extends Function> void run(DatabaseMetaData dm, HasScanner<T> adapter, String database, String procedure) throws SQLException {
@@ -59,7 +59,7 @@ public class ProcedureScanner implements Scanner {
 		}
 		finally {
 			adapter.getConnectionManager().close(procs);
-			adapter.finish();
+			adapter.end();
 		}
 	}
 	

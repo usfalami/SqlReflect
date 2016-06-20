@@ -25,6 +25,7 @@ public class ColumnScanner implements Scanner {
 	}
 	
 	public <C extends Column> void run(DatabaseMetaData dm, HasScanner<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException {
+		adapter.start();
 		ResultSet rs = null;
 		try {
 			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, null);
@@ -39,6 +40,7 @@ public class ColumnScanner implements Scanner {
 		}
 		finally {
 			adapter.getConnectionManager().close(rs);
+			adapter.end();
 		}
 	}
 

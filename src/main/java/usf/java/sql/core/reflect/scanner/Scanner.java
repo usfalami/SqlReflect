@@ -10,7 +10,7 @@ public interface Scanner extends Reflector {
 
 		void start();
 		void adapte(T field, int index);
-		void finish();
+		void end();
 		Mapper<T> getMapper();
 		
 	}

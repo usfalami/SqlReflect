@@ -29,7 +29,7 @@ public class DatabaseScanner implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
-			int row=0;
+			int row = 0;
 			while(rs.next()){
 				T db = adapter.getMapper().map(rs, row+1);
 				adapter.adapte(db, row++);
@@ -41,7 +41,7 @@ public class DatabaseScanner implements Scanner {
 		}
 		finally {
 			adapter.getConnectionManager().close(rs);
-			adapter.finish();
+			adapter.end();
 		}
 	}
 

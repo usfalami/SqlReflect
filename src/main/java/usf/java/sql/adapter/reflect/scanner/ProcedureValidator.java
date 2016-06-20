@@ -65,7 +65,7 @@ public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implem
 	}
 	
 	@Override
-	public void finish() { }
+	public void end() { }
 
 	@Override
 	public void validate(String callable) throws SQLException {
