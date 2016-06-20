@@ -9,15 +9,15 @@ import java.util.List;
 import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.mapper.BeanMapper;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.executor.SimpleExecutor;
 
 public class ExecutorMapper<T> extends AbstractReflectorAdapter implements ExecutorAdapter {
 	
 	protected List<T> beans;
-	protected BeanMapper<T> mapper;
+	protected Mapper<T> mapper;
 	
-	public ExecutorMapper(ConnectionManager cm, BeanMapper<T> mapper) {
+	public ExecutorMapper(ConnectionManager cm, Mapper<T> mapper) {
 		super(cm);
 		this.mapper = mapper;
 	}

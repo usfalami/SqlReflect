@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.field.Column;
 
-public class ColumnMapper implements BeanMapper<Column> {
+public class ColumnMapper implements Mapper<Column> {
 
 	@Override
 	public Column map(ResultSet rs, int row) throws SQLException {

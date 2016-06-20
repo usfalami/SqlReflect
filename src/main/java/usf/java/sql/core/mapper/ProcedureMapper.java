@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.field.Procedure;
 
-public class ProcedureMapper implements BeanMapper<Procedure> {
+public class ProcedureMapper implements Mapper<Procedure> {
 
 	@Override
 	public Procedure map(ResultSet rs, int row) throws SQLException {

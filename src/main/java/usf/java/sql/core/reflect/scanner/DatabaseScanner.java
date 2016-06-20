@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Database;
-import usf.java.sql.core.mapper.BeanMapper;
+import usf.java.sql.core.mapper.Mapper;
 
 public class DatabaseScanner implements Scanner {
 
-	public <T extends Database> void run(HasScanner<T> adapter, BeanMapper<T> mapper, String database) throws SQLException {
+	public <T extends Database> void run(HasScanner<T> adapter, Mapper<T> mapper, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {

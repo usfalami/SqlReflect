@@ -11,7 +11,7 @@ public interface Executor extends Reflector {
 	
 	public abstract void run(HasExecutor adapter, Callable query, Serializable ... parameters) throws SQLException;
 	
-	public static interface HasExecutor extends Reflector.HasReflector {
+	public static interface HasExecutor extends HasReflector {
 
 		void preConnecion();
 		void postConnecion();

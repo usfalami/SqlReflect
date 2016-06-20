@@ -9,12 +9,12 @@ import java.util.List;
 
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Column;
-import usf.java.sql.core.mapper.BeanMapper;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.mapper.ColumnMapper;
 
 public class ProcedureScanner implements Scanner {
 	
-	public <T extends Function> void run(HasScanner<T> adapter, BeanMapper<T> mapper, String database, String procedure) throws SQLException {
+	public <T extends Function> void run(HasScanner<T> adapter, Mapper<T> mapper, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		ColumnMapper colMapper = new ColumnMapper(); //TODO
@@ -57,7 +57,7 @@ public class ProcedureScanner implements Scanner {
 		adapter.finish();
 	}
 	
-	protected Column[] listColumns(ResultSet rs, BeanMapper<?extends Column> mapper) throws SQLException {
+	protected Column[] listColumns(ResultSet rs, Mapper<?extends Column> mapper) throws SQLException {
 		List<Column> list = new ArrayList<Column>();
 		int row = 1;
 		while(rs.next()) 

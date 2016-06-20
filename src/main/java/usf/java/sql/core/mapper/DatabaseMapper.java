@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.field.Database;
 
-public class DatabaseMapper implements BeanMapper<Database> {
+public class DatabaseMapper implements Mapper<Database> {
 
 	@Override
 	public Database map(ResultSet rs, int row) throws SQLException {

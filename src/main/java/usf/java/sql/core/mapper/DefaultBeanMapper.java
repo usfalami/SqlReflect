@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultBeanMapper implements BeanMapper<Map<String, Object>> {
+public class DefaultBeanMapper implements Mapper<Map<String, Object>> {
 	
 	private String[] columnNames;
 	
