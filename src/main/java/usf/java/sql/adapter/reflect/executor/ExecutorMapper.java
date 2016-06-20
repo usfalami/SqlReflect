@@ -18,7 +18,7 @@ public class ExecutorMapper<T> extends AbstractReflectorAdapter implements Execu
 	protected Mapper<T> mapper;
 	
 	public ExecutorMapper(ConnectionManager cm, Mapper<T> mapper) {
-		super(cm);
+		super(cm, null);
 		this.mapper = mapper;
 	}
 

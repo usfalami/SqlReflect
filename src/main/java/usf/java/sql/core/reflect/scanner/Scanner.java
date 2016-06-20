@@ -1,6 +1,7 @@
 package usf.java.sql.core.reflect.scanner;
 
 import usf.java.sql.core.field.Field;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 
 public interface Scanner extends Reflector {
@@ -10,6 +11,7 @@ public interface Scanner extends Reflector {
 		void start();
 		void adapte(T field);
 		void finish();
+		Mapper<T> getMapper();
 		
 	}
 		

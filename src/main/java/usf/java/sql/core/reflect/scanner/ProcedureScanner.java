@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Column;
-import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.field.Function;
 import usf.java.sql.core.mapper.ColumnMapper;
+import usf.java.sql.core.mapper.Mapper;
 
 public class ProcedureScanner implements Scanner {
 	
-	public <T extends Function> void run(HasScanner<T> adapter, Mapper<T> mapper, String database, String procedure) throws SQLException {
+	public <T extends Function> void run(HasScanner<T> adapter, String database, String procedure) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		ColumnMapper colMapper = new ColumnMapper(); //TODO
@@ -26,7 +26,7 @@ public class ProcedureScanner implements Scanner {
 				int row = 1;
 				procs = dm.getProcedures(null, database, procedure);
 				while(procs.next()){
-					T p = mapper.map(procs, row++);
+					T p = adapter.getMapper().map(procs, row++);
 					ResultSet cols = null;
 					try {
 						cols = dm.getProcedureColumns(null, p.getDatabase(), p.getName(), null);

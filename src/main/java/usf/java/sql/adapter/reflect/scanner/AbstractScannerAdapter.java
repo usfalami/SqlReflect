@@ -7,12 +7,21 @@ import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.field.Function;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
 
-public class AbstractScannerAdapter extends AbstractReflectorAdapter {
+public class AbstractScannerAdapter<T> extends AbstractReflectorAdapter {
 
-	public AbstractScannerAdapter(ConnectionManager cm, Formatter formatter) {
+	protected Mapper<T> mapper;
+	
+	
+	public AbstractScannerAdapter(ConnectionManager cm, Mapper<T> mapper, Formatter formatter) {
 		super(cm, formatter);
+		this.mapper = mapper;
+	}
+	
+	public Mapper<T> getMapper() {
+		return mapper;
 	}
 	
 	public static interface DatabasePrinter<T extends Database> extends HasScanner<T> {

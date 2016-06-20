@@ -7,13 +7,9 @@ import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.connection.ConnectionManager;
 
 public abstract class AbstractReflectorAdapter {
-	
-	protected Formatter formatter;
+
 	protected ConnectionManager cm;
-	
-	public AbstractReflectorAdapter(ConnectionManager cm) {
-		this.cm = cm;
-	}
+	protected Formatter formatter;
 	
 	public AbstractReflectorAdapter(ConnectionManager rf, Formatter formatter) {
 		this.cm = rf;
@@ -23,6 +19,7 @@ public abstract class AbstractReflectorAdapter {
 	public ConnectionManager getConnectionManager() {
 		return cm;
 	}
+
 	
 	
 	public static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

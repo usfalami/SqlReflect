@@ -1,7 +1,7 @@
 package usf.java.sql.core.server;
 
-import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Env;
+import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Query;
 
 public class MySqlServer implements Server {

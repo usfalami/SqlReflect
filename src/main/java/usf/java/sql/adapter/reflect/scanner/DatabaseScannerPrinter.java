@@ -9,10 +9,10 @@ import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 
-public class DatabaseScannerPrinter extends AbstractScannerAdapter implements DatabasePrinter<Database> {
+public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> implements DatabasePrinter<Database> {
 
 	public DatabaseScannerPrinter(ConnectionManager cm, Formatter formatter) {
-		super(cm, formatter);
+		super(cm, new DatabaseMapper(), formatter);
 		formatter.configure(DATABASE_NAME_LENGTH);
 	}
 	
@@ -40,6 +40,6 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter implements Da
 	}
 	@Override
 	public void list(String pattern) throws SQLException{
-		new DatabaseScanner().run(this, new DatabaseMapper(), pattern);
+		new DatabaseScanner().run(this, pattern);
 	}
 }

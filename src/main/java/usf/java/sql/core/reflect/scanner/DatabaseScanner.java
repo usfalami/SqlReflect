@@ -6,11 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Database;
-import usf.java.sql.core.mapper.Mapper;
 
 public class DatabaseScanner implements Scanner {
 
-	public <T extends Database> void run(HasScanner<T> adapter, Mapper<T> mapper, String database) throws SQLException {
+	public <T extends Database> void run(HasScanner<T> adapter, String database) throws SQLException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -21,7 +20,7 @@ public class DatabaseScanner implements Scanner {
 				rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
 				int i=1;
 				while(rs.next()){
-					T db = mapper.map(rs, i++);
+					T db = adapter.getMapper().map(rs, i++);
 					adapter.adapte(db);
 				}
 			}
