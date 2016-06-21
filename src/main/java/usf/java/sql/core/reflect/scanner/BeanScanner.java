@@ -9,7 +9,10 @@ import java.sql.Statement;
 
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.mapper.DynamicMapper;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.Utils;
 
 public class BeanScanner extends Reflector implements Scanner {
 
@@ -46,10 +49,16 @@ public class BeanScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-			if(adapter.getMapper() != null) {
+			Mapper<T> mapper = adapter.getMapper();
+			if(mapper != null) {
+				if(mapper instanceof DynamicMapper){
+					DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
+					if(dm.getColumnNames() == null)
+						dm.setColumnNames(Utils.columnNames(rs));
+				}
 				int row = 0;
 				while(rs.next()) {
-					T bean = adapter.getMapper().map(rs, row+1);
+					T bean = mapper.map(rs, row+1);
 					adapter.adapte(bean, row++);
 				}
 				rs.beforeFirst();

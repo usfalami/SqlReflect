@@ -33,8 +33,6 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> {
 		formatter.endRows();
 		formatter.endTable();
 	}
-
-
 	
 	public void list(ConnectionManager cm) throws SQLException{
 		this.list(cm, null);

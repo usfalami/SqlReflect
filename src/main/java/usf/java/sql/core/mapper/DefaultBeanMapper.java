@@ -5,12 +5,17 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultBeanMapper implements Mapper<Map<String, Object>> {
+public class DefaultBeanMapper implements DynamicMapper<Map<String, Object>> {
 	
 	private String[] columnNames;
 	
-	public DefaultBeanMapper(String[] columnNames) {
+	@Override
+	public void setColumnNames(String... columnNames) {
 		this.columnNames = columnNames;
+	}
+	@Override
+	public String[] getColumnNames() {
+		return columnNames;
 	}
 
 	@Override

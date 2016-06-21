@@ -22,7 +22,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 
 	@Override
-	public void configure(Server server, Env env) throws ClassNotFoundException{
+	public void configure(Server server, Env env) throws ClassNotFoundException {
 		Class.forName(server.getDriver());
 		this.url = server.makeURL(env);
 	}
