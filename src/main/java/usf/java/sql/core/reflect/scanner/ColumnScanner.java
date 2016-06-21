@@ -14,7 +14,7 @@ public class ColumnScanner implements Scanner {
 		try {
 			cnx = adapter.getConnectionManager().newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			this.run(dm, adapter, databasePattern, proecedurePattern, columnPattern);
+			run(dm, adapter, databasePattern, proecedurePattern, columnPattern);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -24,7 +24,7 @@ public class ColumnScanner implements Scanner {
 		}
 	}
 	
-	public <C extends Column> void run(DatabaseMetaData dm, HasScanner<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException {
+	protected <C extends Column> void run(DatabaseMetaData dm, HasScanner<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -34,7 +34,6 @@ public class ColumnScanner implements Scanner {
 				C column = adapter.getMapper().map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
-			System.out.println(row);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

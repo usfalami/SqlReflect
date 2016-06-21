@@ -24,7 +24,7 @@ public class DatabaseScanner implements Scanner {
 		}
 	}
 
-	public <T extends Database> void run(DatabaseMetaData dm, HasScanner<T> adapter, String database) throws SQLException {
+	protected <T extends Database> void run(DatabaseMetaData dm, HasScanner<T> adapter, String database) throws SQLException {
 		adapter.start();
 		ResultSet rs = null;
 		try {

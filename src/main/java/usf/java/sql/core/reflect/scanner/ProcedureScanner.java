@@ -29,7 +29,7 @@ public class ProcedureScanner implements Scanner {
 		adapter.end();
 	}
 	
-	public <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException {
+	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException {
 		adapter.start();
 		ResultSet procs = null;
 		try {
