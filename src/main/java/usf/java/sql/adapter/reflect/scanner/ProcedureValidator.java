@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallableValidator;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
@@ -14,7 +13,7 @@ import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implements CallableValidator<Procedure> {
+public class ProcedureValidator extends AbstractScannerAdapter<Procedure> {
 	
 	protected Function callable;
 
@@ -70,7 +69,8 @@ public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implem
 	@Override
 	public void end() { }
 
-	@Override
+
+	
 	public void validate(ConnectionManager cm, String callable) throws SQLException {
 		this.callable = sqlParser.getServer().parseCallable(callable);
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), this.callable.getDatabase(), this.callable.getName());

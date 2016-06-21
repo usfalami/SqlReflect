@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallableComparator;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
@@ -16,7 +15,7 @@ import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure> implements CallableComparator<Procedure> {
+public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure> {
 	
 	protected String callableName;
 	protected List<Function> functions;
@@ -59,7 +58,8 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 		}
 	}
 	
-	@Override
+
+	
 	public void compare(ConnectionManager cm, String callableName) throws SQLException {
 		this.callableName = callableName;
 		if(callableName == null || callableName.isEmpty()) return;

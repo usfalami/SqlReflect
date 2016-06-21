@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.reflect.scanner.SimpleFieldListAdapter;
+import usf.java.sql.adapter.reflect.scanner.SimpleBeanListAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
@@ -48,7 +48,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 				}
 			}
 			else{ // look for columns
-				SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(columnMapper);
+				SimpleBeanListAdapter<C> columnAdaper = new SimpleBeanListAdapter<C>(columnMapper);
 				ColumnScanner cs = new ColumnScanner(cm);
 				while(rs.next()){
 					T p = adapter.getMapper().map(rs, row+1);

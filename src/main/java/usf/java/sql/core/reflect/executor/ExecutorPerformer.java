@@ -11,14 +11,13 @@ import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.reflect.Reflector;
 
-public class SimpleExecutor extends Reflector implements Executor {
+public class ExecutorPerformer extends Reflector implements Performer {
 	
-	public SimpleExecutor(ConnectionManager cm) {
+	public ExecutorPerformer(ConnectionManager cm) {
 		super(cm);
 	}
 
-	@Override
-	public void run(HasExecutor adapter, Callable callable, Serializable ... parametters) throws SQLException {
+	public void run(HasExecutorPerformer adapter, Callable callable, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {

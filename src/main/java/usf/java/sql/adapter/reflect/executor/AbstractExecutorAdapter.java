@@ -8,8 +8,7 @@ import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.executor.Executor;
-import usf.java.sql.core.reflect.executor.SimpleExecutor;
+import usf.java.sql.core.reflect.executor.ExecutorPerformer;
 
 public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements ExecutorAdapter {
 	
@@ -17,16 +16,15 @@ public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter i
 		super(sqlParser, formatter);
 	}
 	
-	@Override
 	public void execute(ConnectionManager cm, String query, Serializable... parameters) throws SQLException { //one preparedStatement
 		Callable sql = sqlParser.parseSQL(query);
 		if(sql != null)
-			new SimpleExecutor(cm).run(this, sql, parameters);
+			new ExecutorPerformer(cm).run(this, sql, parameters);
 	}
 	
 	public void execute(ConnectionManager cm, String... queries) throws SQLException { // only statments
 		if(queries == null) return;
-		Executor e = new SimpleExecutor(cm);
+		ExecutorPerformer e = new ExecutorPerformer(cm);
 		for(String query : queries)
 			e.run(this, sqlParser.parseSQL(query));
 	}

@@ -1,15 +1,11 @@
 package usf.java.sql.adapter.reflect.executor;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.reflect.executor.Executor.HasExecutor;
+import usf.java.sql.core.reflect.executor.Performer.HasExecutorPerformer;
 
-public interface ExecutorAdapter extends HasExecutor {
-
-	void execute(ConnectionManager cm, String query, Serializable... parameters) throws SQLException;
+public interface ExecutorAdapter extends HasExecutorPerformer {
 
 	public static class Utils {
 

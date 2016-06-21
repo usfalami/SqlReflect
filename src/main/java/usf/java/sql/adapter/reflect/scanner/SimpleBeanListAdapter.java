@@ -3,15 +3,13 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.field.Field;
 import usf.java.sql.core.mapper.Mapper;
-import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
 
-public class SimpleFieldListAdapter<T extends Field> extends AbstractScannerAdapter<T> implements HasScanner<T> {
+public class SimpleBeanListAdapter<T> extends AbstractScannerAdapter<T> {
 
 	protected List<T> list;
 	
-	public SimpleFieldListAdapter(Mapper<T> mapper) {
+	public SimpleBeanListAdapter(Mapper<T> mapper) {
 		super(null, mapper, null);
 	}
 

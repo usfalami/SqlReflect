@@ -1,16 +1,13 @@
 package usf.java.sql.core.reflect.executor;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Callable;
 
-public interface Executor  {
+public interface Performer {
 	
-	public abstract void run(HasExecutor adapter, Callable query, Serializable ... parameters) throws SQLException;
-	
-	public static interface HasExecutor {
+	public static interface HasExecutorPerformer {
 
 		void preConnecion();
 		void postConnecion();
@@ -21,5 +18,5 @@ public interface Executor  {
 		void preExec(Callable SQL) throws SQLException ;
 		void postExec(Callable SQL, ResultSet rs) throws SQLException;
 	}
-
+	
 }

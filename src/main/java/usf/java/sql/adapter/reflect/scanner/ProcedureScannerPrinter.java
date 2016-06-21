@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.CallablePrinter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
@@ -13,7 +12,7 @@ import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
-public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> implements CallablePrinter<Procedure> {
+public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> {
 	
 	public ProcedureScannerPrinter(SqlParser sqlParser, Formatter formatter) {
 		super(sqlParser, new ProcedureMapper(), formatter);
@@ -50,12 +49,11 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 	@Override
 	public void end() { }
 	
+
 	
-	@Override
 	public void list(ConnectionManager cm, String database) throws SQLException{
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, null);
 	}
-	@Override
 	public void list(ConnectionManager cm, String database, String pattern) throws SQLException{
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, pattern);
 	}
