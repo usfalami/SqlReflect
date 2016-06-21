@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.Utils;
+import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class ExecutorResultSetAdapter extends AbstractExecutorAdapter {
 	
@@ -21,12 +21,12 @@ public class ExecutorResultSetAdapter extends AbstractExecutorAdapter {
 
 	@Override
 	public void postExec(Callable sql, ResultSet rs) throws SQLException {
-		int cols = Utils.columnsCount(rs);
+		int cols = ReflectorUtils.columnsCount(rs);
 		formatter.configureAll(cols, VALUE_LENGTH);
-		int count = Utils.rowsCount(rs);
+		int count = ReflectorUtils.rowsCount(rs);
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
-		formatter.formatHeaders((Object[])Utils.columnNames(rs));
+		formatter.formatHeaders((Object[])ReflectorUtils.columnNames(rs));
 		formatter.startRows();
 		Object[] param = new Object[cols]; 
 		while(rs.next()){

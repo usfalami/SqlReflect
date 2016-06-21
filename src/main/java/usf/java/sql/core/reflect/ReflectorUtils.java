@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-public class Utils {
+public class ReflectorUtils {
 	
 	public static final String[] columnNames(ResultSet rs) throws SQLException {
 		ResultSetMetaData rm = rs.getMetaData();

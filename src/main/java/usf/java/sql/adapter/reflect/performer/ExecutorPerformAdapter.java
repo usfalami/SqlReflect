@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.Utils;
+import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 
@@ -41,7 +41,7 @@ public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 	@Override
 	public void postExec(Callable sql, ResultSet rs) throws SQLException {
 		execEnd = System.currentTimeMillis();
-		int count = Utils.rowsCount(rs);
+		int count = ReflectorUtils.rowsCount(rs);
 		formatter.startTable();
 		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
 		formatter.formatHeaders("Action", "Start", "End", "Duration");

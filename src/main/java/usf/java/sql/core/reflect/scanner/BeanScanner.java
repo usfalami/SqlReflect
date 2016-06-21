@@ -12,7 +12,7 @@ import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.mapper.DynamicMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
-import usf.java.sql.core.reflect.Utils;
+import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class BeanScanner extends Reflector implements Scanner {
 
@@ -54,7 +54,7 @@ public class BeanScanner extends Reflector implements Scanner {
 				if(mapper instanceof DynamicMapper){
 					DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
 					if(dm.getColumnNames() == null)
-						dm.setColumnNames(Utils.columnNames(rs));
+						dm.setColumnNames(ReflectorUtils.columnNames(rs));
 				}
 				int row = 0;
 				while(rs.next()) {
