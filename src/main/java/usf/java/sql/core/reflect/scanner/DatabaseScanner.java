@@ -24,15 +24,15 @@ public class DatabaseScanner implements Scanner {
 		}
 	}
 
-	protected <T extends Database> void run(DatabaseMetaData dm, HasScanner<T> adapter, String database) throws SQLException {
+	protected <T extends Database> void run(DatabaseMetaData dm, HasScanner<T> adapter, String databasePattern) throws SQLException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = database == null ? dm.getSchemas() : dm.getSchemas(null, database);
+			rs = databasePattern == null ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			int row = 0;
 			while(rs.next()){
-				T db = adapter.getMapper().map(rs, row+1);
-				adapter.adapte(db, row++);
+				T database = adapter.getMapper().map(rs, row+1);
+				adapter.adapte(database, row++);
 			}
 		}
 		catch(SQLException e) {
