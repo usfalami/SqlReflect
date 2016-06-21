@@ -5,14 +5,21 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
+import usf.java.sql.core.reflect.Reflector;
 
-public class ColumnScanner implements Scanner {
+public class ColumnScanner extends Reflector implements Scanner {
 	
+	public ColumnScanner(ConnectionManager cm) {
+		super(cm);
+		// TODO Auto-generated constructor stub
+	}
+
 	public <C extends Column> void run(HasScanner<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException {
 		Connection cnx = null;
 		try {
-			cnx = adapter.getConnectionManager().newConnection();
+			cnx = cm.newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter, databasePattern, proecedurePattern, columnPattern);
 		} catch (SQLException e) {
@@ -20,7 +27,7 @@ public class ColumnScanner implements Scanner {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(cnx);
+			cm.close(cnx);
 		}
 	}
 	
@@ -39,7 +46,7 @@ public class ColumnScanner implements Scanner {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(rs);
+			cm.close(rs);
 			adapter.end();
 		}
 	}

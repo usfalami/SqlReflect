@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.reflect.executor.Executor.HasExecutor;
 
 public interface ExecutorAdapter extends HasExecutor {
 
-	void execute(String query, Serializable... parameters) throws SQLException;
+	void execute(ConnectionManager cm, String query, Serializable... parameters) throws SQLException;
 
 	public static class Utils {
 

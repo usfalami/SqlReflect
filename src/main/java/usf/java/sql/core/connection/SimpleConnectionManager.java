@@ -8,38 +8,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.Env;
 import usf.java.sql.core.field.User;
 import usf.java.sql.core.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
-	protected Server server;
+	protected String url;
 	protected User user;
-	protected Env env;
 	
-	public SimpleConnectionManager(Server db, Env env, User user) {
-		this.server = db;
-		this.env = env;
+	public SimpleConnectionManager(User user) {
 		this.user = user;
 	}
 
 	@Override
-	public void configure() throws ClassNotFoundException{
+	public void configure(Server server, Env env) throws ClassNotFoundException{
 		Class.forName(server.getDriver());
-	}
-	
-	@Override
-	public Callable parseSQL(String sql) {
-		Callable obj = server.parseCallable(sql);
-		if(obj == null) obj = server.parseQuery(sql);
-		return obj;
+		this.url = server.makeURL(env);
 	}
 	
 	@Override	
 	public Connection newConnection() throws SQLException{
-		return DriverManager.getConnection(server.makeURL(env), user.getUser(), user.getPass());
+		return DriverManager.getConnection(url, user.getUser(), user.getPass());
 	}
 	
 	@Override
@@ -69,11 +59,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 	public void close(ResultSet rs) throws SQLException {
 		if(rs == null) return;
 		rs.close();
-	}
-
-	@Override
-	public Server getServer() {
-		return server;
 	}
 
 }

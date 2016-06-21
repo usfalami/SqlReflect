@@ -3,7 +3,6 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Field;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
@@ -12,8 +11,8 @@ public class SimpleFieldListAdapter<T extends Field> extends AbstractScannerAdap
 
 	protected List<T> list;
 	
-	public SimpleFieldListAdapter(ConnectionManager cm, Mapper<T> mapper) {
-		super(cm, mapper, null);
+	public SimpleFieldListAdapter(Mapper<T> mapper) {
+		super(null, mapper, null);
 	}
 
 	@Override

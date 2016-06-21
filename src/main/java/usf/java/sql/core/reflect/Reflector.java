@@ -2,12 +2,12 @@ package usf.java.sql.core.reflect;
 
 import usf.java.sql.core.connection.ConnectionManager;
 
-public interface Reflector {
+public class Reflector {
 	
-	public static interface HasReflector {
-
-		ConnectionManager getConnectionManager();
-		
+	protected ConnectionManager cm;
+	
+	public Reflector(ConnectionManager cm) {
+		this.cm = cm;
 	}
 
 }

@@ -10,12 +10,13 @@ import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> implements CallablePrinter<Procedure> {
 	
-	public ProcedureScannerPrinter(ConnectionManager cm, Formatter formatter) {
-		super(cm, new ProcedureMapper(), formatter);
+	public ProcedureScannerPrinter(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, new ProcedureMapper(), formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
 				COLUMN_NAME_LENGTH, 
@@ -51,12 +52,12 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> i
 	
 	
 	@Override
-	public void list(String database) throws SQLException{
-		new ProcedureScanner().run(this, new ColumnMapper(), database, null);
+	public void list(ConnectionManager cm, String database) throws SQLException{
+		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, null);
 	}
 	@Override
-	public void list(String database, String pattern) throws SQLException{
-		new ProcedureScanner().run(this, new ColumnMapper(), database, pattern);
+	public void list(ConnectionManager cm, String database, String pattern) throws SQLException{
+		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, pattern);
 	}
 	
 }

@@ -4,15 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.parser.SqlParser;
 
 public class ExecutorMultiAdapter extends AbstractExecutorAdapter {
 	
 	protected AbstractExecutorAdapter[] adapters;
 
-	public ExecutorMultiAdapter(ConnectionManager cm, Formatter formatter) {
-		super(cm, formatter);
+	public ExecutorMultiAdapter(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, formatter);
 	}
 	
 	public void setAdapters(AbstractExecutorAdapter... adapters) {

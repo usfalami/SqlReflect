@@ -8,6 +8,7 @@ import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
 
 public class AbstractScannerAdapter<T> extends AbstractReflectorAdapter {
@@ -15,8 +16,8 @@ public class AbstractScannerAdapter<T> extends AbstractReflectorAdapter {
 	protected Mapper<T> mapper;
 	
 	
-	public AbstractScannerAdapter(ConnectionManager cm, Mapper<T> mapper, Formatter formatter) {
-		super(cm, formatter);
+	public AbstractScannerAdapter(SqlParser sqlParser, Mapper<T> mapper, Formatter formatter) {
+		super(sqlParser, formatter);
 		this.mapper = mapper;
 	}
 	
@@ -26,27 +27,27 @@ public class AbstractScannerAdapter<T> extends AbstractReflectorAdapter {
 	
 	public static interface DatabasePrinter<T extends Database> extends HasScanner<T> {
 
-		void list() throws SQLException;
-		void list(String pattern) throws SQLException;
+		void list(ConnectionManager cm) throws SQLException;
+		void list(ConnectionManager cm, String pattern) throws SQLException;
 
 	}
 	
 	public static interface CallablePrinter<T extends Function> extends HasScanner<T> {
 
-		void list(String database) throws SQLException;
-		void list(String database, String pattern) throws SQLException;
+		void list(ConnectionManager cm, String database) throws SQLException;
+		void list(ConnectionManager cm, String database, String pattern) throws SQLException;
 
 	}
 	
 	public static interface CallableValidator<T extends Function> extends HasScanner<T>  {
 
-		void validate(String callable) throws SQLException;
+		void validate(ConnectionManager cm, String callable) throws SQLException;
 
 	}
 	
 	public static interface CallableComparator<T extends Function> extends HasScanner<T>  {
 
-		void compare(String callableName) throws SQLException;
+		void compare(ConnectionManager cm, String callableName) throws SQLException;
 
 	}
 

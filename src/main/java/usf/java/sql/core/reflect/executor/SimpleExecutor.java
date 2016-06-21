@@ -7,9 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.reflect.Reflector;
 
-public class SimpleExecutor implements Executor {
+public class SimpleExecutor extends Reflector implements Executor {
+	
+	public SimpleExecutor(ConnectionManager cm) {
+		super(cm);
+	}
 
 	@Override
 	public void run(HasExecutor adapter, Callable callable, Serializable ... parametters) throws SQLException {
@@ -17,14 +23,14 @@ public class SimpleExecutor implements Executor {
 		Connection cnx = null;
 		try {
 			adapter.preConnecion();
-			cnx = adapter.getConnectionManager().newConnection();
+			cnx = cm.newConnection();
 			adapter.postConnecion();
 			
 			Statement stmt = null;
 			try {
 				
 				adapter.preStatement();
-				stmt = adapter.getConnectionManager().buildStatement(cnx, callable.getSQL(), parametters);
+				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
@@ -38,14 +44,14 @@ public class SimpleExecutor implements Executor {
 					throw e;
 				}
 				finally {
-					adapter.getConnectionManager().close(rs);
+					cm.close(rs);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
 			}
 			finally {
-				adapter.getConnectionManager().close(stmt);
+				cm.close(stmt);
 			}
 		
 		} catch (SQLException e) {
@@ -53,7 +59,7 @@ public class SimpleExecutor implements Executor {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(cnx);
+			cm.close(cnx);
 		}
 	}
 

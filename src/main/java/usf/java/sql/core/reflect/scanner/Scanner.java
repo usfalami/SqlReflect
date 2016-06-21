@@ -2,11 +2,10 @@ package usf.java.sql.core.reflect.scanner;
 
 import usf.java.sql.core.field.Field;
 import usf.java.sql.core.mapper.Mapper;
-import usf.java.sql.core.reflect.Reflector;
 
-public interface Scanner extends Reflector {
+public interface Scanner {
 	
-	public static interface HasScanner<T extends Field> extends HasReflector {
+	public static interface HasScanner<T extends Field> {
 
 		void start();
 		void adapte(T field, int index);

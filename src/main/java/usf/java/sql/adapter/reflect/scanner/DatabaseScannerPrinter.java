@@ -7,12 +7,13 @@ import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter.DatabasePrint
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 
 public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> implements DatabasePrinter<Database> {
 
-	public DatabaseScannerPrinter(ConnectionManager cm, Formatter formatter) {
-		super(cm, new DatabaseMapper(), formatter);
+	public DatabaseScannerPrinter(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, new DatabaseMapper(), formatter);
 		formatter.configure(DATABASE_NAME_LENGTH);
 	}
 	
@@ -35,11 +36,11 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> imp
 	}
 
 	@Override
-	public void list() throws SQLException{
-		this.list(null);
+	public void list(ConnectionManager cm) throws SQLException{
+		this.list(cm, null);
 	}
 	@Override
-	public void list(String pattern) throws SQLException{
-		new DatabaseScanner().run(this, pattern);
+	public void list(ConnectionManager cm, String pattern) throws SQLException{
+		new DatabaseScanner(cm).run(this, pattern);
 	}
 }

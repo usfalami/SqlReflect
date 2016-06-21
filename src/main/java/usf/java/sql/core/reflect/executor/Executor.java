@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.reflect.Reflector;
 
-public interface Executor extends Reflector {
+public interface Executor  {
 	
 	public abstract void run(HasExecutor adapter, Callable query, Serializable ... parameters) throws SQLException;
 	
-	public static interface HasExecutor extends HasReflector {
+	public static interface HasExecutor {
 
 		void preConnecion();
 		void postConnecion();

@@ -4,23 +4,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.parser.SqlParser;
 
 public abstract class AbstractReflectorAdapter {
 
-	protected ConnectionManager cm;
 	protected Formatter formatter;
+	protected SqlParser sqlParser;
 	
-	public AbstractReflectorAdapter(ConnectionManager rf, Formatter formatter) {
-		this.cm = rf;
+	public AbstractReflectorAdapter(SqlParser sqlParser, Formatter formatter) {
 		this.formatter = formatter;
-	}
-	
-	public ConnectionManager getConnectionManager() {
-		return cm;
+		this.sqlParser = sqlParser;
 	}
 
-	
 	
 	public static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");

@@ -5,14 +5,20 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
+import usf.java.sql.core.reflect.Reflector;
 
-public class DatabaseScanner implements Scanner {
+public class DatabaseScanner extends Reflector implements Scanner {
+
+	public DatabaseScanner(ConnectionManager cm) {
+		super(cm);
+	}
 
 	public <T extends Database> void run(HasScanner<T> adapter, String database) throws SQLException {
 		Connection cnx = null;
 		try {
-			cnx = adapter.getConnectionManager().newConnection();
+			cnx = cm.newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			this.run(dm, adapter, database);
 		} catch (SQLException e) {
@@ -20,7 +26,7 @@ public class DatabaseScanner implements Scanner {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(cnx);
+			cm.close(cnx);
 		}
 	}
 
@@ -40,7 +46,7 @@ public class DatabaseScanner implements Scanner {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(rs);
+			cm.close(rs);
 			adapter.end();
 		}
 	}

@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.parser.SqlParser;
 
 public class ExecutorResultColumnAdapter extends AbstractExecutorAdapter {
 
-	public ExecutorResultColumnAdapter(ConnectionManager cm, Formatter formatter) {
-		super(cm, formatter);
+	public ExecutorResultColumnAdapter(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
 				COLUMN_NAME_LENGTH, 

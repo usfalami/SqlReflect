@@ -4,15 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.parser.SqlParser;
 
 public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
 
 	protected long cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	
-	public ExecutorPerformAdapter(ConnectionManager cm, Formatter formatter) {
-		super(cm, formatter);
+	public ExecutorPerformAdapter(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, formatter);
 		formatter.configureAll(4, PERFORM_TEXT_LENGTH);
 	}
 

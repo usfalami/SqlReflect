@@ -10,6 +10,7 @@ import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.executor.SimpleExecutor;
 
 public class ExecutorMapper<T> extends AbstractReflectorAdapter implements ExecutorAdapter {
@@ -17,8 +18,8 @@ public class ExecutorMapper<T> extends AbstractReflectorAdapter implements Execu
 	protected List<T> beans;
 	protected Mapper<T> mapper;
 	
-	public ExecutorMapper(ConnectionManager cm, Mapper<T> mapper) {
-		super(cm, null);
+	public ExecutorMapper(SqlParser sqlParser, Mapper<T> mapper) {
+		super(sqlParser, null);
 		this.mapper = mapper;
 	}
 
@@ -28,10 +29,10 @@ public class ExecutorMapper<T> extends AbstractReflectorAdapter implements Execu
 	}
 
 	@Override
-	public void execute(String query, Serializable... parameters) throws SQLException { //one preparedStatement
-		Callable sql = cm.parseSQL(query);
+	public void execute(ConnectionManager cm, String query, Serializable... parameters) throws SQLException { //one preparedStatement
+		Callable sql = sqlParser.parseSQL(query);
 		if(sql != null)
-			new SimpleExecutor().run(this, sql, parameters);
+			new SimpleExecutor(cm).run(this, sql, parameters);
 	}
 
 	@Override

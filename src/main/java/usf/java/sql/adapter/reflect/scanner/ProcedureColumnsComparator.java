@@ -13,6 +13,7 @@ import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure> implements CallableComparator<Procedure> {
@@ -21,8 +22,8 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	protected List<Function> functions;
 	protected List<Column[]> columnsList;
 
-	public ProcedureColumnsComparator(ConnectionManager cm, Formatter formatter) {
-		super(cm, new ProcedureMapper(), formatter);
+	public ProcedureColumnsComparator(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, new ProcedureMapper(), formatter);
 		functions = new ArrayList<Function>();
 		columnsList = new ArrayList<Column[]>();
 	}
@@ -59,10 +60,10 @@ public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure
 	}
 	
 	@Override
-	public void compare(String callableName) throws SQLException {
+	public void compare(ConnectionManager cm, String callableName) throws SQLException {
 		this.callableName = callableName;
 		if(callableName == null || callableName.isEmpty()) return;
-		new ProcedureScanner().run(this, new ColumnMapper(), null, callableName);
+		new ProcedureScanner(cm).run(this, new ColumnMapper(), null, callableName);
 	}
 
 }

@@ -11,14 +11,15 @@ import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
+import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implements CallableValidator<Procedure> {
 	
 	protected Function callable;
 
-	public ProcedureValidator(ConnectionManager cm, Formatter formatter) {
-		super(cm, new ProcedureMapper(), formatter);
+	public ProcedureValidator(SqlParser sqlParser, Formatter formatter) {
+		super(sqlParser, new ProcedureMapper(), formatter);
 		this.formatter.configure(
 				COLUMN_NUM_LENGTH, 
 				COLUMN_NAME_LENGTH, 
@@ -70,8 +71,8 @@ public class ProcedureValidator extends AbstractScannerAdapter<Procedure> implem
 	public void end() { }
 
 	@Override
-	public void validate(String callable) throws SQLException {
-		this.callable = cm.getServer().parseCallable(callable);
-		new ProcedureScanner().run(this, new ColumnMapper(), this.callable.getDatabase(), this.callable.getName());
+	public void validate(ConnectionManager cm, String callable) throws SQLException {
+		this.callable = sqlParser.getServer().parseCallable(callable);
+		new ProcedureScanner(cm).run(this, new ColumnMapper(), this.callable.getDatabase(), this.callable.getName());
 	}
 }
