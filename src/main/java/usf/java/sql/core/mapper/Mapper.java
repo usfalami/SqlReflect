@@ -5,6 +5,6 @@ import java.sql.SQLException;
 
 public interface Mapper<T> {
 	
-	public T map(ResultSet rs, int row) throws SQLException;
+	T map(ResultSet rs, int row) throws SQLException;
 
 }
