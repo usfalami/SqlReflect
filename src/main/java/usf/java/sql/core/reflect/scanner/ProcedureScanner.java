@@ -35,13 +35,21 @@ public class ProcedureScanner implements Scanner {
 		try {
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
-			SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(adapter.getConnectionManager(), columnMapper);
-			ColumnScanner cs = new ColumnScanner();
-			while(rs.next()){
-				T p = adapter.getMapper().map(rs, row+1);
-				cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
-				p.setColumns(columnAdaper.getList());
-				adapter.adapte(p, row++);
+			if(columnMapper == null) {
+				while(rs.next()){
+					T p = adapter.getMapper().map(rs, row+1);
+					adapter.adapte(p, row++);
+				}
+			}
+			else{ // look for columns
+				SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(adapter.getConnectionManager(), columnMapper);
+				ColumnScanner cs = new ColumnScanner();
+				while(rs.next()){
+					T p = adapter.getMapper().map(rs, row+1);
+					cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
+					p.setColumns(columnAdaper.getList());
+					adapter.adapte(p, row++);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
