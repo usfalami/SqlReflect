@@ -35,10 +35,11 @@ public class ProcedureScanner implements Scanner {
 		try {
 			int row = 0;
 			procs = dm.getProcedures(null, databasePattern, proecedurePattern);
+			SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(adapter.getConnectionManager(), columnMapper);
+			ColumnScanner cs = new ColumnScanner();
 			while(procs.next()){
 				T p = adapter.getMapper().map(procs, row+1);
-				SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(adapter.getConnectionManager(), columnMapper);
-				new ColumnScanner().run(columnAdaper, databasePattern, proecedurePattern, null);
+				cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
 				p.setColumns(columnAdaper.getList());
 				adapter.adapte(p, row++);
 			}

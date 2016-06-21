@@ -28,12 +28,13 @@ public class ColumnScanner implements Scanner {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, null);
+			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, columnPattern);
 			int row = 0;
 			while(rs.next()){
 				C column = adapter.getMapper().map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
+			System.out.println(row);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
