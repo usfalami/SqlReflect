@@ -20,7 +20,6 @@ public class ProcedureScanner extends Reflector implements Scanner {
 	}
 
 	public <T extends Function, C extends Column> void run(HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
-		adapter.start();
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -33,7 +32,6 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		finally {
 			cm.close(cnx);
 		}
-		adapter.end();
 	}
 	
 	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {

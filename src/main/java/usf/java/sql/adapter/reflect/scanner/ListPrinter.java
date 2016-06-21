@@ -17,7 +17,7 @@ public class ListPrinter<T> extends AbstractScannerAdapter<T> {
 	@Override
 	public void start() throws AdapterException {
 		try {
-			writer.startList();
+			writer.start("ITEMS");
 		} catch (Exception e) {
 			throw new AdapterException(e);
 		}
@@ -35,7 +35,7 @@ public class ListPrinter<T> extends AbstractScannerAdapter<T> {
 	@Override
 	public void end() throws AdapterException {
 		try {
-			writer.endList();
+			writer.end();
 		} catch (Exception e) {
 			throw new AdapterException(e);
 		}

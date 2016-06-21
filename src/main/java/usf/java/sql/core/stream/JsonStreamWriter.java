@@ -15,11 +15,6 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startObject(String... columns) throws JSONException {
-		jwriter.object();
-	}
-	
-	@Override
 	public void writeBoolean(String name, boolean bool) throws JSONException {
 		jwriter.key(name).value(bool);
 	}
@@ -55,18 +50,30 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 
 	@Override
+	public void startObject(String name, String[] columns) throws JSONException {
+		jwriter.object();
+	}
+	@Override
 	public void endObject() throws JSONException {
 		jwriter.endObject();
 	}
 	
 	@Override
-	public void startList() throws Exception {
+	public void startList(String name) throws Exception {
 		jwriter.array();
 	}
-	
 	@Override
 	public void endList() throws Exception {
 		jwriter.endArray();
+	}
+	
+	@Override
+	public void start(String name) throws Exception {
+		startList("");
+	}
+	@Override
+	public void end() throws Exception {
+		endList();
 	}
 	
 }

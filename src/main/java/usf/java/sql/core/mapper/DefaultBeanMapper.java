@@ -32,7 +32,7 @@ public class DefaultBeanMapper implements DynamicMapper<Map<String, Object>> {
 	@Override
 	public void write(StreamWriter writer, Map<String, Object> bean) throws AdapterException {
 		try{
-			writer.startObject(columnNames);
+			writer.startObject("item", columnNames);
 			for(String str : columnNames)
 				writer.writeString(str, bean.get(str).toString());
 			writer.endObject();

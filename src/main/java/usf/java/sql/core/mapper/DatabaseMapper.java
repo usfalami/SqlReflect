@@ -15,7 +15,7 @@ public class DatabaseMapper implements Mapper<Database> {
 
 	@Override
 	public void write(StreamWriter writer, Database database) throws Exception {
-		writer.startObject("TABLE_SCHEM");
+		writer.startObject("DATABASE", new String[]{"TABLE_SCHEM"});
 		writer.writeString("TABLE_SCHEM", database.getName());
 		writer.endObject();
 	}
