@@ -46,12 +46,14 @@ public class BeanScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-			int row = 0;
-			while(rs.next()) {
-				T bean = adapter.getMapper().map(rs, row+1);
-				adapter.adapte(bean, row++);
+			if(adapter.getMapper() != null) {
+				int row = 0;
+				while(rs.next()) {
+					T bean = adapter.getMapper().map(rs, row+1);
+					adapter.adapte(bean, row++);
+				}
+				rs.beforeFirst();
 			}
-			rs.beforeFirst();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
