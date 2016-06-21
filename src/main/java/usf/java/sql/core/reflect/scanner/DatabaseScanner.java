@@ -15,7 +15,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T extends Database> void run(HasScanner<T> adapter, String database) throws SQLException {
+	public <D extends Database> void run(HasScanner<D> adapter, String database) throws SQLException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -30,14 +30,14 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T extends Database> void run(DatabaseMetaData dm, HasScanner<T> adapter, String databasePattern) throws SQLException {
+	protected <D extends Database> void run(DatabaseMetaData dm, HasScanner<D> adapter, String databasePattern) throws SQLException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
 			rs = databasePattern == null ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			int row = 0;
 			while(rs.next()){
-				T database = adapter.getMapper().map(rs, row+1);
+				D database = adapter.getMapper().map(rs, row+1);
 				adapter.adapte(database, row++);
 			}
 		}
