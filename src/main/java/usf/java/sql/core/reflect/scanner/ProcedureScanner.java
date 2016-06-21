@@ -31,14 +31,14 @@ public class ProcedureScanner implements Scanner {
 	
 	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException {
 		adapter.start();
-		ResultSet procs = null;
+		ResultSet rs = null;
 		try {
 			int row = 0;
-			procs = dm.getProcedures(null, databasePattern, proecedurePattern);
+			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			SimpleFieldListAdapter<C> columnAdaper = new SimpleFieldListAdapter<C>(adapter.getConnectionManager(), columnMapper);
 			ColumnScanner cs = new ColumnScanner();
-			while(procs.next()){
-				T p = adapter.getMapper().map(procs, row+1);
+			while(rs.next()){
+				T p = adapter.getMapper().map(rs, row+1);
 				cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
 				p.setColumns(columnAdaper.getList());
 				adapter.adapte(p, row++);
@@ -48,7 +48,7 @@ public class ProcedureScanner implements Scanner {
 			throw e;
 		}
 		finally {
-			adapter.getConnectionManager().close(procs);
+			adapter.getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}
