@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Column;
+import usf.java.sql.core.stream.StreamWriter;
 
 public class ColumnMapper implements Mapper<Column> {
 
@@ -15,6 +16,17 @@ public class ColumnMapper implements Mapper<Column> {
 				rs.getInt("LENGTH"),
 				rs.getInt("COLUMN_TYPE")
 			);
+	}
+
+	
+	@Override
+	public void write(StreamWriter writer, Column column) throws Exception {
+		writer.startObject("COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE");
+		writer.writeString("COLUMN_NAME", column.getName());
+		writer.writeString("TYPE_NAME", column.getValueType());
+		writer.writeInt("LENGTH", column.getSize());
+		writer.writeString("COLUMN_TYPE", column.getRole().toString());
+		writer.endObject();
 	}
 
 }

@@ -9,8 +9,9 @@ import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.performer.ExecutorPerformer;
+import usf.java.sql.core.reflect.performer.Performer.HasExecutorPerformer;
 
-public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements ExecutorAdapter {
+public abstract class AbstractExecutorAdapter extends AbstractReflectorAdapter implements HasExecutorPerformer {
 	
 	public AbstractExecutorAdapter(SqlParser sqlParser, Formatter formatter) {
 		super(sqlParser, formatter);

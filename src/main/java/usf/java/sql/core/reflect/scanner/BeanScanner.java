@@ -13,6 +13,7 @@ import usf.java.sql.core.mapper.DynamicMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
+import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class BeanScanner extends Reflector implements Scanner {
 
@@ -20,7 +21,7 @@ public class BeanScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T> void run(HasScanner<T> adapter, Callable callable, Serializable ... parametters) throws SQLException {
+	public <T> void run(HasScanner<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -44,7 +45,7 @@ public class BeanScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T> void run(Statement stmt, HasScanner<T> adapter, Callable callable, Serializable ... parametters) throws SQLException {
+	protected <T> void run(Statement stmt, HasScanner<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -53,7 +54,7 @@ public class BeanScanner extends Reflector implements Scanner {
 			if(mapper != null) {
 				if(mapper instanceof DynamicMapper){
 					DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
-					if(dm.getColumnNames() == null)
+					if(dm.getColumnNames() == null) // set all column if no column was set
 						dm.setColumnNames(ReflectorUtils.columnNames(rs));
 				}
 				int row = 0;

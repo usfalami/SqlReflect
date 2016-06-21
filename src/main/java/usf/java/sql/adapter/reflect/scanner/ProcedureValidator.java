@@ -11,6 +11,7 @@ import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
+import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureValidator extends AbstractScannerAdapter<Procedure> {
@@ -71,7 +72,7 @@ public class ProcedureValidator extends AbstractScannerAdapter<Procedure> {
 
 
 	
-	public void validate(ConnectionManager cm, String callable) throws SQLException {
+	public void validate(ConnectionManager cm, String callable) throws SQLException, AdapterException {
 		this.callable = sqlParser.getServer().parseCallable(callable);
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), this.callable.getDatabase(), this.callable.getName());
 	}

@@ -10,6 +10,7 @@ import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
+import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
 public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> {
@@ -51,10 +52,10 @@ public class ProcedureScannerPrinter extends AbstractScannerAdapter<Procedure> {
 	
 
 	
-	public void list(ConnectionManager cm, String database) throws SQLException{
+	public void list(ConnectionManager cm, String database) throws SQLException, AdapterException{
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, null);
 	}
-	public void list(ConnectionManager cm, String database, String pattern) throws SQLException{
+	public void list(ConnectionManager cm, String database, String pattern) throws SQLException, AdapterException{
 		new ProcedureScanner(cm).run(this, new ColumnMapper(), database, pattern);
 	}
 	

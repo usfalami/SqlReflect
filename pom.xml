@@ -17,11 +17,18 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.teradata</groupId>
 			<artifactId>terajdbc4</artifactId>
 			<version>15.00</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.teradata</groupId>
 			<artifactId>tdgssconfig</artifactId>

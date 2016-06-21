@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class DatabaseScanner extends Reflector implements Scanner {
 
@@ -15,7 +16,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <D extends Database> void run(HasScanner<D> adapter, String database) throws SQLException {
+	public <D extends Database> void run(HasScanner<D> adapter, String database) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -30,7 +31,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <D extends Database> void run(DatabaseMetaData dm, HasScanner<D> adapter, String databasePattern) throws SQLException {
+	protected <D extends Database> void run(DatabaseMetaData dm, HasScanner<D> adapter, String databasePattern) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {

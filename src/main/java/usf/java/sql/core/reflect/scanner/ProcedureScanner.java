@@ -5,12 +5,13 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.reflect.scanner.SimpleBeanListAdapter;
+import usf.java.sql.adapter.reflect.scanner.ListAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ProcedureScanner extends Reflector implements Scanner {
 	
@@ -18,7 +19,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T extends Function, C extends Column> void run(HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException {
+	public <T extends Function, C extends Column> void run(HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -35,7 +36,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		adapter.end();
 	}
 	
-	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException {
+	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -48,7 +49,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 				}
 			}
 			else{ // look for columns
-				SimpleBeanListAdapter<C> columnAdaper = new SimpleBeanListAdapter<C>(columnMapper);
+				ListAdapter<C> columnAdaper = new ListAdapter<C>(columnMapper);
 				ColumnScanner cs = new ColumnScanner(cm);
 				while(rs.next()){
 					T p = adapter.getMapper().map(rs, row+1);

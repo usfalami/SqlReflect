@@ -7,6 +7,7 @@ import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;
 import usf.java.sql.core.parser.SqlParser;
+import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 
 public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> {
@@ -34,10 +35,10 @@ public class DatabaseScannerPrinter extends AbstractScannerAdapter<Database> {
 		formatter.endTable();
 	}
 	
-	public void list(ConnectionManager cm) throws SQLException{
+	public void list(ConnectionManager cm) throws SQLException, AdapterException{
 		this.list(cm, null);
 	}
-	public void list(ConnectionManager cm, String pattern) throws SQLException{
+	public void list(ConnectionManager cm, String pattern) throws SQLException, AdapterException{
 		new DatabaseScanner(cm).run(this, pattern);
 	}
 }

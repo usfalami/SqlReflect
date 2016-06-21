@@ -5,11 +5,11 @@ import java.util.List;
 
 import usf.java.sql.core.mapper.Mapper;
 
-public class SimpleBeanListAdapter<T> extends AbstractScannerAdapter<T> {
+public class ListAdapter<T> extends AbstractScannerAdapter<T> {
 
 	protected List<T> list;
 	
-	public SimpleBeanListAdapter(Mapper<T> mapper) {
+	public ListAdapter(Mapper<T> mapper) {
 		super(null, mapper, null);
 	}
 
