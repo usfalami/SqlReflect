@@ -5,7 +5,7 @@ import usf.java.sql.core.reflect.exception.AdapterException;
 
 public interface Scanner {
 	
-	public static interface HasScanner<T> {
+	public static interface ScannerAdapter<T> {
 		
 		void start() throws AdapterException;
 		void adapte(T field, int index) throws AdapterException;

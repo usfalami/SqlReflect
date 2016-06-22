@@ -8,7 +8,7 @@ import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
-public class ExecutorPerformAdapter extends AbstractExecutorAdapter {
+public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 
 	protected long cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
 	

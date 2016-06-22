@@ -7,7 +7,7 @@ import usf.java.sql.core.field.Callable;
 
 public interface Performer {
 	
-	public static interface HasExecutorPerformer {
+	public static interface PerformerAdapter {
 
 		void preConnecion();
 		void postConnecion();

@@ -1,12 +1,12 @@
 package usf.java.sql.adapter.reflect.scanner;
 
 import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.adapter.reflect.AbstractReflectorAdapter;
+import usf.java.sql.adapter.reflect.AbstractAdapter;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.scanner.Scanner.HasScanner;
+import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 
-public abstract class AbstractScannerAdapter<T> extends AbstractReflectorAdapter implements HasScanner<T> {
+public abstract class AbstractScannerAdapter<T> extends AbstractAdapter implements ScannerAdapter<T> {
 
 	protected Mapper<T> mapper;
 	

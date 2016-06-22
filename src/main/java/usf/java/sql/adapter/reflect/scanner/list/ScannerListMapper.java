@@ -6,11 +6,11 @@ import java.util.List;
 import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter;
 import usf.java.sql.core.mapper.Mapper;
 
-public class ListAdapter<T> extends AbstractScannerAdapter<T> {
+public class ScannerListMapper<T> extends AbstractScannerAdapter<T> {
 
 	protected List<T> list;
 	
-	public ListAdapter(Mapper<T> mapper) {
+	public ScannerListMapper(Mapper<T> mapper) {
 		super(null, mapper, null);
 	}
 

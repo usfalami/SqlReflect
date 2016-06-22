@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.reflect.scanner.list.ListAdapter;
+import usf.java.sql.adapter.reflect.scanner.list.ScannerListMapper;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;
@@ -19,7 +19,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <P extends Function, C extends Column> void run(HasScanner<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	public <P extends Function, C extends Column> void run(ScannerAdapter<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -34,7 +34,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		}
 	}
 	
-	protected <P extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	protected <P extends Function, C extends Column> void run(DatabaseMetaData dm, ScannerAdapter<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -47,12 +47,12 @@ public class ProcedureScanner extends Reflector implements Scanner {
 				}
 			}
 			else{ // look for columns
-				ListAdapter<C> columnAdaper = new ListAdapter<C>(columnMapper);
 				ColumnScanner cs = new ColumnScanner(cm);
+				ScannerListMapper<C> sm = new ScannerListMapper<C>(columnMapper);
 				while(rs.next()){
 					P p = adapter.getMapper().map(rs, row+1);
-					cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
-					p.setColumns(columnAdaper.getList());
+					cs.run(sm, p.getDatabase(), p.getName(), null);
+					p.setColumns(sm.getList());
 					adapter.adapte(p, row++);
 				}
 			}

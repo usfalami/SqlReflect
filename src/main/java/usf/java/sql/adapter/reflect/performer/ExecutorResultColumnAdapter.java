@@ -8,7 +8,7 @@ import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;
 
-public class ExecutorResultColumnAdapter extends AbstractExecutorAdapter {
+public class ExecutorResultColumnAdapter extends AbstractPerformerAdapter {
 
 	public ExecutorResultColumnAdapter(SqlParser sqlParser, Formatter formatter) {
 		super(sqlParser, formatter);

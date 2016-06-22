@@ -6,11 +6,11 @@ import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ListPrinter<T> extends AbstractScannerAdapter<T> {
+public class ScannerListWriter<T> extends AbstractScannerAdapter<T> {
 
 	private StreamWriter writer;
 
-	public ListPrinter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
+	public ScannerListWriter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
 		super(sqlParser, mapper, null);
 		this.writer = writer;
 	}

@@ -17,7 +17,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		super(cm);
 	}
 
-	public void run(HasExecutorPerformer adapter, Callable callable, Serializable ... parametters) throws SQLException {
+	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parametters) throws SQLException {
 		
 		Connection cnx = null;
 		try {
