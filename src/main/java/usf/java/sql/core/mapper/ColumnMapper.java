@@ -21,12 +21,17 @@ public class ColumnMapper implements Mapper<Column> {
 
 	@Override
 	public void write(StreamWriter writer, Column column) throws Exception {
-		writer.startObject("COLUMN", new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "CLASS"});
+		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", column.getName());
 		writer.writeString("TYPE_NAME", column.getType());
 		writer.writeInt("LENGTH", column.getSize());
 		writer.writeString("CLASS", column.getClazz());
 		writer.endObject();
+	}
+	
+	@Override
+	public String[] getColumnNames() {
+		return new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "CLASS"};
 	}
 	
 

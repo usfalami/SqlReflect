@@ -39,6 +39,7 @@ public class ParameterScanner extends Reflector implements Scanner {
 			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, columnPattern);
 			ParameterMapper mapper = new ParameterMapper();
 			int row = 0;
+			adapter.headers(mapper.getColumnNames());
 			while(rs.next()){
 				Parameter column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);

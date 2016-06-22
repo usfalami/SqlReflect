@@ -53,6 +53,7 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
 			Mapper<Column> mapper = new ColumnMapper();
 			ResultSetMetaData rm = rs.getMetaData();
+			adapter.headers(mapper.getColumnNames());
 			for(int i=1; i<=rm.getColumnCount(); i++) {
 				Column col = mapper.map(rs, i);
 				adapter.adapte(col, i);

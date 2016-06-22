@@ -40,6 +40,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			DatabaseMapper mapper = new DatabaseMapper();
 			int row = 0;
+			adapter.headers(mapper.getColumnNames());
 			while(rs.next()){
 				Database database = mapper.map(rs, row+1);
 				adapter.adapte(database, row++);

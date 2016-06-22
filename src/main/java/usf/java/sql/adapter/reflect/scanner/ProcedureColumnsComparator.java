@@ -28,6 +28,11 @@ public class ProcedureColumnsComparator implements ScannerAdapter<Procedure> {
 	public void start() { }
 
 	@Override
+	public void headers(String... headers) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
 	public void adapte(Procedure procedure, int index) {
 		if(callableName.equals(procedure.getName())){
 //			Column[] columns = procedure.getColumns();

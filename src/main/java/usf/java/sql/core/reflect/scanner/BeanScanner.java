@@ -55,6 +55,7 @@ public class BeanScanner extends Reflector implements Scanner {
 				if(dm.getColumnNames() == null) // set all column if no column was set
 					dm.setColumnNames(ReflectorUtils.columnNames(rs));
 			}
+			adapter.headers(mapper.getColumnNames());
 			int row = 0;
 			while(rs.next()) {
 				T bean = mapper.map(rs, row+1);

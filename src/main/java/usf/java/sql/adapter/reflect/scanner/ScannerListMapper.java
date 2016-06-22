@@ -12,6 +12,11 @@ public class ScannerListMapper<T> implements ScannerAdapter<T> {
 	public ScannerListMapper() {
 		
 	}
+	
+	@Override
+	public void headers(String... headers) {
+		
+	}
 
 	@Override
 	public void start() {

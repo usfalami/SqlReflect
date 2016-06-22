@@ -41,6 +41,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			ProcedureMapper mapper = new ProcedureMapper();
+			adapter.headers(mapper.getColumnNames());
 			if(columnMapper) { // look for columns
 				ParameterScanner ps = new ParameterScanner(cm);
 				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>();

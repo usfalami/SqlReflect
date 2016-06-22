@@ -7,6 +7,7 @@ public interface Scanner {
 	
 	public static interface ScannerAdapter<T> extends Adapter {
 		
+		void headers(String... headers);
 		void adapte(T field, int index) throws AdapterException;
 		
 	}

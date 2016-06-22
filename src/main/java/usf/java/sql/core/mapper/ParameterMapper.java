@@ -18,15 +18,19 @@ public class ParameterMapper implements Mapper<Parameter> {
 		);
 	}
 
-
 	@Override
 	public void write(StreamWriter writer, Parameter parameter) throws Exception {
-		writer.startObject("COLUMN", new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE"});
+		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", parameter.getName());
 		writer.writeString("TYPE_NAME", parameter.getValueType());
 		writer.writeInt("LENGTH", parameter.getSize());
 		writer.writeString("COLUMN_TYPE", parameter.getRole().toString());
 		writer.endObject();
+	}
+	
+	@Override
+	public String[] getColumnNames() {
+		return new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE"};
 	}
 
 }

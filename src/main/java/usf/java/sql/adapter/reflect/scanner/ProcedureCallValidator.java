@@ -27,6 +27,12 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	public void start() {
 		isValid = false;
 	}
+	
+	@Override
+	public void headers(String... headers) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void adapte(Procedure procedure, int index) throws AdapterException {

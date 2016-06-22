@@ -14,6 +14,11 @@ public class ScannerListWriter<T> implements ScannerAdapter<T> {
 	public ScannerListWriter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
 		this.writer = writer;
 	}
+	
+	@Override
+	public void headers(String... headers) {
+		
+	}
 
 	@Override
 	public void start() throws AdapterException {
