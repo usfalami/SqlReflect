@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.reflect.scanner.ListAdapter;
+import usf.java.sql.adapter.reflect.scanner.list.ListAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Function;

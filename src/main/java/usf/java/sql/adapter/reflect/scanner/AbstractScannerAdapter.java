@@ -18,6 +18,5 @@ public abstract class AbstractScannerAdapter<T> extends AbstractReflectorAdapter
 	public Mapper<T> getMapper() {
 		return mapper;
 	}
-	
 
 }

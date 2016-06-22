@@ -1,5 +1,6 @@
-package usf.java.sql.adapter.reflect.scanner;
+package usf.java.sql.adapter.reflect.scanner.list;
 
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.exception.AdapterException;

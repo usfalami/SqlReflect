@@ -1,8 +1,9 @@
-package usf.java.sql.adapter.reflect.scanner;
+package usf.java.sql.adapter.reflect.scanner.list;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter;
 import usf.java.sql.core.mapper.Mapper;
 
 public class ListAdapter<T> extends AbstractScannerAdapter<T> {
