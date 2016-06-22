@@ -1,17 +1,23 @@
 package usf.java.sql.adapter.reflect.performer;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 
+import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.TimePerform;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.exception.AdapterException;
+import usf.java.sql.core.reflect.performer.ExecutorPerformer;
 
 public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 
+	protected Callable callable;
 	protected TimePerform time;
 	
 	public ExecutorPerformAdapter(SqlParser sqlParser) {
 		super(sqlParser);
+		time = new TimePerform();
 	}
 	
 	@Override
@@ -53,6 +59,11 @@ public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 	
 	public TimePerform getTimePerform() {
 		return time;
+	}
+	
+	public void calc(ConnectionManager cm, String sql, Serializable... parameters) throws SQLException, AdapterException {
+		this.callable = sqlParser.parseSQL(sql);
+		new ExecutorPerformer(cm).run(this, callable, parameters);
 	}
 	
 }

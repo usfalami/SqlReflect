@@ -19,7 +19,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		super(cm);
 	}
 
-	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -31,7 +31,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 			try {
 				
 				adapter.preStatement();
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);
+				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
