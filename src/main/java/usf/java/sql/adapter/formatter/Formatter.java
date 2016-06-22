@@ -14,4 +14,8 @@ public interface Formatter {
 	void formatFooter(String footer);
 	void endTable();
 	
+	public static interface Repporter {
+		
+	}
+	
 }

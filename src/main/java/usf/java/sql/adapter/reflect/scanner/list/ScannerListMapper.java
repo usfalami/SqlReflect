@@ -11,7 +11,7 @@ public class ScannerListMapper<T> extends AbstractScannerAdapter<T> {
 	protected List<T> list;
 	
 	public ScannerListMapper(Mapper<T> mapper) {
-		super(null, mapper, null);
+		super(mapper);
 	}
 
 	@Override

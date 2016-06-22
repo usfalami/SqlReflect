@@ -3,67 +3,59 @@ package usf.java.sql.adapter.reflect.performer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.formatter.Formatter;
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.TimePerform;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.ReflectorUtils;
+import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 
-	protected long cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd;
+	protected TimePerform time;
 	
-	public ExecutorPerformAdapter(SqlParser sqlParser, Formatter formatter) {
-		super(sqlParser, formatter);
-		formatter.configureAll(4, PERFORM_TEXT_LENGTH);
+	public ExecutorPerformAdapter(SqlParser sqlParser) {
+		super(sqlParser);
+	}
+	
+	@Override
+	public void start() {
+		time.setStart(System.currentTimeMillis());
 	}
 
 	@Override
 	public void preConnecion() {	
-		cnxStart = System.currentTimeMillis();
+		time.setCnxStart(System.currentTimeMillis());
 	}
 	@Override
 	public void postConnecion() { 
-		cnxEnd = System.currentTimeMillis();
+		time.setCnxEnd(System.currentTimeMillis());
 	}
 	@Override
 	public void preStatement() {
-		statStart = System.currentTimeMillis();
+		time.setStatStart(System.currentTimeMillis());
 	}
 	@Override
 	public void postStatement() {
-		statEnd = System.currentTimeMillis();
+		time.setStatEnd(System.currentTimeMillis());
 	}
 
 	@Override
 	public void preExec(Callable sql) throws SQLException {
-		execStart = System.currentTimeMillis();
+		time.setExecStart(System.currentTimeMillis());
 	}
 	@Override
 	public void postExec(Callable sql, ResultSet rs) throws SQLException {
-		execEnd = System.currentTimeMillis();
-		int count = ReflectorUtils.rowsCount(rs);
-		formatter.startTable();
-		formatter.formatTitle(String.format("%s : %d row(s)", sql.getName(), count));
-		formatter.formatHeaders("Action", "Start", "End", "Duration");
-		formatter.startRows();
-		formatter.formatRow("Connection",
-			TIME_FORMATTER.format(cnxStart),
-			TIME_FORMATTER.format(cnxEnd),
-			String.format("%5d ms",cnxEnd-cnxStart));
-		formatter.formatRow("Statment",
-			TIME_FORMATTER.format(statStart),
-			TIME_FORMATTER.format(statEnd),
-			String.format("%5d ms",statEnd-statStart));
-		formatter.formatRow("Execution",
-			TIME_FORMATTER.format(execStart),
-			TIME_FORMATTER.format(execEnd),
-			String.format("%5d ms",execEnd-execStart));
-		formatter.formatRow("Total",
-			TIME_FORMATTER.format(cnxStart),
-			TIME_FORMATTER.format(execEnd),
-			String.format("%5d ms",execEnd-cnxStart));
-		formatter.endRows();
-		formatter.endTable();
+		time.setExecEnd(System.currentTimeMillis());
+		time.setCount(ReflectorUtils.rowsCount(rs));
 	}
-
+	
+	@Override
+	public void end() throws AdapterException {
+		time.setEnd(System.currentTimeMillis());
+	}
+	
+	public TimePerform getTimePerform() {
+		return time;
+	}
+	
 }

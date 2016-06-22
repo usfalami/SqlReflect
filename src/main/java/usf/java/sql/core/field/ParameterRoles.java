@@ -1,6 +1,6 @@
 package usf.java.sql.core.field;
 
-public enum ColumnRoles {
+public enum ParameterRoles {
 
 	UNKNOWN, IN, INOUT, OUT, RETURN, RESULTSET;
 

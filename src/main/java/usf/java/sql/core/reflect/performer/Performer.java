@@ -4,10 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.reflect.Reflector.Adapter;
 
 public interface Performer {
 	
-	public static interface PerformerAdapter {
+	public static interface PerformerAdapter extends Adapter {
 
 		void preConnecion();
 		void postConnecion();

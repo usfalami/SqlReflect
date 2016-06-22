@@ -1,6 +1,7 @@
 package usf.java.sql.core.mapper;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Column;
@@ -10,23 +11,23 @@ public class ColumnMapper implements Mapper<Column> {
 
 	@Override
 	public Column map(ResultSet rs, int row) throws SQLException {
+		ResultSetMetaData md = rs.getMetaData();
 		return new Column(
-			rs.getString("COLUMN_NAME").toString(),
-			rs.getString("TYPE_NAME").toString(),
-			rs.getInt("LENGTH"),
-			rs.getInt("COLUMN_TYPE")
-		);
+				md.getColumnName(row),
+				md.getColumnTypeName(row),
+				md.getColumnDisplaySize(row),
+				md.getColumnClassName(row));
 	}
-
 
 	@Override
 	public void write(StreamWriter writer, Column column) throws Exception {
-		writer.startObject("COLUMN", new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE"});
+		writer.startObject("COLUMN", new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "CLASS"});
 		writer.writeString("COLUMN_NAME", column.getName());
-		writer.writeString("TYPE_NAME", column.getValueType());
+		writer.writeString("TYPE_NAME", column.getType());
 		writer.writeInt("LENGTH", column.getSize());
-		writer.writeString("COLUMN_TYPE", column.getRole().toString());
+		writer.writeString("CLASS", column.getClazz());
 		writer.endObject();
 	}
+	
 
 }

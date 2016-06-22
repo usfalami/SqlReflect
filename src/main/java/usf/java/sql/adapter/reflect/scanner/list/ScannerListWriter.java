@@ -11,14 +11,14 @@ public class ScannerListWriter<T> extends AbstractScannerAdapter<T> {
 	private StreamWriter writer;
 
 	public ScannerListWriter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
-		super(sqlParser, mapper, null);
+		super(mapper);
 		this.writer = writer;
 	}
 
 	@Override
 	public void start() throws AdapterException {
 		try {
-			writer.start("ITEMS");
+			writer.start("LIST");
 		} catch (Exception e) {
 			throw new AdapterException(e);
 		}

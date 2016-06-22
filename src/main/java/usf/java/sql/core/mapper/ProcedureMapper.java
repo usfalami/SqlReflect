@@ -3,7 +3,7 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.stream.StreamWriter;
 
@@ -23,9 +23,9 @@ public class ProcedureMapper implements Mapper<Procedure> {
 		writer.writeString("PROCEDURE_SCHEM", procedure.getDatabase());
 		writer.writeString("PROCEDURE_NAME", procedure.getName());
 		if(procedure.getColumns() != null){
-			ColumnMapper cm = new ColumnMapper();
+			ParameterMapper cm = new ParameterMapper();
 			writer.startList("COLUMNS");
-			for(Column c : procedure.getColumns())
+			for(Parameter c : procedure.getColumns())
 				cm.write(writer, c);
 			writer.endList();
 		}

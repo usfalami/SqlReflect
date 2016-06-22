@@ -8,4 +8,10 @@ public class AdapterException extends Exception {
 		super(arg0);
 	}
 
+	public AdapterException(String arg0) {
+		super(arg0);
+	}
+	
+	
+
 }

@@ -10,6 +10,7 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ExecutorPerformer extends Reflector implements Performer {
 	
@@ -17,8 +18,8 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		super(cm);
 	}
 
-	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parametters) throws SQLException {
-		
+	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+		adapter.start();
 		Connection cnx = null;
 		try {
 			adapter.preConnecion();
@@ -59,6 +60,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		}
 		finally {
 			cm.close(cnx);
+			adapter.end();
 		}
 	}
 

@@ -8,14 +8,6 @@ import usf.java.sql.core.parser.SqlParser;
 
 public abstract class AbstractAdapter {
 
-	protected Formatter formatter;
-	protected SqlParser sqlParser;
-	
-	public AbstractAdapter(SqlParser sqlParser, Formatter formatter) {
-		this.formatter = formatter;
-		this.sqlParser = sqlParser;
-	}
-
 	
 	public static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	public static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");

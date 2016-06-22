@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.reflect.scanner.list.ScannerListMapper;
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.Column;
-import usf.java.sql.core.field.Function;
-import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.mapper.ParameterMapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
@@ -19,12 +19,12 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <P extends Function, C extends Column> void run(ScannerAdapter<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columnMapper) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			run(dm, adapter, columnMapper, databasePattern, proecedurePattern);
+			run(dm, adapter, databasePattern, proecedurePattern, columnMapper);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -34,24 +34,24 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		}
 	}
 	
-	protected <P extends Function, C extends Column> void run(DatabaseMetaData dm, ScannerAdapter<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columnMapper) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
-			if(columnMapper == null) {
+			if(columnMapper) {
 				while(rs.next()){
-					P p = adapter.getMapper().map(rs, row+1);
+					Procedure p = adapter.getMapper().map(rs, row+1);
 					adapter.adapte(p, row++);
 				}
 			}
 			else{ // look for columns
-				ColumnScanner cs = new ColumnScanner(cm);
-				ScannerListMapper<C> sm = new ScannerListMapper<C>(columnMapper);
+				ParameterScanner ps = new ParameterScanner(cm);
+				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>(new ParameterMapper());
 				while(rs.next()){
-					P p = adapter.getMapper().map(rs, row+1);
-					cs.run(sm, p.getDatabase(), p.getName(), null);
+					Procedure p = adapter.getMapper().map(rs, row+1);
+					ps.run(sm, p.getDatabase(), p.getName(), null);
 					p.setColumns(sm.getList());
 					adapter.adapte(p, row++);
 				}

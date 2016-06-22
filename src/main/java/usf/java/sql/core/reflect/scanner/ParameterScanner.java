@@ -6,17 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
-public class ColumnScanner extends Reflector implements Scanner {
+public class ParameterScanner extends Reflector implements Scanner {
 	
-	public ColumnScanner(ConnectionManager cm) {
+	public ParameterScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
-	public <C extends Column> void run(ScannerAdapter<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Parameter> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -31,14 +31,14 @@ public class ColumnScanner extends Reflector implements Scanner {
 		}
 	}
 	
-	protected <C extends Column> void run(DatabaseMetaData dm, ScannerAdapter<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Parameter> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
 			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, columnPattern);
 			int row = 0;
 			while(rs.next()){
-				C column = adapter.getMapper().map(rs, row+1);
+				Parameter column = adapter.getMapper().map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
 		} catch (SQLException e) {
