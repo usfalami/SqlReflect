@@ -7,11 +7,11 @@ import java.sql.SQLException;
 
 import usf.java.sql.adapter.reflect.scanner.ScannerListMapper;
 import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.Reflector;
-import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ProcedureScanner extends Reflector implements Scanner {
 	

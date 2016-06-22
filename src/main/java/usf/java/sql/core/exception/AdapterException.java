@@ -1,4 +1,4 @@
-package usf.java.sql.core.reflect.exception;
+package usf.java.sql.core.exception;
 
 public class AdapterException extends Exception {
 

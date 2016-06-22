@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 

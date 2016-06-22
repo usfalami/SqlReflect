@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import usf.java.sql.core.reflect.exception.AdapterException;
+import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.stream.StreamWriter;
 
 public class SimpleBeanMapper implements DynamicMapper<Map<String, Object>> {

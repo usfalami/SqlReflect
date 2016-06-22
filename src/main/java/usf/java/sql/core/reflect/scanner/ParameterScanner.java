@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.mapper.ParameterMapper;
 import usf.java.sql.core.reflect.Reflector;
-import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ParameterScanner extends Reflector implements Scanner {
 	

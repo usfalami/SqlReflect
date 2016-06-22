@@ -1,8 +1,8 @@
 package usf.java.sql.adapter.reflect.scanner;
 
+import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.parser.SqlParser;
-import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 import usf.java.sql.core.stream.StreamWriter;
 
