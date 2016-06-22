@@ -16,9 +16,9 @@ import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
-public class BeanColumnScanner extends Reflector implements Scanner {
+public class ResultColumnScanner extends Reflector implements Scanner {
 	
-	public BeanColumnScanner(ConnectionManager cm) {
+	public ResultColumnScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
