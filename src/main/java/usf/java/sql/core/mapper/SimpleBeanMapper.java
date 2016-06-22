@@ -8,9 +8,9 @@ import java.util.Map;
 import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class DefaultBeanMapper implements DynamicMapper<Map<String, Object>> {
+public class SimpleBeanMapper implements DynamicMapper<Map<String, Object>> {
 	
-	private String[] columnNames;
+	protected String[] columnNames;
 	
 	@Override
 	public void setColumnNames(String... columnNames) {

@@ -91,6 +91,8 @@ public class XmlStreamWriter implements StreamWriter {
 	public void end() throws Exception {
 		endList();
 		xmlStreamWriter.writeEndDocument();
+		xmlStreamWriter.flush();
+		//close stream
 	}
 
 }

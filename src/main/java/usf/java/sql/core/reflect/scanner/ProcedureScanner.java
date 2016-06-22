@@ -19,7 +19,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T extends Function, C extends Column> void run(HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	public <P extends Function, C extends Column> void run(HasScanner<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -34,7 +34,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		}
 	}
 	
-	protected <T extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<T> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
+	protected <P extends Function, C extends Column> void run(DatabaseMetaData dm, HasScanner<P> adapter, Mapper<C> columnMapper, String databasePattern, String proecedurePattern) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -42,7 +42,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			if(columnMapper == null) {
 				while(rs.next()){
-					T p = adapter.getMapper().map(rs, row+1);
+					P p = adapter.getMapper().map(rs, row+1);
 					adapter.adapte(p, row++);
 				}
 			}
@@ -50,7 +50,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 				ListAdapter<C> columnAdaper = new ListAdapter<C>(columnMapper);
 				ColumnScanner cs = new ColumnScanner(cm);
 				while(rs.next()){
-					T p = adapter.getMapper().map(rs, row+1);
+					P p = adapter.getMapper().map(rs, row+1);
 					cs.run(columnAdaper, p.getDatabase(), p.getName(), null);
 					p.setColumns(columnAdaper.getList());
 					adapter.adapte(p, row++);

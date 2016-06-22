@@ -11,14 +11,14 @@ public class ColumnMapper implements Mapper<Column> {
 	@Override
 	public Column map(ResultSet rs, int row) throws SQLException {
 		return new Column(
-				rs.getString("COLUMN_NAME").toString(),
-				rs.getString("TYPE_NAME").toString(),
-				rs.getInt("LENGTH"),
-				rs.getInt("COLUMN_TYPE")
-			);
+			rs.getString("COLUMN_NAME").toString(),
+			rs.getString("TYPE_NAME").toString(),
+			rs.getInt("LENGTH"),
+			rs.getInt("COLUMN_TYPE")
+		);
 	}
 
-	
+
 	@Override
 	public void write(StreamWriter writer, Column column) throws Exception {
 		writer.startObject("COLUMN", new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE"});

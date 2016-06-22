@@ -21,7 +21,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		try {
 			cnx = cm.newConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			this.run(dm, adapter, database);
+			run(dm, adapter, database);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

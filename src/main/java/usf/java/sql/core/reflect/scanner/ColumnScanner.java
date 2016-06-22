@@ -14,7 +14,6 @@ public class ColumnScanner extends Reflector implements Scanner {
 	
 	public ColumnScanner(ConnectionManager cm) {
 		super(cm);
-		// TODO Auto-generated constructor stub
 	}
 
 	public <C extends Column> void run(HasScanner<C> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
