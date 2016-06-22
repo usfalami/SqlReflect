@@ -3,9 +3,6 @@ package usf.java.sql.adapter.reflect;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import usf.java.sql.adapter.formatter.Formatter;
-import usf.java.sql.core.parser.SqlParser;
-
 public abstract class AbstractAdapter {
 
 	

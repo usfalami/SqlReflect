@@ -10,6 +10,7 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.ReflectorUtils;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
 public class ExecutorPerformer extends Reflector implements Performer {
@@ -35,10 +36,10 @@ public class ExecutorPerformer extends Reflector implements Performer {
 				
 				ResultSet rs = null;
 				try {
-					adapter.preExec(callable);
+					adapter.preExec();
 					rs = stmt instanceof Statement ? 
 							stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-					adapter.postExec(callable, rs);
+					adapter.postExec(ReflectorUtils.rowsCount(rs));
 				} catch (SQLException e) {
 					e.printStackTrace();
 					throw e;

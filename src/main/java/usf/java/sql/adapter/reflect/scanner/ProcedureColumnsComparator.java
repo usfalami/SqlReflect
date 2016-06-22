@@ -1,11 +1,10 @@
-package usf.java.sql.adapter.reflect.scanner.check;
+package usf.java.sql.adapter.reflect.scanner;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import usf.java.sql.adapter.reflect.scanner.AbstractScannerAdapter;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Function;
