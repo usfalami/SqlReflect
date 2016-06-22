@@ -15,6 +15,7 @@ import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 public class ProcedureCallValidator extends AbstractScannerAdapter<Procedure> {
 
 	protected SqlParser sqlParser;
+	
 	protected Function callable;
 	protected boolean isValid;
 
