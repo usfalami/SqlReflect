@@ -9,7 +9,6 @@ import usf.java.sql.adapter.reflect.scanner.ScannerListMapper;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
-import usf.java.sql.core.mapper.ParameterMapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
@@ -44,10 +43,11 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			ProcedureMapper mapper = new ProcedureMapper();
 			if(columnMapper) { // look for columns
 				ParameterScanner ps = new ParameterScanner(cm);
-				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>(new ParameterMapper());
+				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>();
+				
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					ps.run(sm, p.getDatabase(), p.getName(), null);
+					ps.run(dm, sm, p.getDatabase(), p.getName(), null);
 					p.setColumns(sm.getList());
 					adapter.adapte(p, row++);
 				}

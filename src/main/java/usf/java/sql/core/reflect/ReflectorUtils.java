@@ -27,5 +27,9 @@ public class ReflectorUtils {
 	public static int columnsCount(ResultSet rs) throws SQLException {
 		return rs.getMetaData().getColumnCount();
 	}
+	
+	public static boolean isEmpty(String string) {
+		return string == null || string.isEmpty();
+	}
 
 }

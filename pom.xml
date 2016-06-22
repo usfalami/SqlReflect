@@ -23,21 +23,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.teradata</groupId>
-			<artifactId>terajdbc4</artifactId>
-			<version>15.00</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.teradata</groupId>
-			<artifactId>tdgssconfig</artifactId>
-			<version>15.00</version>
-			<scope>test</scope>
-		</dependency>
-
-
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
@@ -45,4 +30,5 @@
 		</dependency>
 
 	</dependencies>
+
 </project>

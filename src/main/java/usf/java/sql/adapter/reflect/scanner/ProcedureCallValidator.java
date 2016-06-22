@@ -4,15 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Function;
+import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
-import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
+import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 
-public class ProcedureCallValidator extends AbstractScannerAdapter<Procedure> {
+public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 
 	protected SqlParser sqlParser;
 	
@@ -20,7 +20,6 @@ public class ProcedureCallValidator extends AbstractScannerAdapter<Procedure> {
 	protected boolean isValid;
 
 	public ProcedureCallValidator(SqlParser sqlParser) {
-		super(new ProcedureMapper());
 		this.sqlParser = sqlParser;
 	}
 

@@ -21,14 +21,14 @@ public class BeanScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T> void run(ScannerDynamicAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
 			Statement stmt = null;
 			try {
 				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);
-				run(stmt, adapter, callable, parametters);
+				run(stmt, adapter, mapper, callable, parametters);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
@@ -45,25 +45,22 @@ public class BeanScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T> void run(Statement stmt, ScannerDynamicAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-			Mapper<T> mapper = adapter.getMapper();
-			if(mapper != null) {
-				if(mapper instanceof DynamicMapper){
-					DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
-					if(dm.getColumnNames() == null) // set all column if no column was set
-						dm.setColumnNames(ReflectorUtils.columnNames(rs));
-				}
-				int row = 0;
-				while(rs.next()) {
-					T bean = mapper.map(rs, row+1);
-					adapter.adapte(bean, row++);
-				}
-				rs.beforeFirst();
+			if(mapper instanceof DynamicMapper){
+				DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
+				if(dm.getColumnNames() == null) // set all column if no column was set
+					dm.setColumnNames(ReflectorUtils.columnNames(rs));
 			}
+			int row = 0;
+			while(rs.next()) {
+				T bean = mapper.map(rs, row+1);
+				adapter.adapte(bean, row++);
+			}
+			rs.beforeFirst();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

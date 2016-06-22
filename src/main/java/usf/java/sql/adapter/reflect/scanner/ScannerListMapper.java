@@ -3,14 +3,14 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 
-public class ScannerListMapper<T> extends AbstractScannerAdapter<T> {
+public class ScannerListMapper<T> implements ScannerAdapter<T> {
 
 	protected List<T> list;
 	
-	public ScannerListMapper(Mapper<T> mapper) {
-		super(mapper);
+	public ScannerListMapper() {
+		
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class BeanColumnScanner extends Reflector implements Scanner {
 			Mapper<Column> mapper = new ColumnMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			for(int i=0; i<rm.getColumnCount(); i++) {
-				Column col = mapper.map(rs, i);
+				Column col = mapper.map(rs, i+1);
 				adapter.adapte(col, i);
 			}
 		} catch (SQLException e) {

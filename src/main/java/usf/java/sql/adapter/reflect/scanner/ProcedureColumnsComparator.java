@@ -6,21 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import usf.java.sql.core.connection.ConnectionManager;
-import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Function;
+import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
-import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.exception.AdapterException;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
+import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 
-public class ProcedureColumnsComparator extends AbstractScannerAdapter<Procedure> {
+public class ProcedureColumnsComparator implements ScannerAdapter<Procedure> {
 	
 	protected String callableName;
 	protected List<Function> functions;
 	protected List<Parameter[]> columnsList;
 
 	public ProcedureColumnsComparator() {
-		super(new ProcedureMapper());
 		functions = new ArrayList<Function>();
 		columnsList = new ArrayList<Parameter[]>();
 	}

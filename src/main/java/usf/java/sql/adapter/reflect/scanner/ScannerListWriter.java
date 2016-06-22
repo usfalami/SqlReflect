@@ -3,14 +3,15 @@ package usf.java.sql.adapter.reflect.scanner;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.exception.AdapterException;
+import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ScannerListWriter<T> extends AbstractScannerAdapter<T> {
+public class ScannerListWriter<T> implements ScannerAdapter<T> {
 
+	private Mapper<T> mapper;
 	private StreamWriter writer;
 
 	public ScannerListWriter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
-		super(mapper);
 		this.writer = writer;
 	}
 
