@@ -12,8 +12,10 @@ public abstract class Reflector {
 	}
 	
 	public static interface Adapter {
+		
 		void start() throws AdapterException;
 		void end()  throws AdapterException;
+	
 	}
 
 }

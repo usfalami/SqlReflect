@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Database;
+import usf.java.sql.core.mapper.DatabaseMapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
@@ -36,9 +37,10 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = databasePattern == null ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
+			DatabaseMapper mapper = new DatabaseMapper();
 			int row = 0;
 			while(rs.next()){
-				Database database = adapter.getMapper().map(rs, row+1);
+				Database database = mapper.map(rs, row+1);
 				adapter.adapte(database, row++);
 			}
 		}

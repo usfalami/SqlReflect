@@ -21,7 +21,7 @@ public class BeanScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T> void run(ScannerAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	public <T> void run(ScannerDynamicAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.newConnection();
@@ -45,7 +45,7 @@ public class BeanScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	protected <T> void run(Statement stmt, ScannerDynamicAdapter<T> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {

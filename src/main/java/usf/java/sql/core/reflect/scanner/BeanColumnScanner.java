@@ -11,6 +11,7 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.Column;
+import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
@@ -50,7 +51,7 @@ public class BeanColumnScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-			Mapper<Column> mapper = adapter.getMapper();
+			Mapper<Column> mapper = new ColumnMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			for(int i=0; i<rm.getColumnCount(); i++) {
 				Column col = mapper.map(rs, i);

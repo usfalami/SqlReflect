@@ -9,6 +9,11 @@ public interface Scanner {
 	public static interface ScannerAdapter<T> extends Adapter {
 		
 		void adapte(T field, int index) throws AdapterException;
+		
+	}
+	
+	public static interface ScannerDynamicAdapter<T> extends ScannerAdapter<T> {
+
 		Mapper<T> getMapper();
 		
 	}

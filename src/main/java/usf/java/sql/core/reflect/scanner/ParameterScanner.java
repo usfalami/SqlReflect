@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.mapper.ParameterMapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.exception.AdapterException;
 
@@ -36,9 +37,10 @@ public class ParameterScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, columnPattern);
+			ParameterMapper mapper = new ParameterMapper();
 			int row = 0;
 			while(rs.next()){
-				Parameter column = adapter.getMapper().map(rs, row+1);
+				Parameter column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
 		} catch (SQLException e) {
