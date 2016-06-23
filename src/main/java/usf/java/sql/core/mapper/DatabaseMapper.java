@@ -24,5 +24,10 @@ public class DatabaseMapper implements Mapper<Database> {
 	public String[] getColumnNames() {
 		return new String[]{"TABLE_SCHEM"};
 	}
+	
+	@Override
+	public void setColumnNames(String... columnNames) {
+		
+	}
 
 }

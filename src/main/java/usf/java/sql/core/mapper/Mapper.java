@@ -12,5 +12,7 @@ public interface Mapper<T> {
 	void write(StreamWriter writer, T field) throws Exception;
 	
 	String[] getColumnNames();
+
+	void setColumnNames(String... columnNames);
 	
 }

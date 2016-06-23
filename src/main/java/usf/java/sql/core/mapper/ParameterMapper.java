@@ -32,5 +32,10 @@ public class ParameterMapper implements Mapper<Parameter> {
 	public String[] getColumnNames() {
 		return new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "COLUMN_TYPE"};
 	}
+	
+	@Override
+	public void setColumnNames(String... columnNames) {
+		
+	}
 
 }

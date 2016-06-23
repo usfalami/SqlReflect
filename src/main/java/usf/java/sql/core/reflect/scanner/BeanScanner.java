@@ -10,7 +10,6 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.mapper.DynamicMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
@@ -50,11 +49,8 @@ public class BeanScanner extends Reflector implements Scanner {
 		ResultSet rs = null;
 		try {
 			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
-			if(mapper instanceof DynamicMapper){
-				DynamicMapper<T> dm = (DynamicMapper<T>)mapper;
-				if(dm.getColumnNames() == null) // set all column if no column was set
-					dm.setColumnNames(ReflectorUtils.columnNames(rs));
-			}
+			if(mapper.getColumnNames() == null) // set all column if no column was set
+				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
 			adapter.headers(mapper.getColumnNames());
 			int row = 0;
 			while(rs.next()) {

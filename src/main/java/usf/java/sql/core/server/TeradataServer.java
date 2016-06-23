@@ -22,7 +22,7 @@ public class TeradataServer implements Server {
 	@Override
 	public String getDriver() {
 		return "com.teradata.jdbc.TeraDriver";
-	};
+	}
 	
 	@Override
 	public Function parseCallable(String sql) {

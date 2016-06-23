@@ -34,5 +34,10 @@ public class ColumnMapper implements Mapper<Column> {
 		return new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "CLASS"};
 	}
 	
+	@Override
+	public void setColumnNames(String... columnNames) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

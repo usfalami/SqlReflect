@@ -8,7 +8,7 @@ import java.util.Map;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class SimpleBeanMapper implements DynamicMapper<Map<String, Object>> {
+public class SimpleBeanMapper implements Mapper<Map<String, Object>> {
 	
 	protected String[] columnNames;
 	
@@ -41,4 +41,6 @@ public class SimpleBeanMapper implements DynamicMapper<Map<String, Object>> {
 			throw new AdapterException(e);
 		}
 	}
+	
+	
 }

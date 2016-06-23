@@ -36,4 +36,10 @@ public class ProcedureMapper implements Mapper<Procedure> {
 	public String[] getColumnNames() {
 		return new String[]{"PROCEDURE_SCHEM", "PROCEDURE_NAME"};
 	}
+	
+	@Override
+	public void setColumnNames(String... columnNames) {
+		// TODO Auto-generated method stub
+		
+	}
 }
