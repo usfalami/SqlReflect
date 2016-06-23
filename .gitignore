@@ -1,6 +1,5 @@
 /bin
-/.settings
 /target
+/.settings
 .classpath
 .project
-/src/test/java/stm
