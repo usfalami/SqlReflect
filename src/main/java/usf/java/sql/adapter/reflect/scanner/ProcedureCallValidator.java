@@ -30,7 +30,6 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	
 	@Override
 	public void headers(String... headers) {
-		// TODO Auto-generated method stub
 		
 	}
 

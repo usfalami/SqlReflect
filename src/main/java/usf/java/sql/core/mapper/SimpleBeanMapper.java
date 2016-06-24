@@ -42,5 +42,4 @@ public class SimpleBeanMapper implements Mapper<Map<String, Object>> {
 		}
 	}
 	
-	
 }

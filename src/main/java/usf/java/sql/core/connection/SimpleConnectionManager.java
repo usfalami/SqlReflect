@@ -38,9 +38,8 @@ public class SimpleConnectionManager implements ConnectionManager {
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
 			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			if(parameters != null)
-				for(int i=0; i<parameters.length; i++)
-					ps.setObject(i+1, parameters[i]);
+			for(int i=0; i<parameters.length; i++)
+				ps.setObject(i+1, parameters[i]);
 			return ps;
 		}
 	}	
