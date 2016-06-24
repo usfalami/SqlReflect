@@ -21,7 +21,7 @@ public class DatabaseScanner extends Reflector implements Scanner {
 	public void run(ScannerAdapter<Database> adapter, String database) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter, database);
 		} catch (SQLException e) {

@@ -24,7 +24,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		Connection cnx = null;
 		try {
 			adapter.preConnecion();
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			adapter.postConnecion();
 			
 			Statement stmt = null;

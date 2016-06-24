@@ -28,7 +28,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override	
-	public Connection newConnection() throws SQLException{
+	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, user.getUser(), user.getPass());
 	}
 	

@@ -37,7 +37,6 @@ public class ColumnMapper implements Mapper<Column> {
 	@Override
 	public void setColumnNames(String... columnNames) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

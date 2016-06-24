@@ -25,7 +25,7 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 	public void run(ScannerAdapter<Column> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			Statement stmt = null;
 			try {
 				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);

@@ -22,7 +22,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 	public void run(ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columnMapper) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter, databasePattern, proecedurePattern, columnMapper);
 		} catch (SQLException e) {

@@ -14,9 +14,9 @@ public class SingleConnectionManager extends SimpleConnectionManager {
 	}
 	
 	@Override
-	public Connection newConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		if(cnx == null || cnx.isClosed())
-			cnx = super.newConnection();
+			cnx = super.getConnection();
 		return cnx;
 	}
 	

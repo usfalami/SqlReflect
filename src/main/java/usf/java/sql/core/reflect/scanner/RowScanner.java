@@ -14,16 +14,16 @@ import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
-public class BeanScanner extends Reflector implements Scanner {
+public class RowScanner extends Reflector implements Scanner {
 
-	public BeanScanner(ConnectionManager cm) {
+	public RowScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
 	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			Statement stmt = null;
 			try {
 				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);

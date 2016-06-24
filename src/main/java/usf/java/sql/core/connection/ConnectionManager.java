@@ -13,7 +13,7 @@ public interface ConnectionManager {
 
 	void configure(Server server, Env env) throws ClassNotFoundException;
 
-	Connection newConnection() throws SQLException;
+	Connection getConnection() throws SQLException;
 	
 	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
 

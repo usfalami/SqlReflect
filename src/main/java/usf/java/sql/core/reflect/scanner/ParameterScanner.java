@@ -20,7 +20,7 @@ public class ParameterScanner extends Reflector implements Scanner {
 	public void run(ScannerAdapter<Parameter> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.newConnection();
+			cnx = cm.getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter, databasePattern, proecedurePattern, columnPattern);
 		} catch (SQLException e) {

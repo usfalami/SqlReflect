@@ -38,8 +38,8 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	public void adapte(Procedure procedure, int index) throws AdapterException {
 		List<?extends Parameter>columns = procedure.getColumns();
 		if(columns==null || columns.size()==0) {
-			if(callable.getParameters().length == 0)
-				throw new AdapterException("[Error] This procedure has no paramters");
+			if(callable.getParameters().length == 0) 
+				isValid = true;
 			else 
 				throw new AdapterException("[Error] Too many parameters : expected 0 parameters");
 		}
