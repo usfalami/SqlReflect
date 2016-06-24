@@ -3,12 +3,12 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 import usf.java.sql.core.exception.AdapterException;
+import usf.java.sql.core.field.Row;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class SimpleBeanMapper implements Mapper<Map<String, Object>> {
+public class RowMapper implements Mapper<Row> {
 	
 	protected String[] columnNames;
 	
@@ -22,15 +22,15 @@ public class SimpleBeanMapper implements Mapper<Map<String, Object>> {
 	}
 
 	@Override
-	public Map<String, Object> map(ResultSet rs, int row) throws SQLException {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public Row map(ResultSet rs, int row) throws SQLException {
+		Row map = (Row) new HashMap<String, Object>();
 		for(String col : columnNames)
 			map.put(col, rs.getObject(col));
 		return map;
 	}
 
 	@Override
-	public void write(StreamWriter writer, Map<String, Object> bean) throws AdapterException {
+	public void write(StreamWriter writer, Row bean) throws AdapterException {
 		try{
 			writer.startObject("item", columnNames);
 			for(String str : columnNames)
