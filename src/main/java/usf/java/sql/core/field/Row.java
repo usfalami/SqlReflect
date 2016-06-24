@@ -1,7 +1,12 @@
 package usf.java.sql.core.field;
 
-import java.util.Map;
+import java.util.HashMap;
 
-public interface Row extends Map<String, Object> {
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Row extends HashMap<String, Object> {
+
+	private static final long serialVersionUID = -1335463616667450602L;
 
 }

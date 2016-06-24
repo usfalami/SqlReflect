@@ -2,7 +2,6 @@ package usf.java.sql.core.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Row;
@@ -23,7 +22,7 @@ public class RowMapper implements Mapper<Row> {
 
 	@Override
 	public Row map(ResultSet rs, int row) throws SQLException {
-		Row map = (Row) new HashMap<String, Object>();
+		Row map = new Row();
 		for(String col : columnNames)
 			map.put(col, rs.getObject(col));
 		return map;
