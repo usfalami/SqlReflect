@@ -1,7 +1,7 @@
 package usf.java.sql.core.field;
 
 public class Database implements Field {
-	
+
 	protected String name;
 	
 	public Database() {

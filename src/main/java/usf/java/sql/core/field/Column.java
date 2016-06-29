@@ -1,7 +1,7 @@
 package usf.java.sql.core.field;
 
 public class Column implements Field {
-	
+
 	protected String name;
 	protected String type;
 	protected int size;

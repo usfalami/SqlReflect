@@ -17,11 +17,11 @@ public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 	
 	public ExecutorPerformAdapter(SqlParser sqlParser) {
 		super(sqlParser);
-		time = new TimePerform();
 	}
 	
 	@Override
 	public void start() {
+		time = new TimePerform();
 		time.setStart(System.currentTimeMillis());
 	}
 
@@ -49,7 +49,7 @@ public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 	@Override
 	public void postExec(int rowCount) throws SQLException {
 		time.setExecEnd(System.currentTimeMillis());
-		time.setCount(rowCount);
+		time.setRowsCount(rowCount);
 	}
 	
 	@Override

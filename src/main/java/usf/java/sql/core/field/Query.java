@@ -1,7 +1,7 @@
 package usf.java.sql.core.field;
 
 public class Query implements Callable  {
-	
+
 	protected String query;
 
 	public Query(String query) {

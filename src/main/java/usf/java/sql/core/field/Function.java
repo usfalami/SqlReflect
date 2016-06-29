@@ -7,6 +7,10 @@ public abstract class Function implements Callable {
 	protected String name, database, sql, parameters[];
 	protected List<Parameter> columns;
 	
+	protected Function(){
+		
+	}
+	
 	public Function(String sql) {
 		this.sql = sql;
 	}

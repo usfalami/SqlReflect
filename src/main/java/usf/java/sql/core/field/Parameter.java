@@ -8,6 +8,10 @@ public class Parameter implements Field {
 	protected ParameterRoles role;
 	protected int size;
 	
+	protected Parameter() {
+		super();
+	}
+	
 	public Parameter(String name, String valueType, int size, int type) {
 		this.name = name;
 		this.type = valueType;

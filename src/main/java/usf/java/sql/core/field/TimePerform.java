@@ -4,7 +4,7 @@ package usf.java.sql.core.field;
 public class TimePerform {
 
 	protected long start, cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd, end;
-	protected int count;
+	protected int rows;
 	public long getStart() {
 		return start;
 	}
@@ -53,11 +53,11 @@ public class TimePerform {
 	public void setEnd(long end) {
 		this.end = end;
 	}
-	public int getCount() {
-		return count;
+	public int getRowsCount() {
+		return rows;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setRowsCount(int count) {
+		this.rows = count;
 	}
 
 	
