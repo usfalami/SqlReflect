@@ -2,6 +2,8 @@ package usf.java.sql.core.field;
 
 import java.util.Objects;
 
+import usf.java.sql.core.field.types.ParameterRoles;
+
 public class Parameter implements Field {
 
 	protected String name, type, clazz;
