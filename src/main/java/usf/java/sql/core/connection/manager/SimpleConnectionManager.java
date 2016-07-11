@@ -22,9 +22,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 
 	@Override	
 	public Connection getConnection() throws SQLException {
-		Connection c = cp.getConnection(user);
-		System.out.println(c);
-		return c;
+		return cp.getConnection(user);
 	}
 	
 	@Override
