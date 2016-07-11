@@ -20,5 +20,11 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 	public Connection getConnection(User user) throws SQLException {
 		return user == null ? null : DriverManager.getConnection(url, user.getLogin(), user.getPass());
 	}
+	
+	@Override
+	public void release(Connection cnx) throws SQLException {
+		if(cnx == null || cnx.isClosed()) return;
+		cnx.close();
+	}
 
 }

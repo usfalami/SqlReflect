@@ -11,13 +11,24 @@ public class PoolConnectionProvider implements ConnectionProvider {
 
 	protected DataSource ds;
 	
+	protected PoolConnectionProvider() {
+
+	}
+	
 	public PoolConnectionProvider(DataSource ds) {
 		this.ds = ds;
 	}
 	
 	@Override
 	public Connection getConnection(User user) throws SQLException {
-		return user == null ? null : ds.getConnection(user.getLogin(), user.getPass());
+//		 return user == null ? null : ds.getConnection(user.getLogin(), user.getPass());
+		return user == null ? null : ds.getConnection();
+	}
+	
+	@Override
+	public void release(Connection cnx) throws SQLException {
+		if(cnx == null || cnx.isClosed()) return;
+		cnx.close();
 	}
 
 }

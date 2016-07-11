@@ -22,12 +22,14 @@ public class SimpleConnectionManager implements ConnectionManager {
 
 	@Override	
 	public Connection getConnection() throws SQLException {
-		return cp.getConnection(user);
+		Connection c = cp.getConnection(user);
+		System.out.println(c);
+		return c;
 	}
 	
 	@Override
 	public Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException  {
-		if(parameters == null || parameters.length ==0) 
+		if(parameters == null || parameters.length==0) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
 			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -39,18 +41,15 @@ public class SimpleConnectionManager implements ConnectionManager {
 
 	@Override
 	public void close(Connection cnx) throws SQLException {
-		if(cnx == null) return;
-		cnx.close();
+		cp.release(cnx);
 	}
 	@Override
 	public void close(Statement stmt) throws SQLException {
-		if(stmt == null) return;
-		stmt.close();
+		if(stmt != null) stmt.close();
 	}
 	@Override
 	public void close(ResultSet rs) throws SQLException {
-		if(rs == null) return;
-		rs.close();
+		if(rs != null) rs.close();
 	}
 
 }

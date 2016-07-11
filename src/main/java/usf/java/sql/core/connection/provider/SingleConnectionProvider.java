@@ -16,10 +16,15 @@ public class SingleConnectionProvider extends SimpleConnectionProvider {
 	}
 	
 	@Override
-	public Connection getConnection(User user) throws SQLException {
+	public synchronized Connection getConnection(User user) throws SQLException {
 		if(cnx == null || cnx.isClosed())
 			cnx = super.getConnection(user);
 		return cnx;
+	}
+
+	@Override
+	public void release(Connection cnx) throws SQLException {
+		// do not close cnx
 	}
 
 }
