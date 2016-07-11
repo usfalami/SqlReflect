@@ -16,7 +16,7 @@ public class TeradataServer implements Server {
 	private static final String FUNCTION_PATTERN = "(?i)^(call|exec|execute)\\s*(\\w+)\\.(\\w+)\\s*\\((.+)\\)$";
 	
 	@Override
-	public String makeURL(Env env) {
+	public String buildURL(Env env) {
 		return String.format(URL_TEMPLATE, env.getHost(), env.getDatabase(), env.getPort(), env.getParams());
 	}
 	@Override

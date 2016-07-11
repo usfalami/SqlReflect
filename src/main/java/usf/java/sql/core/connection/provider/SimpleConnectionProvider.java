@@ -13,7 +13,7 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 	protected String url;
 	
 	public SimpleConnectionProvider(Server server, Env env) {
-		this.url = server.makeURL(env);
+		this.url = server.buildURL(env);
 	}
 	
 	@Override

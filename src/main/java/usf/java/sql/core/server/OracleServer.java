@@ -13,7 +13,7 @@ public class OracleServer implements Server {
 	}
 
 	@Override
-	public String makeURL(Env env) {
+	public String buildURL(Env env) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -8,7 +8,7 @@ public interface Server {
 
 	String getDriver();
 	
-	String makeURL(Env env);
+	String buildURL(Env env);
 	
 	Function parseCallable(String sql);
 	

@@ -61,7 +61,6 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		finally {

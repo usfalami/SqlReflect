@@ -41,14 +41,12 @@ public class ExecutorPerformer extends Reflector implements Performer {
 							stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 				} catch (SQLException e) {
-					e.printStackTrace();
 					throw e;
 				}
 				finally {
 					cm.close(rs);
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
 				throw e;
 			}
 			finally {

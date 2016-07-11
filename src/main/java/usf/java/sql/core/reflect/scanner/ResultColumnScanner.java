@@ -59,7 +59,6 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 				adapter.adapte(col, i);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		finally {

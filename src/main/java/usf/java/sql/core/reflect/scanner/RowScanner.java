@@ -59,7 +59,6 @@ public class RowScanner extends Reflector implements Scanner {
 			}
 			rs.beforeFirst();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		finally {

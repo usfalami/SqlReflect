@@ -45,7 +45,6 @@ public class ParameterScanner extends Reflector implements Scanner {
 				adapter.adapte(column, row++);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		finally {
