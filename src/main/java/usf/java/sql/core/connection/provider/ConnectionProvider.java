@@ -1,0 +1,12 @@
+package usf.java.sql.core.connection.provider;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import usf.java.sql.core.field.User;
+
+public interface ConnectionProvider {
+	
+	Connection getConnection(User user) throws SQLException;
+	
+}
