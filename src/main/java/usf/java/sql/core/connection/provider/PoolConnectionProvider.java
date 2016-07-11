@@ -26,9 +26,13 @@ public class PoolConnectionProvider implements ConnectionProvider {
 	}
 	
 	@Override
-	public void release(Connection cnx) throws SQLException {
-		if(cnx == null || cnx.isClosed()) return;
-		cnx.close();
+	public void release(Connection cnx) {
+		try {
+			if(cnx != null && !cnx.isClosed())
+				cnx.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

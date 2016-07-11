@@ -40,16 +40,26 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}	
 
 	@Override
-	public void close(Connection cnx) throws SQLException {
+	public void close(Connection cnx) {
 		cp.release(cnx);
 	}
 	@Override
-	public void close(Statement stmt) throws SQLException {
-		if(stmt != null) stmt.close();
+	public void close(Statement stmt) {
+		if(stmt != null)
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	}
 	@Override
-	public void close(ResultSet rs) throws SQLException {
-		if(rs != null) rs.close();
+	public void close(ResultSet rs) {
+		if(rs != null)
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 	}
 
 }

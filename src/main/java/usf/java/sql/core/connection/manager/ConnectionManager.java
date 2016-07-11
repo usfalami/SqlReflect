@@ -12,10 +12,10 @@ public interface ConnectionManager {
 	
 	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
 
-	void close(Connection cnx) throws SQLException;
+	void close(Connection cnx);
 	
-	void close(Statement stmt) throws SQLException;
+	void close(Statement stmt);
 	
-	void close(ResultSet rs) throws SQLException;
+	void close(ResultSet rs);
 	
 }

@@ -23,7 +23,7 @@ public class SingleConnectionProvider extends SimpleConnectionProvider {
 	}
 
 	@Override
-	public void release(Connection cnx) throws SQLException {
+	public void release(Connection cnx) {
 		// do not close cnx
 	}
 

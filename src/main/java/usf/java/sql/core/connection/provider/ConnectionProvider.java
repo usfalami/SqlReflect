@@ -9,6 +9,6 @@ public interface ConnectionProvider {
 	
 	Connection getConnection(User user) throws SQLException;
 	
-	void release(Connection cnx) throws SQLException;
+	void release(Connection cnx);
 	
 }
