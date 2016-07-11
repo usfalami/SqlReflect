@@ -3,7 +3,7 @@ package usf.java.sql.adapter.reflect.performer;
 import java.io.Serializable;
 import java.sql.SQLException;
 
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.parser.SqlParser;

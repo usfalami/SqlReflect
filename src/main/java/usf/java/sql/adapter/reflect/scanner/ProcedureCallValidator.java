@@ -3,7 +3,7 @@ package usf.java.sql.adapter.reflect.scanner;
 import java.sql.SQLException;
 import java.util.List;
 
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Function;
 import usf.java.sql.core.field.Parameter;

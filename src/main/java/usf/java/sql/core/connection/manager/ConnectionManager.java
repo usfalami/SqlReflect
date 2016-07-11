@@ -1,4 +1,4 @@
-package usf.java.sql.core.connection;
+package usf.java.sql.core.connection.manager;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -6,12 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.field.Env;
-import usf.java.sql.core.server.Server;
-
 public interface ConnectionManager {
-
-	void configure(Server server, Env env) throws ClassNotFoundException;
 
 	Connection getConnection() throws SQLException;
 	

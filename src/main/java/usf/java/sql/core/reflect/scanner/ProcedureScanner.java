@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.adapter.reflect.scanner.ScannerListMapper;
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;

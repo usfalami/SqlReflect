@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;

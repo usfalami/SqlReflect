@@ -2,15 +2,15 @@ package usf.java.sql.core.field;
 
 public class User {
 	
-	private String user, pass;
+	private String login, pass;
 
 	public User(String login, String pass) {
-		this.user = login;
+		this.login = login;
 		this.pass = pass;
 	}
 
-	public String getUser() {
-		return user;
+	public String getLogin() {
+		return login;
 	}
 
 	public String getPass() {

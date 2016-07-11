@@ -1,6 +1,6 @@
 package usf.java.sql.core.reflect;
 
-import usf.java.sql.core.connection.ConnectionManager;
+import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 
 public abstract class Reflector {

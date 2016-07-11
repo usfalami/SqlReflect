@@ -1,35 +1,28 @@
-package usf.java.sql.core.connection;
+package usf.java.sql.core.connection.manager;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.field.Env;
+import usf.java.sql.core.connection.provider.ConnectionProvider;
 import usf.java.sql.core.field.User;
-import usf.java.sql.core.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
-	protected String url;
+	protected ConnectionProvider cp;
 	protected User user;
 	
-	public SimpleConnectionManager(User user) {
+	public SimpleConnectionManager(ConnectionProvider cp, User user) {
+		this.cp = cp;
 		this.user = user;
 	}
 
-	@Override
-	public void configure(Server server, Env env) throws ClassNotFoundException {
-		Class.forName(server.getDriver());
-		this.url = server.makeURL(env);
-	}
-	
 	@Override	
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, user.getUser(), user.getPass());
+		return cp.getConnection(user);
 	}
 	
 	@Override
