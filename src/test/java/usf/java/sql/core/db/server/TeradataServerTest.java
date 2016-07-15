@@ -3,7 +3,7 @@ package usf.java.sql.core.db.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.Env;
 import usf.java.sql.core.field.Macro;
 import usf.java.sql.core.field.Procedure;
@@ -35,7 +35,7 @@ public class TeradataServerTest extends TestCase {
 		assertNull(db.parseCallable("call test_proc(?,?,?)"));
 		
 		String query = "call bd_1.test_proc(?,?,?,'param')";
-		Callable p = db.parseCallable(query);
+		Query p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getClass(), Procedure.class);
 		assertEquals(p.getName(), "test_proc");
@@ -51,7 +51,7 @@ public class TeradataServerTest extends TestCase {
 		assertNull(db.parseCallable("call test_macro(?,?,?)"));
 		
 		String query = "exec bd_1.test_macro(1223, true, ?,'param')";
-		Callable p = db.parseCallable(query);
+		Query p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getClass(), Macro.class);
 		assertEquals(p.getName(), "test_macro");

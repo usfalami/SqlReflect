@@ -1,13 +1,13 @@
 package usf.java.sql.core.field;
 
-public class Column implements Field {
+public class Header implements Field {
 
 	protected String name;
 	protected String type;
 	protected int size;
 	protected String clazz;
 	
-	public Column(String name, String type, int size, String clazz) {
+	public Header(String name, String type, int size, String clazz) {
 		super();
 		this.name = name;
 		this.type = type;

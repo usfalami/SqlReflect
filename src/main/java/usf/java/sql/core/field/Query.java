@@ -1,48 +1,16 @@
 package usf.java.sql.core.field;
 
-public class Query implements Callable  {
+public interface Query extends Field {
 
-	protected String query;
+	String getDatabase();
+	void setDatabase(String database);
+	
+	String getName() ;
+	void setName(String name);
 
-	public Query(String query) {
-		this.query = query;
-	}
+	String getSQL();
 
-	@Override
-	public String getSQL() {
-		return query;
-	}
-
-	@Override
-	public String getDatabase() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDatabase(String database) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getName() {
-		return "Query";
-	}
-
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameters(String... parameters) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String[] getParameters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	void setParameters(String... parameters);
+	String[] getParameters();
+	
 }

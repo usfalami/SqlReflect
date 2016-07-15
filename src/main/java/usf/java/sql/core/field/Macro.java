@@ -1,6 +1,6 @@
 package usf.java.sql.core.field;
 
-public class Macro extends Function {
+public class Macro extends Callable {
 
 	public Macro(String database, String name) {
 		super(database, name);

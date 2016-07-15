@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.TimePerform;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.performer.ExecutorPerformer;
 
 public class ExecutorPerformAdapter extends AbstractPerformerAdapter {
 
-	protected Callable callable;
+	protected Query callable;
 	protected TimePerform time;
 	
 	public ExecutorPerformAdapter(SqlParser sqlParser) {

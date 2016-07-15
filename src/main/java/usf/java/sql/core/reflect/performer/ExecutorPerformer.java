@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
@@ -18,10 +18,11 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		super(cm);
 	}
 
-	public void run(PerformerAdapter adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
+	public void run(PerformerAdapter adapter, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		Connection cnx = null;
 		try {
+
 			adapter.preConnecion();
 			cnx = cm.getConnection();
 			adapter.postConnecion();
@@ -35,9 +36,11 @@ public class ExecutorPerformer extends Reflector implements Performer {
 				
 				ResultSet rs = null;
 				try {
+			
 					adapter.preExec();
 					rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
+					
 				} catch (SQLException e) {
 					throw e;
 				}

@@ -1,6 +1,6 @@
 package usf.java.sql.core.parser;
 
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.server.Server;
 
 public class SimpleSqlParser implements SqlParser {
@@ -17,8 +17,8 @@ public class SimpleSqlParser implements SqlParser {
 	}
 	
 	@Override
-	public Callable parseSQL(String sql) {
-		Callable obj = server.parseCallable(sql);
+	public Query parseSQL(String sql) {
+		Query obj = server.parseCallable(sql);
 		if(obj == null) obj = server.parseQuery(sql);
 		return obj;
 	}

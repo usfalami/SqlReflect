@@ -1,8 +1,8 @@
 package usf.java.sql.core.server;
 
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.Function;
-import usf.java.sql.core.field.Query;
+import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.SqlQuery;
 
 public class OracleServer implements Server {
 
@@ -19,13 +19,13 @@ public class OracleServer implements Server {
 	}
 
 	@Override
-	public Function parseCallable(String sql) {
+	public Callable parseCallable(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public Query parseQuery(String sql) {
+	public SqlQuery parseQuery(String sql) {
 		// TODO Auto-generated method stub
 		return null;
 	}

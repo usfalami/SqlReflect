@@ -4,15 +4,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Header;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ColumnMapper implements Mapper<Column> {
+public class ColumnMapper implements Mapper<Header> {
 
 	@Override
-	public Column map(ResultSet rs, int row) throws SQLException {
+	public Header map(ResultSet rs, int row) throws SQLException {
 		ResultSetMetaData md = rs.getMetaData();
-		return new Column(
+		return new Header(
 				md.getColumnName(row),
 				md.getColumnTypeName(row),
 				md.getColumnDisplaySize(row),
@@ -20,7 +20,7 @@ public class ColumnMapper implements Mapper<Column> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, Column column) throws Exception {
+	public void write(StreamWriter writer, Header column) throws Exception {
 		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", column.getName());
 		writer.writeString("TYPE_NAME", column.getType());

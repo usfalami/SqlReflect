@@ -4,10 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.Function;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.Macro;
 import usf.java.sql.core.field.Procedure;
-import usf.java.sql.core.field.Query;
+import usf.java.sql.core.field.SqlQuery;
 
 public class TeradataServer implements Server {
 	
@@ -25,8 +25,8 @@ public class TeradataServer implements Server {
 	}
 	
 	@Override
-	public Function parseCallable(String sql) {
-		Function callable = null;
+	public Callable parseCallable(String sql) {
+		Callable callable = null;
 		if(sql.matches(FUNCTION_PATTERN)){
 			Pattern p = Pattern.compile(FUNCTION_PATTERN);
 			Matcher m = p.matcher(sql.trim());
@@ -41,8 +41,8 @@ public class TeradataServer implements Server {
 	}
 	
 	@Override
-	public Query parseQuery(String sql) {
-		return new Query(sql);
+	public SqlQuery parseQuery(String sql) {
+		return new SqlQuery(sql);
 	}
 	
 }

@@ -1,8 +1,8 @@
 package usf.java.sql.core.server;
 
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.Function;
-import usf.java.sql.core.field.Query;
+import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.SqlQuery;
 
 public interface Server {
 
@@ -10,8 +10,8 @@ public interface Server {
 	
 	String buildURL(Env env);
 	
-	Function parseCallable(String sql);
+	Callable parseCallable(String sql);
 	
-	Query parseQuery(String sql);
+	SqlQuery parseQuery(String sql);
 	
 }

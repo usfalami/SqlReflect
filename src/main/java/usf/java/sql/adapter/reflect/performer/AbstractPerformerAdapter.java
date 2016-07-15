@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.performer.ExecutorPerformer;
 import usf.java.sql.core.reflect.performer.Performer.PerformerAdapter;
@@ -19,7 +19,7 @@ public abstract class AbstractPerformerAdapter implements PerformerAdapter {
 	}
 	
 	public void execute(ConnectionManager cm, String query, Serializable... parameters) throws SQLException, AdapterException { //one preparedStatement
-		Callable sql = sqlParser.parseSQL(query);
+		Query sql = sqlParser.parseSQL(query);
 		if(sql != null)
 			new ExecutorPerformer(cm).run(this, sql, parameters);
 	}

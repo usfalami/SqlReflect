@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Callable;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
@@ -19,7 +19,7 @@ public class RowScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
+	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
@@ -43,7 +43,7 @@ public class RowScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
+	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {

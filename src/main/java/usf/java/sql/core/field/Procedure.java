@@ -3,7 +3,7 @@ package usf.java.sql.core.field;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Procedure extends Function {
+public class Procedure extends Callable {
 	
 	protected Procedure(){
 		super();

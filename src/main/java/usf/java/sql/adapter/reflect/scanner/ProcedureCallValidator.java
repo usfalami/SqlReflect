@@ -5,7 +5,7 @@ import java.util.List;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Function;
+import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.parser.SqlParser;
@@ -16,7 +16,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 
 	protected SqlParser sqlParser;
 	
-	protected Function callable;
+	protected Callable callable;
 	protected boolean isValid;
 
 	public ProcedureCallValidator(SqlParser sqlParser) {

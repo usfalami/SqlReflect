@@ -9,19 +9,19 @@ import java.sql.Statement;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.Query;
+import usf.java.sql.core.field.Header;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
 
-public class ResultColumnScanner extends Reflector implements Scanner {
+public class RowHeaderScanner extends Reflector implements Scanner {
 	
-	public ResultColumnScanner(ConnectionManager cm) {
+	public RowHeaderScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
-	public void run(ScannerAdapter<Column> adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Header> adapter, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
@@ -45,16 +45,16 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected void run(Statement stmt, ScannerAdapter<Column> adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
+	protected void run(Statement stmt, ScannerAdapter<Header> adapter, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
 			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
-			Mapper<Column> mapper = new ColumnMapper();
+			Mapper<Header> mapper = new ColumnMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.headers(mapper.getColumnNames());
 			for(int i=1; i<=rm.getColumnCount(); i++) {
-				Column col = mapper.map(rs, i);
+				Header col = mapper.map(rs, i);
 				adapter.adapte(col, i);
 			}
 		} catch (SQLException e) {

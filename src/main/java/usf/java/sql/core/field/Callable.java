@@ -1,16 +1,69 @@
 package usf.java.sql.core.field;
 
-public interface Callable extends Field {
+import java.util.List;
 
-	String getDatabase();
-	void setDatabase(String database);
+public abstract class Callable implements Query {
 	
-	String getName() ;
-	void setName(String name);
+	protected String name, database, sql, parameters[];
+	protected List<Parameter> columns;
+	
+	protected Callable(){
+		
+	}
+	
+	public Callable(String sql) {
+		this.sql = sql;
+	}
+	
+	public Callable(String database, String name){
+		this.database=database;
+		this.name=name;
+	}	
+	
+	@Override
+	public String getSQL() {
+		return sql;
+	}
 
-	String getSQL();
+	@Override
+	public String getName() {
+		return name;
+	}
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	void setParameters(String... parameters);
-	String[] getParameters();
+	@Override
+	public String getDatabase() {
+		return database;
+	}
+	@Override
+	public void setDatabase(String database) {
+		this.database = database;
+	}
+	
+	@Override
+	public String[] getParameters() {
+		return parameters;
+	}
+	@Override
+	public void setParameters(String ...parameters) {
+		this.parameters = parameters;
+	}
+	
+
+	public List<Parameter> getColumns() {
+		return columns;
+	}
+	public void setColumns(List<Parameter> columns) {
+		this.columns = columns;
+	}
+
+	@Override
+	public String toString() {
+		return sql;
+	}
+	
 	
 }
