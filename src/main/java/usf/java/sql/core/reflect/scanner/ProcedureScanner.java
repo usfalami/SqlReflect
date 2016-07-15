@@ -10,6 +10,7 @@ import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Parameter;
 import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.ProcedureMapper;
 import usf.java.sql.core.reflect.Reflector;
 
@@ -43,7 +44,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			ProcedureMapper mapper = new ProcedureMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columnMapper) { // look for columns
-				ParameterScanner ps = new ParameterScanner(cm);
+				ColumnScanner ps = new ColumnScanner(cm, HasColumn.PROCEDURE);
 				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>();
 				
 				while(rs.next()){

@@ -18,12 +18,12 @@ public class DatabaseScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public void run(ScannerAdapter<Database> adapter, String database) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Database> adapter, String databasePattern) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			run(dm, adapter, database);
+			run(dm, adapter, databasePattern);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;

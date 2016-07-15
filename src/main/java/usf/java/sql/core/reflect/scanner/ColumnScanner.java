@@ -8,13 +8,17 @@ import java.sql.SQLException;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.ParameterMapper;
 import usf.java.sql.core.reflect.Reflector;
 
-public class ParameterScanner extends Reflector implements Scanner {
+public class ColumnScanner extends Reflector implements Scanner {
 	
-	public ParameterScanner(ConnectionManager cm) {
+	HasColumn field;
+	
+	public ColumnScanner(ConnectionManager cm, HasColumn field) {
 		super(cm);
+		this.field = field;
 	}
 
 	public void run(ScannerAdapter<Parameter> adapter, String databasePattern, String proecedurePattern, String columnPattern) throws SQLException, AdapterException {
@@ -36,7 +40,7 @@ public class ParameterScanner extends Reflector implements Scanner {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = dm.getProcedureColumns(null, databasePattern, proecedurePattern, columnPattern);
+			rs = field.getColumns(null, databasePattern, proecedurePattern, columnPattern);
 			ParameterMapper mapper = new ParameterMapper();
 			int row = 0;
 			adapter.headers(mapper.getColumnNames());
