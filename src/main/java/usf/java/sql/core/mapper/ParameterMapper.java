@@ -22,7 +22,7 @@ public class ParameterMapper implements Mapper<Column> {
 	public void write(StreamWriter writer, Column parameter) throws Exception {
 		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", parameter.getName());
-		writer.writeString("TYPE_NAME", parameter.getValueType());
+		writer.writeString("TYPE_NAME", parameter.getType());
 		writer.writeInt("LENGTH", parameter.getSize());
 		writer.writeString("COLUMN_TYPE", parameter.getRole().toString());
 		writer.endObject();

@@ -5,6 +5,10 @@ public class Header implements Field {
 	protected String name, type, clazz;
 	protected int size;
 	
+	protected Header(){
+		
+	}
+	
 	public Header(String name, String type, int size, String clazz) {
 		this.name = name;
 		this.type = type;

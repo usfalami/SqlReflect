@@ -4,42 +4,19 @@ import java.util.Objects;
 
 import usf.java.sql.core.field.types.ParameterRoles;
 
-public class Column implements Field {
+public class Column extends Header {
 
-	protected String name, type, clazz;
 	protected ParameterRoles role;
-	protected int size;
 	
 	protected Column() {
 		super();
 	}
 	
 	public Column(String name, String valueType, int size, int type) {
-		this.name = name;
-		this.type = valueType;
-		this.size = size;
+		super(name, valueType, size, null);
 		this.role = ParameterRoles.values()[type];
 	}
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getValueType() {
-		return type;
-	}
-	public void setValueType(String type) {
-		this.type = type;
-	}
-	public int getSize() {
-		return size;
-	}
-	public void setSize(int size) {
-		this.size = size;
-	}
-	
 	public ParameterRoles getRole() {
 		return role;
 	}
