@@ -2,10 +2,8 @@ package usf.java.sql.core.field;
 
 public class Env {
 
-	protected String host;
-	protected String database;
+	protected String host, database, params;
 	protected int port;
-	protected String params;
 
 	public Env(String host, String database, int port) {
 		this(host, database, port, "");
