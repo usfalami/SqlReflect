@@ -14,7 +14,7 @@ import usf.java.sql.core.reflect.Reflector;
 
 public class ColumnScanner extends Reflector implements Scanner {
 	
-	HasColumn field;
+	private HasColumn field;
 	
 	public ColumnScanner(ConnectionManager cm, HasColumn field) {
 		super(cm);

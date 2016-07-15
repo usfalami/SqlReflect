@@ -1,8 +1,12 @@
 package usf.java.sql.core.field;
 
+import java.util.List;
+
 public class Table {
 
 	protected String name, database;
+	protected List<Parameter> columns;
+	
 	
 	public Table() {
 
@@ -29,6 +33,12 @@ public class Table {
 		this.database = database;
 	}
 	
-	
+
+	public List<Parameter> getColumns() {
+		return columns;
+	}
+	public void setColumns(List<Parameter> columns) {
+		this.columns = columns;
+	}
 
 }

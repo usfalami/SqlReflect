@@ -51,7 +51,6 @@ public abstract class Callable implements Query {
 	public void setParameters(String ...parameters) {
 		this.parameters = parameters;
 	}
-	
 
 	public List<Parameter> getColumns() {
 		return columns;

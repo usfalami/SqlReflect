@@ -20,12 +20,12 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public void run(ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columnMapper) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columns) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
-			run(dm, adapter, databasePattern, proecedurePattern, columnMapper);
+			run(dm, adapter, databasePattern, proecedurePattern, columns);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
@@ -35,7 +35,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 		}
 	}
 	
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columnMapper) throws SQLException, AdapterException {
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columns) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -43,7 +43,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			ProcedureMapper mapper = new ProcedureMapper();
 			adapter.headers(mapper.getColumnNames());
-			if(columnMapper) { // look for columns
+			if(columns) { // look for columns
 				ColumnScanner ps = new ColumnScanner(cm, HasColumn.PROCEDURE);
 				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>();
 				
