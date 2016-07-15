@@ -11,7 +11,9 @@ public interface ConnectionManager {
 	Connection getConnection() throws SQLException;
 	
 	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
-
+	
+	ResultSet executeQuery(Statement stmt, String query, Serializable ... parameters) throws SQLException;
+	
 	void close(Connection cnx);
 	
 	void close(Statement stmt);

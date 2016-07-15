@@ -2,7 +2,6 @@ package usf.java.sql.core.reflect.scanner;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,14 +19,14 @@ public class RowScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
 			Statement stmt = null;
 			try {
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);
-				run(stmt, adapter, mapper, callable, parametters);
+				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
+				run(stmt, adapter, mapper, callable, parameters);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
@@ -44,11 +43,11 @@ public class RowScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
+			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
 			adapter.headers(mapper.getColumnNames());

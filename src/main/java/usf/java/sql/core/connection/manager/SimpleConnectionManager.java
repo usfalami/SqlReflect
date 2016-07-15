@@ -35,7 +35,12 @@ public class SimpleConnectionManager implements ConnectionManager {
 				ps.setObject(i+1, parameters[i]);
 			return ps;
 		}
-	}	
+	}
+	
+	@Override
+	public ResultSet executeQuery(Statement stmt, String query, Serializable... parameters) throws SQLException {
+		return stmt instanceof Statement ? stmt.executeQuery(query) : ((PreparedStatement)stmt).executeQuery();
+	}
 
 	@Override
 	public void close(Connection cnx) {

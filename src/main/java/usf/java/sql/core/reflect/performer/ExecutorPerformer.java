@@ -37,8 +37,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 				ResultSet rs = null;
 				try {
 					adapter.preExec();
-					rs = stmt instanceof Statement ? 
-							stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
+					rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 				} catch (SQLException e) {
 					throw e;

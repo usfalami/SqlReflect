@@ -22,14 +22,14 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 		super(cm);
 	}
 
-	public void run(ScannerAdapter<Column> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	public void run(ScannerAdapter<Column> adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = cm.getConnection();
 			Statement stmt = null;
 			try {
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parametters);
-				run(stmt, adapter, callable, parametters);
+				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
+				run(stmt, adapter, callable, parameters);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
@@ -46,11 +46,11 @@ public class ResultColumnScanner extends Reflector implements Scanner {
 		}
 	}
 
-	protected void run(Statement stmt, ScannerAdapter<Column> adapter, Callable callable, Serializable ... parametters) throws SQLException, AdapterException {
+	protected void run(Statement stmt, ScannerAdapter<Column> adapter, Callable callable, Serializable ... parameters) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = stmt instanceof Statement ? stmt.executeQuery(callable.getSQL()) : ((PreparedStatement)stmt).executeQuery();
+			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
 			Mapper<Column> mapper = new ColumnMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.headers(mapper.getColumnNames());
