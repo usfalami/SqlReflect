@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Callable implements Query {
 	
 	protected String name, database, sql, parameters[];
-	protected List<Parameter> columns;
+	protected List<Column> columns;
 	
 	protected Callable(){
 		
@@ -52,10 +52,10 @@ public abstract class Callable implements Query {
 		this.parameters = parameters;
 	}
 
-	public List<Parameter> getColumns() {
+	public List<Column> getColumns() {
 		return columns;
 	}
-	public void setColumns(List<Parameter> columns) {
+	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
 

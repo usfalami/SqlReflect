@@ -6,7 +6,7 @@ import java.util.List;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
@@ -35,7 +35,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 
 	@Override
 	public void adapte(Procedure procedure, int index) throws AdapterException {
-		List<?extends Parameter>columns = procedure.getColumns();
+		List<?extends Column>columns = procedure.getColumns();
 		if(columns==null || columns.size()==0) {
 			if(callable.getParameters().length == 0) 
 				isValid = true;

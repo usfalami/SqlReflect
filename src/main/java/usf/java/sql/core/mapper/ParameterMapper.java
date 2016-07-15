@@ -3,14 +3,14 @@ package usf.java.sql.core.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.Column;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ParameterMapper implements Mapper<Parameter> {
+public class ParameterMapper implements Mapper<Column> {
 
 	@Override
-	public Parameter map(ResultSet rs, int row) throws SQLException {
-		return new Parameter(
+	public Column map(ResultSet rs, int row) throws SQLException {
+		return new Column(
 			rs.getString("COLUMN_NAME").toString(),
 			rs.getString("TYPE_NAME").toString(),
 			rs.getInt("LENGTH"),
@@ -19,7 +19,7 @@ public class ParameterMapper implements Mapper<Parameter> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, Parameter parameter) throws Exception {
+	public void write(StreamWriter writer, Column parameter) throws Exception {
 		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", parameter.getName());
 		writer.writeString("TYPE_NAME", parameter.getValueType());

@@ -4,17 +4,17 @@ import java.util.Objects;
 
 import usf.java.sql.core.field.types.ParameterRoles;
 
-public class Parameter implements Field {
+public class Column implements Field {
 
 	protected String name, type, clazz;
 	protected ParameterRoles role;
 	protected int size;
 	
-	protected Parameter() {
+	protected Column() {
 		super();
 	}
 	
-	public Parameter(String name, String valueType, int size, int type) {
+	public Column(String name, String valueType, int size, int type) {
 		this.name = name;
 		this.type = valueType;
 		this.size = size;
@@ -51,7 +51,7 @@ public class Parameter implements Field {
 	public boolean equals(Object arg0) {
 		if(arg0 == null) return false; 
 		if(!arg0.getClass().equals(this.getClass())) return false;
-		Parameter c = (Parameter)arg0;
+		Column c = (Column)arg0;
 		return Objects.equals(name, c.name) && 
 				Objects.equals(type, c.type) &&
 				Objects.equals(role, c.role) && 

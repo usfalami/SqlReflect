@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import usf.java.sql.adapter.reflect.scanner.ScannerListMapper;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.ProcedureMapper;
@@ -45,7 +45,7 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
 				ColumnScanner ps = new ColumnScanner(cm, HasColumn.PROCEDURE);
-				ScannerListMapper<Parameter> sm = new ScannerListMapper<Parameter>();
+				ScannerListMapper<Column> sm = new ScannerListMapper<Column>();
 				
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);

@@ -8,7 +8,7 @@ import java.util.List;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Callable;
-import usf.java.sql.core.field.Parameter;
+import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
@@ -17,11 +17,11 @@ public class ProcedureColumnsComparator implements ScannerAdapter<Procedure> {
 	
 	protected String callableName;
 	protected List<Callable> functions;
-	protected List<Parameter[]> columnsList;
+	protected List<Column[]> columnsList;
 
 	public ProcedureColumnsComparator() {
 		functions = new ArrayList<Callable>();
-		columnsList = new ArrayList<Parameter[]>();
+		columnsList = new ArrayList<Column[]>();
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ProcedureColumnsComparator implements ScannerAdapter<Procedure> {
 	
 	@Override
 	public void end() {
-		Parameter[] c1, c2;
+		Column[] c1, c2;
 		Callable f1, f2;
 		for(int i=0; i<columnsList.size()-1; i++){
 			f1=functions.get(i);

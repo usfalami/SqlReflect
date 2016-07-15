@@ -1,10 +1,10 @@
 package usf.java.sql.core.field;
 
-
 public class TimePerform {
 
 	protected long start, cnxStart, statStart, execStart, execEnd, statEnd, cnxEnd, end;
 	protected int rows;
+	
 	public long getStart() {
 		return start;
 	}

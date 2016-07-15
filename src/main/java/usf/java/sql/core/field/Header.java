@@ -2,10 +2,8 @@ package usf.java.sql.core.field;
 
 public class Header implements Field {
 
-	protected String name;
-	protected String type;
+	protected String name, type, clazz;
 	protected int size;
-	protected String clazz;
 	
 	public Header(String name, String type, int size, String clazz) {
 		super();
