@@ -6,7 +6,6 @@ public class Header implements Field {
 	protected int size;
 	
 	public Header(String name, String type, int size, String clazz) {
-		super();
 		this.name = name;
 		this.type = type;
 		this.size = size;

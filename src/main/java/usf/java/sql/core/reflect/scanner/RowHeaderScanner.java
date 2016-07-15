@@ -9,8 +9,8 @@ import java.sql.Statement;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.Header;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.mapper.ColumnMapper;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.Reflector;
