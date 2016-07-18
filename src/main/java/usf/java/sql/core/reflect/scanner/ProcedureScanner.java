@@ -10,6 +10,7 @@ import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.field.types.HasColumn;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.mapper.ProcedureMapper;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
@@ -35,7 +36,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 		try {
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
-			ProcedureMapper mapper = new ProcedureMapper();
+			Mapper<Procedure> mapper = new ProcedureMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
 				ColumnScanner cs = new ColumnScanner(cm, HasColumn.PROCEDURE);
