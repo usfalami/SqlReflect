@@ -1,49 +1,25 @@
 package usf.java.sql.core.reflect.scanner;
 
-import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Query;
 import usf.java.sql.core.mapper.Mapper;
-import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
-public class RowScanner extends Reflector implements Scanner {
+public class RowScanner<T> extends AbstractDataScanner<T> {
+	
+	private Mapper<T> mapper;
 
-	public RowScanner(ConnectionManager cm) {
+	public RowScanner(ConnectionManager cm, Mapper<T> mapper) {
 		super(cm);
+		this.mapper = mapper;
 	}
 
-	public <T> void run(ScannerAdapter<T> adapter, Mapper<T> mapper, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
-		Connection cnx = null;
-		try {
-			cnx = cm.getConnection();
-			Statement stmt = null;
-			try {
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
-				run(stmt, adapter, mapper, callable, parameters);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw e;
-			}
-			finally {
-				cm.close(stmt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		finally {
-			cm.close(cnx);
-		}
-	}
-
-	protected <T> void run(Statement stmt, ScannerAdapter<T> adapter, Mapper<T> mapper, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
+	@Override
+	protected void run(Statement stmt, ScannerAdapter<T> adapter) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {

@@ -5,11 +5,11 @@ import java.util.List;
 
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 
-public class ScannerListMapper<T> implements ScannerAdapter<T> {
+public class ListAdapter<T> implements ScannerAdapter<T> {
 
 	protected List<T> list;
 	
-	public ScannerListMapper() {
+	public ListAdapter() {
 		
 	}
 	

@@ -1,41 +1,35 @@
 package usf.java.sql.core.reflect.scanner;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sql.adapter.reflect.scanner.ScannerListMapper;
+import usf.java.sql.adapter.reflect.scanner.ListAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
 import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.ProcedureMapper;
-import usf.java.sql.core.reflect.Reflector;
 
-public class ProcedureScanner extends Reflector implements Scanner {
+public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
+	
+	private String databasePattern, proecedurePattern;
+	private boolean columns;
 	
 	public ProcedureScanner(ConnectionManager cm) {
 		super(cm);
 	}
-
-	public void run(ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columns) throws SQLException, AdapterException {
-		Connection cnx = null;
-		try {
-			cnx = cm.getConnection();
-			DatabaseMetaData dm = cnx.getMetaData();
-			run(dm, adapter, databasePattern, proecedurePattern, columns);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}
-		finally {
-			cm.close(cnx);
-		}
-	}
 	
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter, String databasePattern, String proecedurePattern, boolean columns) throws SQLException, AdapterException {
+	public ProcedureScanner set(String databasePattern, String proecedurePattern, boolean columns) {
+		this.databasePattern = databasePattern;
+		this.proecedurePattern = proecedurePattern;
+		this.columns = columns;
+		return this;
+	}
+
+	@Override
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;
 		try {
@@ -45,11 +39,12 @@ public class ProcedureScanner extends Reflector implements Scanner {
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
 				ColumnScanner ps = new ColumnScanner(cm, HasColumn.PROCEDURE);
-				ScannerListMapper<Column> sm = new ScannerListMapper<Column>();
+				ListAdapter<Column> sm = new ListAdapter<Column>();
 				
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					ps.run(dm, sm, p.getDatabase(), p.getName(), null);
+					ps.set(p.getDatabase(), p.getName(), null);
+					ps.run(dm, sm);
 					p.setColumns(sm.getList());
 					adapter.adapte(p, row++);
 				}

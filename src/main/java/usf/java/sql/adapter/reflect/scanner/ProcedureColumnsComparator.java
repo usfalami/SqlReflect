@@ -65,7 +65,9 @@ public class ProcedureColumnsComparator implements ScannerAdapter<Procedure> {
 	public void compare(ConnectionManager cm, String callableName) throws SQLException, AdapterException {
 		this.callableName = callableName;
 		if(callableName == null || callableName.isEmpty()) return;
-		new ProcedureScanner(cm).run(this, null, callableName, true);
+		ProcedureScanner s = new ProcedureScanner(cm);
+		s.set(null, callableName, true);
+		s.run(this);
 	}
 
 }
