@@ -39,22 +39,21 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			TableMapper mapper = new TableMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
-				ColumnScanner ps = new ColumnScanner(cm, HasColumn.TABLE);
-				ListAdapter<Column> sm = new ListAdapter<Column>();
+				ColumnScanner ts = new ColumnScanner(cm, HasColumn.TABLE);
+				ListAdapter<Column> ta = new ListAdapter<Column>();
 				
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					ps.set(t.getDatabase(), t.getName(), null);
-					ps.run(dm, sm);
-					t.setColumns(sm.getList());
+					ts.set(t.getDatabase(), t.getName(), null).run(dm, ta);
+					t.setColumns(ta.getList());
 					adapter.adapte(t, row++);
 				}
 			}
 			else
 			{
 				while(rs.next()){
-					Table p = mapper.map(rs, row+1);
-					adapter.adapte(p, row++);
+					Table t = mapper.map(rs, row+1);
+					adapter.adapte(t, row++);
 				}
 			}
 			

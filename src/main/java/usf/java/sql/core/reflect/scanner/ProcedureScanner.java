@@ -38,14 +38,13 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			ProcedureMapper mapper = new ProcedureMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
-				ColumnScanner ps = new ColumnScanner(cm, HasColumn.PROCEDURE);
-				ListAdapter<Column> sm = new ListAdapter<Column>();
+				ColumnScanner cs = new ColumnScanner(cm, HasColumn.PROCEDURE);
+				ListAdapter<Column> ca = new ListAdapter<Column>();
 				
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					ps.set(p.getDatabase(), p.getName(), null);
-					ps.run(dm, sm);
-					p.setColumns(sm.getList());
+					cs.set(p.getDatabase(), p.getName(), null).run(dm, ca);
+					p.setColumns(ca.getList());
 					adapter.adapte(p, row++);
 				}
 			}
