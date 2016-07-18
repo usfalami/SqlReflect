@@ -8,7 +8,7 @@ import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.types.HasColumn;
-import usf.java.sql.core.mapper.ParameterMapper;
+import usf.java.sql.core.mapper.Mapper;
 
 public class ColumnScanner extends AbstractFieldScanner<Column> {
 	
@@ -32,8 +32,8 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = field.getColumns(null, databasePattern, proecedurePattern, columnPattern);
-			ParameterMapper mapper = new ParameterMapper();
+			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
+			Mapper<Column> mapper = field.getMapper();
 			int row = 0;
 			adapter.headers(mapper.getColumnNames());
 			while(rs.next()){

@@ -2,43 +2,41 @@ package usf.java.sql.core.field;
 
 import java.util.Objects;
 
-import usf.java.sql.core.field.types.ParameterRoles;
-
 public class Column extends Header {
 
-	protected ParameterRoles role;
+	protected String type;
 	
 	protected Column() {
 		super();
 	}
 	
-	public Column(String name, String valueType, int size, int type) {
+	public Column(String name, String valueType, int size, String type) {
 		super(name, valueType, size, null);
-		this.role = ParameterRoles.values()[type];
+		this.type = type;
 	}
 
-	public ParameterRoles getRole() {
-		return role;
+	public String getType() {
+		return type;
 	}
-	public void setRole(ParameterRoles role) {
-		this.role = role;
+	public void setType(String type) {
+		this.type = type;
 	}
-	
+
 	@Override
 	public boolean equals(Object arg0) {
 		if(arg0 == null) return false; 
 		if(!arg0.getClass().equals(this.getClass())) return false;
 		Column c = (Column)arg0;
 		return Objects.equals(name, c.name) && 
-				Objects.equals(type, c.type) &&
-				Objects.equals(role, c.role) && 
+				Objects.equals(valueType, c.valueType) &&
+				Objects.equals(type, c.type) && 
 				Objects.equals(size, c.size); 
 	}
 
 	@Override
 	public String toString() {
-		return "Column [name=" + name + ", type=" + type + ", clazz=" + clazz
-				+ ", role=" + role + ", size=" + size + "]";
+		return "Column [name=" + name + ", type=" + valueType + ", clazz=" + clazz
+				+ ", type=" + type + ", size=" + size + "]";
 	}
 
 }

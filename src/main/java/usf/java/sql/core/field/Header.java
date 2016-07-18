@@ -2,16 +2,16 @@ package usf.java.sql.core.field;
 
 public class Header implements Field {
 
-	protected String name, type, clazz;
+	protected String name, valueType, clazz;
 	protected int size;
 	
 	protected Header(){
 		
 	}
 	
-	public Header(String name, String type, int size, String clazz) {
+	public Header(String name, String valueType, int size, String clazz) {
 		this.name = name;
-		this.type = type;
+		this.valueType = valueType;
 		this.size = size;
 		this.clazz = clazz;
 	}
@@ -24,12 +24,12 @@ public class Header implements Field {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getValueType() {
+		return valueType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
 	}
 
 	public int getSize() {

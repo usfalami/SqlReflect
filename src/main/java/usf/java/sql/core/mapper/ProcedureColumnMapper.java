@@ -4,9 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Column;
+import usf.java.sql.core.field.types.ParameterRoles;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ParameterMapper implements Mapper<Column> {
+public class ProcedureColumnMapper implements Mapper<Column> {
 
 	@Override
 	public Column map(ResultSet rs, int row) throws SQLException {
@@ -14,7 +15,7 @@ public class ParameterMapper implements Mapper<Column> {
 			rs.getString("COLUMN_NAME").toString(),
 			rs.getString("TYPE_NAME").toString(),
 			rs.getInt("LENGTH"),
-			rs.getInt("COLUMN_TYPE")
+			ParameterRoles.values()[rs.getInt("COLUMN_TYPE")].toString()
 		);
 	}
 
@@ -22,9 +23,9 @@ public class ParameterMapper implements Mapper<Column> {
 	public void write(StreamWriter writer, Column parameter) throws Exception {
 		writer.startObject("COLUMN", getColumnNames());
 		writer.writeString("COLUMN_NAME", parameter.getName());
-		writer.writeString("TYPE_NAME", parameter.getType());
-		writer.writeInt("LENGTH", parameter.getSize());
-		writer.writeString("COLUMN_TYPE", parameter.getRole().toString());
+		writer.writeString("TYPE_NAME", parameter.getValueType());
+		writer.writeLong("LENGTH", parameter.getSize());
+		writer.writeString("COLUMN_TYPE", parameter.getType().toString());
 		writer.endObject();
 	}
 	

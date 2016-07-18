@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import usf.java.sql.core.field.Header;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ColumnMapper implements Mapper<Header> {
+public class HeaderMapper implements Mapper<Header> {
 
 	@Override
 	public Header map(ResultSet rs, int row) throws SQLException {
@@ -21,9 +21,9 @@ public class ColumnMapper implements Mapper<Header> {
 
 	@Override
 	public void write(StreamWriter writer, Header column) throws Exception {
-		writer.startObject("COLUMN", getColumnNames());
-		writer.writeString("COLUMN_NAME", column.getName());
-		writer.writeString("TYPE_NAME", column.getType());
+		writer.startObject("HEADER", getColumnNames());
+		writer.writeString("HEADER_NAME", column.getName());
+		writer.writeString("TYPE_NAME", column.getValueType());
 		writer.writeInt("LENGTH", column.getSize());
 		writer.writeString("CLASS", column.getClazz());
 		writer.endObject();
@@ -31,7 +31,7 @@ public class ColumnMapper implements Mapper<Header> {
 	
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{"COLUMN_NAME", "TYPE_NAME", "LENGTH", "CLASS"};
+		return new String[]{"HEADER_NAME", "TYPE_NAME", "LENGTH", "CLASS"};
 	}
 	
 	@Override

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Header;
-import usf.java.sql.core.mapper.ColumnMapper;
+import usf.java.sql.core.mapper.HeaderMapper;
 import usf.java.sql.core.mapper.Mapper;
 
 public class RowHeaderScanner extends AbstractDataScanner<Header> {
@@ -22,7 +22,7 @@ public class RowHeaderScanner extends AbstractDataScanner<Header> {
 		ResultSet rs = null;
 		try {
 			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
-			Mapper<Header> mapper = new ColumnMapper();
+			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.headers(mapper.getColumnNames());
 			for(int i=1; i<=rm.getColumnCount(); i++) {

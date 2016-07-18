@@ -3,8 +3,8 @@ package usf.java.sql.core.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import usf.java.sql.core.adapter.ListAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Column;
@@ -40,12 +40,10 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(cm, HasColumn.TABLE);
-				ListAdapter<Column> ta = new ListAdapter<Column>();
-				
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					ts.set(t.getDatabase(), t.getName(), null).run(dm, ta);
-					t.setColumns(ta.getList());
+					List<Column> columns = ts.set(t.getDatabase(), t.getName(), null).run();
+					t.setColumns(columns);
 					adapter.adapte(t, row++);
 				}
 			}

@@ -67,9 +67,9 @@ public class ExecutorPerformer extends Reflector implements Performer {
 	}
 	
 	public TimePerform run(Query callable, Serializable ... parameters) throws SQLException, AdapterException {
-		TimePerformAdapter pa = new TimePerformAdapter();
-		this.run(pa, callable, parameters);
-		return pa.getTimePerform();
+		TimePerformAdapter tpa = new TimePerformAdapter();
+		this.run(tpa, callable, parameters);
+		return tpa.getTimePerform();
 	}
 
 }
