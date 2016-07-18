@@ -2,7 +2,7 @@ package usf.java.sql.core.field;
 
 import java.util.List;
 
-public class Table {
+public class Table implements Field {
 
 	protected String name, database;
 	protected List<Column> columns;
