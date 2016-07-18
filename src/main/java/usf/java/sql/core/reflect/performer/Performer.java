@@ -6,7 +6,7 @@ import usf.java.sql.core.reflect.Reflector.Adapter;
 
 public interface Performer {
 	
-	public static interface PerformerAdapter extends Adapter {
+	public static interface PerformAdapter extends Adapter {
 
 		void preConnecion();
 		void postConnecion();

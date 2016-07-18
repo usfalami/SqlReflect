@@ -1,4 +1,4 @@
-package usf.java.sql.adapter.reflect.scanner;
+package usf.java.sql.core.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
