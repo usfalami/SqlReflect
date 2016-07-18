@@ -3,13 +3,11 @@ package usf.java.sql.core.adapter;
 import java.sql.SQLException;
 
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.TimePerform;
 import usf.java.sql.core.reflect.performer.Performer.PerformAdapter;
 
 public class TimePerformAdapter implements PerformAdapter {
 
-	protected Query callable;
 	protected TimePerform time;
 	
 	@Override
