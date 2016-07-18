@@ -11,12 +11,13 @@ import usf.java.sql.core.field.Header;
 import usf.java.sql.core.mapper.HeaderMapper;
 import usf.java.sql.core.mapper.Mapper;
 
-public class RowHeaderScanner extends AbstractDataScanner<Header> {
+public class HeaderScanner extends AbstractDataScanner<Header> {
 	
-	public RowHeaderScanner(ConnectionManager cm) {
+	public HeaderScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
+	@Override
 	protected void run(Statement stmt, ScannerAdapter<Header> adapter) throws SQLException, AdapterException {
 		adapter.start();
 		ResultSet rs = null;

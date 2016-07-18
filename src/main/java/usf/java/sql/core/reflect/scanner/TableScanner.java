@@ -11,6 +11,7 @@ import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Table;
 import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.field.types.TableType;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.mapper.TableMapper;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
@@ -36,7 +37,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		try {
 			int row = 0;
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
-			TableMapper mapper = new TableMapper();
+			Mapper<Table> mapper = new TableMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(cm, HasColumn.TABLE);

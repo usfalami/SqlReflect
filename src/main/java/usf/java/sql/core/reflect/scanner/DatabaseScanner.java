@@ -8,6 +8,7 @@ import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Database;
 import usf.java.sql.core.mapper.DatabaseMapper;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class DatabaseScanner extends AbstractFieldScanner<Database> {
@@ -28,7 +29,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		ResultSet rs = null;
 		try {
 			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
-			DatabaseMapper mapper = new DatabaseMapper();
+			Mapper<Database> mapper = new DatabaseMapper();
 			int row = 0;
 			adapter.headers(mapper.getColumnNames());
 			while(rs.next()){
