@@ -24,7 +24,6 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 		}
 	}
 	
-	
 	@Override
 	public void headers(String... headers) throws AdapterException {
 		try {
@@ -33,7 +32,6 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 			throw new AdapterException(e);
 		}
 	}
-
 
 	@Override
 	public void adapte(T field, int index) throws AdapterException {

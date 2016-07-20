@@ -16,11 +16,21 @@ import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class ExecutorPerformer extends Reflector implements Performer {
 	
+	private Query callable;
+	private Serializable[] parameters;
+	
 	public ExecutorPerformer(ConnectionManager cm) {
 		super(cm);
 	}
 	
-	public void run(PerformAdapter adapter, Query callable, Serializable ... parameters) throws SQLException, AdapterException {
+	public ExecutorPerformer set(Query callable, Serializable ... parameters){
+		this.callable = callable;
+		this.parameters = parameters;
+		return this;
+	}
+	
+	@Override
+	public void run(PerformAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -65,10 +75,11 @@ public class ExecutorPerformer extends Reflector implements Performer {
 			adapter.end();
 		}
 	}
-	
-	public TimePerform run(Query callable, Serializable ... parameters) throws SQLException, AdapterException {
+
+	@Override
+	public TimePerform run() throws SQLException, AdapterException {
 		TimePerformAdapter tpa = new TimePerformAdapter();
-		this.run(tpa, callable, parameters);
+		this.run(tpa);
 		return tpa.getTimePerform();
 	}
 
