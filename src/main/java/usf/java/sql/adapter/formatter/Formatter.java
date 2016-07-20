@@ -1,5 +1,6 @@
 package usf.java.sql.adapter.formatter;
 
+@Deprecated
 public interface Formatter {
 	
 	void configure(int... sizes);
