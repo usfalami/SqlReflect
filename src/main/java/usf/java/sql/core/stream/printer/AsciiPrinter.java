@@ -49,37 +49,37 @@ public class AsciiPrinter extends AbstractPrinter {
 	
 	@Override
 	public void startTable() {
-		out.print(layout);
+		getStream().print(layout);
 	}
 	@Override
 	public void formatTitle(String title) {
-		out.format(row, title);
-		out.print(layout);
+		getStream().format(row, title);
+		getStream().print(layout);
 	}
 	@Override
 	public void formatHeaders(Object... obj) {
-		out.format(columns, obj);
+		getStream().format(columns, obj);
 	}
 	@Override
 	public void startRows() {
-		out.print(layout);
+		getStream().print(layout);
 	}
 	@Override
 	public void formatRow(Object... obj) {
-		out.format(columns, obj);
+		getStream().format(columns, obj);
 	}
 	@Override
 	public void endRows() {
-		out.print(layout);
+		getStream().print(layout);
 	}
 	@Override
 	public void formatFooter(String footer) {
-		out.format(row, footer);
-		out.print(layout);
+		getStream().format(row, footer);
+		getStream().print(layout);
 	}
 	@Override
 	public void endTable() {
-		out.println();
+		getStream().println();
 	}
 
 }

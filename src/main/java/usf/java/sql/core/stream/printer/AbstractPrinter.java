@@ -7,9 +7,13 @@ import usf.java.sql.adapter.formatter.Formatter;
 
 public abstract class AbstractPrinter implements Formatter {
 	
-	protected PrintStream out;
+	private PrintStream stream;
 
 	public AbstractPrinter(OutputStream out) {
-		this.out = new PrintStream(out);
+		this.stream = new PrintStream(out);
+	}
+	
+	public PrintStream getStream() {
+		return stream;
 	}
 }

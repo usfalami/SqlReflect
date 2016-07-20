@@ -5,12 +5,12 @@ import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class WriterAdapter<T> implements ScannerAdapter<T> {
+public class ListWriter<T> implements ScannerAdapter<T> {
 
 	private Mapper<T> mapper;
 	private StreamWriter writer;
 
-	public WriterAdapter(Mapper<T> mapper, StreamWriter writer) {
+	public ListWriter(Mapper<T> mapper, StreamWriter writer) {
 		this.writer = writer;
 		this.mapper = mapper;
 	}
