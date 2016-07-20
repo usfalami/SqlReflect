@@ -23,7 +23,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
+			rs = getConnectionManager().executeQuery(stmt, callable.getSQL(), parameters);
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
 			adapter.headers(mapper.getColumnNames());
@@ -37,7 +37,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}

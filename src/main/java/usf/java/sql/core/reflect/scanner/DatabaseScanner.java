@@ -41,7 +41,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}

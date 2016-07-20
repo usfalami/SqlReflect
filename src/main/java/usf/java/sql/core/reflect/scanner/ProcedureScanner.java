@@ -39,7 +39,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			Mapper<Procedure> mapper = new ProcedureMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
-				ColumnScanner cs = new ColumnScanner(cm, HasColumn.PROCEDURE);
+				ColumnScanner cs = new ColumnScanner(getConnectionManager(), HasColumn.PROCEDURE);
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
 					List<Column> columns = cs.set(p.getDatabase(), p.getName(), null).run();
@@ -58,7 +58,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}

@@ -44,7 +44,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}

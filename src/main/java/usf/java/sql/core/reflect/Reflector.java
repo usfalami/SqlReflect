@@ -5,10 +5,14 @@ import usf.java.sql.core.exception.AdapterException;
 
 public abstract class Reflector {
 	
-	protected ConnectionManager cm;
+	private ConnectionManager cm;
 	
 	public Reflector(ConnectionManager cm) {
 		this.cm = cm;
+	}
+	
+	public ConnectionManager getConnectionManager() {
+		return cm;
 	}
 	
 	public static interface Adapter {

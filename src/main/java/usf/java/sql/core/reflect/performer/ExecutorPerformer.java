@@ -26,34 +26,34 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		try {
 
 			adapter.preConnecion();
-			cnx = cm.getConnection();
+			cnx = getConnectionManager().getConnection();
 			adapter.postConnecion();
 			
 			Statement stmt = null;
 			try {
 				
 				adapter.preStatement();
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
+				stmt = getConnectionManager().buildStatement(cnx, callable.getSQL(), parameters);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
 			
 					adapter.preExec();
-					rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
+					rs = getConnectionManager().executeQuery(stmt, callable.getSQL(), parameters);
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 					
 				} catch (SQLException e) {
 					throw e;
 				}
 				finally {
-					cm.close(rs);
+					getConnectionManager().close(rs);
 				}
 			} catch (SQLException e) {
 				throw e;
 			}
 			finally {
-				cm.close(stmt);
+				getConnectionManager().close(stmt);
 			}
 		
 		} catch (SQLException e) {
@@ -61,7 +61,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 			throw e;
 		}
 		finally {
-			cm.close(cnx);
+			getConnectionManager().close(cnx);
 			adapter.end();
 		}
 	}

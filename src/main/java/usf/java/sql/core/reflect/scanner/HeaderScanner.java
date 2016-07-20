@@ -22,7 +22,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = cm.executeQuery(stmt, callable.getSQL(), parameters);
+			rs = getConnectionManager().executeQuery(stmt, callable.getSQL(), parameters);
 			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.headers(mapper.getColumnNames());
@@ -34,7 +34,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}

@@ -38,24 +38,24 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 	public void run(ScannerAdapter<T> adapter) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.getConnection();
+			cnx = getConnectionManager().getConnection();
 			Statement stmt = null;
 			try {
-				stmt = cm.buildStatement(cnx, callable.getSQL(), parameters);
+				stmt = getConnectionManager().buildStatement(cnx, callable.getSQL(), parameters);
 				run(stmt, adapter);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
 			}
 			finally {
-				cm.close(stmt);
+				getConnectionManager().close(stmt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
 		finally {
-			cm.close(cnx);
+			getConnectionManager().close(cnx);
 		}
 	}
 

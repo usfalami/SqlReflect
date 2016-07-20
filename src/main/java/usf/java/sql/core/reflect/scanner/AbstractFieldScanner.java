@@ -27,7 +27,7 @@ public abstract class AbstractFieldScanner<T> extends Reflector implements Scann
 	public void run(ScannerAdapter<T> adapter) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
-			cnx = cm.getConnection();
+			cnx = getConnectionManager().getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter);
 		} catch (SQLException e) {
@@ -35,7 +35,7 @@ public abstract class AbstractFieldScanner<T> extends Reflector implements Scann
 			throw e;
 		}
 		finally {
-			cm.close(cnx);
+			getConnectionManager().close(cnx);
 		}
 	}
 

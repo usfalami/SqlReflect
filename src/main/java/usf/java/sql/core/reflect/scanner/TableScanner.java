@@ -40,7 +40,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			Mapper<Table> mapper = new TableMapper();
 			adapter.headers(mapper.getColumnNames());
 			if(columns) { // look for columns
-				ColumnScanner ts = new ColumnScanner(cm, HasColumn.TABLE);
+				ColumnScanner ts = new ColumnScanner(getConnectionManager(), HasColumn.TABLE);
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
 					List<Column> columns = ts.set(t.getDatabase(), t.getName(), null).run();
@@ -60,7 +60,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			throw e;
 		}
 		finally {
-			cm.close(rs);
+			getConnectionManager().close(rs);
 			adapter.end();
 		}
 	}
