@@ -66,7 +66,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name) throws Exception {
+	public void startList(String name, String... columns) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override
@@ -75,7 +75,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startObject(String name, String[] columns) throws Exception {
+	public void startObject(String name) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override

@@ -21,7 +21,7 @@ public class ProcedureColumnMapper implements Mapper<Column> {
 
 	@Override
 	public void write(StreamWriter writer, Column parameter) throws Exception {
-		writer.startObject("COLUMN", getColumnNames());
+		writer.startObject("COLUMN");
 		writer.writeString("COLUMN_NAME", parameter.getName());
 		writer.writeString("TYPE_NAME", parameter.getValueType());
 		writer.writeLong("LENGTH", parameter.getSize());

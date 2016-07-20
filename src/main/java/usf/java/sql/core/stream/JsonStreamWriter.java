@@ -50,7 +50,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startObject(String name, String[] columns) throws JSONException {
+	public void startObject(String name) throws JSONException {
 		jwriter.object();
 	}
 	@Override
@@ -59,7 +59,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void startList(String name) throws Exception {
+	public void startList(String name, String... columns) throws Exception {
 		jwriter.array();
 	}
 	@Override
@@ -68,12 +68,8 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void start(String name) throws Exception {
-		startList("");
-	}
+	public void start(String name) throws Exception {}
 	@Override
-	public void end() throws Exception {
-		endList();
-	}
+	public void end() throws Exception {}
 	
 }

@@ -1,23 +1,18 @@
-package usf.java.sql.adapter.reflect.scanner;
+package usf.java.sql.core.adapter;
 
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.mapper.Mapper;
-import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 import usf.java.sql.core.stream.StreamWriter;
 
-public class ScannerListWriter<T> implements ScannerAdapter<T> {
+public class WriterAdapter<T> implements ScannerAdapter<T> {
 
 	private Mapper<T> mapper;
 	private StreamWriter writer;
 
-	public ScannerListWriter(SqlParser sqlParser, Mapper<T> mapper, StreamWriter writer) {
+	public WriterAdapter(Mapper<T> mapper, StreamWriter writer) {
 		this.writer = writer;
-	}
-	
-	@Override
-	public void headers(String... headers) {
-		
+		this.mapper = mapper;
 	}
 
 	@Override
@@ -28,6 +23,17 @@ public class ScannerListWriter<T> implements ScannerAdapter<T> {
 			throw new AdapterException(e);
 		}
 	}
+	
+	
+	@Override
+	public void headers(String... headers) throws AdapterException {
+		try {
+			writer.startList("LIST", headers);
+		} catch (Exception e) {
+			throw new AdapterException(e);
+		}
+	}
+
 
 	@Override
 	public void adapte(T field, int index) throws AdapterException {
@@ -41,6 +47,7 @@ public class ScannerListWriter<T> implements ScannerAdapter<T> {
 	@Override
 	public void end() throws AdapterException {
 		try {
+			writer.endList();
 			writer.end();
 		} catch (Exception e) {
 			throw new AdapterException(e);

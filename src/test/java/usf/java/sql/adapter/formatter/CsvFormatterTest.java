@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
+import usf.java.sql.core.stream.printer.AbstractPrinter;
 import junit.framework.TestCase;
 
 public class CsvFormatterTest extends TestCase {
 
 	public void testStartTable() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		format.startTable();
 		assertEquals(o.toString(), System.lineSeparator());
 		o.close();
@@ -19,7 +20,7 @@ public class CsvFormatterTest extends TestCase {
 	
 	public void testFormatTitle() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		String title = "My Title 1";
 		format.formatTitle(title);
 		assertEquals(o.toString(), title+";"+System.lineSeparator());
@@ -28,7 +29,7 @@ public class CsvFormatterTest extends TestCase {
 	
 	public void testFormatHeaders() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		Object[] headers = {"header 1", "header 2", "header 3"};
 		format.formatHeaders(headers);
 		assertEquals(o.toString(), "header 1;header 2;header 3;"+System.lineSeparator());
@@ -37,7 +38,7 @@ public class CsvFormatterTest extends TestCase {
 	
 	public void testFormatRow() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		Date d = new Date();
 		Object[] headers = {"value 1", 3.55, 5566, d, true};
 		format.formatHeaders(headers);
@@ -47,7 +48,7 @@ public class CsvFormatterTest extends TestCase {
 	
 	public void testFormatFooter() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		String title = "Footer 1";
 		format.formatTitle(title);
 		assertEquals(o.toString(), title+";"+System.lineSeparator());
@@ -56,7 +57,7 @@ public class CsvFormatterTest extends TestCase {
 	
 	public void testEndTable() throws IOException {
 		OutputStream o = new ByteArrayOutputStream();
-		AbstractFormatter format = new CsvFormatter(o);
+		AbstractPrinter format = new CsvFormatter(o);
 		format.startTable();
 		assertEquals(o.toString(), System.lineSeparator());
 		o.close();

@@ -14,7 +14,7 @@ public interface Scanner<T> {
 	
 	public static interface ScannerAdapter<T> extends Adapter {
 		
-		void headers(String... headers);
+		void headers(String... headers) throws AdapterException;
 		void adapte(T field, int index) throws AdapterException;
 		
 	}

@@ -19,7 +19,7 @@ public class ProcedureMapper implements Mapper<Procedure> {
 
 	@Override
 	public void write(StreamWriter writer, Procedure procedure) throws Exception {
-		writer.startObject("PROCEDURE", getColumnNames());
+		writer.startObject("PROCEDURE");
 		writer.writeString("PROCEDURE_SCHEM", procedure.getDatabase());
 		writer.writeString("PROCEDURE_NAME", procedure.getName());
 		if(procedure.getColumns() != null){

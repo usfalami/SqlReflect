@@ -20,7 +20,7 @@ public class TableColumnMapper implements Mapper<Column> {
 
 	@Override
 	public void write(StreamWriter writer, Column parameter) throws Exception {
-		writer.startObject("COLUMN", getColumnNames());
+		writer.startObject("COLUMN");
 		writer.writeString("COLUMN_NAME", parameter.getName());
 		writer.writeString("TYPE_NAME", parameter.getType());
 		writer.writeInt("COLUMN_SIZE", parameter.getSize());

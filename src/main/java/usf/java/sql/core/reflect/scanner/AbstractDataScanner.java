@@ -21,7 +21,7 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 		super(cm);
 	}
 
-	public AbstractDataScanner<T> set(Query callable, Serializable[] parameters) {
+	public AbstractDataScanner<T> set(Query callable, Serializable... parameters) {
 		this.callable = callable;
 		this.parameters = parameters;
 		return this;

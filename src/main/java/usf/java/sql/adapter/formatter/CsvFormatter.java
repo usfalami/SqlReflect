@@ -2,7 +2,9 @@ package usf.java.sql.adapter.formatter;
 
 import java.io.OutputStream;
 
-public class CsvFormatter extends AbstractFormatter {
+import usf.java.sql.core.stream.printer.AbstractPrinter;
+
+public class CsvFormatter extends AbstractPrinter {
 
 	public CsvFormatter(OutputStream out) {
 		super(out);

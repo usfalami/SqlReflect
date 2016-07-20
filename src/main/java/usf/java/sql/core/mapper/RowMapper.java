@@ -31,9 +31,9 @@ public class RowMapper implements Mapper<Row> {
 	@Override
 	public void write(StreamWriter writer, Row bean) throws AdapterException {
 		try{
-			writer.startObject("item", columnNames);
+			writer.startObject("item");
 			for(String str : columnNames)
-				writer.writeString(str, bean.get(str).toString());
+				writer.writeString(str, ""+bean.get(str));
 			writer.endObject();
 		}catch(Exception e) {
 			e.printStackTrace();

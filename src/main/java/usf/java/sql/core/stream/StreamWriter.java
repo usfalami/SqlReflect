@@ -17,10 +17,10 @@ public interface StreamWriter {
 	void start(String name) throws Exception;
 	void end() throws Exception;
 
-	void startList(String name) throws Exception;
+	void startList(String name, String... columns) throws Exception;
 	void endList() throws Exception;
 
-	void startObject(String name, String[] columns) throws Exception;
+	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
 

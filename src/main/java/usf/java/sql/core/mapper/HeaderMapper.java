@@ -21,7 +21,7 @@ public class HeaderMapper implements Mapper<Header> {
 
 	@Override
 	public void write(StreamWriter writer, Header column) throws Exception {
-		writer.startObject("HEADER", getColumnNames());
+		writer.startObject("HEADER");
 		writer.writeString("HEADER_NAME", column.getName());
 		writer.writeString("TYPE_NAME", column.getValueType());
 		writer.writeInt("LENGTH", column.getSize());
