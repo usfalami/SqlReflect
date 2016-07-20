@@ -25,5 +25,6 @@ public interface StreamWriter {
 	
 
 	DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
+	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");
 
 }
