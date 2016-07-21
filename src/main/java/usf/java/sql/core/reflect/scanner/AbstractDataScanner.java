@@ -44,7 +44,6 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 				stmt = getConnectionManager().buildStatement(cnx, callable.getSQL(), parameters);
 				run(stmt, adapter);
 			} catch (SQLException e) {
-				e.printStackTrace();
 				throw e;
 			}
 			finally {
