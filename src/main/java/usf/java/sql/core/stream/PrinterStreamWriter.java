@@ -4,13 +4,17 @@ import java.io.OutputStream;
 import java.sql.Date;
 
 import usf.java.sql.core.stream.printer.DynamicAsciiPrinter;
+import usf.java.sql.core.stream.printer.Printer;
 
-public class AsciiStreamWriter implements StreamWriter {
+public class PrinterStreamWriter implements StreamWriter {
 		
-	protected DynamicAsciiPrinter printer;
+	protected Printer printer;
 	
-	public AsciiStreamWriter(OutputStream out) {
+	public PrinterStreamWriter(OutputStream out) {
 		printer = new DynamicAsciiPrinter(out);
+	}
+	public PrinterStreamWriter(Printer printer) {
+		this.printer = printer;
 	}
 
 	@Override

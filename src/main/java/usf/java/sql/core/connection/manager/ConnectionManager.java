@@ -12,7 +12,7 @@ public interface ConnectionManager {
 	
 	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
 	
-	ResultSet executeQuery(Statement stmt, String query, Serializable ... parameters) throws SQLException;
+	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
 	
 	void close(Connection cnx);
 	

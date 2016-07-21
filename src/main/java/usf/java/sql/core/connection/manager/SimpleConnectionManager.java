@@ -30,7 +30,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 		if(parameters == null || parameters.length==0) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
-			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
 			for(int i=0; i<parameters.length; i++)
 				ps.setObject(i+1, parameters[i]);
 			return ps;
@@ -38,7 +38,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public ResultSet executeQuery(Statement stmt, String query, Serializable... parameters) throws SQLException {
+	public ResultSet executeQuery(Statement stmt, String query) throws SQLException {
 		return stmt instanceof Statement ? stmt.executeQuery(query) : ((PreparedStatement)stmt).executeQuery();
 	}
 

@@ -50,7 +50,7 @@ public class ExecutorPerformer extends Reflector implements Performer {
 				try {
 			
 					adapter.preExec();
-					rs = getConnectionManager().executeQuery(stmt, callable.getSQL(), parameters);
+					rs = getConnectionManager().executeQuery(stmt, callable.getSQL());
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 					
 				} catch (SQLException e) {
