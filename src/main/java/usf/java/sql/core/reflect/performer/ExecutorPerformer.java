@@ -11,21 +11,22 @@ import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.TimePerform;
+import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.reflect.Reflector;
 import usf.java.sql.core.reflect.ReflectorUtils;
 
 public class ExecutorPerformer extends Reflector implements Performer {
 	
-	private Query callable;
-	private Serializable[] parameters;
+	private Query query;
+	private Arguments args;
 	
 	public ExecutorPerformer(ConnectionManager cm) {
 		super(cm);
 	}
 	
 	public ExecutorPerformer set(String sql, Serializable ... parameters){
-		this.callable = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.parameters = parameters;
+		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = new Arguments(parameters);
 		return this;
 	}
 	
@@ -43,14 +44,14 @@ public class ExecutorPerformer extends Reflector implements Performer {
 			try {
 				
 				adapter.preStatement();
-				stmt = getConnectionManager().buildStatement(cnx, callable.getSQL(), parameters);
+				stmt = getConnectionManager().buildStatement(cnx, query, args);
 				adapter.postStatement();
 				
 				ResultSet rs = null;
 				try {
 			
 					adapter.preExec();
-					rs = getConnectionManager().executeQuery(stmt, callable.getSQL());
+					rs = getConnectionManager().executeQuery(stmt, query.getSQL());
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 					
 				} catch (SQLException e) {

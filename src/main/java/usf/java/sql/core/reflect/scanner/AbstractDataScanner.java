@@ -10,20 +10,21 @@ import usf.java.sql.core.adapter.ListAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
+import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.reflect.Reflector;
 
 public abstract class AbstractDataScanner<T> extends Reflector implements Scanner<T> {
 	
-	private Query callable; 
-	private Serializable[] parameters;
+	private Query query;
+	private Arguments args;
 
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
 	public AbstractDataScanner<T> set(String sql, Serializable... parameters) {
-		this.callable = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.parameters = parameters;
+		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = new Arguments(parameters);
 		return this;
 	}
 	
@@ -41,7 +42,7 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 			cnx = getConnectionManager().getConnection();
 			Statement stmt = null;
 			try {
-				stmt = getConnectionManager().buildStatement(cnx, callable.getSQL(), parameters);
+				stmt = getConnectionManager().buildStatement(cnx, query, args);
 				run(stmt, adapter);
 			} catch (SQLException e) {
 				throw e;
@@ -59,11 +60,11 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 	}
 	
 	public Query getCallable() {
-		return callable;
+		return query;
 	}
 	
-	public Serializable[] getParameters() {
-		return parameters;
+	public Arguments getParameters() {
+		return args;
 	}
 
 	protected abstract void run(Statement stmt, ScannerAdapter<T> adapter) throws SQLException, AdapterException;

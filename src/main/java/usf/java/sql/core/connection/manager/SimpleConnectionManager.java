@@ -1,6 +1,5 @@
 package usf.java.sql.core.connection.manager;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +9,11 @@ import java.sql.Statement;
 import usf.java.sql.core.connection.provider.ConnectionProvider;
 import usf.java.sql.core.connection.transcation.SimpleTransactionManager;
 import usf.java.sql.core.connection.transcation.TransactionManager;
+import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.User;
 import usf.java.sql.core.parser.SimpleSqlParser;
 import usf.java.sql.core.parser.SqlParser;
+import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {
@@ -33,13 +34,13 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException  {
-		if(parameters == null || parameters.length==0) 
+	public Statement buildStatement(Connection cnx,  Query query, Arguments args) throws SQLException  {
+		if(args == null || args.isEmpty()) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
-			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			for(int i=0; i<parameters.length; i++)
-				ps.setObject(i+1, parameters[i]);
+			PreparedStatement ps = cnx.prepareStatement(query.getSQL(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			for(int i=0; i<args.getArgs().length; i++)
+				ps.setObject(i+1, args.getArgs()[i]);
 			return ps;
 		}
 	}
