@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.connection.provider.ConnectionProvider;
+import usf.java.sql.core.connection.transcation.SimpleTransactionManager;
+import usf.java.sql.core.connection.transcation.TransactionManager;
 import usf.java.sql.core.field.User;
 
 public class SimpleConnectionManager implements ConnectionManager {
@@ -40,6 +42,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 	@Override
 	public ResultSet executeQuery(Statement stmt, String query) throws SQLException {
 		return stmt instanceof Statement ? stmt.executeQuery(query) : ((PreparedStatement)stmt).executeQuery();
+	}
+	
+	@Override
+	public TransactionManager getTransactionManager() {
+		return new SimpleTransactionManager(this);
 	}
 
 	@Override

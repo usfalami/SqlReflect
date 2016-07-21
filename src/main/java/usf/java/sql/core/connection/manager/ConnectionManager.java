@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sql.core.connection.transcation.TransactionManager;
+
 public interface ConnectionManager {
 
 	Connection getConnection() throws SQLException;
@@ -19,5 +21,7 @@ public interface ConnectionManager {
 	void close(Statement stmt);
 	
 	void close(ResultSet rs);
+	
+	TransactionManager getTransactionManager();
 	
 }
