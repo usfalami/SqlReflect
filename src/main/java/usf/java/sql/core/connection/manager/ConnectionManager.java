@@ -27,5 +27,6 @@ public interface ConnectionManager {
 	void close(Statement stmt);
 	
 	void close(ResultSet rs);
-	
+
+	void close(TransactionManager rs);
 }

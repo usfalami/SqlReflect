@@ -84,5 +84,16 @@ public class SimpleConnectionManager implements ConnectionManager {
 			}
 		}
 	}
+	
+	@Override
+	public void close(TransactionManager tm) {
+		if(tm != null){
+			try {
+				tm.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
