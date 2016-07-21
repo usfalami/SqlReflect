@@ -55,21 +55,23 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	@Override
 	public void close(Statement stmt) {
-		if(stmt != null)
+		if(stmt != null){
 			try {
 				stmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 	@Override
 	public void close(ResultSet rs) {
-		if(rs != null)
+		if(rs != null){
 			try {
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 
 }

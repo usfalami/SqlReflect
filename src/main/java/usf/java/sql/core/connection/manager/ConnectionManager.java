@@ -15,13 +15,13 @@ public interface ConnectionManager {
 	Statement buildStatement(Connection cnx, String sql, Serializable... parameters) throws SQLException;
 	
 	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
+
+	TransactionManager getTransactionManager();
 	
 	void close(Connection cnx);
 	
 	void close(Statement stmt);
 	
 	void close(ResultSet rs);
-	
-	TransactionManager getTransactionManager();
 	
 }

@@ -14,15 +14,14 @@ public interface StreamWriter {
 	void writeString(String name, String string) throws Exception;
 	void writeDate(String name, Date date) throws Exception;
 
-	void start(String name) throws Exception;
-	void end() throws Exception;
-
-	void startList(String name, String... columns) throws Exception;
-	void endList() throws Exception;
-
 	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
+	void startList(String name, String... columns) throws Exception;
+	void endList() throws Exception;
+
+	void start(String name) throws Exception;
+	void end() throws Exception;
 
 	DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
 	DateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss.SSS");
