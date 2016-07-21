@@ -23,8 +23,8 @@ public class ExecutorPerformer extends Reflector implements Performer {
 		super(cm);
 	}
 	
-	public ExecutorPerformer set(Query callable, Serializable ... parameters){
-		this.callable = callable;
+	public ExecutorPerformer set(String sql, Serializable ... parameters){
+		this.callable = getConnectionManager().getSqlParser().parseSQL(sql);
 		this.parameters = parameters;
 		return this;
 	}

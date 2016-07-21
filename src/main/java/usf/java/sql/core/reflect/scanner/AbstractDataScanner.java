@@ -14,15 +14,15 @@ import usf.java.sql.core.reflect.Reflector;
 
 public abstract class AbstractDataScanner<T> extends Reflector implements Scanner<T> {
 	
-	protected Query callable; 
-	protected Serializable[] parameters;
+	private Query callable; 
+	private Serializable[] parameters;
 
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
-	public AbstractDataScanner<T> set(Query callable, Serializable... parameters) {
-		this.callable = callable;
+	public AbstractDataScanner<T> set(String sql, Serializable... parameters) {
+		this.callable = getConnectionManager().getSqlParser().parseSQL(sql);
 		this.parameters = parameters;
 		return this;
 	}
@@ -57,6 +57,14 @@ public abstract class AbstractDataScanner<T> extends Reflector implements Scanne
 		finally {
 			getConnectionManager().close(cnx);
 		}
+	}
+	
+	public Query getCallable() {
+		return callable;
+	}
+	
+	public Serializable[] getParameters() {
+		return parameters;
 	}
 
 	protected abstract void run(Statement stmt, ScannerAdapter<T> adapter) throws SQLException, AdapterException;

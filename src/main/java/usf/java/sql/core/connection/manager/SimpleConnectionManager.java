@@ -11,13 +11,18 @@ import usf.java.sql.core.connection.provider.ConnectionProvider;
 import usf.java.sql.core.connection.transcation.SimpleTransactionManager;
 import usf.java.sql.core.connection.transcation.TransactionManager;
 import usf.java.sql.core.field.User;
+import usf.java.sql.core.parser.SimpleSqlParser;
+import usf.java.sql.core.parser.SqlParser;
+import usf.java.sql.core.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
-	protected ConnectionProvider cp;
-	protected User user;
+	private ConnectionProvider cp;
+	private SqlParser parser;
+	private User user;
 	
-	public SimpleConnectionManager(ConnectionProvider cp, User user) {
+	public SimpleConnectionManager(ConnectionProvider cp, Server server, User user) {
+		this.parser = new SimpleSqlParser(server);
 		this.cp = cp;
 		this.user = user;
 	}
@@ -32,7 +37,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 		if(parameters == null || parameters.length==0) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
-			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.CLOSE_CURSORS_AT_COMMIT);
+			PreparedStatement ps = cnx.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			for(int i=0; i<parameters.length; i++)
 				ps.setObject(i+1, parameters[i]);
 			return ps;
@@ -49,6 +54,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 		return new SimpleTransactionManager(this);
 	}
 
+	@Override
+	public SqlParser getSqlParser() {
+		return parser;
+	}
+	
 	@Override
 	public void close(Connection cnx) {
 		cp.release(cnx);

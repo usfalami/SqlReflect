@@ -23,7 +23,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 		adapter.start();
 		ResultSet rs = null;
 		try {
-			rs = getConnectionManager().executeQuery(stmt, callable.getSQL());
+			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
 			adapter.headers(mapper.getColumnNames());

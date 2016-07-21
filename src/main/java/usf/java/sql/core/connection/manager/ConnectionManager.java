@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.connection.transcation.TransactionManager;
+import usf.java.sql.core.parser.SqlParser;
 
 public interface ConnectionManager {
 
@@ -17,6 +18,8 @@ public interface ConnectionManager {
 	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
 
 	TransactionManager getTransactionManager();
+	
+	SqlParser getSqlParser();
 	
 	void close(Connection cnx);
 	
