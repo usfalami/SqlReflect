@@ -67,4 +67,9 @@ public class SimpleTransactionManager implements TransactionManager {
 		}
 		return pstmt;
 	}
+	
+	@Override
+	public Connection getConnection() {
+		return cnx;
+	}
 }

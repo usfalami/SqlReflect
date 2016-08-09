@@ -8,9 +8,8 @@ import usf.java.sql.core.connection.transcation.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
-import usf.java.sql.core.reflect.Reflector;
 
-public class Batch extends Reflector implements Updater {
+public class Batch extends AbstractExecutor {
 	
 	private Query[] queries;
 	private Arguments[] args;
@@ -33,35 +32,20 @@ public class Batch extends Reflector implements Updater {
 	}
 
 	@Override
-	public void run(UpdaterAdapter adapter) throws SQLException, AdapterException {
-		TransactionManager tm = null;
+	protected void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
+		adapter.start();
+		Statement stmt = null;
 		try {
-			tm = getConnectionManager().getTransactionManager();
-			Statement stmt = null;
-			adapter.start();
-			try {
-				
-				tm.startTransaction();
-				stmt = queries.length > 0 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
-				int[] count = stmt.executeBatch();
-				adapter.adapte(count);
-				tm.endTransaction();
-
-			} catch (SQLException e) {
-				throw e;
-			}
-			finally {
-				getConnectionManager().close(stmt);
-				adapter.end();
-			}
+			stmt = queries.length > 0 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
+			int[] count = stmt.executeBatch();
+			adapter.adapte(count);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			tm.rollback();
 			throw e;
 		}
 		finally {
-			getConnectionManager().close(tm);
+			getConnectionManager().close(stmt);
+			adapter.end();
 		}
 	}
-
+	
 }

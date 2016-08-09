@@ -1,5 +1,6 @@
 package usf.java.sql.core.connection.transcation;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,10 +16,12 @@ public interface TransactionManager {
 	void rollback() throws SQLException;
 
 	void close() throws SQLException;
-
 	
 	Statement buildBatch(Query... queries) throws SQLException;
 	
 	Statement buildBatch(Query query, Arguments... args) throws SQLException;
+	
+	@Deprecated
+	Connection getConnection();
 
 }
