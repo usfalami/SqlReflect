@@ -25,7 +25,7 @@ public class Batch extends Reflector implements Updater {
 			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
 		return this;
 	}
-	public Batch set(String sql, Arguments[] args) {
+	public Batch set(String sql, Arguments... args) {
 		queries = new Query[1];
 		queries[0] = getConnectionManager().getSqlParser().parseSQL(sql);
 		this.args = args;

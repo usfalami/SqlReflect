@@ -2,7 +2,7 @@ package usf.java.sql.core.reflect.updater;
 
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.reflect.Worker;
-import usf.java.sql.core.reflect.Reflector.Adapter;
+import usf.java.sql.core.reflect.Worker.Adapter;
 
 public interface Updater extends Worker<Updater.UpdaterAdapter> {
 	

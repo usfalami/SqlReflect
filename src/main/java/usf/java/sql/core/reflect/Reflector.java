@@ -1,7 +1,6 @@
 package usf.java.sql.core.reflect;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
-import usf.java.sql.core.exception.AdapterException;
 
 public abstract class Reflector {
 	
@@ -13,13 +12,6 @@ public abstract class Reflector {
 	
 	public ConnectionManager getConnectionManager() {
 		return cm;
-	}
-	
-	public static interface Adapter {
-		
-		void start() throws AdapterException;
-		void end()  throws AdapterException;
-	
 	}
 
 }
