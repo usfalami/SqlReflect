@@ -8,7 +8,7 @@ public interface Updater extends Worker<Updater.UpdaterAdapter> {
 	
 	public static interface UpdaterAdapter extends Adapter {
 
-		void adapte(int[] count) throws AdapterException;
+		void adapte(int... count) throws AdapterException;
 
 	}
 

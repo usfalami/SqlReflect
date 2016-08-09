@@ -10,7 +10,7 @@ public interface Performer extends Worker<Performer.PerformAdapter> {
 
 	TimePerform run() throws SQLException, AdapterException;
 	
-	public static interface PerformAdapter extends Worker.Adapter{
+	public static interface PerformAdapter extends Worker.Adapter {
 
 		void preConnecion();
 		void postConnecion();

@@ -17,6 +17,8 @@ public interface ConnectionManager {
 	Statement buildStatement(Connection cnx, Query query, Arguments args) throws SQLException;
 	
 	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
+	
+	int executeUpdate(Statement stmt, String query) throws SQLException;
 
 	TransactionManager getTransactionManager();
 	
@@ -29,4 +31,5 @@ public interface ConnectionManager {
 	void close(ResultSet rs);
 
 	void close(TransactionManager rs);
+
 }
