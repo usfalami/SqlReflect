@@ -57,22 +57,14 @@ public class SimpleTransactionManager implements TransactionManager {
 		return stmt;
 	}
 	@Override
-	public Statement buildBatch(Query query, int time) throws SQLException {
-		if(cnx == null || cnx.isClosed()) return null; //throw exception no transaction
-		Statement stmt = cnx.createStatement();
-		for(int i=0; i<time; i++)
-			stmt.addBatch(query.getSQL());
-		return stmt;
-	}
-	@Override
 	public Statement buildBatch(Query query, Arguments... argList) throws SQLException {
 		if(cnx == null || cnx.isClosed()) return null; //throw exception no transaction
 		PreparedStatement pstmt = cnx.prepareStatement(query.getSQL());
 		for(Arguments arguments : argList){
 			for(int i=0; i<arguments.get().length; i++)
 				pstmt.setObject(i+1, arguments.get()[i]);
+			pstmt.addBatch();
 		}
 		return pstmt;
 	}
-
 }

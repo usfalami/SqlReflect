@@ -19,8 +19,6 @@ public interface TransactionManager {
 	
 	Statement buildBatch(Query... queries) throws SQLException;
 	
-	Statement buildBatch(Query query, int time) throws SQLException;
-
 	Statement buildBatch(Query query, Arguments... args) throws SQLException;
 
 }

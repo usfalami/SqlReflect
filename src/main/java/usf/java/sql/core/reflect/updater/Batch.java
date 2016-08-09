@@ -2,49 +2,57 @@ package usf.java.sql.core.reflect.updater;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
+import usf.java.sql.core.adapter.BatchAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.connection.transcation.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
+import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.reflect.Reflector;
 
 public class Batch extends Reflector {
 	
-	private Query[] query;
+	private Query[] queries;
+	private Arguments[] args;
 
 	public Batch(ConnectionManager cm) {
 		super(cm);
 	}
 
 	public Batch set(String... sql) {
-		query = new Query[sql.length];
+		queries = new Query[sql.length];
 		for(int i=0; i<sql.length; i++)
-			query[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
+			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
+		return this;
+	}
+	public Batch set(String sql, Arguments[] args) {
+		queries = new Query[1];
+		queries[0] = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = args;
 		return this;
 	}
 
-	public void run() throws SQLException, AdapterException {
+	public void run(BatchAdapter adapter) throws SQLException, AdapterException {
 		TransactionManager tm = null;
 		try {
 			tm = getConnectionManager().getTransactionManager();
 			Statement stmt = null;
+			adapter.start();
 			try {
 				
 				tm.startTransaction();
-				stmt = tm.buildBatch(query);
+				stmt = queries.length > 0 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 				int[] count = stmt.executeBatch();
+				adapter.update(count);
 				tm.endTransaction();
 
-				System.out.println(Arrays.toString(count));
-				
 			} catch (SQLException e) {
 				throw e;
 			}
 			finally {
-				System.out.println(stmt.getMoreResults());
 				getConnectionManager().close(stmt);
+				adapter.end();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +63,5 @@ public class Batch extends Reflector {
 			getConnectionManager().close(tm);
 		}
 	}
-	
 
 }
