@@ -18,8 +18,6 @@ public interface ConnectionManager {
 	
 	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
 	
-	int executeUpdate(Statement stmt, String query) throws SQLException;
-
 	TransactionManager getTransactionManager();
 	
 	SqlParser getSqlParser();

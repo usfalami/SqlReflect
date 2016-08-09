@@ -29,8 +29,7 @@ public class Exec extends AbstractExecutor {
 		adapter.start();
 		Statement stmt = null;
 		try {
-			stmt = getConnectionManager().buildStatement(tm.getConnection(), query, args);
-			int count = getConnectionManager().executeUpdate(stmt, query.getSQL());
+			int count = tm.executeUpdate(query, args);
 			adapter.adapte(count);
 		} catch (SQLException e) {
 			throw e;

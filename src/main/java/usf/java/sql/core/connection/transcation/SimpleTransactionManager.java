@@ -69,7 +69,8 @@ public class SimpleTransactionManager implements TransactionManager {
 	}
 	
 	@Override
-	public Connection getConnection() {
-		return cnx;
+	public int executeUpdate(Query query, Arguments args) throws SQLException {
+		Statement stmt = cm.buildStatement(cnx, query, args);
+		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query.getSQL());
 	}
 }

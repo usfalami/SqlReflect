@@ -49,10 +49,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 	public ResultSet executeQuery(Statement stmt, String query) throws SQLException {
 		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
 	}
-	@Override
-	public int executeUpdate(Statement stmt, String query) throws SQLException {
-		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query);
-	}
 	
 	@Override
 	public TransactionManager getTransactionManager() {
