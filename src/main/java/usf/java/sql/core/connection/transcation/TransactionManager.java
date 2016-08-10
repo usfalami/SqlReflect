@@ -16,10 +16,14 @@ public interface TransactionManager {
 
 	void close() throws SQLException;
 	
+
+	Statement buildStatement(Query query, Arguments args) throws SQLException;
+	
 	Statement buildBatch(Query... queries) throws SQLException;
 	
 	Statement buildBatch(Query query, Arguments... args) throws SQLException;
 
-	int executeUpdate(Query query, Arguments args) throws SQLException;
+	int executeUpdate(Statement stmt, Query query) throws SQLException;
+
 
 }

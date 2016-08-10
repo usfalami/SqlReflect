@@ -47,6 +47,11 @@ public class SimpleTransactionManager implements TransactionManager {
 		cm.close(cnx);
 		cnx = null;
 	}
+
+	@Override
+	public Statement buildStatement(Query query, Arguments args) throws SQLException  {
+		return cm.buildStatement(cnx, query, args);
+	}
 	
 	@Override
 	public Statement buildBatch(Query... queries) throws SQLException {
@@ -69,8 +74,7 @@ public class SimpleTransactionManager implements TransactionManager {
 	}
 	
 	@Override
-	public int executeUpdate(Query query, Arguments args) throws SQLException {
-		Statement stmt = cm.buildStatement(cnx, query, args);
+	public int executeUpdate(Statement stmt, Query query) throws SQLException {
 		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query.getSQL());
 	}
 }

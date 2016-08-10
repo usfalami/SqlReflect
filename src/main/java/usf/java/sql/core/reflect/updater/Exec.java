@@ -24,12 +24,14 @@ public class Exec extends AbstractExecutor {
 		this.args = new Arguments(args);
 		return this;
 	}
+	
 	@Override
 	protected void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {
-			int count = tm.executeUpdate(query, args);
+			stmt = tm.buildStatement(query, args);
+			int count = tm.executeUpdate(stmt, query);
 			adapter.adapte(count);
 		} catch (SQLException e) {
 			throw e;
