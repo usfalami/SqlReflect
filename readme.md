@@ -1,7 +1,4 @@
-JDBC tool
-
-
-#Example
+#Environnement
 
 	//Oracle server for exemple, we can use other servers
     Server server 	= new OracleServer(); 
