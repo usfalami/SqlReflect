@@ -21,8 +21,8 @@ public abstract class AbstractExecutor extends Reflector implements Updater {
 			run(tm, adapter);
 			tm.endTransaction();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			tm.rollback();
+			e.printStackTrace();
 			throw e;
 		}
 		finally {
