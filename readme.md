@@ -37,8 +37,8 @@ Total      |11:08:22.901 |11:08:45.164 |22263
 
 ##Src
 
-	ListAdapter adapter = new ListAdapter();
-	new DatabaseScanner(cm).set(null).run(new ListWriter<Database>(adapter);
+	ListAdapter<Database> adapter = new ListAdapter<Database>();
+	new DatabaseScanner(cm).set(null).run(adapter);
 	adapter.getList();
 
 ##Result
