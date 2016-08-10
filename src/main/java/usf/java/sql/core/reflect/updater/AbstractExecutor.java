@@ -14,7 +14,7 @@ public abstract class AbstractExecutor extends Reflector implements Updater {
 	}
 
 	@Override
-	public void run(UpdaterAdapter adapter) throws SQLException, AdapterException {
+	public final void run(UpdaterAdapter adapter) throws SQLException, AdapterException {
 		TransactionManager tm = null;
 		try {
 			tm = getConnectionManager().getTransactionManager();

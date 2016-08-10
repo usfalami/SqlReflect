@@ -17,14 +17,14 @@ public abstract class AbstractFieldScanner<T> extends Reflector implements Scann
 	}
 
 	@Override
-	public List<T> run() throws SQLException, AdapterException {
+	public final List<T> run() throws SQLException, AdapterException {
 		ListAdapter<T> adapter = new ListAdapter<T>();
 		this.run(adapter);
 		return adapter.getList();
 	}
 	
 	@Override
-	public void run(ScannerAdapter<T> adapter) throws SQLException, AdapterException {
+	public final void run(ScannerAdapter<T> adapter) throws SQLException, AdapterException {
 		Connection cnx = null;
 		try {
 			cnx = getConnectionManager().getConnection();
