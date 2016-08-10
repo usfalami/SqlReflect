@@ -19,10 +19,8 @@
 
 ##Src
 	
-	TimePerformAdapter adapter = new TimePerformAdapter();
-	new ExecutorPerformer(cm).set("SELECT DATABASE").run(adapter);
-	TimePerform perf = adapter.getTimePerform();
-
+	TimePerform perf = new ExecutorPerformer(cm).set("SELECT DATABASE").run();
+	
 ##Result	
 
 Action | Start | End | Duration
@@ -37,9 +35,7 @@ Total      |11:08:22.901 |11:08:45.164 |22263
 
 ##Src
 
-	ListAdapter<Database> adapter = new ListAdapter<Database>();
-	new DatabaseScanner(cm).set(null).run(adapter);
-	adapter.getList();
+	List<Database> list = new DatabaseScanner(cm).set(null).run();
 
 ##Result
 
