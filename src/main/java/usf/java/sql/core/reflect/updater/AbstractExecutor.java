@@ -3,7 +3,7 @@ package usf.java.sql.core.reflect.updater;
 import java.sql.SQLException;
 
 import usf.java.sql.core.connection.manager.ConnectionManager;
-import usf.java.sql.core.connection.transcation.TransactionManager;
+import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.reflect.Reflector;
 

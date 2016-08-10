@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.connection.provider.ConnectionProvider;
-import usf.java.sql.core.connection.transcation.SimpleTransactionManager;
-import usf.java.sql.core.connection.transcation.TransactionManager;
+import usf.java.sql.core.connection.transaction.SimpleTransactionManager;
+import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.User;
 import usf.java.sql.core.parser.SimpleSqlParser;
