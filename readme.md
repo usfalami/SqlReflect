@@ -20,7 +20,7 @@
 ##Src
 	
 	TimePerformAdapter adapter = new TimePerformAdapter();
-	new ExecutorPerformer(cm).set(Queries.pom_search).run(adapter);
+	new ExecutorPerformer(cm).set("SELECT DATABASE").run(adapter);
 	TimePerform perf = adapter.getTimePerform();
 
 ##Result	
