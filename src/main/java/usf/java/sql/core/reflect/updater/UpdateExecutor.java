@@ -1,5 +1,6 @@
 package usf.java.sql.core.reflect.updater;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,35 +10,28 @@ import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
 
-public class Batch extends AbstractExecutor {
+public class UpdateExecutor extends AbstractExecutor {
 	
-	private Query[] queries;
-	private Arguments[] args;
+	private Query query;
+	private Arguments args;
 
-	public Batch(ConnectionManager cm) {
+	public UpdateExecutor(ConnectionManager cm) {
 		super(cm);
 	}
-
-	public Batch set(String... sql) {
-		queries = new Query[sql.length];
-		for(int i=0; i<sql.length; i++)
-			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
+	
+	public UpdateExecutor set(String sql, Serializable... args) {
+		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = new Arguments(args);
 		return this;
 	}
-	public Batch set(String sql, Arguments... args) {
-		queries = new Query[1];
-		queries[0] = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.args = args;
-		return this;
-	}
-
+	
 	@Override
 	protected void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {
-			stmt = queries.length > 0 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
-			int[] count = stmt.executeBatch();
+			stmt = tm.buildStatement(query, args);
+			int count = tm.executeUpdate(stmt, query);
 			adapter.adapte(count);
 		} catch (SQLException e) {
 			throw e;
@@ -47,5 +41,5 @@ public class Batch extends AbstractExecutor {
 			adapter.end();
 		}
 	}
-	
+
 }
