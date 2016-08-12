@@ -30,6 +30,6 @@ public abstract class AbstractExecutor extends Reflector implements Updater {
 		}
 	}
 	
-	protected abstract void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException;
+	public abstract void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException;
 	
 }

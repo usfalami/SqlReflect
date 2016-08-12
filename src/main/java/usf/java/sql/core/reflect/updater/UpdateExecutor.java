@@ -26,7 +26,7 @@ public class UpdateExecutor extends AbstractExecutor {
 	}
 	
 	@Override
-	protected void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
+	public void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {
