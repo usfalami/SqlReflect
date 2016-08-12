@@ -1,15 +1,15 @@
-package usf.java.sql.core.reflect.updater;
+package usf.java.sql.core.reflect.executor;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.adapter.UpdaterAdapter;
+import usf.java.sql.core.adapter.ExecutorAdapter;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
 
-public class BatchExecutor extends AbstractExecutor<UpdaterAdapter> {
+public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 	
 	private Query[] queries;
 	private Arguments[] args;
@@ -32,7 +32,7 @@ public class BatchExecutor extends AbstractExecutor<UpdaterAdapter> {
 	}
 
 	@Override
-	public void run(TransactionManager tm, UpdaterAdapter adapter) throws SQLException, AdapterException {
+	public void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {

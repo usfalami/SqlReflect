@@ -3,14 +3,14 @@ package usf.java.sql.core.reflect;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.Mapper;
+import usf.java.sql.core.reflect.executor.BatchExecutor;
+import usf.java.sql.core.reflect.executor.UpdateExecutor;
 import usf.java.sql.core.reflect.scanner.ColumnScanner;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
 import usf.java.sql.core.reflect.scanner.HeaderScanner;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 import usf.java.sql.core.reflect.scanner.RowScanner;
 import usf.java.sql.core.reflect.scanner.TableScanner;
-import usf.java.sql.core.reflect.updater.BatchExecutor;
-import usf.java.sql.core.reflect.updater.UpdateExecutor;
 
 public class ReflectorFactory {
 	
