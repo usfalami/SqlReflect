@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import usf.java.sql.core.adapter.ListAdapter;
+import usf.java.sql.core.adapter.ScannerAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;

@@ -3,12 +3,13 @@ package usf.java.sql.core.reflect.updater;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sql.core.adapter.UpdaterAdapter;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
 
-public class BatchExecutor extends AbstractExecutor {
+public class BatchExecutor extends AbstractExecutor<UpdaterAdapter> {
 	
 	private Query[] queries;
 	private Arguments[] args;
@@ -35,7 +36,7 @@ public class BatchExecutor extends AbstractExecutor {
 		adapter.start();
 		Statement stmt = null;
 		try {
-			stmt = queries.length > 1 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
+			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 			int[] count = stmt.executeBatch();
 			adapter.adapte(count);
 		} catch (SQLException e) {

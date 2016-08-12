@@ -24,6 +24,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	public Connection getConnection() throws SQLException {
 		if(cnx == null || cnx.isClosed()) //
 			cnx = super.getConnection();
+		System.out.println("Check transaction connection : " + cnx);
 		return this.cnx;
 	}
 	

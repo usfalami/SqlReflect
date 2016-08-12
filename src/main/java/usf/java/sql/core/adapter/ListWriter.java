@@ -2,7 +2,6 @@ package usf.java.sql.core.adapter;
 
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.mapper.Mapper;
-import usf.java.sql.core.reflect.scanner.Scanner.ScannerAdapter;
 import usf.java.sql.core.stream.StreamWriter;
 
 public class ListWriter<T> implements ScannerAdapter<T> {

@@ -1,15 +1,8 @@
 package usf.java.sql.core.reflect.updater;
 
-import usf.java.sql.core.exception.AdapterException;
+import usf.java.sql.core.adapter.Adapter;
 import usf.java.sql.core.reflect.Worker;
-import usf.java.sql.core.reflect.Worker.Adapter;
 
-public interface Updater extends Worker<Updater.UpdaterAdapter> {
+public interface Updater<T extends Adapter> extends Worker<T> {
 	
-	public static interface UpdaterAdapter extends Adapter {
-
-		void adapte(int... count) throws AdapterException;
-
-	}
-
 }

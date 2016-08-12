@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sql.core.adapter.UpdaterAdapter;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
 
-public class UpdateExecutor extends AbstractExecutor {
+public class UpdateExecutor extends AbstractExecutor<UpdaterAdapter> {
 	
 	private Query query;
 	private Arguments args;
