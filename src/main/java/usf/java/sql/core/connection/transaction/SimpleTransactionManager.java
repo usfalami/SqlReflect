@@ -5,31 +5,43 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.connection.manager.ConnectionManager;
+import usf.java.sql.core.connection.manager.SimpleConnectionManager;
+import usf.java.sql.core.connection.provider.ConnectionProvider;
 import usf.java.sql.core.field.Query;
+import usf.java.sql.core.field.User;
 import usf.java.sql.core.reflect.Arguments;
+import usf.java.sql.core.server.Server;
 
-public class SimpleTransactionManager implements TransactionManager {
-	
-	private ConnectionManager cm;
+public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
+
 	private Connection cnx;
 	
-	public SimpleTransactionManager(ConnectionManager cm){
-		 this.cm = cm;
+	public SimpleTransactionManager(ConnectionProvider cp, Server server, User user) {
+		super(cp, server, user);
 	}
 
 	@Override
+	public Connection getConnection() throws SQLException {
+		if(cnx == null || cnx.isClosed()) //
+			cnx = super.getConnection();
+		return this.cnx;
+	}
+	
+	@Override
 	public void startTransaction() throws SQLException {
-		if(cnx != null) return; //throw exception already opened
-		cnx = cm.getConnection();
-		cnx.setAutoCommit(false);
+		getConnection().setAutoCommit(false);
 	}
 
 	@Override
 	public void endTransaction() throws SQLException {
 		if(cnx == null || cnx.isClosed()) return; //throw exception no transaction
-		cnx.commit();
-		cnx.setAutoCommit(true);
+		try {
+			cnx.commit();
+		} catch (SQLException e) {
+			throw e;			
+		}finally {
+			cnx.setAutoCommit(true);
+		}
 	}
 
 	@Override
@@ -41,18 +53,25 @@ public class SimpleTransactionManager implements TransactionManager {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void close(Connection cnx) {
+		try {
+			if(cnx == null || cnx.isClosed()) return;
+			//Important : Close connexion only if there is no transaction
+			if(cnx != this.cnx || cnx.getAutoCommit())
+				close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
-	public void close() throws SQLException {
-		cm.close(cnx);
+	public void close() {
+		super.close(cnx);
 		cnx = null;
 	}
 
-	@Override
-	public Statement buildStatement(Query query, Arguments args) throws SQLException  {
-		return cm.buildStatement(cnx, query, args);
-	}
-	
 	@Override
 	public Statement buildBatch(Query... queries) throws SQLException {
 		if(cnx == null || cnx.isClosed()) return null; //throw exception no transaction

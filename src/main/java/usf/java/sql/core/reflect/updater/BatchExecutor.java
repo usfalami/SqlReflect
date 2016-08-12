@@ -3,7 +3,6 @@ package usf.java.sql.core.reflect.updater;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
@@ -14,7 +13,7 @@ public class BatchExecutor extends AbstractExecutor {
 	private Query[] queries;
 	private Arguments[] args;
 
-	public BatchExecutor(ConnectionManager cm) {
+	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
 

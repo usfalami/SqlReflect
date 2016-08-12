@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sql.core.connection.provider.ConnectionProvider;
-import usf.java.sql.core.connection.transaction.SimpleTransactionManager;
-import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.field.User;
 import usf.java.sql.core.parser.SimpleSqlParser;
@@ -34,7 +32,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Statement buildStatement(Connection cnx,  Query query, Arguments args) throws SQLException  {
+	public Statement buildStatement(Connection cnx, Query query, Arguments args) throws SQLException  {
 		if(args == null || args.isEmpty()) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
@@ -48,11 +46,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 	@Override
 	public ResultSet executeQuery(Statement stmt, String query) throws SQLException {
 		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
-	}
-	
-	@Override
-	public TransactionManager getTransactionManager() {
-		return new SimpleTransactionManager(this);
 	}
 
 	@Override
@@ -84,16 +77,4 @@ public class SimpleConnectionManager implements ConnectionManager {
 			}
 		}
 	}
-	
-	@Override
-	public void close(TransactionManager tm) {
-		if(tm != null){
-			try {
-				tm.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 }

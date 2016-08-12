@@ -2,20 +2,19 @@ package usf.java.sql.core.reflect.updater;
 
 import java.sql.SQLException;
 
-import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.reflect.Reflector;
 
 public abstract class AbstractExecutor extends Reflector implements Updater {
 
-	public AbstractExecutor(ConnectionManager cm) {
-		super(cm);
+	public AbstractExecutor(TransactionManager tm) {
+		super(tm);
 	}
 
 	@Override
 	public final void run(UpdaterAdapter adapter) throws SQLException, AdapterException {
-		TransactionManager tm = getConnectionManager().getTransactionManager();
+		TransactionManager tm = (TransactionManager) getConnectionManager();
 		try {
 			tm.startTransaction();
 			run(tm, adapter);
@@ -26,7 +25,7 @@ public abstract class AbstractExecutor extends Reflector implements Updater {
 			throw e;
 		}
 		finally {
-			getConnectionManager().close(tm);
+			tm.close();
 		}
 	}
 	

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
@@ -15,7 +14,7 @@ public class UpdateExecutor extends AbstractExecutor {
 	private Query query;
 	private Arguments args;
 
-	public UpdateExecutor(ConnectionManager cm) {
+	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
 	
@@ -30,7 +29,7 @@ public class UpdateExecutor extends AbstractExecutor {
 		adapter.start();
 		Statement stmt = null;
 		try {
-			stmt = tm.buildStatement(query, args);
+			stmt = tm.buildStatement(tm.getConnection(), query, args);
 			int count = tm.executeUpdate(stmt, query);
 			adapter.adapte(count);
 		} catch (SQLException e) {
