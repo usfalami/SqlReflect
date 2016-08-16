@@ -34,7 +34,6 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws Exception {
 		Statement stmt = null;
 		try {
-			adapter.start();
 			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 			int[] count = stmt.executeBatch();
 			adapter.adapte(count);
@@ -43,7 +42,6 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 		}
 		finally {
 			getConnectionManager().close(stmt);
-			adapter.end();
 		}
 	}
 	

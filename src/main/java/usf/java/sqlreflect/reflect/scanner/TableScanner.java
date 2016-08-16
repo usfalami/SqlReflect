@@ -31,7 +31,6 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Table> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			int row = 0;
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
 			Mapper<Table> mapper = new TableMapper();
@@ -58,7 +57,6 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 	

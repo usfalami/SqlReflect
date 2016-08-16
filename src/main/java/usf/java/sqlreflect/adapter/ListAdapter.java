@@ -10,12 +10,12 @@ public class ListAdapter<T> implements ScannerAdapter<T> {
 	protected List<T> list;
 	
 	public ListAdapter() {
-		
+		list = new ArrayList<T>();
 	}
 
 	@Override
 	public void start() {
-		list = new ArrayList<T>();
+		
 	}
 
 	@Override

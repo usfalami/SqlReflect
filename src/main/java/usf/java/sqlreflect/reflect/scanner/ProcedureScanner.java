@@ -31,7 +31,6 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			Mapper<Procedure> mapper = new ProcedureMapper();
@@ -57,7 +56,6 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 	

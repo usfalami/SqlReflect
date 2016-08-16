@@ -21,7 +21,6 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 	protected void run(Statement stmt, ScannerAdapter<T> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
@@ -37,7 +36,6 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 

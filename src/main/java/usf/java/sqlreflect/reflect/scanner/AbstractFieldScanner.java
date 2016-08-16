@@ -26,6 +26,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 	public final void run(ScannerAdapter<T> adapter) throws Exception {
 		Connection cnx = null;
 		try {
+			adapter.start();
 			cnx = getConnectionManager().getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter);
@@ -35,6 +36,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 		}
 		finally {
 			getConnectionManager().close(cnx);
+			adapter.end();
 		}
 	}
 

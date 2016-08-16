@@ -26,7 +26,6 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Database> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			Mapper<Database> mapper = new DatabaseMapper();
 			int row = 0;
@@ -41,7 +40,6 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 

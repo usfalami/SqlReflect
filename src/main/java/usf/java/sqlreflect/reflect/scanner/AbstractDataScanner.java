@@ -38,6 +38,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 	public final void run(ScannerAdapter<T> adapter) throws Exception {
 		Connection cnx = null;
 		try {
+			adapter.start();
 			cnx = getConnectionManager().getConnection();
 			Statement stmt = null;
 			try {
@@ -55,6 +56,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		}
 		finally {
 			getConnectionManager().close(cnx);
+			adapter.end();
 		}
 	}
 	

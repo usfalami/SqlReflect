@@ -13,21 +13,23 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 	@Override
 	public final void run(T adapter) throws Exception {
 		TransactionManager tm = (TransactionManager) getConnectionManager();
-		if(tm.isTransaction())
-			run(tm, adapter);
-		else{
-			try {
+		try {
+			adapter.start();
+			if(tm.isTransaction())
+				run(tm, adapter);
+			else{
 				tm.startTransaction();
 				run(tm, adapter);
 				tm.endTransaction();
-			} catch (Exception e) {
-				tm.rollback();
-				e.printStackTrace();
-				throw e;
 			}
-			finally {
-				tm.close();
-			}
+		} catch (Exception e) {
+			tm.rollback();
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			tm.close();
+			adapter.end();
 		}
 	}
 	

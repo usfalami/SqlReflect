@@ -20,7 +20,6 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	protected void run(Statement stmt, ScannerAdapter<Header> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();
@@ -34,7 +33,6 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 

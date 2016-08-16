@@ -29,7 +29,6 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Column> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
-			adapter.start();
 			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
 			Mapper<Column> mapper = field.getMapper();
 			int row = 0;
@@ -43,7 +42,6 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 		}
 		finally {
 			getConnectionManager().close(rs);
-			adapter.end();
 		}
 	}
 
