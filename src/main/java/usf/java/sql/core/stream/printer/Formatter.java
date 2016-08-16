@@ -1,6 +1,5 @@
-package usf.java.sql.adapter.formatter;
+package usf.java.sql.core.stream.printer;
 
-@Deprecated
 public interface Formatter {
 	
 	void configure(int... sizes);
