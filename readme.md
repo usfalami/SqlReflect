@@ -63,7 +63,7 @@ COLUMN_2 |CHAR       |10      |java.lang.String   |
 COLUMN_3 |VARCHAR    |32      |java.lang.String   |
 COLUMN_4 |VARCHAR    |256     |java.lang.String   |
 COLUMN_5 |DATE       |10      |java.sql.Date      |
-COLUMN_7 |BYTEINT    |4       |java.lang.Integer  |
+COLUMN_6 |BYTEINT    |4       |java.lang.Integer  |
 
 	
 #Execution mesure time
