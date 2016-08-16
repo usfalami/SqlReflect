@@ -19,13 +19,13 @@
 
 	List<Database> list = new DatabaseScanner(cm).run();
 
-|Database
+| Database
 |---------
-|DATABASE_DEV1
-|DATABASE_DEV2
-|DATABASE_TEST
-|DATABASE_ISO
-|DATABASE_PROD
+| DATABASE_DEV1
+| DATABASE_DEV2
+| DATABASE_TEST
+| DATABASE_ISO
+| DATABASE_PROD
 
 #Table list
 
@@ -46,11 +46,11 @@ DATABASE_PROD | TABLE_ADRESS
 	
 	new RowScanner<Row>(cm, mapper).set(query).run();
 	
-COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
-----------|---------|-------------|---------|---------|--------
-1450741 |PRM    |30000120139847  |null |2004-05-01 |1
-1450741 |IDC    |01201398        |null |2004-05-01 |1
-1450741 |PADT-C |0000002377      |null |2004-05-01 |1
+COLUMN_1 | COLUMN_2 | COLUMN_3 | COLUMN_4 | COLUMN_5 | COLUMN_6
+---------|----------|----------|----------|----------|---------
+1450741 | PRM    | 30000120139847 | null | 2004-05-01 | 1
+1450741 | IDC    | 01201398       | null | 2004-05-01 | 1
+1450741 | PADT-C | 0000002377     | null | 2004-05-01 | 1
 
 #Header description list
 
@@ -58,14 +58,14 @@ COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
 	
 	List<Header> list = new HeaderScanner(cm).set(query).run();
 	
-HEADER_NAME |TYPE_NAME |LENGTH |CLASS
--------|-------|-----|---------------
-COLUMN_1 |BIGINT  |20  |java.lang.Long   
-COLUMN_2 |CHAR    |10  |java.lang.String 
-COLUMN_3 |VARCHAR |32  |java.lang.String 
-COLUMN_4 |VARCHAR |256 |java.lang.String 
-COLUMN_5 |DATE    |10  |java.sql.Date    
-COLUMN_6 |BYTEINT |4   |java.lang.Integer
+HEADER_NAME | TYPE_NAME | LENGTH | CLASS
+------------|-----------|--------|------
+COLUMN_1 | BIGINT  | 20  | java.lang.Long   
+COLUMN_2 | CHAR    | 10  | java.lang.String 
+COLUMN_3 | VARCHAR | 32  | java.lang.String 
+COLUMN_4 | VARCHAR | 256 | java.lang.String 
+COLUMN_5 | DATE    | 10  | java.sql.Date    
+COLUMN_6 | BYTEINT | 4   | java.lang.Integer
 
 	
 #Execution mesure time
@@ -73,10 +73,10 @@ COLUMN_6 |BYTEINT |4   |java.lang.Integer
 	TimePerform perf = new ExecutorPerformer(cm).set("SELECT DATABASE").run();
 
 Action | Start | End | Duration
--------|-------|-----|-----------------------------
-Connection  |11:43:51.210  |11:43:54.797  | 3587 
-Statment    |11:43:54.797  |11:43:54.797  |    0 
-Execution   |11:43:54.797  |11:43:54.860  |   63 
-Total       |11:43:51.210  |11:43:54.875  | 3665  
+-------|-------|-----|---------
+Connection | 11:43:51.210 | 11:43:54.797 | 3587
+Statment   | 11:43:54.797 | 11:43:54.797 |    0
+Execution  | 11:43:54.797 | 11:43:54.860 |   63
+Total      | 11:43:51.210 | 11:43:54.875 | 3665
 
 
