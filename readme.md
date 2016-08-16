@@ -31,7 +31,7 @@
 
 	List<Table> list = new TableScanner(cm).run();
 
-Schema | Table
+Database | Table
 -------|---------
 DATABASE_DEV1 | TABLE_CLIENT
 DATABASE_DEV1 | TABLE_PROVIDER
