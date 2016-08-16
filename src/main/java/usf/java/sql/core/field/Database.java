@@ -19,5 +19,10 @@ public class Database implements Field {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Database [name=" + name + "]";
+	}
 	
 }
