@@ -1,4 +1,4 @@
-package usf.java.sql.core.field;
+package usf.java.sql.core.connection;
 
 public class User {
 	

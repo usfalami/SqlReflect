@@ -3,7 +3,7 @@ package usf.java.sql.core.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sql.core.field.User;
+import usf.java.sql.core.connection.User;
 
 public interface ConnectionProvider {
 	

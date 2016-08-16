@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import usf.java.sql.core.field.User;
+import usf.java.sql.core.connection.User;
 
 public class PoolConnectionProvider implements ConnectionProvider {
 

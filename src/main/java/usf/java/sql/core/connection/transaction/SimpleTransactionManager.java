@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sql.core.connection.User;
 import usf.java.sql.core.connection.manager.SimpleConnectionManager;
 import usf.java.sql.core.connection.provider.ConnectionProvider;
 import usf.java.sql.core.field.Query;
-import usf.java.sql.core.field.User;
 import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.server.Server;
 

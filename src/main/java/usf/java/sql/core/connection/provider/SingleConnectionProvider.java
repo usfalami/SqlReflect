@@ -3,8 +3,8 @@ package usf.java.sql.core.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import usf.java.sql.core.connection.User;
 import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.User;
 import usf.java.sql.core.server.Server;
 
 public class SingleConnectionProvider extends SimpleConnectionProvider {
