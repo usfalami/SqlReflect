@@ -43,6 +43,7 @@ SCH_1 | TABLE_ADRESS
 	List<Table> list = new HeaderScanner(cm).set("select * from DATABASE_DEV1.TABLE_PROVIDER").run();
 	
 HEADER_NAME |TYPE_NAME |LENGTH |CLASS |
+-------|-------|-----|-----------------------------
 COLUMN_1 |BIGINT     |20      |java.lang.Long     |
 COLUMN_2 |CHAR       |10      |java.lang.String   |
 COLUMN_3 |VARCHAR    |32      |java.lang.String   |
