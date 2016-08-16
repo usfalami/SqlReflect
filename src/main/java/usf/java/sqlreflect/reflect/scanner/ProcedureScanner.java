@@ -54,7 +54,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 				}
 			}
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

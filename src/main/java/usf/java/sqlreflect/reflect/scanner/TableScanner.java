@@ -55,7 +55,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 				}
 			}
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

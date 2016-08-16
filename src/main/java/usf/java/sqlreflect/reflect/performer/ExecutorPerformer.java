@@ -54,20 +54,20 @@ public class ExecutorPerformer extends AbstractReflector implements Performer {
 					rs = getConnectionManager().executeQuery(stmt, query.getSQL());
 					adapter.postExec(ReflectorUtils.rowsCount(rs));
 					
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					throw e;
 				}
 				finally {
 					getConnectionManager().close(rs);
 				}
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				throw e;
 			}
 			finally {
 				getConnectionManager().close(stmt);
 			}
 		
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}

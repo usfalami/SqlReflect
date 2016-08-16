@@ -31,7 +31,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 				Header col = mapper.map(rs, i);
 				adapter.adapte(col, i);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

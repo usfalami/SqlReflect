@@ -36,7 +36,7 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 			stmt = tm.buildStatement(tm.getConnection(), query, args);
 			int count = tm.executeUpdate(stmt, query);
 			adapter.adapte(count);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

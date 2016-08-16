@@ -40,7 +40,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 				Column column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

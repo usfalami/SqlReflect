@@ -43,7 +43,7 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 			int[] count = stmt.executeBatch();
 			adapter.adapte(count);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

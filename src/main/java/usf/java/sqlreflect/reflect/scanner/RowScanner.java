@@ -34,7 +34,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 				adapter.adapte(bean, row++);
 			}
 			rs.beforeFirst();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 		finally {

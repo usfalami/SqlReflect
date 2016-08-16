@@ -38,7 +38,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 				adapter.adapte(database, row++);
 			}
 		}
-		catch(SQLException e) {
+		catch(Exception e) {
 			throw e;
 		}
 		finally {
