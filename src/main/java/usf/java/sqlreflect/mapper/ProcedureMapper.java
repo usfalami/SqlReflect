@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Procedure;
@@ -10,7 +9,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ProcedureMapper implements Mapper<Procedure> {
 
 	@Override
-	public Procedure map(ResultSet rs, int row) throws SQLException {
+	public Procedure map(ResultSet rs, int row) throws Exception {
 		return new Procedure(
 				rs.getString("PROCEDURE_SCHEM"), 
 				rs.getString("PROCEDURE_NAME"));

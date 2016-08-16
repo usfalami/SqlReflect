@@ -2,7 +2,6 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -10,7 +9,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class HeaderMapper implements Mapper<Header> {
 
 	@Override
-	public Header map(ResultSet rs, int row) throws SQLException {
+	public Header map(ResultSet rs, int row) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
 		return new Header(
 				md.getColumnName(row),

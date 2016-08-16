@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Database;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -9,7 +8,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class DatabaseMapper implements Mapper<Database> {
 
 	@Override
-	public Database map(ResultSet rs, int row) throws SQLException {
+	public Database map(ResultSet rs, int row) throws Exception {
 		return new Database(rs.getString("TABLE_SCHEM"));
 	}
 

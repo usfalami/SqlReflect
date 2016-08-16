@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import usf.java.sqlreflect.reflect.performer.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -9,7 +8,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class TimePerforMapper implements Mapper<TimePerform> {
 
 	@Override
-	public TimePerform map(ResultSet rs, int row) throws SQLException {
+	public TimePerform map(ResultSet rs, int row) throws Exception {
 		return null;
 	}
 

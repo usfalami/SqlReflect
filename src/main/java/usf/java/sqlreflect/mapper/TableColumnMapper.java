@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -9,7 +8,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class TableColumnMapper implements Mapper<Column> {
 
 	@Override
-	public Column map(ResultSet rs, int row) throws SQLException {
+	public Column map(ResultSet rs, int row) throws Exception {
 		return new Column(
 			rs.getString("COLUMN_NAME").toString(),
 			rs.getString("TYPE_NAME").toString(),
