@@ -7,8 +7,6 @@ import usf.java.sqlreflect.field.Env;
 import usf.java.sqlreflect.field.Macro;
 import usf.java.sqlreflect.field.Procedure;
 import usf.java.sqlreflect.field.Query;
-import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.server.TeradataServer;
 
 
 public class TeradataServerTest extends TestCase {

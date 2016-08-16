@@ -10,9 +10,9 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.exception.AdapterException;
+import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.Arguments;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	

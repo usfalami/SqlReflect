@@ -20,7 +20,7 @@ public class PoolConnectionProvider implements ConnectionProvider {
 	}
 
 	@Override
-	public Connection getConnection(User user) throws SQLException {
+	public synchronized Connection getConnection(User user) throws SQLException {
 		return user == null ? null : ds.getConnection();
 		//		return user == null ? null : ds.getConnection(user.getLogin(), user.getPass());
 	}

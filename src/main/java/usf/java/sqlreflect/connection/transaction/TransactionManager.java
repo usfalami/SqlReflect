@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
+import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
-import usf.java.sqlreflect.reflect.Arguments;
 
 public interface TransactionManager extends ConnectionManager {
 	

@@ -1,8 +1,8 @@
-package usf.java.sqlreflect.reflect;
+package usf.java.sqlreflect.field;
 
 import java.io.Serializable;
 
-public class Arguments {
+public class Arguments implements Field {
 	
 	private Serializable[] args;
 		

@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.User;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.reflect.Arguments;
 import usf.java.sqlreflect.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {

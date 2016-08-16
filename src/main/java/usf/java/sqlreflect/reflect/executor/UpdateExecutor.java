@@ -7,8 +7,8 @@ import java.sql.Statement;
 import usf.java.sqlreflect.adapter.ExecutorAdapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.exception.AdapterException;
+import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
-import usf.java.sqlreflect.reflect.Arguments;
 
 public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	

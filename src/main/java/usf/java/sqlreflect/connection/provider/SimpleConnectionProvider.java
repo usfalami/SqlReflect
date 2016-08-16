@@ -17,7 +17,7 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 	}
 	
 	@Override
-	public Connection getConnection(User user) throws SQLException {
+	public synchronized Connection getConnection(User user) throws SQLException {
 		return user == null ? null : DriverManager.getConnection(url, user.getLogin(), user.getPass());
 	}
 	

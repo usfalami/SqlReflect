@@ -10,9 +10,9 @@ import usf.java.sqlreflect.adapter.PerformAdapter;
 import usf.java.sqlreflect.adapter.TimePerformAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.exception.AdapterException;
+import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.Arguments;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 
 public class ExecutorPerformer extends AbstractReflector implements Performer {
