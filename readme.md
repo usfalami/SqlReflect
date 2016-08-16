@@ -43,6 +43,7 @@ DATABASE_PROD | TABLE_ADRESS
 
 	String query = "select * from DATABASE_DEV1.TABLE_PROVIDER";
 	RowMapper mapper = new RowMapper();
+	
 	new RowScanner<Row>(cm, mapper).set(query).run();
 	
 COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
@@ -54,6 +55,7 @@ COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
 #Query headers
 
 	String query = "select * from DATABASE_DEV1.TABLE_PROVIDER";
+	
 	List<Header> list = new HeaderScanner(cm).set(query).run();
 	
 HEADER_NAME |TYPE_NAME |LENGTH |CLASS |
