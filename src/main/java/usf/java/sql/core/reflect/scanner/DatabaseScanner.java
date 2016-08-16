@@ -32,7 +32,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			Mapper<Database> mapper = new DatabaseMapper();
 			int row = 0;
-			adapter.headers(mapper);
+			adapter.prepare(mapper);
 			while(rs.next()){
 				Database database = mapper.map(rs, row+1);
 				adapter.adapte(database, row++);

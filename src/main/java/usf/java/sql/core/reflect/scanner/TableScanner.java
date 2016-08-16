@@ -37,7 +37,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			int row = 0;
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
 			Mapper<Table> mapper = new TableMapper();
-			adapter.headers(mapper);
+			adapter.prepare(mapper);
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(getConnectionManager(), HasColumn.TABLE);
 				while(rs.next()){

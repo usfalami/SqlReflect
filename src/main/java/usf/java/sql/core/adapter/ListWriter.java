@@ -6,8 +6,8 @@ import usf.java.sql.core.stream.StreamWriter;
 
 public class ListWriter<T> implements ScannerAdapter<T> {
 
-	private Mapper<T> mapper;
 	private StreamWriter writer;
+	private Mapper<T> mapper;
 
 	public ListWriter(StreamWriter writer) {
 		this.writer = writer;
@@ -23,7 +23,7 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 	}
 	
 	@Override
-	public void headers(Mapper<T> mapper) throws AdapterException {
+	public void prepare(Mapper<T> mapper) throws AdapterException {
 		try {
 			this.mapper = mapper;
 			writer.startList("LIST", mapper.getColumnNames());

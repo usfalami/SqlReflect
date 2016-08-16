@@ -12,17 +12,17 @@ public class ListAdapter<T> implements ScannerAdapter<T> {
 	public ListAdapter() {
 		
 	}
-	
-	@Override
-	public void headers(Mapper<T> mapper) {
-		
-	}
 
 	@Override
 	public void start() {
 		list = new ArrayList<T>();
 	}
 
+	@Override
+	public void prepare(Mapper<T> mapper) {
+		
+	}
+	
 	@Override
 	public void adapte(T field, int index) {
 		list.add(field);

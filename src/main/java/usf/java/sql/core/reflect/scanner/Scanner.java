@@ -11,6 +11,4 @@ public interface Scanner<T> extends Reflector<ScannerAdapter<T>> {
 	
 	List<T> run() throws SQLException, AdapterException;
 	
-
-	
 }

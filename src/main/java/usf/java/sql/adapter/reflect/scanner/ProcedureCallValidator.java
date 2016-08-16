@@ -30,7 +30,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	}
 	
 	@Override
-	public void headers(Mapper<Procedure> mapper) {
+	public void prepare(Mapper<Procedure> mapper) {
 		
 	}
 
