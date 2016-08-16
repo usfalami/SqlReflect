@@ -9,9 +9,9 @@ import usf.java.sql.core.adapter.ListAdapter;
 import usf.java.sql.core.adapter.ScannerAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.AbstractReflector;
 
-public abstract class AbstractFieldScanner<T> extends Reflector implements Scanner<T> {
+public abstract class AbstractFieldScanner<T> extends AbstractReflector implements Scanner<T> {
 	
 	public AbstractFieldScanner(ConnectionManager cm) {
 		super(cm);

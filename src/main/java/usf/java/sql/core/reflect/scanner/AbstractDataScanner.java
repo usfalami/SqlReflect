@@ -12,9 +12,9 @@ import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
 import usf.java.sql.core.reflect.Arguments;
-import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.AbstractReflector;
 
-public abstract class AbstractDataScanner<T> extends Reflector implements Scanner<T> {
+public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	
 	private Query query;
 	private Arguments args;

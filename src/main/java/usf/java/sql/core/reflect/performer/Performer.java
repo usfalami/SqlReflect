@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import usf.java.sql.core.adapter.PerformAdapter;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.TimePerform;
-import usf.java.sql.core.reflect.Worker;
+import usf.java.sql.core.reflect.Reflector;
 
-public interface Performer extends Worker<PerformAdapter> {
+public interface Performer extends Reflector<PerformAdapter> {
 
 	TimePerform run() throws SQLException, AdapterException;
 	

@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import usf.java.sql.core.adapter.Adapter;
 import usf.java.sql.core.connection.transaction.TransactionManager;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.reflect.Reflector;
+import usf.java.sql.core.reflect.AbstractReflector;
 
-public abstract class AbstractExecutor<T extends Adapter> extends Reflector implements Executor<T> {
+public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflector implements Executor<T> {
 	
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);

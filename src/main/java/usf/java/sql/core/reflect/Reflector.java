@@ -1,17 +1,12 @@
 package usf.java.sql.core.reflect;
 
-import usf.java.sql.core.connection.manager.ConnectionManager;
+import java.sql.SQLException;
 
-public abstract class Reflector {
-	
-	private ConnectionManager cm;
-	
-	public Reflector(ConnectionManager cm) {
-		this.cm = cm;
-	}
-	
-	public ConnectionManager getConnectionManager() {
-		return cm;
-	}
+import usf.java.sql.core.adapter.Adapter;
+import usf.java.sql.core.exception.AdapterException;
 
+public interface Reflector<T extends Adapter> {
+	
+	void run(T adapter) throws SQLException, AdapterException;
+	
 }

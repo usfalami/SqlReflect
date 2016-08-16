@@ -5,9 +5,9 @@ import java.util.List;
 
 import usf.java.sql.core.adapter.ScannerAdapter;
 import usf.java.sql.core.exception.AdapterException;
-import usf.java.sql.core.reflect.Worker;
+import usf.java.sql.core.reflect.Reflector;
 
-public interface Scanner<T> extends Worker<ScannerAdapter<T>> {
+public interface Scanner<T> extends Reflector<ScannerAdapter<T>> {
 	
 	List<T> run() throws SQLException, AdapterException;
 	
