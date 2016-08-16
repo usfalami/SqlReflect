@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.adapter;
 
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.performer.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -17,17 +16,13 @@ public class TimePerformWriter extends TimePerformAdapter  {
 	}
 
 	@Override
-	public void end() throws AdapterException {
+	public void end() throws Exception {
 		super.end();
-		try {
-			writer.start("LIST");
-			writer.startList("LIST", mapper.getColumnNames());
-			mapper.write(writer, time);
-			writer.endList();
-			writer.end();
-		} catch (Exception e) {
-			throw new AdapterException(e);
-		}
+		writer.start("LIST");
+		writer.startList("LIST", mapper.getColumnNames());
+		mapper.write(writer, time);
+		writer.endList();
+		writer.end();
 	}
 	
 }

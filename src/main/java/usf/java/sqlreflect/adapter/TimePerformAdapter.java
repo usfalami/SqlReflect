@@ -1,8 +1,5 @@
 package usf.java.sqlreflect.adapter;
 
-import java.sql.SQLException;
-
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.reflect.performer.TimePerform;
 
 public class TimePerformAdapter implements PerformAdapter {
@@ -33,17 +30,17 @@ public class TimePerformAdapter implements PerformAdapter {
 	}
 
 	@Override
-	public void preExec() throws SQLException {
+	public void preExec() {
 		time.setExecStart(System.currentTimeMillis());
 	}
 	@Override
-	public void postExec(int rowCount) throws SQLException {
+	public void postExec(int rowCount) {
 		time.setExecEnd(System.currentTimeMillis());
 		time.setRowsCount(rowCount);
 	}
 	
 	@Override
-	public void end() throws AdapterException {
+	public void end() throws Exception {
 		time.setEnd(System.currentTimeMillis());
 	}
 	

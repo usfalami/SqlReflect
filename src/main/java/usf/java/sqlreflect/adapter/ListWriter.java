@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.adapter;
 
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -14,41 +13,25 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 	}
 
 	@Override
-	public void start() throws AdapterException {
-		try {
-			writer.start("LIST");
-		} catch (Exception e) {
-			throw new AdapterException(e);
-		}
+	public void start() throws Exception {
+		writer.start("LIST");
 	}
 	
 	@Override
-	public void prepare(Mapper<T> mapper) throws AdapterException {
-		try {
-			this.mapper = mapper;
-			writer.startList("LIST", mapper.getColumnNames());
-		} catch (Exception e) {
-			throw new AdapterException(e);
-		}
+	public void prepare(Mapper<T> mapper) throws Exception {
+		this.mapper = mapper;
+		writer.startList("LIST", mapper.getColumnNames());
 	}
 
 	@Override
-	public void adapte(T field, int index) throws AdapterException {
-		try {
-			mapper.write(writer, field);
-		} catch (Exception e) {
-			throw new AdapterException(e);
-		}
+	public void adapte(T field, int index) throws Exception {
+		mapper.write(writer, field);
 	}
 
 	@Override
-	public void end() throws AdapterException {
-		try {
-			writer.endList();
-			writer.end();
-		} catch (Exception e) {
-			throw new AdapterException(e);
-		}
+	public void end() throws Exception {
+		writer.endList();
+		writer.end();
 	}
 	
 }

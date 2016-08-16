@@ -4,7 +4,6 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.field.Callable;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Procedure;
@@ -34,19 +33,19 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	}
 
 	@Override
-	public void adapte(Procedure procedure, int index) throws AdapterException {
+	public void adapte(Procedure procedure, int index) throws Exception {
 		List<?extends Column>columns = procedure.getColumns();
 		if(columns==null || columns.size()==0) {
 			if(callable.getParameters().length == 0) 
 				isValid = true;
 			else 
-				throw new AdapterException("[Error] Too many parameters : expected 0 parameters");
+				throw new Exception("[Error] Too many parameters : expected 0 parameters");
 		}
 		else if(callable.getParameters().length > columns.size())
-			throw new AdapterException("[Error] Too many parameters : expected " + columns.size() + " parameters");
+			throw new Exception("[Error] Too many parameters : expected " + columns.size() + " parameters");
 		
 		else if(callable.getParameters().length < columns.size())
-			throw new AdapterException("[Error] Too few parameters : expected " + columns.size() + " parameters");
+			throw new Exception("[Error] Too few parameters : expected " + columns.size() + " parameters");
 
 		else isValid = true;
 	}

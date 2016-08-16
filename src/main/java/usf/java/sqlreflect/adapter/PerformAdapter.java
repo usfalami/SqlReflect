@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.adapter;
 
-import java.sql.SQLException;
 
 public interface PerformAdapter extends Adapter {
 
@@ -10,6 +9,6 @@ public interface PerformAdapter extends Adapter {
 	void preStatement();
 	void postStatement();
 	
-	void preExec() throws SQLException ;
-	void postExec(int rowCount) throws SQLException;
+	void preExec() throws Exception ;
+	void postExec(int rowCount) throws Exception;
 }

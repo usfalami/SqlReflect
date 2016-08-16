@@ -19,9 +19,9 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 
 	@Override
 	protected void run(Statement stmt, ScannerAdapter<T> adapter) throws Exception {
-		adapter.start();
 		ResultSet rs = null;
 		try {
+			adapter.start();
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
