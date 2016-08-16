@@ -52,7 +52,7 @@ COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
 1450741 |IDC    |01201398        |null |2004-05-01 |1
 1450741 |PADT-C |0000002377      |null |2004-05-01 |1
 
-#Query headers
+#Header description list
 
 	String query = "select * from DATABASE_DEV1.TABLE_PROVIDER";
 	
