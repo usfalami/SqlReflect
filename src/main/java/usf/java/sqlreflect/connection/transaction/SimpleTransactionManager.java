@@ -44,6 +44,12 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 			cnx.setAutoCommit(true);
 		}
 	}
+	
+	@Override
+	public boolean isTransaction() throws SQLException {
+		if(cnx == null || cnx.isClosed()) return false;
+		return !cnx.getAutoCommit();
+	}
 
 	@Override
 	public void rollback() {

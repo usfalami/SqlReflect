@@ -45,11 +45,11 @@ public class ReflectorFactory {
 	}
 	
 	public UpdateExecutor getUpdateExecutor() {
-		return new UpdateExecutor(tm, true);
+		return new UpdateExecutor(tm);
 	}
 	
 	public BatchExecutor getBatchExecutor() {
-		return new BatchExecutor(tm, true);
+		return new BatchExecutor(tm);
 	}
 	
 	public TransactionManager getTransactionManager() {

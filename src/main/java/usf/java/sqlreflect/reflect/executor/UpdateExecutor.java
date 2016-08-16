@@ -18,9 +18,6 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public UpdateExecutor(TransactionManager tm, boolean subTransaction) {
-		super(tm, subTransaction);
-	}
 	
 	public UpdateExecutor set(String sql, Serializable... args) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);

@@ -17,9 +17,6 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public BatchExecutor(TransactionManager tm, boolean subTransaction) {
-		super(tm, subTransaction);
-	}
 
 
 	public BatchExecutor set(String... sql) {

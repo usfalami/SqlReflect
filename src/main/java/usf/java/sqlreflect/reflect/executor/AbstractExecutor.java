@@ -9,21 +9,14 @@ import usf.java.sqlreflect.reflect.AbstractReflector;
 
 public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflector implements Executor<T> {
 	
-	private boolean subTransaction;
-	
 	public AbstractExecutor(TransactionManager tm) {
-		this(tm, false);
-	}
-	
-	public AbstractExecutor(TransactionManager tm, boolean subTransaction) {
 		super(tm);
-		this.subTransaction = subTransaction;
 	}
 	
 	@Override
 	public final void run(T adapter) throws SQLException, AdapterException {
 		TransactionManager tm = (TransactionManager) getConnectionManager();
-		if(subTransaction)
+		if(tm.isTransaction())
 			run(tm, adapter);
 		else{
 			try {
