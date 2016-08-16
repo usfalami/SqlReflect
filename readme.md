@@ -39,7 +39,20 @@ DATABASE_DEV1 | TABLE_PRODUCT
 DATABASE_PROD | TABLE_ADRESS
 
 
-#Query headers list
+#Row list
+
+	String query = "select * from DATABASE_DEV1.TABLE_PROVIDER";
+	RowMapper mapper = new RowMapper();
+	new RowScanner<Row>(cm, mapper).set(query).run();
+	
+COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6 |COLUMN_7  |COLUMN_8  |
+----------|---------|-------------|---------|---------|---------|----------|----------|
+1450741 |PRM    |30000120139847  |null |2004-05-01  |9999-12-31  |1 |null |
+1450741 |IDC    |01201398        |null |2004-05-01  |9999-12-31  |1 |null |
+1450741 |PADT-C |0000002377      |null |2004-05-01  |2014-05-01  |1 |null |
+
+
+#Query headers
 
 	String query = "select * from DATABASE_DEV1.TABLE_PROVIDER";
 	List<Header> list = new HeaderScanner(cm).set(query).run();
