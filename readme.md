@@ -17,8 +17,6 @@
 
 #Database list
 
-##Src
-
 	List<Database> list = new DatabaseScanner(cm).run();
 
 ##Result
@@ -48,8 +46,6 @@ SCH_1 | TABLE_ADRESS
 	
 #Execution mesure time
 
-##Src
-	
 	TimePerform perf = new ExecutorPerformer(cm).set("SELECT DATABASE").run();
 	
 ##Result	
