@@ -3,12 +3,12 @@ package usf.java.sql.core.db.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sql.core.field.Env;
-import usf.java.sql.core.field.Macro;
-import usf.java.sql.core.field.Procedure;
-import usf.java.sql.core.field.Query;
-import usf.java.sql.core.server.Server;
-import usf.java.sql.core.server.TeradataServer;
+import usf.java.sqlreflect.core.field.Env;
+import usf.java.sqlreflect.core.field.Macro;
+import usf.java.sqlreflect.core.field.Procedure;
+import usf.java.sqlreflect.core.field.Query;
+import usf.java.sqlreflect.core.server.Server;
+import usf.java.sqlreflect.core.server.TeradataServer;
 
 
 public class TeradataServerTest extends TestCase {
