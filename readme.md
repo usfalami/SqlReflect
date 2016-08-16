@@ -19,13 +19,13 @@
 
 	List<Database> list = new DatabaseScanner(cm).run();
 
- Database
----------
-DATABASE_DEV1
-DATABASE_DEV2
-DATABASE_TEST
-DATABASE_ISO
-DATABASE_PROD
+|Database
+|---------
+|DATABASE_DEV1
+|DATABASE_DEV2
+|DATABASE_TEST
+|DATABASE_ISO
+|DATABASE_PROD
 
 #Table list
 
