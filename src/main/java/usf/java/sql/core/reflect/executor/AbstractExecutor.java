@@ -9,27 +9,38 @@ import usf.java.sql.core.reflect.AbstractReflector;
 
 public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflector implements Executor<T> {
 	
+	private boolean subTransaction;
+	
 	public AbstractExecutor(TransactionManager tm) {
+		this(tm, false);
+	}
+	
+	public AbstractExecutor(TransactionManager tm, boolean subTransaction) {
 		super(tm);
+		this.subTransaction = subTransaction;
 	}
 	
 	@Override
 	public final void run(T adapter) throws SQLException, AdapterException {
 		TransactionManager tm = (TransactionManager) getConnectionManager();
-		try {
-			tm.startTransaction();
+		if(subTransaction)
 			run(tm, adapter);
-			tm.endTransaction();
-		} catch (SQLException e) {
-			tm.rollback();
-			e.printStackTrace();
-			throw e;
-		}
-		finally {
-			tm.close();
+		else{
+			try {
+				tm.startTransaction();
+				run(tm, adapter);
+				tm.endTransaction();
+			} catch (SQLException e) {
+				tm.rollback();
+				e.printStackTrace();
+				throw e;
+			}
+			finally {
+				tm.close();
+			}
 		}
 	}
 	
-	public abstract void run(TransactionManager tm, T adapter) throws SQLException, AdapterException;
+	protected abstract void run(TransactionManager tm, T adapter) throws SQLException, AdapterException;
 	
 }

@@ -18,6 +18,9 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
+	public UpdateExecutor(TransactionManager tm, boolean subTransaction) {
+		super(tm, subTransaction);
+	}
 	
 	public UpdateExecutor set(String sql, Serializable... args) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
@@ -26,7 +29,7 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	}
 	
 	@Override
-	public void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
+	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {

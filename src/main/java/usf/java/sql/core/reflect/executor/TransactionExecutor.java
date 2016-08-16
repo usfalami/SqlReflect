@@ -14,7 +14,7 @@ public class TransactionExecutor extends AbstractExecutor<Transaction> {
 	}
 	
 	@Override
-	public void run(TransactionManager tm, Transaction adapter) throws SQLException, AdapterException {
+	protected void run(TransactionManager tm, Transaction adapter) throws SQLException, AdapterException {
 		adapter.start();
 		adapter.execute(new ReflectorFactory(tm));
 		adapter.end();

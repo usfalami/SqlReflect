@@ -17,6 +17,10 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
+	public BatchExecutor(TransactionManager tm, boolean subTransaction) {
+		super(tm, subTransaction);
+	}
+
 
 	public BatchExecutor set(String... sql) {
 		queries = new Query[sql.length];
@@ -32,7 +36,7 @@ public class BatchExecutor extends AbstractExecutor<ExecutorAdapter> {
 	}
 
 	@Override
-	public void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
+	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
 		adapter.start();
 		Statement stmt = null;
 		try {

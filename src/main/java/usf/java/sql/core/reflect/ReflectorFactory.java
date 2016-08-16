@@ -1,12 +1,12 @@
 package usf.java.sql.core.reflect;
 
 import usf.java.sql.core.connection.transaction.TransactionManager;
-import usf.java.sql.core.field.types.HasColumn;
 import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.reflect.executor.BatchExecutor;
 import usf.java.sql.core.reflect.executor.UpdateExecutor;
 import usf.java.sql.core.reflect.scanner.ColumnScanner;
 import usf.java.sql.core.reflect.scanner.DatabaseScanner;
+import usf.java.sql.core.reflect.scanner.HasColumn;
 import usf.java.sql.core.reflect.scanner.HeaderScanner;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 import usf.java.sql.core.reflect.scanner.RowScanner;
@@ -45,11 +45,11 @@ public class ReflectorFactory {
 	}
 	
 	public UpdateExecutor getUpdateExecutor() {
-		return new UpdateExecutor(tm);
+		return new UpdateExecutor(tm, true);
 	}
 	
 	public BatchExecutor getBatchExecutor() {
-		return new BatchExecutor(tm);
+		return new BatchExecutor(tm, true);
 	}
 	
 	public TransactionManager getTransactionManager() {

@@ -1,4 +1,4 @@
-package usf.java.sql.core.field.types;
+package usf.java.sql.core.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;

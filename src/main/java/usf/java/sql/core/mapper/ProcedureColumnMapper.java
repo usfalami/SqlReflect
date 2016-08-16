@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sql.core.field.Column;
-import usf.java.sql.core.field.types.ParameterRoles;
+import usf.java.sql.core.reflect.scanner.ParameterRoles;
 import usf.java.sql.core.stream.StreamWriter;
 
 public class ProcedureColumnMapper implements Mapper<Column> {
