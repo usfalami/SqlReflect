@@ -2,13 +2,11 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 
 public abstract class AbstractFieldScanner<T> extends AbstractReflector implements Scanner<T> {
@@ -18,14 +16,14 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 	}
 
 	@Override
-	public final List<T> run() throws SQLException, AdapterException {
+	public final List<T> run() throws Exception {
 		ListAdapter<T> adapter = new ListAdapter<T>();
 		this.run(adapter);
 		return adapter.getList();
 	}
 	
 	@Override
-	public final void run(ScannerAdapter<T> adapter) throws SQLException, AdapterException {
+	public final void run(ScannerAdapter<T> adapter) throws Exception {
 		Connection cnx = null;
 		try {
 			cnx = getConnectionManager().getConnection();
@@ -40,6 +38,6 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 		}
 	}
 
-	protected abstract void run(DatabaseMetaData dm, ScannerAdapter<T> adapter) throws SQLException, AdapterException;
+	protected abstract void run(DatabaseMetaData dm, ScannerAdapter<T> adapter) throws Exception;
 
 }

@@ -2,12 +2,10 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -30,7 +28,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter) throws SQLException, AdapterException {
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter) throws Exception {
 		adapter.start();
 		ResultSet rs = null;
 		try {

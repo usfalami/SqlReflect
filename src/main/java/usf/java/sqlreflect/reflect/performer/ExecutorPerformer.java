@@ -3,13 +3,11 @@ package usf.java.sqlreflect.reflect.performer;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.adapter.PerformAdapter;
 import usf.java.sqlreflect.adapter.TimePerformAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
@@ -31,7 +29,7 @@ public class ExecutorPerformer extends AbstractReflector implements Performer {
 	}
 	
 	@Override
-	public void run(PerformAdapter adapter) throws SQLException, AdapterException {
+	public void run(PerformAdapter adapter) throws Exception {
 		adapter.start();
 		Connection cnx = null;
 		try {
@@ -78,7 +76,7 @@ public class ExecutorPerformer extends AbstractReflector implements Performer {
 	}
 
 	@Override
-	public TimePerform run() throws SQLException, AdapterException {
+	public TimePerform run() throws Exception {
 		TimePerformAdapter tpa = new TimePerformAdapter();
 		this.run(tpa);
 		return tpa.getTimePerform();

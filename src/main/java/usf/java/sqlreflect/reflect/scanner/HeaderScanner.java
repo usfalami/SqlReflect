@@ -2,12 +2,10 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.field.Header;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -19,7 +17,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	}
 
 	@Override
-	protected void run(Statement stmt, ScannerAdapter<Header> adapter) throws SQLException, AdapterException {
+	protected void run(Statement stmt, ScannerAdapter<Header> adapter) throws Exception {
 		adapter.start();
 		ResultSet rs = null;
 		try {

@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.adapter.reflect.scanner;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sqlreflect.adapter.ScannerAdapter;
@@ -55,7 +54,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	@Override
 	public void end() { }
 	
-	public boolean validate(ConnectionManager cm, String callable) throws SQLException, AdapterException {
+	public boolean validate(ConnectionManager cm, String callable) throws Exception {
 		this.callable = sqlParser.getServer().parseCallable(callable);
 		ProcedureScanner c = new ProcedureScanner(cm);
 		c.set(this.callable.getDatabase(), this.callable.getName(), true);

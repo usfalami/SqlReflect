@@ -1,12 +1,10 @@
 package usf.java.sqlreflect.reflect.executor;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.adapter.ExecutorAdapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
-import usf.java.sqlreflect.exception.AdapterException;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 
@@ -26,7 +24,7 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	}
 	
 	@Override
-	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws SQLException, AdapterException {
+	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws Exception {
 		adapter.start();
 		Statement stmt = null;
 		try {
