@@ -14,6 +14,37 @@
 	
 	//define a connexion manager
 	ConnectionManager cm 	= new SimpleConnectionManager(cp, server, user);
+
+#Database list
+
+##Src
+
+	List<Database> list = new DatabaseScanner(cm).run();
+
+##Result
+
+Schema | Database
+-------|---------
+SCH_1 | DATABASE_1
+SCH_1 | DATABASE_DEV
+SCH_1 | DATABASE_ISO
+SCH_A | DATABASE_PROD
+SCH_A | DATABASE_TEST
+
+#Table list
+
+	List<Table> list = new TableScanner(cm).run();
+
+##Result
+
+Schema | Table
+-------|---------
+SCH_1 | TABLE_CLIENT
+SCH_1 | TABLE_PROVIDER
+SCH_1 | TABLE_PRODUCT
+SCH_1 | TABLE_ADRESS
+
+
 	
 #Execution mesure time
 
@@ -30,20 +61,4 @@ Statment    |11:43:54.797  |11:43:54.797  |    0
 Execution   |11:43:54.797  |11:43:54.860  |   63 
 Total       |11:43:51.210  |11:43:54.875  | 3665   
 
-
-#Database list
-
-##Src
-
-	List<Database> list = new DatabaseScanner(cm).set(null).run();
-
-##Result
-
-Schema | Database
--------|---------
-sche_1 | database_1
-sche_1 | database_2
-sche_1 | database_3
-sche_A | database_A320
-sche_A | database_A455
 
