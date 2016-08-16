@@ -9,39 +9,39 @@ public class TimePerformAdapter implements PerformAdapter {
 	@Override
 	public void start() {
 		time = new TimePerform();
-		time.setStart(System.currentTimeMillis());
+		time.start();
 	}
 
 	@Override
 	public void preConnecion() {	
-		time.setCnxStart(System.currentTimeMillis());
+		time.cnxStart();
 	}
 	@Override
 	public void postConnecion() { 
-		time.setCnxEnd(System.currentTimeMillis());
+		time.cnxEnd();
 	}
 	@Override
 	public void preStatement() {
-		time.setStatStart(System.currentTimeMillis());
+		time.statStart();
 	}
 	@Override
 	public void postStatement() {
-		time.setStatEnd(System.currentTimeMillis());
+		time.statEnd();
 	}
 
 	@Override
 	public void preExec() {
-		time.setExecStart(System.currentTimeMillis());
+		time.execStart();
 	}
 	@Override
 	public void postExec(int rowCount) {
-		time.setExecEnd(System.currentTimeMillis());
-		time.setRowsCount(rowCount);
+		time.execEnd();
+		time.setRowCount(rowCount);
 	}
 	
 	@Override
 	public void end() throws Exception {
-		time.setEnd(System.currentTimeMillis());
+		time.end();
 	}
 	
 	public TimePerform getTimePerform() {
