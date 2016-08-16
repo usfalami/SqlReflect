@@ -3,15 +3,15 @@ package usf.java.sqlreflect.adapter.reflect.scanner;
 import java.sql.SQLException;
 import java.util.List;
 
-import usf.java.sqlreflect.core.adapter.ScannerAdapter;
-import usf.java.sqlreflect.core.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.core.exception.AdapterException;
-import usf.java.sqlreflect.core.field.Callable;
-import usf.java.sqlreflect.core.field.Column;
-import usf.java.sqlreflect.core.field.Procedure;
-import usf.java.sqlreflect.core.mapper.Mapper;
-import usf.java.sqlreflect.core.parser.SqlParser;
-import usf.java.sqlreflect.core.reflect.scanner.ProcedureScanner;
+import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.connection.manager.ConnectionManager;
+import usf.java.sqlreflect.exception.AdapterException;
+import usf.java.sqlreflect.field.Callable;
+import usf.java.sqlreflect.field.Column;
+import usf.java.sqlreflect.field.Procedure;
+import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.parser.SqlParser;
+import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 
 public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 
