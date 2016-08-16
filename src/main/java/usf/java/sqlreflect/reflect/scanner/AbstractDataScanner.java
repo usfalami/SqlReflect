@@ -45,13 +45,13 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 			try {
 				stmt = getConnectionManager().buildStatement(cnx, query, args);
 				run(stmt, adapter);
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				throw e;
 			}
 			finally {
 				getConnectionManager().close(stmt);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}

@@ -23,7 +23,7 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 				tm.startTransaction();
 				run(tm, adapter);
 				tm.endTransaction();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				tm.rollback();
 				e.printStackTrace();
 				throw e;

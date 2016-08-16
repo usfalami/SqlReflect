@@ -31,7 +31,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 			cnx = getConnectionManager().getConnection();
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
