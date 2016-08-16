@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.adapter.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.tmp;
 
 import java.util.List;
 
