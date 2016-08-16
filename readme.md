@@ -45,12 +45,11 @@ DATABASE_PROD | TABLE_ADRESS
 	RowMapper mapper = new RowMapper();
 	new RowScanner<Row>(cm, mapper).set(query).run();
 	
-COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6 |COLUMN_7  |COLUMN_8  |
-----------|---------|-------------|---------|---------|---------|----------|----------|
-1450741 |PRM    |30000120139847  |null |2004-05-01  |9999-12-31  |1 |null |
-1450741 |IDC    |01201398        |null |2004-05-01  |9999-12-31  |1 |null |
-1450741 |PADT-C |0000002377      |null |2004-05-01  |2014-05-01  |1 |null |
-
+COLUMN_1  |COLUMN_2 |COLUMN_3     |COLUMN_4 |COLUMN_5 |COLUMN_6
+----------|---------|-------------|---------|---------|--------
+1450741 |PRM    |30000120139847  |null |2004-05-01 |1
+1450741 |IDC    |01201398        |null |2004-05-01 |1
+1450741 |PADT-C |0000002377      |null |2004-05-01 |1
 
 #Query headers
 
@@ -64,9 +63,7 @@ COLUMN_2 |CHAR       |10      |java.lang.String   |
 COLUMN_3 |VARCHAR    |32      |java.lang.String   |
 COLUMN_4 |VARCHAR    |256     |java.lang.String   |
 COLUMN_5 |DATE       |10      |java.sql.Date      |
-COLUMN_6 |DATE       |10      |java.sql.Date      |
 COLUMN_7 |BYTEINT    |4       |java.lang.Integer  |
-COLUMN_8 |INTEGER    |11      |java.lang.Integer  |
 
 	
 #Execution mesure time
