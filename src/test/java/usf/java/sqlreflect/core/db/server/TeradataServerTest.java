@@ -1,4 +1,4 @@
-package usf.java.sql.core.db.server;
+package usf.java.sqlreflect.core.db.server;
 
 import java.util.Arrays;
 
