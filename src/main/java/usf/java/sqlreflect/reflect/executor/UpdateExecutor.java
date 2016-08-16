@@ -25,9 +25,9 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	
 	@Override
 	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws Exception {
-		adapter.start();
 		Statement stmt = null;
 		try {
+			adapter.start();
 			stmt = tm.buildStatement(tm.getConnection(), query, args);
 			int count = tm.executeUpdate(stmt, query);
 			adapter.adapte(count);

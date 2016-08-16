@@ -29,9 +29,9 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 
 	@Override
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Procedure> adapter) throws Exception {
-		adapter.start();
 		ResultSet rs = null;
 		try {
+			adapter.start();
 			int row = 0;
 			rs = dm.getProcedures(null, databasePattern, proecedurePattern);
 			Mapper<Procedure> mapper = new ProcedureMapper();

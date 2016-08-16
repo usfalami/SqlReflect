@@ -30,9 +30,10 @@ public class ExecutorPerformer extends AbstractReflector implements Performer {
 	
 	@Override
 	public void run(PerformAdapter adapter) throws Exception {
-		adapter.start();
 		Connection cnx = null;
 		try {
+			
+			adapter.start();
 
 			adapter.preConnecion();
 			cnx = getConnectionManager().getConnection();

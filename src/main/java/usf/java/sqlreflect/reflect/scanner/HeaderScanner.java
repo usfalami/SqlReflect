@@ -18,9 +18,9 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 
 	@Override
 	protected void run(Statement stmt, ScannerAdapter<Header> adapter) throws Exception {
-		adapter.start();
 		ResultSet rs = null;
 		try {
+			adapter.start();
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();

@@ -27,9 +27,9 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 
 	@Override
 	protected void run(DatabaseMetaData dm, ScannerAdapter<Column> adapter) throws Exception {
-		adapter.start();
 		ResultSet rs = null;
 		try {
+			adapter.start();
 			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
 			Mapper<Column> mapper = field.getMapper();
 			int row = 0;

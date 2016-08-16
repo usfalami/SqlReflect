@@ -12,9 +12,15 @@ public class TransactionExecutor extends AbstractExecutor<Transaction> {
 	
 	@Override
 	protected void run(TransactionManager tm, Transaction adapter) throws Exception {
-		adapter.start();
-		adapter.execute(new ReflectorFactory(tm));
-		adapter.end();
+		try {
+			adapter.start();
+			adapter.execute(new ReflectorFactory(tm));
+		} catch (Exception e) {
+			throw e;
+		}
+		finally {
+			adapter.end();
+		}
 	}
 	
 }
