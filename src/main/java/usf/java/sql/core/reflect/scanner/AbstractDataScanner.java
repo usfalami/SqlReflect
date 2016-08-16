@@ -11,8 +11,8 @@ import usf.java.sql.core.adapter.ScannerAdapter;
 import usf.java.sql.core.connection.manager.ConnectionManager;
 import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Query;
-import usf.java.sql.core.reflect.Arguments;
 import usf.java.sql.core.reflect.AbstractReflector;
+import usf.java.sql.core.reflect.Arguments;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	

@@ -9,6 +9,7 @@ import usf.java.sql.core.exception.AdapterException;
 import usf.java.sql.core.field.Callable;
 import usf.java.sql.core.field.Column;
 import usf.java.sql.core.field.Procedure;
+import usf.java.sql.core.mapper.Mapper;
 import usf.java.sql.core.parser.SqlParser;
 import usf.java.sql.core.reflect.scanner.ProcedureScanner;
 
@@ -29,7 +30,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	}
 	
 	@Override
-	public void headers(String... headers) {
+	public void headers(Mapper<Procedure> mapper) {
 		
 	}
 

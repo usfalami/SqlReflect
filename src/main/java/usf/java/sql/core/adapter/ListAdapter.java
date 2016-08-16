@@ -3,6 +3,8 @@ package usf.java.sql.core.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import usf.java.sql.core.mapper.Mapper;
+
 public class ListAdapter<T> implements ScannerAdapter<T> {
 
 	protected List<T> list;
@@ -12,7 +14,7 @@ public class ListAdapter<T> implements ScannerAdapter<T> {
 	}
 	
 	@Override
-	public void headers(String... headers) {
+	public void headers(Mapper<T> mapper) {
 		
 	}
 

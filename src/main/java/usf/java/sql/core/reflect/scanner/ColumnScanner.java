@@ -35,7 +35,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
 			Mapper<Column> mapper = field.getMapper();
 			int row = 0;
-			adapter.headers(mapper.getColumnNames());
+			adapter.headers(mapper);
 			while(rs.next()){
 				Column column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);

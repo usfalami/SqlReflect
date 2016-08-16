@@ -9,9 +9,8 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 	private Mapper<T> mapper;
 	private StreamWriter writer;
 
-	public ListWriter(Mapper<T> mapper, StreamWriter writer) {
+	public ListWriter(StreamWriter writer) {
 		this.writer = writer;
-		this.mapper = mapper;
 	}
 
 	@Override
@@ -24,9 +23,10 @@ public class ListWriter<T> implements ScannerAdapter<T> {
 	}
 	
 	@Override
-	public void headers(String... headers) throws AdapterException {
+	public void headers(Mapper<T> mapper) throws AdapterException {
 		try {
-			writer.startList("LIST", headers);
+			this.mapper = mapper;
+			writer.startList("LIST", mapper.getColumnNames());
 		} catch (Exception e) {
 			throw new AdapterException(e);
 		}

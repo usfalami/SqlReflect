@@ -26,7 +26,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();
-			adapter.headers(mapper.getColumnNames());
+			adapter.headers(mapper);
 			for(int i=1; i<=rm.getColumnCount(); i++) {
 				Header col = mapper.map(rs, i);
 				adapter.adapte(col, i);
