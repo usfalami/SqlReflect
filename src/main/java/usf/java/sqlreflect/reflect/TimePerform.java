@@ -95,7 +95,7 @@ public class TimePerform {
 	public long execDuration() {
 		return execEnd-execStart;
 	}
-	public long mapDuration() {
+	public long adaptDuration() {
 		return adaptEnd-adaptStart;
 	}
 }

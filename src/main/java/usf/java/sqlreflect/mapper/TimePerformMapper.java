@@ -44,7 +44,7 @@ public class TimePerformMapper implements Mapper<TimePerform> {
 				writer.writeString("Action", "Adaptation");
 				writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(time.getAdaptStart()));
 				writer.writeString("end", StreamWriter.TIME_FORMATTER.format(time.getAdaptEnd()));
-				writer.writeString("Duration", String.format(MS_FORMAT,time.mapDuration()));
+				writer.writeString("Duration", String.format(MS_FORMAT,time.adaptDuration()));
 			writer.endObject();
 		}
 		writer.startObject("");
