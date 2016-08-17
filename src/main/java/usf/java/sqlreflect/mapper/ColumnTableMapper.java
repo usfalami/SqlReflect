@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TableColumnMapper implements Mapper<Column> {
+public class ColumnTableMapper implements Mapper<Column> {
 
 	@Override
 	public Column map(ResultSet rs, int row) throws Exception {

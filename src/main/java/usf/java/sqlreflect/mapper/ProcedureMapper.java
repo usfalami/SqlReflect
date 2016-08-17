@@ -22,7 +22,7 @@ public class ProcedureMapper implements Mapper<Procedure> {
 		writer.writeString("PROCEDURE_SCHEM", procedure.getDatabase());
 		writer.writeString("PROCEDURE_NAME", procedure.getName());
 		if(procedure.getColumns() != null){
-			ProcedureColumnMapper cm = new ProcedureColumnMapper();
+			ColumnProcedureMapper cm = new ColumnProcedureMapper();
 			writer.startList("COLUMNS");
 			for(Column c : procedure.getColumns())
 				cm.write(writer, c);

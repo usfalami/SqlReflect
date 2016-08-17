@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.ProcedureColumnMapper;
-import usf.java.sqlreflect.mapper.TableColumnMapper;
+import usf.java.sqlreflect.mapper.ColumnProcedureMapper;
+import usf.java.sqlreflect.mapper.ColumnTableMapper;
 
 public enum HasColumn {
 	
@@ -18,7 +18,7 @@ public enum HasColumn {
 		}
 		@Override
 		public Mapper<Column> getMapper() {
-			return new TableColumnMapper();
+			return new ColumnTableMapper();
 		}
 	}, 
 	
@@ -29,7 +29,7 @@ public enum HasColumn {
 		}
 		@Override
 		public Mapper<Column> getMapper() {
-			return new ProcedureColumnMapper();
+			return new ColumnProcedureMapper();
 		}
 	};
 	

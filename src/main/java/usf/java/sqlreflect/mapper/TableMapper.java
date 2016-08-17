@@ -21,7 +21,7 @@ public class TableMapper implements Mapper<Table> {
 		writer.writeString("TABLE_SCHEM", table.getDatabase());
 		writer.writeString("TABLE_NAME", table.getName());
 		if(table.getColumns() != null){
-			TableColumnMapper cm = new TableColumnMapper();
+			ColumnTableMapper cm = new ColumnTableMapper();
 			writer.startList("COLUMNS");
 			for(Column c : table.getColumns())
 				cm.write(writer, c);

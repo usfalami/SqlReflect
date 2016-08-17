@@ -6,7 +6,7 @@ import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.reflect.scanner.ParameterRoles;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ProcedureColumnMapper implements Mapper<Column> {
+public class ColumnProcedureMapper implements Mapper<Column> {
 
 	@Override
 	public Column map(ResultSet rs, int row) throws Exception {
