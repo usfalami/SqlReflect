@@ -2,10 +2,10 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.reflect.performer.TimePerform;
+import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TimePerforMapper implements Mapper<TimePerform> {
+public class TimePerformMapper implements Mapper<TimePerform> {
 
 	@Override
 	public TimePerform map(ResultSet rs, int row) throws Exception {
@@ -37,11 +37,11 @@ public class TimePerforMapper implements Mapper<TimePerform> {
 				writer.writeString("Duration", String.format(MS_FORMAT,time.execDuration()));
 			writer.endObject();
 		}
-		if(time.getMapStart() !=0 && time.getMapEnd() !=0){
+		if(time.getAdaptStart() !=0 && time.getAdaptEnd() !=0){
 			writer.startObject("");
-				writer.writeString("Action", "Mapping");
-				writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(time.getMapStart()));
-				writer.writeString("end", StreamWriter.TIME_FORMATTER.format(time.getMapEnd()));
+				writer.writeString("Action", "Adaptation");
+				writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(time.getAdaptStart()));
+				writer.writeString("end", StreamWriter.TIME_FORMATTER.format(time.getAdaptEnd()));
 				writer.writeString("Duration", String.format(MS_FORMAT,time.mapDuration()));
 			writer.endObject();
 		}

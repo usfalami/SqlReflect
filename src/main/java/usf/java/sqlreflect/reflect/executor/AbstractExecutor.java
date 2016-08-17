@@ -3,6 +3,7 @@ package usf.java.sqlreflect.reflect.executor;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
+import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflector implements Executor<T> {
 	
@@ -12,15 +13,20 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 	
 	@Override
 	public final void run(T adapter) throws Exception {
+		TimePerform tp = new TimePerform().start();
 		try {
 			adapter.start();
 			TransactionManager tm = (TransactionManager) getConnectionManager();
 			if(tm.isTransactionOpned())
-				run(tm, adapter);
+				run(tm, adapter, tp);
 			else {
 				try {
+					
+					tp.cnxStart();
 					tm.startTransaction();
-					run(tm, adapter);
+					tp.cnxEnd();
+					
+					run(tm, adapter, tp);
 					tm.endTransaction();
 				} catch (Exception e) {
 					tm.rollback();
@@ -34,10 +40,11 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 			e.printStackTrace();
 			throw e;
 		}finally{
-			adapter.end();
+			tp.end();
+			adapter.end(tp);
 		}
 	}
 	
-	protected abstract void run(TransactionManager tm, T adapter) throws Exception;
+	protected abstract void run(TransactionManager tm, T adapter, TimePerform tp) throws Exception;
 	
 }

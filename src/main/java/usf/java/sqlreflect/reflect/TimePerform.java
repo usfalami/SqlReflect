@@ -1,39 +1,49 @@
-package usf.java.sqlreflect.reflect.performer;
+package usf.java.sqlreflect.reflect;
 
 public class TimePerform {
 
-	protected long start, cnxStart, statStart, execStart, execEnd, mapStart, mapEnd, statEnd, cnxEnd, end;
+	protected long start, cnxStart, statStart, execStart, execEnd, adaptStart, adaptEnd, statEnd, cnxEnd, end;
 	protected int rowCount;
 	
-	public void start() {
+	public TimePerform start() {
 		this.start = this.end = System.currentTimeMillis();
+		return this;
 	}
-	public void cnxStart() {
+	public TimePerform cnxStart() {
 		this.cnxStart = this.cnxEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void statStart() {
+	public TimePerform statStart() {
 		this.statStart = this.statEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void execStart() {
+	public TimePerform execStart() {
 		this.execStart = this.execEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void mapStart() {
-		this.mapStart = this.mapEnd = System.currentTimeMillis();
+	public TimePerform adaptStart() {
+		this.adaptStart = this.adaptEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void mapEnd() {
-		this.mapEnd = System.currentTimeMillis();
+	public TimePerform adaptEnd() {
+		this.adaptEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void execEnd() {
+	public TimePerform execEnd() {
 		this.execEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void statEnd() {
+	public TimePerform statEnd() {
 		this.statEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void cnxEnd() {
+	public TimePerform cnxEnd() {
 		this.cnxEnd = System.currentTimeMillis();
+		return this;
 	}
-	public void end() {
+	public TimePerform end() {
 		this.end = System.currentTimeMillis();
+		return this;
 	}
 	public int getRowCount() {
 		return rowCount;
@@ -66,11 +76,11 @@ public class TimePerform {
 	public long getExecEnd() {
 		return execEnd;
 	}
-	public long getMapStart() {
-		return mapStart;
+	public long getAdaptStart() {
+		return adaptStart;
 	}
-	public long getMapEnd() {
-		return mapEnd;
+	public long getAdaptEnd() {
+		return adaptEnd;
 	}
 	
 	public long duration() {
@@ -86,6 +96,6 @@ public class TimePerform {
 		return execEnd-execStart;
 	}
 	public long mapDuration() {
-		return mapEnd-mapStart;
+		return adaptEnd-adaptStart;
 	}
 }

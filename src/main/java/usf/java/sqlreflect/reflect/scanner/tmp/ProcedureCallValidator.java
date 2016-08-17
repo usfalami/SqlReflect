@@ -9,6 +9,7 @@ import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.parser.SqlParser;
+import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 
 public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
@@ -51,7 +52,7 @@ public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
 	}
 	
 	@Override
-	public void end() { }
+	public void end(TimePerform time) { }
 	
 	public boolean validate(ConnectionManager cm, String callable) throws Exception {
 		this.callable = sqlParser.getServer().parseCallable(callable);

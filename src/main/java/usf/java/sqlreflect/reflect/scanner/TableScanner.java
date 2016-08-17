@@ -10,6 +10,7 @@ import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Table;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
+import usf.java.sqlreflect.reflect.TimePerform;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
 	
@@ -28,13 +29,19 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Table> adapter) throws Exception {
+	protected void run(DatabaseMetaData dm, ScannerAdapter<Table> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
-			int row = 0;
+			
+			tp.execStart();
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
+			tp.execEnd();
+			
 			Mapper<Table> mapper = new TableMapper();
 			adapter.prepare(mapper);
+			int row = 0;
+
+			tp.adaptStart();
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(getConnectionManager(), HasColumn.TABLE);
 				while(rs.next()){
@@ -51,6 +58,8 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 					adapter.adapte(t, row++);
 				}
 			}
+			tp.adaptEnd();
+			tp.setRowCount(row);
 			
 		} catch (Exception e) {
 			throw e;

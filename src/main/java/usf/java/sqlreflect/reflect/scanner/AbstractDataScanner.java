@@ -11,6 +11,7 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
+import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	
@@ -36,14 +37,23 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 
 	@Override
 	public final void run(ScannerAdapter<T> adapter) throws Exception {
+		TimePerform tp = new TimePerform().start();
 		Connection cnx = null;
 		try {
 			adapter.start();
+			
+			tp.cnxStart();
 			cnx = getConnectionManager().getConnection();
+			tp.cnxEnd();
+			
 			Statement stmt = null;
 			try {
+				
+				tp.statStart();
 				stmt = getConnectionManager().buildStatement(cnx, query, args);
-				run(stmt, adapter);
+				tp.statEnd();
+				
+				run(stmt, adapter, tp);
 			} catch (Exception e) {
 				throw e;
 			}
@@ -56,7 +66,8 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		}
 		finally {
 			getConnectionManager().close(cnx);
-			adapter.end();
+			tp.end();
+			adapter.end(tp);
 		}
 	}
 	
@@ -68,6 +79,6 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		return args;
 	}
 
-	protected abstract void run(Statement stmt, ScannerAdapter<T> adapter) throws Exception;
+	protected abstract void run(Statement stmt, ScannerAdapter<T> adapter, TimePerform tp) throws Exception;
 
 }

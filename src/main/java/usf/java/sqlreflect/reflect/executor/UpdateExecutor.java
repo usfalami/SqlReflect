@@ -7,6 +7,7 @@ import usf.java.sqlreflect.adapter.ExecutorAdapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.reflect.TimePerform;
 
 public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	
@@ -24,12 +25,24 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	}
 	
 	@Override
-	protected void run(TransactionManager tm, ExecutorAdapter adapter) throws Exception {
+	protected void run(TransactionManager tm, ExecutorAdapter adapter, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
+			
+			tp.statStart();
 			stmt = tm.buildStatement(tm.getConnection(), query, args);
-			int count = tm.executeUpdate(stmt, query);
-			adapter.adapte(count);
+			tp.statEnd();
+
+			tp.execStart();
+			int rows = tm.executeUpdate(stmt, query);
+			tp.execEnd();
+			
+			tp.adaptStart();
+			adapter.adapte(rows);
+			tp.adaptEnd();
+			
+			tp.setRowCount(rows);
+			
 		} catch (Exception e) {
 			throw e;
 		}
