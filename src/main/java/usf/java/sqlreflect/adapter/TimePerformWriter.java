@@ -18,7 +18,7 @@ public class TimePerformWriter<T> implements ScannerAdapter<T> {
 	@Override
 	public void start() throws Exception {
 		writer.start("LIST");
-		//writer.startList("LIST", mapper.getColumnNames());
+		writer.startList("LIST", mapper.getColumnNames());
 	}
 	
 	@Override
@@ -33,7 +33,6 @@ public class TimePerformWriter<T> implements ScannerAdapter<T> {
 
 	@Override
 	public void end(TimePerform time) throws Exception {
-		writer.startList("LIST", mapper.getColumnNames()); //AsciiPrinter problem
 		mapper.write(writer, time);
 		writer.endList();
 		writer.end();
