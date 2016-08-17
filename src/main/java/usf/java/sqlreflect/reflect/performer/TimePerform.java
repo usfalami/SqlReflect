@@ -72,4 +72,20 @@ public class TimePerform {
 	public long getMapEnd() {
 		return mapEnd;
 	}
+	
+	public long duration() {
+		return end-start;
+	}
+	public long cnxDuration() {
+		return cnxEnd-cnxStart;
+	}
+	public long statDuration() {
+		return statEnd-statStart;
+	}
+	public long execDuration() {
+		return execEnd-execStart;
+	}
+	public long mapDuration() {
+		return mapEnd-mapStart;
+	}
 }
