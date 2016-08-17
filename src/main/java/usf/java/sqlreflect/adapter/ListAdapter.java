@@ -6,7 +6,7 @@ import java.util.List;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class ListAdapter<T> implements ScannerAdapter<T> {
+public class ListAdapter<T> implements Adapter<T> {
 
 	protected List<T> list;
 	

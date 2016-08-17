@@ -2,7 +2,7 @@ package usf.java.sqlreflect.reflect.scanner.tmp;
 
 import java.util.List;
 
-import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Callable;
 import usf.java.sqlreflect.field.Column;
@@ -12,7 +12,7 @@ import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 
-public class ProcedureCallValidator implements ScannerAdapter<Procedure> {
+public class ProcedureCallValidator implements Adapter<Procedure> {
 
 	protected SqlParser sqlParser;
 	

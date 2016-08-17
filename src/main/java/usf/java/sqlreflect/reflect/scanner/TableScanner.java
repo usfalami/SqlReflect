@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.List;
 
-import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Table;
@@ -29,7 +29,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Table> adapter, TimePerform tp) throws Exception {
+	protected void run(DatabaseMetaData dm, Adapter<Table> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 			

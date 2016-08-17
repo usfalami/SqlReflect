@@ -5,7 +5,7 @@ import usf.java.sqlreflect.mapper.TimePerformMapper;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TimePerformWriter<T> implements ScannerAdapter<T> {
+public class TimePerformWriter<T> implements Adapter<T> {
 	
 	private StreamWriter writer;
 	private Mapper<TimePerform> mapper;

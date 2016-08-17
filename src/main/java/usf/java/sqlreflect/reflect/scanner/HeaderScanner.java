@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Header;
 import usf.java.sqlreflect.mapper.HeaderMapper;
@@ -18,7 +18,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	}
 
 	@Override
-	protected void run(Statement stmt, ScannerAdapter<Header> adapter, TimePerform tp) throws Exception {
+	protected void run(Statement stmt, Adapter<Header> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 			

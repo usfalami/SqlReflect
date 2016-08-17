@@ -3,7 +3,7 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
@@ -19,7 +19,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 	}
 
 	@Override
-	protected void run(Statement stmt, ScannerAdapter<T> adapter, TimePerform tp) throws Exception {
+	protected void run(Statement stmt, Adapter<T> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 

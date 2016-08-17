@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
 
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
-import usf.java.sqlreflect.adapter.ScannerAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
@@ -36,7 +36,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 	}
 
 	@Override
-	public final void run(ScannerAdapter<T> adapter) throws Exception {
+	public final void run(Adapter<T> adapter) throws Exception {
 		TimePerform tp = new TimePerform().start();
 		Connection cnx = null;
 		try {
@@ -79,6 +79,6 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		return args;
 	}
 
-	protected abstract void run(Statement stmt, ScannerAdapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void run(Statement stmt, Adapter<T> adapter, TimePerform tp) throws Exception;
 
 }

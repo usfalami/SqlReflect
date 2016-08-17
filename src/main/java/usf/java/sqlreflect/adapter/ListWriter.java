@@ -4,7 +4,7 @@ import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ListWriter<T> implements ScannerAdapter<T> {
+public class ListWriter<T> implements Adapter<T> {
 
 	private StreamWriter writer;
 	private Mapper<T> mapper;

@@ -4,9 +4,9 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 
-public interface Reflector<T, A extends Adapter<T>> {
+public interface Reflector<T> {
 	
-	void run(A adapter) throws Exception;
+	void run(Adapter<T> adapter) throws Exception;
 	
 	List<T> run() throws Exception;
 	

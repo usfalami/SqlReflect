@@ -3,7 +3,7 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.adapter.ScannerAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Database;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
@@ -24,7 +24,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		return this;
 	}
 
-	protected void run(DatabaseMetaData dm, ScannerAdapter<Database> adapter, TimePerform tp) throws Exception {
+	protected void run(DatabaseMetaData dm, Adapter<Database> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 
