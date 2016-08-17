@@ -1,8 +1,8 @@
-package usf.java.sqlreflect.adapter;
+package usf.java.sqlreflect.reflect.executor;
 
 import usf.java.sqlreflect.reflect.ReflectorFactory;
 
-public interface Transaction extends Adapter<Void> {
+public interface Transaction {
 	
 	void execute(ReflectorFactory rf) throws Exception;
 
