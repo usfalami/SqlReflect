@@ -15,12 +15,14 @@ public class TimePerformMapper implements Mapper<TimePerform> {
 	@Override
 	public void write(StreamWriter writer, TimePerform time) throws Exception {
 		final String MS_FORMAT = "%5d";
-		writer.startObject("");
-			writer.writeString("Action", "Connection");
-			writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(time.getCnxStart()));
-			writer.writeString("end", StreamWriter.TIME_FORMATTER.format(time.getCnxEnd()));
-			writer.writeString("Duration", String.format(MS_FORMAT,time.cnxDuration()));
-		writer.endObject();
+		if(time.getCnxStart() !=0 && time.getCnxEnd() !=0){
+			writer.startObject("");
+				writer.writeString("Action", "Connection");
+				writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(time.getCnxStart()));
+				writer.writeString("end", StreamWriter.TIME_FORMATTER.format(time.getCnxEnd()));
+				writer.writeString("Duration", String.format(MS_FORMAT,time.cnxDuration()));
+			writer.endObject();
+		}
 		if(time.getStatStart() !=0 && time.getStatEnd() !=0){
 			writer.startObject("");
 				writer.writeString("Action", "Statment");

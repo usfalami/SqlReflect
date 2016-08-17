@@ -18,7 +18,6 @@ public class BatchExecutor extends AbstractExecutor<Adapter<Integer>> {
 		super(cm);
 	}
 
-
 	public BatchExecutor set(String... sql) {
 		queries = new Query[sql.length];
 		for(int i=0; i<sql.length; i++)
