@@ -9,7 +9,7 @@ import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class UpdateExecutor extends AbstractExecutor<Adapter<Integer>> {
+public class UpdateExecutor extends AbstractExecutor<Integer> {
 	
 	private Query query;
 	private Arguments args;

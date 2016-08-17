@@ -9,7 +9,7 @@ import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class BatchExecutor extends AbstractExecutor<Adapter<Integer>> {
+public class BatchExecutor extends AbstractExecutor<Integer> {
 	
 	private Query[] queries;
 	private Arguments[] args;

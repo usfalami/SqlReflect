@@ -3,17 +3,16 @@ package usf.java.sqlreflect.reflect.executor;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.Reflector;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public abstract class AbstractExecutor<T extends Adapter<?>> extends AbstractReflector implements Reflector<T> {
+public abstract class AbstractExecutor<T> extends AbstractReflector implements Executor<T> {
 	
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);
 	}
 	
 	@Override
-	public final void run(T adapter) throws Exception {
+	public final void run(Adapter<T> adapter) throws Exception {
 		TimePerform tp = new TimePerform().start();
 		try {
 			adapter.start();
@@ -46,6 +45,6 @@ public abstract class AbstractExecutor<T extends Adapter<?>> extends AbstractRef
 		}
 	}
 	
-	protected abstract void run(TransactionManager tm, T adapter, TimePerform tp) throws Exception;
+	protected abstract void run(TransactionManager tm, Adapter<T> adapter, TimePerform tp) throws Exception;
 	
 }
