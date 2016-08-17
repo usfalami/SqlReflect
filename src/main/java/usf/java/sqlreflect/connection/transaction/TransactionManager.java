@@ -13,7 +13,7 @@ public interface TransactionManager extends ConnectionManager {
 	
 	void endTransaction() throws SQLException;
 
-	boolean isTransaction() throws SQLException;
+	boolean isTransactionOpned() throws SQLException;
 
 	void rollback();
 

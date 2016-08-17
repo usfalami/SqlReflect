@@ -46,7 +46,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
-	public boolean isTransaction() throws SQLException {
+	public boolean isTransactionOpned() throws SQLException {
 		if(cnx == null || cnx.isClosed()) return false;
 		return !cnx.getAutoCommit();
 	}

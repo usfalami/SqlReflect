@@ -15,7 +15,7 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 		try {
 			adapter.start();
 			TransactionManager tm = (TransactionManager) getConnectionManager();
-			if(tm.isTransaction())
+			if(tm.isTransactionOpned())
 				run(tm, adapter);
 			else {
 				try {
@@ -36,7 +36,6 @@ public abstract class AbstractExecutor<T extends Adapter> extends AbstractReflec
 		}finally{
 			adapter.end();
 		}
-
 	}
 	
 	protected abstract void run(TransactionManager tm, T adapter) throws Exception;
