@@ -3,13 +3,13 @@ package usf.java.sqlreflect.reflect.executor;
 import java.io.Serializable;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.adapter.ExecutorAdapter;
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
+public class UpdateExecutor extends AbstractExecutor<Adapter<Integer>> {
 	
 	private Query query;
 	private Arguments args;
@@ -25,7 +25,7 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 	}
 	
 	@Override
-	protected void run(TransactionManager tm, ExecutorAdapter adapter, TimePerform tp) throws Exception {
+	protected void run(TransactionManager tm, Adapter<Integer> adapter, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
 			
@@ -38,7 +38,7 @@ public class UpdateExecutor extends AbstractExecutor<ExecutorAdapter> {
 			tp.execEnd();
 			
 			tp.adaptStart();
-			adapter.adapte(rows);
+			adapter.adapte(rows, 1);
 			tp.adaptEnd();
 			
 			tp.setRowCount(rows);
