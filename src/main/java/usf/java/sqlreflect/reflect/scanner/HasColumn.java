@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.ColumnProcedureMapper;
 import usf.java.sqlreflect.mapper.ColumnTableMapper;
+import usf.java.sqlreflect.mapper.Mapper;
 
 public enum HasColumn {
 	
