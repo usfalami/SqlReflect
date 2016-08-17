@@ -5,29 +5,30 @@ import usf.java.sqlreflect.mapper.TimePerformMapper;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TimePerformWriter<T> implements ScannerAdapter<T>  {
+public class TimePerformWriter<T> implements ScannerAdapter<T> {
 	
 	private StreamWriter writer;
 	private Mapper<TimePerform> mapper;
 	
 	public TimePerformWriter(StreamWriter writer) {
 		this.writer = writer;
+		mapper = new TimePerformMapper();
 	}
 
 	@Override
 	public void start() throws Exception {
 		writer.start("LIST");
+		writer.startList("LIST", mapper.getColumnNames());
 	}
 	
 	@Override
-	public void prepare(Mapper<T> m) throws Exception {
-		mapper = new TimePerformMapper();
-		writer.startList("LIST", mapper.getColumnNames());
+	public void prepare(Mapper<T> mapper) throws Exception {
+		//
 	}
 
 	@Override
 	public void adapte(T field, int index) throws Exception {
-		//mapper.write(writer, field);
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -36,9 +37,4 @@ public class TimePerformWriter<T> implements ScannerAdapter<T>  {
 		writer.endList();
 		writer.end();
 	}
-	
-	public StreamWriter getWriter() {
-		return writer;
-	}
-	
 }
