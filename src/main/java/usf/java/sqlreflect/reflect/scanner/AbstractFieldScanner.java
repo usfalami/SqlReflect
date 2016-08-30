@@ -8,6 +8,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractFieldScanner<T> extends AbstractReflector implements Scanner<T> {
@@ -25,14 +26,15 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 	
 	@Override
 	public final void run(Adapter<T> adapter) throws Exception {
-		TimePerform tp = new TimePerform().start();
+		TimePerform tp = new TimePerform();
+		ActionPerform total = tp.startAction(TOTAL);
 		Connection cnx = null;
 		try {
 			adapter.start();
 			
-			tp.cnxStart();
+			ActionPerform action = tp.startAction(CONNECTION);
 			cnx = getConnectionManager().getConnection();
-			tp.cnxEnd();
+			action.end();
 			
 			DatabaseMetaData dm = cnx.getMetaData();
 			run(dm, adapter, tp);
@@ -42,7 +44,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 		}
 		finally {
 			getConnectionManager().close(cnx);
-			tp.end();
+			total.end();
 			adapter.end(tp);
 		}
 	}

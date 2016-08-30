@@ -9,6 +9,7 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Header;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public class HeaderScanner extends AbstractDataScanner<Header> {
@@ -21,21 +22,21 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	protected void run(Statement stmt, Adapter<Header> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
-			
-			tp.execStart();
+
+			ActionPerform action = tp.startAction(EXECUTION);
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
-			tp.execEnd();
+			action.end();
 			
 			Mapper<Header> mapper = new HeaderMapper();
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.prepare(mapper);
-			
-			tp.adaptStart();
+
+			action = tp.startAction(ADAPT);
 			for(int i=1; i<=rm.getColumnCount(); i++) {
 				Header col = mapper.map(rs, i);
 				adapter.adapte(col, i);
 			}
-			tp.adaptEnd();
+			action.end();
 			tp.setRowCount(rm.getColumnCount());
 			
 		} catch (Exception e) {

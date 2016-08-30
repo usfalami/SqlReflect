@@ -6,6 +6,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 
@@ -35,19 +36,19 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	protected void run(TransactionManager tm, Adapter<Integer> adapter, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
-			
-			tp.statStart();
+
+			ActionPerform action = tp.startAction(STATEMENT);
 			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
-			tp.statEnd();
+			action.end();
 			
-			tp.execStart();
+			action = tp.startAction(EXECUTION);
 			int[] rows = stmt.executeBatch();
-			tp.execEnd();
+			action.end();
 			
-			tp.adaptStart();
+			action = tp.startAction(ADAPT);
 			for(int i=0; i<rows.length; i++)
 				adapter.adapte(rows[i], i+1);
-			tp.adaptEnd();
+			action.end();
 			
 			tp.setRowCount(ReflectorUtils.sum(rows));
 			

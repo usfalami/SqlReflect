@@ -6,6 +6,7 @@ import java.sql.Statement;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 
@@ -23,21 +24,21 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 		ResultSet rs = null;
 		try {
 
-			tp.execStart();
+			ActionPerform action = tp.startAction(EXECUTION);
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
-			tp.execEnd();	
+			action.end();
 			
 			if(mapper.getColumnNames() == null) // set all column if no column was set
 				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
 			adapter.prepare(mapper);
 			int row = 0;
 
-			tp.adaptStart();
+			action = tp.startAction(ADAPT);
 			while(rs.next()) {
 				T bean = mapper.map(rs, row+1);
 				adapter.adapte(bean, row++);
 			}
-			tp.adaptEnd();
+			action.end();
 			tp.setRowCount(row);
 			
 		} catch (Exception e) {

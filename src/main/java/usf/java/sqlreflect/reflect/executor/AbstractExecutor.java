@@ -6,6 +6,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractExecutor<T> extends AbstractReflector implements Executor<T> {
@@ -16,7 +17,8 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 	
 	@Override
 	public final void run(Adapter<T> adapter) throws Exception {
-		TimePerform tp = new TimePerform().start();
+		TimePerform tp = new TimePerform();
+		ActionPerform total = tp.startAction(TOTAL);
 		try {
 			adapter.start();
 			TransactionManager tm = (TransactionManager) getConnectionManager();
@@ -25,10 +27,10 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 				run(tm, adapter, tp);
 			else {
 				try {
-					
-					tp.cnxStart();
+
+					ActionPerform action = tp.startAction(CONNECTION);
 					tm.startTransaction();
-					tp.cnxEnd();
+					action.end();
 					
 					run(tm, adapter, tp);
 					tm.endTransaction();
@@ -44,7 +46,7 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 			e.printStackTrace();
 			throw e;
 		}finally{
-			tp.end();
+			total.end();
 			adapter.end(tp);
 		}
 	}

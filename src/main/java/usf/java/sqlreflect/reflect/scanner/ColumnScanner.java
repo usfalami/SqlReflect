@@ -7,6 +7,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public class ColumnScanner extends AbstractFieldScanner<Column> {
@@ -30,21 +31,21 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	protected void run(DatabaseMetaData dm, Adapter<Column> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
-			
-			tp.execStart();
+
+			ActionPerform action = tp.startAction(EXECUTION);
 			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
-			tp.execEnd();
+			action.end();
 			
 			Mapper<Column> mapper = field.getMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
-			tp.adaptStart();
+			action = tp.startAction(ADAPT);
 			while(rs.next()){
 				Column column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
-			tp.adaptEnd();
+			action.end();
 			tp.setRowCount(row);
 			
 		} catch (Exception e) {

@@ -10,6 +10,7 @@ import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Table;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
@@ -33,15 +34,15 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		ResultSet rs = null;
 		try {
 			
-			tp.execStart();
+			ActionPerform action = tp.startAction(EXECUTION);
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
-			tp.execEnd();
+			action.end();
 			
 			Mapper<Table> mapper = new TableMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
-			tp.adaptStart();
+			action = tp.startAction(ADAPT);
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(getConnectionManager(), HasColumn.TABLE);
 				while(rs.next()){
@@ -58,7 +59,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 					adapter.adapte(t, row++);
 				}
 			}
-			tp.adaptEnd();
+			action.end();
 			tp.setRowCount(row);
 			
 		} catch (Exception e) {

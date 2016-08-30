@@ -8,6 +8,7 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Database;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 
@@ -28,20 +29,20 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		ResultSet rs = null;
 		try {
 
-			tp.execStart();
+			ActionPerform action = tp.startAction(EXECUTION);
 			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
-			tp.execEnd();
+			action.end();
 			
 			Mapper<Database> mapper = new DatabaseMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
-			tp.adaptStart();
+			action = tp.startAction(ADAPT);
 			while(rs.next()){
 				Database database = mapper.map(rs, row+1);
 				adapter.adapte(database, row++);
 			}
-			tp.adaptEnd();
+			action.end();
 			tp.setRowCount(row);
 		}
 		catch(Exception e) {
