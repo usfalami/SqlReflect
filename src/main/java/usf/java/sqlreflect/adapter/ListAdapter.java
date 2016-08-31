@@ -8,7 +8,8 @@ import usf.java.sqlreflect.reflect.TimePerform;
 
 public class ListAdapter<T> implements Adapter<T> {
 
-	protected List<T> list;
+	private List<T> list;
+	private TimePerform time;
 	
 	public ListAdapter() {
 		list = new ArrayList<T>();
@@ -31,10 +32,14 @@ public class ListAdapter<T> implements Adapter<T> {
 
 	@Override
 	public void end(TimePerform time) {
-
+		this.time = time;
 	}
 	
 	public List<T> getList() {
 		return list;
 	}
+	public TimePerform getTime() {
+		return time;
+	}
+	
 }
