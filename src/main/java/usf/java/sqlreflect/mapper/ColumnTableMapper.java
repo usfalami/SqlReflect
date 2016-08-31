@@ -23,13 +23,12 @@ public class ColumnTableMapper implements Mapper<Column> {
 		writer.writeString("COLUMN_NAME", parameter.getName());
 		writer.writeString("TYPE_NAME", parameter.getType());
 		writer.writeInt("COLUMN_SIZE", parameter.getSize());
-		writer.writeString("TYPE_NAME", parameter.getType().toString());
 		writer.endObject();
 	}
 	
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{"COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE", "TYPE_NAME"};
+		return new String[]{"COLUMN_NAME", "TYPE_NAME", "COLUMN_SIZE"};
 	}
 	
 	@Override

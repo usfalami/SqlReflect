@@ -1,5 +1,9 @@
 package usf.java.sqlreflect.field;
 
+import java.util.Properties;
+
+import usf.java.sqlreflect.Constants;
+
 public class Env {
 
 	protected String host, database, params;
@@ -14,6 +18,13 @@ public class Env {
 		this.database = database;
 		this.params = params;
 		this.port = port;
+	}
+	
+	public Env(Properties properties) {
+		this.host = properties.getProperty(Constants.ENV_HOST);
+		this.database = properties.getProperty(Constants.ENV_DATABASE);
+		this.port = Integer.parseInt(properties.getProperty(Constants.ENV_PORT));
+		this.params = properties.getProperty(Constants.ENV_PARAMS);
 	}
 
 	public String getHost() {
