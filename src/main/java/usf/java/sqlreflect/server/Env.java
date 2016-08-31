@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.field;
+package usf.java.sqlreflect.server;
 
 import java.util.Properties;
 

@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.connection.User;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.server.User;
 
 public class SimpleConnectionManager implements ConnectionManager {
 

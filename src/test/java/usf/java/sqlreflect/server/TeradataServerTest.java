@@ -3,7 +3,6 @@ package usf.java.sqlreflect.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sqlreflect.field.Env;
 import usf.java.sqlreflect.field.Macro;
 import usf.java.sqlreflect.field.Procedure;
 import usf.java.sqlreflect.field.Query;

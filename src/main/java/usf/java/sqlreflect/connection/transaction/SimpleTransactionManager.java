@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.connection.User;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.server.User;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
 

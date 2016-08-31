@@ -3,9 +3,9 @@ package usf.java.sqlreflect.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.connection.User;
-import usf.java.sqlreflect.field.Env;
+import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.server.User;
 
 public class SingleConnectionProvider extends SimpleConnectionProvider {
 	

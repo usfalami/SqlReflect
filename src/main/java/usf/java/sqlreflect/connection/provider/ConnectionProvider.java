@@ -3,7 +3,7 @@ package usf.java.sqlreflect.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.connection.User;
+import usf.java.sqlreflect.server.User;
 
 public interface ConnectionProvider {
 	

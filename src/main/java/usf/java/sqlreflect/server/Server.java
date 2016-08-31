@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.server;
 
 import usf.java.sqlreflect.field.Callable;
-import usf.java.sqlreflect.field.Env;
 import usf.java.sqlreflect.field.SqlQuery;
 
 public interface Server {
