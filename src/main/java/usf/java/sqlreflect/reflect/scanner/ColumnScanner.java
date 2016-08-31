@@ -15,6 +15,11 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	private String databasePattern, proecedurePattern, columnPattern;
 	private HasColumn field;
 	
+	
+	public ColumnScanner(ConnectionManager cm) {
+		this(cm, HasColumn.TABLE);
+	}
+	
 	public ColumnScanner(ConnectionManager cm, HasColumn field) {
 		super(cm);
 		this.field = field;
