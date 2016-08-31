@@ -17,9 +17,15 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	
 	private String databasePattern, tablePattern;
 	private boolean columns;
+	private TableType type;
 	
 	public TableScanner(ConnectionManager cm) {
+		this(cm, TableType.TABLE);
+	}
+	
+	public TableScanner(ConnectionManager cm ,TableType type) {
 		super(cm);
+		this.type = type;
 	}
 	
 	public TableScanner set(String databasePattern, String tablePattern, boolean columns) {
@@ -35,7 +41,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		try {
 			
 			ActionPerform action = tp.startAction(EXECUTION);
-			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{TableType.TABLE.toString()});
+			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{type.toString()});
 			action.end();
 			
 			Mapper<Table> mapper = new TableMapper();
