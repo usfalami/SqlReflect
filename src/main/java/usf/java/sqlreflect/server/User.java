@@ -18,11 +18,9 @@ public class User {
 		this.pass = properties.getProperty(Constants.USER_PASSWORD);
 	}
 
-
 	public String getLogin() {
 		return login;
 	}
-
 	public String getPass() {
 		return pass;
 	}
