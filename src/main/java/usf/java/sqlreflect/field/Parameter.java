@@ -6,18 +6,23 @@ public class Parameter<T> {
 	private T value; //TODO see getObject(int columnIndex, Class<T> type)
 	private boolean out;
 	
-	public Parameter(T value) {
-		this(value, false, null);
+	private int sqlType;
+	
+	protected Parameter(int sqlType, T value) {
+		this(sqlType, value, false, null);
 	}
-	public Parameter(T value, boolean out) {
-		this(value, out, null);
+	public Parameter(int sqlType, T value, boolean out) {
+		this(sqlType, value, out, null);
 	}
-	public Parameter(T value, boolean out, String name) {
+	public Parameter(int sqlType, T value, boolean out, String name) {
 		this.value = value;
 		this.out = out;
 		this.name = name;
 	}
 	
+	public int getSqlType() {
+		return sqlType;
+	}
 	public T getValue() {
 		return value;
 	}
@@ -42,7 +47,8 @@ public class Parameter<T> {
 	
 	@Override
 	public String toString() {
-		return "Parameter [name=" + name + ", value=" + value + ", out=" + out + "]";
+		return "Parameter [name=" + name + ", value=" + value + ", out=" + out + ", sqlType=" + sqlType + "]";
 	}
+
 
 }

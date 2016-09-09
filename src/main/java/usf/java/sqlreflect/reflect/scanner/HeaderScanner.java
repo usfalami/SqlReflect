@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Header;
@@ -23,7 +24,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		ResultSet rs = null;
 		try {
 
-			ActionPerform action = tp.startAction(EXECUTION);
+			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
 			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
 			action.end();
 			
@@ -31,7 +32,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 			ResultSetMetaData rm = rs.getMetaData();
 			adapter.prepare(mapper);
 
-			action = tp.startAction(ADAPT);
+			action = tp.startAction(Constants.ACTION_ADAPT);
 			for(int i=1; i<=rm.getColumnCount(); i++) {
 				Header col = mapper.map(rs, i);
 				adapter.adapte(col, i);

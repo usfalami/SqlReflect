@@ -4,6 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.List;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Column;
@@ -40,7 +41,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		ResultSet rs = null;
 		try {
 			
-			ActionPerform action = tp.startAction(EXECUTION);
+			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{type.toString()});
 			action.end();
 			
@@ -48,7 +49,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = tp.startAction(ADAPT);
+			action = tp.startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(getConnectionManager(), HasColumn.TABLE);
 				while(rs.next()){

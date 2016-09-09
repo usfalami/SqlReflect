@@ -2,6 +2,7 @@ package usf.java.sqlreflect.reflect.executor;
 
 import java.sql.Statement;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.field.Arguments;
@@ -37,15 +38,15 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		Statement stmt = null;
 		try {
 
-			ActionPerform action = tp.startAction(STATEMENT);
+			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
 			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 			action.end();
 			
-			action = tp.startAction(EXECUTION);
+			action = tp.startAction(Constants.ACTION_EXECUTION);
 			int[] rows = stmt.executeBatch();
 			action.end();
 			
-			action = tp.startAction(ADAPT);
+			action = tp.startAction(Constants.ACTION_ADAPT);
 			for(int i=0; i<rows.length; i++)
 				adapter.adapte(rows[i], i+1);
 			action.end();

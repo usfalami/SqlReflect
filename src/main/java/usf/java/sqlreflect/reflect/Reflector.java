@@ -10,11 +10,4 @@ public interface Reflector<T> {
 	
 	List<T> run() throws Exception;
 	
-	
-	String CONNECTION 	= "CONNECTION";
-	String STATEMENT 	= "STATEMENT";
-	String EXECUTION 	= "EXECUTION";
-	String ADAPT 		= "ADAPT";
-	String TOTAL 		= "TOTAL";
-	
 }

@@ -3,6 +3,7 @@ package usf.java.sqlreflect.reflect.executor;
 import java.io.Serializable;
 import java.sql.Statement;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.field.Arguments;
@@ -31,15 +32,15 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 		try {
 
 			
-			ActionPerform action = tp.startAction(STATEMENT);
+			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
 			stmt = tm.buildStatement(query, args);
 			action.end();
 
-			action = tp.startAction(EXECUTION);
+			action = tp.startAction(Constants.ACTION_EXECUTION);
 			int rows = tm.executeUpdate(stmt, query);
 			action.end();
 
-			action = tp.startAction(ADAPT);
+			action = tp.startAction(Constants.ACTION_ADAPT);
 			adapter.adapte(rows, 1);
 			action.end();
 			

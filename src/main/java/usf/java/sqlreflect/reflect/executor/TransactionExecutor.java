@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.reflect.executor;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
@@ -21,7 +22,7 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	
 	@Override
 	protected void run(TransactionManager tm, Adapter<Void> adapter, TimePerform tp) throws Exception {
-		ActionPerform action = tp.startAction(EXECUTION);
+		ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
 		transaction.execute(new ReflectorFactory(tm));
 		action.end();
 	}
