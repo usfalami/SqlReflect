@@ -10,10 +10,10 @@
 	User user 		= new User("user_name", "user_password");
 	
 	//define a connexion provider, we can use other providers like POOL
-	ConnectionProvider cp	= new SimpleConnectionProvider(server, env);
+	ConnectionProvider cp	= new SimpleConnectionProvider(server, env, user);
 	
 	//define a connexion manager
-	ConnectionManager cm 	= new SimpleConnectionManager(cp, server, user);
+	ConnectionManager cm 	= new SimpleConnectionManager(cp);
 
 #Database list
 
