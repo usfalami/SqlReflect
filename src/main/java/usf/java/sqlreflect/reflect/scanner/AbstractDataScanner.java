@@ -44,7 +44,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 			adapter.start();
 
 			ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
-			getConnectionManager().openConnexion();
+			getConnectionManager().openConnection();
 			action.end();
 			
 			Statement stmt = null;

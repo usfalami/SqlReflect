@@ -11,7 +11,7 @@ import usf.java.sqlreflect.parser.SqlParser;
 
 public interface ConnectionManager {
 	
-	void openConnexion() throws SQLException;
+	void openConnection() throws SQLException;
 	
 	Connection getConnection() throws SQLException;
 	

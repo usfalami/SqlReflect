@@ -32,7 +32,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 			adapter.start();
 			
 			ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
-			getConnectionManager().openConnexion();
+			getConnectionManager().openConnection();
 			action.end();
 			
 			DatabaseMetaData dm = getConnectionManager().getConnection().getMetaData();

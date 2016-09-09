@@ -20,13 +20,15 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void startTransaction() throws SQLException {
-		openConnexion();
-		getConnection().setAutoCommit(transact = true);
+		openConnection();
+		getConnection().setAutoCommit(false);
+		transact = true;
 	}
 
 	@Override
 	public void endTransaction() throws SQLException {
-		getConnection().setAutoCommit(transact = false);
+		transact = false; //keep set transact false before setAutoCommit
+		getConnection().setAutoCommit(true);
 	}
 	
 	@Override

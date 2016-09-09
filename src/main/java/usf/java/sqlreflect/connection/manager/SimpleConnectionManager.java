@@ -24,7 +24,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 
 	@Override
-	public void openConnexion() throws SQLException {
+	public void openConnection() throws SQLException {
 		if(!isValid())
 			connection = cp.getConnection();
 	}
