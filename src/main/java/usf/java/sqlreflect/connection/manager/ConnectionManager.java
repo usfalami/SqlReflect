@@ -21,7 +21,7 @@ public interface ConnectionManager {
 	
 	void close(ResultSet rs);
 
-	void close() throws SQLException;
+	void close();
 
 	Statement buildStatement(Query query, Arguments args) throws SQLException;
 	

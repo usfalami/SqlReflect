@@ -52,12 +52,8 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void close() {
-		try {
-			if(!isTransacting()) //
-				super.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(!isTransacting()) //
+			super.close();
 	}
 
 	@Override

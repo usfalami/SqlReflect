@@ -56,7 +56,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 		}
 	}
 	@Override
-	public void close() throws SQLException {
+	public void close() {
 		cp.release(connection);
 	}
 	
