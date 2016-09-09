@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.reflect.scanner;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
 
@@ -40,19 +39,18 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 	public final void run(Adapter<T> adapter) throws Exception {
 		TimePerform tp = new TimePerform();
 		ActionPerform total = tp.startAction(TOTAL);
-		Connection cnx = null;
 		try {
 			adapter.start();
 
 			ActionPerform action = tp.startAction(CONNECTION);
-			cnx = getConnectionManager().getConnection();
+			getConnectionManager().openConnexion();
 			action.end();
 			
 			Statement stmt = null;
 			try {
 
 				action = tp.startAction(STATEMENT);
-				stmt = getConnectionManager().buildStatement(cnx, query, args);
+				stmt = getConnectionManager().buildStatement(query, args);
 				action.end();
 				
 				run(stmt, adapter, tp);
@@ -67,7 +65,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 			throw e;
 		}
 		finally {
-			getConnectionManager().close(cnx);
+			getConnectionManager().close();
 			total.end();
 			adapter.end(tp);
 		}

@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.reflect.scanner;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.util.List;
 
@@ -28,22 +27,21 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector implemen
 	public final void run(Adapter<T> adapter) throws Exception {
 		TimePerform tp = new TimePerform();
 		ActionPerform total = tp.startAction(TOTAL);
-		Connection cnx = null;
 		try {
 			adapter.start();
 			
 			ActionPerform action = tp.startAction(CONNECTION);
-			cnx = getConnectionManager().getConnection();
+			getConnectionManager().openConnexion();
 			action.end();
 			
-			DatabaseMetaData dm = cnx.getMetaData();
+			DatabaseMetaData dm = getConnectionManager().getConnection().getMetaData();
 			run(dm, adapter, tp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 		finally {
-			getConnectionManager().close(cnx);
+			getConnectionManager().close();
 			total.end();
 			adapter.end(tp);
 		}

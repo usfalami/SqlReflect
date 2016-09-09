@@ -13,16 +13,17 @@ public interface TransactionManager extends ConnectionManager {
 	
 	void endTransaction() throws SQLException;
 
-	boolean isTransactionOpned() throws SQLException;
-
+	void commit() throws SQLException;
+	
 	void rollback();
 
-	void close();
+	boolean isTransactionOpned() throws SQLException;	
 
 	Statement buildBatch(Query... queries) throws SQLException;
 	
 	Statement buildBatch(Query query, Arguments... args) throws SQLException;
 
 	int executeUpdate(Statement stmt, Query query) throws SQLException;
+
 
 }

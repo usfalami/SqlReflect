@@ -10,14 +10,18 @@ import usf.java.sqlreflect.server.User;
 
 public class SimpleConnectionProvider implements ConnectionProvider {
 
-	protected String url;
+	private String url;
+	private User user;
+	private Server server;
 	
-	public SimpleConnectionProvider(Server server, Env env) {
+	public SimpleConnectionProvider(Server server, Env env, User user) {
 		this.url = server.buildURL(env);
+		this.user = user;
+		this.server = server;
 	}
 	
 	@Override
-	public synchronized Connection getConnection(User user) throws SQLException {
+	public synchronized Connection getConnection() throws SQLException {
 		return user == null ? null : DriverManager.getConnection(url, user.getLogin(), user.getPass());
 	}
 	
@@ -29,6 +33,11 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public Server getServer() {
+		return server;
 	}
 
 }

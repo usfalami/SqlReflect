@@ -3,12 +3,14 @@ package usf.java.sqlreflect.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.server.User;
+import usf.java.sqlreflect.server.Server;
 
 public interface ConnectionProvider {
 	
-	Connection getConnection(User user) throws SQLException;
+	Connection getConnection() throws SQLException;
 	
 	void release(Connection cnx);
+	
+	Server getServer();
 	
 }

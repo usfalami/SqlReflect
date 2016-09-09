@@ -32,7 +32,7 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 
 			
 			ActionPerform action = tp.startAction(STATEMENT);
-			stmt = tm.buildStatement(tm.getConnection(), query, args);
+			stmt = tm.buildStatement(query, args);
 			action.end();
 
 			action = tp.startAction(EXECUTION);

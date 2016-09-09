@@ -3,28 +3,32 @@ package usf.java.sqlreflect.connection.provider;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.server.User;
 
-public class SingleConnectionProvider extends SimpleConnectionProvider {
-	
+public class SingleConnectionProvider implements ConnectionProvider {
+
+	protected ConnectionProvider cp;
 	protected Connection cnx;
 	
-	public SingleConnectionProvider(Server server, Env env) {
-		super(server, env);
+	public SingleConnectionProvider(ConnectionProvider cp) {
+		this.cp = cp;
 	}
 	
 	@Override
-	public synchronized Connection getConnection(User user) throws SQLException {
+	public synchronized Connection getConnection() throws SQLException {
 		if(cnx == null || cnx.isClosed())
-			cnx = super.getConnection(user);
+			cnx = cp.getConnection();
 		return cnx;
 	}
 
 	@Override
 	public void release(Connection cnx) {
 		// do not close cnx
+	}
+	
+	@Override
+	public Server getServer() {
+		return cp == null ? null : cp.getServer();
 	}
 
 }

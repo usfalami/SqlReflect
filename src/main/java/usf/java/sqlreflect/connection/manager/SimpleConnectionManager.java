@@ -11,28 +11,71 @@ import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.server.User;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
 	private ConnectionProvider cp;
-	private SqlParser parser;
-	private User user;
+	private Connection connection;
+	private SqlParser sqlParser;
 	
-	public SimpleConnectionManager(ConnectionProvider cp, Server server, User user) {
-		this.parser = new SimpleSqlParser(server);
+	public SimpleConnectionManager(ConnectionProvider cp) {
 		this.cp = cp;
-		this.user = user;
+		this.sqlParser = new SimpleSqlParser(cp.getServer());
 	}
 
-	@Override	
+	@Override
+	public void openConnexion() throws SQLException {
+		try {
+			getConnection();
+		} catch (Exception e) {
+			connection = cp.getConnection();
+		}
+	}
+
 	public Connection getConnection() throws SQLException {
-		return cp.getConnection(user);
+		if(connection == null || connection.isClosed())
+			throw new SQLException("Canot execute this operation on closed connection");
+		return connection;
 	}
 	
 	@Override
-	public Statement buildStatement(Connection cnx, Query query, Arguments args) throws SQLException  {
+	public void close(ResultSet rs) {
+		if(rs != null){
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void close(Statement stmt) {
+		if(stmt != null){
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void close() throws SQLException {
+		cp.release(connection);
+	}
+	
+	@Override
+	public boolean isValid() {
+		boolean valid = false;
+		try {
+			getConnection();
+			valid = true;
+		} catch (Exception e) {}
+		return valid;
+	}
+	
+	@Override
+	public Statement buildStatement(Query query, Arguments args) throws SQLException  {
+		Connection cnx = getConnection();
 		if(args == null || args.isEmpty()) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else{
@@ -47,34 +90,17 @@ public class SimpleConnectionManager implements ConnectionManager {
 	public ResultSet executeQuery(Statement stmt, String query) throws SQLException {
 		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
 	}
-
-	@Override
-	public SqlParser getSqlParser() {
-		return parser;
-	}
 	
 	@Override
-	public void close(Connection cnx) {
-		cp.release(cnx);
+	public SqlParser getSqlParser() {
+		return sqlParser;
 	}
+
+	//TODO Check this
 	@Override
-	public void close(Statement stmt) {
-		if(stmt != null){
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+	protected void finalize() throws Throwable {
+		super.finalize();
+		this.close(); //close current connection
 	}
-	@Override
-	public void close(ResultSet rs) {
-		if(rs != null){
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 }
