@@ -46,14 +46,14 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 
 	@Override
-	public boolean isTransactionOpned() {
+	public boolean isTransacting() {
 		return transact;
 	}
 
 	@Override
 	public void close() {
 		try {
-			if(!isTransactionOpned()) //
+			if(!isTransacting()) //
 				super.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

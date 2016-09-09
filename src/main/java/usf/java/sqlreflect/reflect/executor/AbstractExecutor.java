@@ -24,7 +24,7 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 			adapter.start();
 			TransactionManager tm = (TransactionManager) getConnectionManager();
 			adapter.prepare(null);
-			if(tm.isTransactionOpned())
+			if(tm.isTransacting())
 				run(tm, adapter, tp);
 			else {
 				try {
