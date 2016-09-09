@@ -11,6 +11,8 @@ import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
+	
+	private boolean transact;
 
 	public SimpleTransactionManager(ConnectionProvider cp) {
 		super(cp);
@@ -18,12 +20,13 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void startTransaction() throws SQLException {
-		getConnection().setAutoCommit(true);
+		openConnexion();
+		getConnection().setAutoCommit(transact = true);
 	}
 
 	@Override
 	public void endTransaction() throws SQLException {
-		getConnection().setAutoCommit(false);
+		getConnection().setAutoCommit(transact = false);
 	}
 	
 	@Override
@@ -41,8 +44,8 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 
 	@Override
-	public boolean isTransactionOpned() throws SQLException {
-		return !getConnection().getAutoCommit();
+	public boolean isTransactionOpned() {
+		return transact;
 	}
 
 	@Override

@@ -25,11 +25,8 @@ public class SimpleConnectionManager implements ConnectionManager {
 
 	@Override
 	public void openConnexion() throws SQLException {
-		try {
-			getConnection();
-		} catch (Exception e) {
+		if(!isValid())
 			connection = cp.getConnection();
-		}
 	}
 
 	public Connection getConnection() throws SQLException {
@@ -74,7 +71,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Statement buildStatement(Query query, Arguments args) throws SQLException  {
+	public Statement buildStatement(Query query, Arguments args) throws SQLException {
 		Connection cnx = getConnection();
 		if(args == null || args.isEmpty()) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
