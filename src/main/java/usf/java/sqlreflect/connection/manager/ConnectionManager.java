@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SqlParser;
+import usf.java.sqlreflect.sql.Parameter;
 
 public interface ConnectionManager {
 	
@@ -23,9 +23,9 @@ public interface ConnectionManager {
 
 	void close();
 
-	Statement buildStatement(Query query, Arguments args) throws SQLException;
+	Statement buildStatement(Query query, Parameter<?>... args) throws SQLException;
 	
-	ResultSet executeQuery(Statement stmt, String query) throws SQLException;
+	ResultSet executeQuery(Statement stmt, String query, Parameter<?>... args) throws SQLException;
 	
 	SqlParser getSqlParser();
 

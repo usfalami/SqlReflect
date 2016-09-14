@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.reflect.scanner;
 
-import java.io.Serializable;
 import java.sql.Statement;
 import java.util.List;
 
@@ -8,24 +7,24 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.Parameter;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	
 	private Query query;
-	private Arguments args;
+	private Parameter<?>[] args;
 
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
 
-	public AbstractDataScanner<T> set(String sql, Serializable... parameters) {
+	public AbstractDataScanner<T> set(String sql, Parameter<?>... parameters) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.args = new Arguments(parameters);
+		this.args = parameters;
 		return this;
 	}
 	
@@ -76,7 +75,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		return query;
 	}
 	
-	public Arguments getParameters() {
+	public Parameter<?>[] getParameters() {
 		return args;
 	}
 

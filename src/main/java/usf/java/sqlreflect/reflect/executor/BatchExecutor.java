@@ -5,16 +5,16 @@ import java.sql.Statement;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
-import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.Parameters;
 
 public class BatchExecutor extends AbstractExecutor<Integer> {
 	
 	private Query[] queries;
-	private Arguments[] args;
+	private Parameters[] args;
 
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
@@ -26,7 +26,7 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
 		return this;
 	}
-	public BatchExecutor set(String sql, Arguments... args) {
+	public BatchExecutor set(String sql, Parameters... args) {
 		queries = new Query[1];
 		queries[0] = getConnectionManager().getSqlParser().parseSQL(sql);
 		this.args = args;

@@ -7,8 +7,9 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.field.Arguments;
 import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
 	
@@ -60,20 +61,15 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	public Statement buildBatch(Query... queries) throws SQLException {
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
-		for(Query query : queries)
-			stmt.addBatch(query.getSQL());
+		SqlUtils.buildBatch(stmt, queries);
 		return stmt;
 	}
 	@Override
-	public Statement buildBatch(Query query, Arguments... argList) throws SQLException {
+	public Statement buildBatch(Query query, Parameters... args) throws SQLException {
 		Connection cnx = getConnection();
-		PreparedStatement pstmt = cnx.prepareStatement(query.getSQL());
-		for(Arguments arguments : argList){
-			for(int i=0; i<arguments.get().length; i++)
-				pstmt.setObject(i+1, arguments.get()[i]);
-			pstmt.addBatch();
-		}
-		return pstmt;
+		PreparedStatement ps = cnx.prepareStatement(query.getSQL());
+		SqlUtils.buildBatch(ps, args);
+		return ps;
 	}
 	
 	@Override

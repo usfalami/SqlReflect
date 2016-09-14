@@ -25,7 +25,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
+			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL(), getParameters());
 			action.end();
 			
 			Mapper<Header> mapper = new HeaderMapper();

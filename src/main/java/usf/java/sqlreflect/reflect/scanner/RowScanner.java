@@ -26,7 +26,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL());
+			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL(), getParameters());
 			action.end();
 			
 			if(mapper.getColumnNames() == null) // set all column if no column was set
