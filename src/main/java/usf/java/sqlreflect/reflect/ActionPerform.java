@@ -14,7 +14,7 @@ public class ActionPerform {
 	}
 
 	public long start() {
-		return start = System.currentTimeMillis();
+		return start = end = System.currentTimeMillis();
 	}
 	public long getStart() {
 		return start;

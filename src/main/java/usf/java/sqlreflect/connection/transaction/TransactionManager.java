@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
 
 public interface TransactionManager extends ConnectionManager {
@@ -23,6 +24,6 @@ public interface TransactionManager extends ConnectionManager {
 	
 	Statement buildBatch(Query query, Parameters... args) throws SQLException;
 
-	int executeUpdate(Statement stmt, Query query) throws SQLException;
+	int executeUpdate(Statement stmt, Query query, Parameter<?>... args) throws SQLException;
 
 }

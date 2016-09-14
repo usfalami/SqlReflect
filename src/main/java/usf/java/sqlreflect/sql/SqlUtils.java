@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import usf.java.sqlreflect.field.Query;
 
@@ -11,10 +12,8 @@ public class SqlUtils {
 	
 	public static void bindPreparedStatement(PreparedStatement pstmt, Parameter<?>... args) throws SQLException {
 		if(args == null) return;
-		for(int i=0; i<args.length; i++){
-			Parameter<?> arg = args[i];
-			pstmt.setObject(i+1, arg.getValue(), arg.getSqlType());
-		}
+		for(int i=0; i<args.length; i++)
+			set(pstmt, i+1, args[i]);
 	}
 	
 	public static void bindCallableStatement(CallableStatement cstmt, Parameter<?>... args) throws SQLException {
@@ -24,7 +23,7 @@ public class SqlUtils {
 			if(arg.isOut())
 				cstmt.registerOutParameter(i+1, arg.getSqlType());
 			else
-				cstmt.setObject(i+1, arg.getValue(), arg.getSqlType());
+				set(cstmt, i+1, arg);
 		}
 	}
 	
@@ -43,12 +42,15 @@ public class SqlUtils {
 			stmt.addBatch(query.getSQL());
 	}
 
-	public static  void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {
+	public static void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {
 		for(Parameters args : argList){
-			for(int i=0; i<args.size(); i++)
-				pstmt.setObject(i+1, args.get(i));
+			bindPreparedStatement(pstmt, args.toArray(new Parameter[args.size()]));
 			pstmt.addBatch();
 		}
 	}
-
+	
+	private static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException{
+		if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());
+		else pstmt.setObject(index, arg.getValue(), arg.getSqlType());
+	}
 }

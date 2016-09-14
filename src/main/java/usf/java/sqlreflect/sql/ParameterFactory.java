@@ -10,35 +10,35 @@ import java.sql.Types;
 public class ParameterFactory {
 	
 	//BIT wrapper
-	public static final Parameter<Boolean> BIT_WRAPPER(boolean value){
+	public static final Parameter<Boolean> BIT_WRAPPER(Boolean value){
 		return new Parameter<Boolean>(Types.BIT, value);
 	}
 	//SMALLINT mapper
-	public static final Parameter<Short> SMALLINT_WRAPPER(short value){
+	public static final Parameter<Short> SMALLINT_WRAPPER(Short value){
 		return new Parameter<Short>(Types.SMALLINT, value);  
 	}
 	//CHAR wrapper
 	public static final Parameter<Character> CHAR_WRAPPER(int value){
 		return new Parameter<Character>(Types.CHAR, (char)value);  
 	}
-	public static final Parameter<Character> CHAR_WRAPPER(char value){
+	public static final Parameter<Character> CHAR_WRAPPER(Character value){
 		return new Parameter<Character>(Types.CHAR, value);  
 	}
 	// INTEGER wrapper
-	public static final Parameter<Integer> INTEGER_WRAPPER(int value){
-		return new Parameter<Integer>(Types.INTEGER, new Integer(value));  
+	public static final Parameter<Integer> INTEGER_WRAPPER(Integer value){
+		return new Parameter<Integer>(Types.INTEGER, value);  
 	}
 	// BIGINT wrapper
-	public static final Parameter<Long> BIGINT_WRAPPER(long value){
-		return new Parameter<Long>(Types.BIGINT, new Long(value));  
+	public static final Parameter<Long> BIGINT_WRAPPER(Long value){
+		return new Parameter<Long>(Types.BIGINT, value);  
 	}
 	// REAL wrapper
-	public static final Parameter<Float> REAL_WRAPPER(float value){
-		return new Parameter<Float>(Types.FLOAT, new Float(value));  
+	public static final Parameter<Float> REAL_WRAPPER(Float value){
+		return new Parameter<Float>(Types.FLOAT, value);  
 	}
 	// DOUBLE wrapper
-	public static final Parameter<Double> DOUBLE_WRAPPER(double value){
-		return new Parameter<Double>(Types.DOUBLE, new Double(value));  
+	public static final Parameter<Double> DOUBLE_WRAPPER(Double value){
+		return new Parameter<Double>(Types.DOUBLE, value);  
 	}
 	// NUMERIC wrapper
 	public static final Parameter<BigInteger> NUMERIC_WRAPPER(BigInteger value){

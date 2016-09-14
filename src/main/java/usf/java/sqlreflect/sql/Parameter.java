@@ -15,6 +15,7 @@ public class Parameter<T> {
 		this(sqlType, value, out, null);
 	}
 	public Parameter(int sqlType, T value, boolean out, String name) {
+		this.sqlType = sqlType;
 		this.value = value;
 		this.out = out;
 		this.name = name;

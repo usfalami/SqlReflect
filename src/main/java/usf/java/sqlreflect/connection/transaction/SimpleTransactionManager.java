@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.connection.transaction;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.sql.Statement;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
 import usf.java.sqlreflect.sql.SqlUtils;
 
@@ -73,8 +75,15 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
-	public int executeUpdate(Statement stmt, Query query) throws SQLException {
-		return stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query.getSQL());
+	public int executeUpdate(Statement stmt, Query query, Parameter<?>... args) throws SQLException {
+		int result = 0;
+		if(stmt instanceof PreparedStatement){
+			result = ((PreparedStatement)stmt).executeUpdate();
+			if(stmt instanceof PreparedStatement)
+				SqlUtils.updateOutParameter((CallableStatement)stmt, args);
+		}
+		else result = stmt.executeUpdate(query.getSQL());
+		return result;
 	}
 	
 }
