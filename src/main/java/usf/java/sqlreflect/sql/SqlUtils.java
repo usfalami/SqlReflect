@@ -1,10 +1,8 @@
-package usf.java.sqlreflect.connection.transaction;
+package usf.java.sqlreflect.sql;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import usf.java.sqlreflect.field.Parameter;
 
 public class SqlUtils {
 	
