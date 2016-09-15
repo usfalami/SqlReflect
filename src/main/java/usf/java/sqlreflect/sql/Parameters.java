@@ -11,5 +11,9 @@ public class Parameters extends ArrayList<Parameter<?>> {
 		for(Parameter<?> param : parameters)
 			add(param);
 	}
+	
+	public Parameter<?>[] toArray(){
+		return toArray(new Parameter<?>[size()]);
+	}
 
 }

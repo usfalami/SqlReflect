@@ -44,7 +44,7 @@ public class SqlUtils {
 
 	public static void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {//TODO test parameters before use it
 		for(Parameters args : argList){
-			bindPreparedStatement(pstmt, args.toArray(new Parameter[args.size()]));
+			bindPreparedStatement(pstmt, args.toArray());
 			pstmt.addBatch();
 		}
 	}

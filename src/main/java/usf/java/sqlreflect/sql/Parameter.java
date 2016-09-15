@@ -11,10 +11,10 @@ public class Parameter<T> {
 	protected Parameter(int sqlType, T value) {
 		this(sqlType, value, false, null);
 	}
-	public Parameter(int sqlType, T value, boolean out) {
+	protected Parameter(int sqlType, T value, boolean out) {
 		this(sqlType, value, out, null);
 	}
-	public Parameter(int sqlType, T value, boolean out, String name) {
+	protected Parameter(int sqlType, T value, boolean out, String name) {
 		this.sqlType = sqlType;
 		this.value = value;
 		this.out = out;
@@ -50,6 +50,5 @@ public class Parameter<T> {
 	public String toString() {
 		return "Parameter [name=" + name + ", value=" + value + ", out=" + out + ", sqlType=" + sqlType + "]";
 	}
-
 
 }
