@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import usf.java.sqlreflect.field.Query;
 
@@ -41,15 +42,16 @@ public class SqlUtils {
 			stmt.addBatch(query.getSQL());
 	}
 
-	public static void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {
+	public static void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {//TODO test parameters before use it
 		for(Parameters args : argList){
 			bindPreparedStatement(pstmt, args.toArray(new Parameter[args.size()]));
 			pstmt.addBatch();
 		}
 	}
 	
-	private static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException{
-		if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());
+	private static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException {
+		if(arg == null) pstmt.setNull(index, Types.NULL); //TODO check that
+		else if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());
 		else pstmt.setObject(index, arg.getValue(), arg.getSqlType());
 	}
 }
