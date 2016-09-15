@@ -1,24 +1,18 @@
 package usf.java.sqlreflect.sql;
 
+
 public class Parameter<T> {
 	
 	private String name;//TODO later, namedQuery
 	private T value; //TODO see getObject(int columnIndex, Class<T> type)
-	private boolean out;
+	private ParameterTypes type;
 	
 	private int sqlType;
 	
 	protected Parameter(int sqlType, T value) {
-		this(sqlType, value, false, null);
-	}
-	protected Parameter(int sqlType, T value, boolean out) {
-		this(sqlType, value, out, null);
-	}
-	protected Parameter(int sqlType, T value, boolean out, String name) {
 		this.sqlType = sqlType;
 		this.value = value;
-		this.out = out;
-		this.name = name;
+		this.type = ParameterTypes.IN;
 	}
 	
 	public int getSqlType() {
@@ -31,11 +25,11 @@ public class Parameter<T> {
 		this.value = value;
 		return this;
 	}
-	public boolean isOut() {
-		return out;
+	public ParameterTypes getType() {
+		return type;
 	}
-	public Parameter<T> setOut(boolean out) {
-		this.out = out;
+	public Parameter<T> setType(ParameterTypes type) {
+		this.type = type;
 		return this;
 	}
 	public String getName() {
@@ -48,7 +42,7 @@ public class Parameter<T> {
 	
 	@Override
 	public String toString() {
-		return "Parameter [name=" + name + ", value=" + value + ", out=" + out + ", sqlType=" + sqlType + "]";
+		return "Parameter [name=" + name + ", value=" + value + ", type=" + type + ", sqlType=" + sqlType + "]";
 	}
 
 }

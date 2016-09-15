@@ -20,9 +20,9 @@ public class SqlUtils {
 		if(args == null) return;
 		for(int i=0; i<args.length; i++){
 			Parameter<?> arg = args[i];
-			if(arg.isOut())
+			if(ParameterTypes.isOut(arg.getType())) //Parameter can be inout type
 				cstmt.registerOutParameter(i+1, arg.getSqlType());
-			else
+			if(ParameterTypes.isIN(arg.getType()))
 				set(cstmt, i+1, arg);
 		}
 	}
@@ -31,7 +31,7 @@ public class SqlUtils {
 		if(args == null) return;
 		for(int i=0; i<args.length; i++){
 			Parameter arg = args[i];
-			if(arg.isOut())
+			if(ParameterTypes.isOut(arg.getType()))
 				arg.setValue(cstmt.getObject(i+1));
 		}
 	}

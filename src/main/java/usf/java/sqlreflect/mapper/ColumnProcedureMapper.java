@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.reflect.scanner.ParameterRoles;
+import usf.java.sqlreflect.sql.ParameterTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ColumnProcedureMapper implements Mapper<Column> {
@@ -14,7 +14,7 @@ public class ColumnProcedureMapper implements Mapper<Column> {
 			rs.getString("COLUMN_NAME").toString(),
 			rs.getString("TYPE_NAME").toString(),
 			rs.getInt("LENGTH"),
-			ParameterRoles.values()[rs.getInt("COLUMN_TYPE")].toString()
+			ParameterTypes.values()[rs.getInt("COLUMN_TYPE")].toString()
 		);
 	}
 
