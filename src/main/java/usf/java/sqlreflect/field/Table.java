@@ -4,19 +4,13 @@ import java.util.List;
 
 public class Table implements Field {
 
-	protected String name, database;
-	protected List<Column> columns;
-	
+	private String name, databaseName, type;
+	private List<Column> columns;
 	
 	public Table() {
 
 	}
 	
-	public Table(String database, String name) {
-		this.database = database;
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -24,15 +18,19 @@ public class Table implements Field {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDatabase() {
-		return database;
+	public String getDatabaseName() {
+		return databaseName;
 	}
-
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setDatabaseName(String database) {
+		this.databaseName = database;
 	}
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public List<Column> getColumns() {
 		return columns;

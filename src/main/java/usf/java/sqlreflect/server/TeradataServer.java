@@ -31,7 +31,7 @@ public class TeradataServer implements Server {
 			Matcher m = p.matcher(sql.trim());
 			if(m.matches()){
 				callable = m.group(1).toLowerCase().equals("call") ? new Procedure(sql) : new Macro(sql);
-				callable.setDatabase(m.group(2)); 
+				callable.setDatabaseName(m.group(2)); 
 				callable.setName(m.group(3));
 				callable.setParameters(m.group(4).split("\\s*,\\s*")); //TODO "," 
 			}

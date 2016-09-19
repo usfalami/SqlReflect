@@ -2,8 +2,8 @@ package usf.java.sqlreflect.field;
 
 public interface Query extends Field {
 
-	String getDatabase();
-	void setDatabase(String database);
+	String getDatabaseName();
+	void setDatabaseName(String database);
 	
 	String getName() ;
 	void setName(String name);

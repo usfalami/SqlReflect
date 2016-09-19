@@ -2,17 +2,8 @@ package usf.java.sqlreflect.field;
 
 public class Database implements Field {
 
-	protected String name;
+	private String name;
 	
-	public Database() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Database(String name) {
-		super();
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}

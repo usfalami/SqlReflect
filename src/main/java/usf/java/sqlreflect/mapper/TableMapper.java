@@ -10,16 +10,20 @@ public class TableMapper implements Mapper<Table> {
 
 	@Override
 	public Table map(ResultSet rs, int row) throws Exception {
-		return new Table(
-				rs.getString("TABLE_SCHEM"), 
-				rs.getString("TABLE_NAME"));
+		Table t = new Table();
+		t.setDatabaseName(rs.getString("TABLE_SCHEM"));
+		t.setName(rs.getString("TABLE_NAME"));
+		t.setType(rs.getString("TABLE_TYPE"));
+		return t;
 	}
 
 	@Override
 	public void write(StreamWriter writer, Table table) throws Exception {
 		writer.startObject("TABLE");
-		writer.writeString("TABLE_SCHEM", table.getDatabase());
+		writer.writeString("TABLE_SCHEM", table.getDatabaseName());
 		writer.writeString("TABLE_NAME", table.getName());
+		writer.writeString("TABLE_TYPE", table.getType());
+		//TODO : Update this
 		if(table.getColumns() != null){
 			ColumnTableMapper cm = new ColumnTableMapper();
 			writer.startList("COLUMNS");
@@ -32,13 +36,12 @@ public class TableMapper implements Mapper<Table> {
 
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{"TABLE_SCHEM", "TABLE_NAME"};
+		return new String[]{"TABLE_SCHEM", "TABLE_NAME", "TABLE_TYPE"};
 	}
 
 	@Override
 	public void setColumnNames(String... columnNames) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

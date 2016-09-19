@@ -36,7 +36,7 @@ public class TeradataServerTest extends TestCase {
 		assertNotNull(p);
 		assertEquals(p.getClass(), Procedure.class);
 		assertEquals(p.getName(), "test_proc");
-		assertEquals(p.getDatabase(), "bd_1");
+		assertEquals(p.getDatabaseName(), "bd_1");
 		assertEquals(p.getSQL(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
 	}
@@ -52,7 +52,7 @@ public class TeradataServerTest extends TestCase {
 		assertNotNull(p);
 		assertEquals(p.getClass(), Macro.class);
 		assertEquals(p.getName(), "test_macro");
-		assertEquals(p.getDatabase(), "bd_1");
+		assertEquals(p.getDatabaseName(), "bd_1");
 		assertEquals(p.getSQL(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
 	}

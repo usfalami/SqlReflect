@@ -57,7 +57,7 @@ public class ProcedureCallValidator implements Adapter<Procedure> {
 	public boolean validate(ConnectionManager cm, String callable) throws Exception {
 		this.callable = sqlParser.getServer().parseCallable(callable);
 		ProcedureScanner c = new ProcedureScanner(cm);
-		c.set(this.callable.getDatabase(), this.callable.getName(), true);
+		c.set(this.callable.getDatabaseName(), this.callable.getName(), true);
 		c.run(this);
 		return isValid;
 	}

@@ -48,7 +48,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 				ColumnScanner cs = new ColumnScanner(getConnectionManager(), HasColumn.PROCEDURE);
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					List<Column> columns = cs.set(p.getDatabase(), p.getName(), null).run();
+					List<Column> columns = cs.set(p.getDatabaseName(), p.getName(), null).run();
 					p.setColumns(columns);
 					adapter.adapte(p, row++);
 				}

@@ -9,7 +9,9 @@ public class DatabaseMapper implements Mapper<Database> {
 
 	@Override
 	public Database map(ResultSet rs, int row) throws Exception {
-		return new Database(rs.getString("TABLE_SCHEM"));
+		Database d = new Database();
+		d.setName(rs.getString("TABLE_SCHEM"));
+		return d;
 	}
 
 	@Override

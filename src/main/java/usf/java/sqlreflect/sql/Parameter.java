@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.sql;
 
-
 public class Parameter<T> {
 	
 	private String name;//TODO later, namedQuery

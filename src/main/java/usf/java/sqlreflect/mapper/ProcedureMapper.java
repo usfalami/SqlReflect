@@ -4,23 +4,26 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Procedure;
+import usf.java.sqlreflect.reflect.scanner.ProcedureTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ProcedureMapper implements Mapper<Procedure> {
 
 	@Override
 	public Procedure map(ResultSet rs, int row) throws Exception {
-		return new Procedure(
-				rs.getString("PROCEDURE_SCHEM"), 
-				rs.getString("PROCEDURE_NAME"));
-				//rs.getString("PROCEDURE_TYPE")
+		Procedure p = new Procedure();
+		p.setDatabaseName(rs.getString("PROCEDURE_SCHEM"));
+		p.setName(rs.getString("PROCEDURE_NAME"));
+		p.setType(ProcedureTypes.values()[rs.getInt("PROCEDURE_TYPE")].toString());
+		return p;
 	}
 
 	@Override
 	public void write(StreamWriter writer, Procedure procedure) throws Exception {
 		writer.startObject("PROCEDURE");
-		writer.writeString("PROCEDURE_SCHEM", procedure.getDatabase());
+		writer.writeString("PROCEDURE_SCHEM", procedure.getDatabaseName());
 		writer.writeString("PROCEDURE_NAME", procedure.getName());
+		writer.writeString("PROCEDURE_TYPE", procedure.getType());
 		if(procedure.getColumns() != null){
 			ColumnProcedureMapper cm = new ColumnProcedureMapper();
 			writer.startList("COLUMNS");
@@ -33,7 +36,7 @@ public class ProcedureMapper implements Mapper<Procedure> {
 	
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{"PROCEDURE_SCHEM", "PROCEDURE_NAME"};
+		return new String[]{"PROCEDURE_SCHEM", "PROCEDURE_NAME", "PROCEDURE_TYPE"};
 	}
 	
 	@Override

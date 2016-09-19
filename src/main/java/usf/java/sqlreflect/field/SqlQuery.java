@@ -14,13 +14,13 @@ public class SqlQuery implements Query  {
 	}
 
 	@Override
-	public String getDatabase() {
+	public String getDatabaseName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setDatabase(String database) {
+	public void setDatabaseName(String database) {
 		// TODO Auto-generated method stub
 	}
 

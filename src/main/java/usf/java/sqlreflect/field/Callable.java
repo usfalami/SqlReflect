@@ -4,10 +4,10 @@ import java.util.List;
 
 public abstract class Callable implements Query {
 	
-	protected String name, database, sql, parameters[];
+	protected String name, databaseName, sql, parameters[];
 	protected List<Column> columns;
 	
-	protected Callable(){
+	public Callable(){
 		
 	}
 	
@@ -16,7 +16,7 @@ public abstract class Callable implements Query {
 	}
 	
 	public Callable(String database, String name){
-		this.database=database;
+		this.databaseName=database;
 		this.name=name;
 	}	
 	
@@ -35,12 +35,12 @@ public abstract class Callable implements Query {
 	}
 
 	@Override
-	public String getDatabase() {
-		return database;
+	public String getDatabaseName() {
+		return databaseName;
 	}
 	@Override
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setDatabaseName(String database) {
+		this.databaseName = database;
 	}
 	
 	@Override

@@ -4,24 +4,29 @@ import java.util.Objects;
 
 public class Column extends Header {
 
-	protected String type;
-	
-	protected Column() {
-		super();
-	}
-	
-	public Column(String name, String valueType, int size, String type) {
-		super(name, valueType, size, null);
-		this.type = type;
-	}
+	protected String databaseName, sourceName, type;
 
+	public String getDatabaseName() {
+		return databaseName;
+	}
+	public void setDatabaseName(String databaseName) {
+		this.databaseName = databaseName;
+	}
+	
+	public String getSourceName() {
+		return sourceName;
+	}
+	public void setSourceName(String sourceName) {
+		this.sourceName = sourceName;
+	}
+	
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
 	@Override
 	public boolean equals(Object arg0) {
 		if(arg0 == null) return false; 
@@ -35,7 +40,7 @@ public class Column extends Header {
 
 	@Override
 	public String toString() {
-		return "Column [name=" + name + ", type=" + valueType + ", clazz=" + clazz
+		return "Column [name=" + name + ", type=" + valueType + ", clazz=" + className
 				+ ", type=" + type + ", size=" + size + "]";
 	}
 
