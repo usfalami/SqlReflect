@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.reflect.scanner;
 
-public enum TableType {
+public enum TableTypes {
 
 	TABLE, VIEW, SYSTEM_TABLE, GLOBAL_TEMPORARY, LOCAL_TEMPORARY, ALIAS, SYNONYM;
 	

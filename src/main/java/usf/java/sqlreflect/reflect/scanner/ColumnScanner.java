@@ -14,14 +14,14 @@ import usf.java.sqlreflect.reflect.TimePerform;
 public class ColumnScanner extends AbstractFieldScanner<Column> {
 	
 	private String databasePattern, proecedurePattern, columnPattern;
-	private HasColumn field;
+	private SourceTypes field;
 	
 	
 	public ColumnScanner(ConnectionManager cm) {
-		this(cm, HasColumn.TABLE);
+		this(cm, SourceTypes.TABLE);
 	}
 	
-	public ColumnScanner(ConnectionManager cm, HasColumn field) {
+	public ColumnScanner(ConnectionManager cm, SourceTypes field) {
 		super(cm);
 		this.field = field;
 	}

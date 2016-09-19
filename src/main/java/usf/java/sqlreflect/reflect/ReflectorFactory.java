@@ -6,7 +6,7 @@ import usf.java.sqlreflect.reflect.executor.BatchExecutor;
 import usf.java.sqlreflect.reflect.executor.UpdateExecutor;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.HasColumn;
+import usf.java.sqlreflect.reflect.scanner.SourceTypes;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
@@ -20,7 +20,7 @@ public class ReflectorFactory {
 		this.tm = tm;
 	}
 	
-	public ColumnScanner getColumnScanner(HasColumn field) {
+	public ColumnScanner getColumnScanner(SourceTypes field) {
 		return new ColumnScanner(tm, field);
 	}
 

@@ -45,7 +45,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
-				ColumnScanner cs = new ColumnScanner(getConnectionManager(), HasColumn.PROCEDURE);
+				ColumnScanner cs = new ColumnScanner(getConnectionManager(), SourceTypes.PROCEDURE);
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
 					List<Column> columns = cs.set(p.getDatabaseName(), p.getName(), null).run();

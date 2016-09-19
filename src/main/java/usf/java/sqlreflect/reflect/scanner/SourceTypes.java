@@ -9,7 +9,7 @@ import usf.java.sqlreflect.mapper.ColumnProcedureMapper;
 import usf.java.sqlreflect.mapper.ColumnTableMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 
-public enum HasColumn {
+public enum SourceTypes {
 	
 	TABLE{
 		@Override
