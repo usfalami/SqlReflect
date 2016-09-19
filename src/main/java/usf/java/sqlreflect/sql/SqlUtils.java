@@ -2,11 +2,21 @@ package usf.java.sqlreflect.sql;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 
 public class SqlUtils {
+	
+	public static final String[] columnNames(ResultSet rs) throws SQLException {
+		ResultSetMetaData rm = rs.getMetaData();
+		String[] columns = new String[rm.getColumnCount()];
+		for(int i=0; i<columns.length; i++)
+			columns[i] = rm.getColumnName(i+1);
+		return columns;
+	}
 	
 	public static void bindPreparedStatement(PreparedStatement pstmt, Parameter<?>... args) throws SQLException {
 		if(args == null) return;

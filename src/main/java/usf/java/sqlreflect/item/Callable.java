@@ -7,7 +7,7 @@ import usf.java.sqlreflect.sql.Runnable;
 public abstract class Callable implements Item, Runnable {
 	
 	protected String databaseName, name, sql, parameters[];
-	protected List<Argument> columns;
+	protected List<Column> columns;
 	
 	public Callable(){
 		
@@ -43,10 +43,10 @@ public abstract class Callable implements Item, Runnable {
 		this.parameters = parameters;
 	}
 
-	public List<Argument> getColumns() {
+	public List<Column> getColumns() {
 		return columns;
 	}
-	public void setColumns(List<Argument> columns) {
+	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
 	

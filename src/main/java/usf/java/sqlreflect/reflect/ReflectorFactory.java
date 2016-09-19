@@ -6,10 +6,10 @@ import usf.java.sqlreflect.reflect.executor.BatchExecutor;
 import usf.java.sqlreflect.reflect.executor.UpdateExecutor;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.SourceTypes;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
+import usf.java.sqlreflect.reflect.scanner.SourceTypes;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
 
 public class ReflectorFactory {

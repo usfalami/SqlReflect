@@ -7,7 +7,7 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
@@ -48,7 +48,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 				ColumnScanner cs = new ColumnScanner(getConnectionManager(), SourceTypes.PROCEDURE);
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					List<Argument> columns = cs.set(p.getDatabaseName(), p.getName(), null).run();
+					List<Column> columns = cs.set(p.getDatabaseName(), p.getName(), null).run();
 					p.setColumns(columns);
 					adapter.adapte(p, row++);
 				}

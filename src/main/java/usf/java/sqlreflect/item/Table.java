@@ -5,7 +5,7 @@ import java.util.List;
 public class Table implements Item {
 
 	private String databaseName, name, type;
-	private List<Argument> columns;
+	private List<Column> columns;
 	
 	public String getDatabaseName() {
 		return databaseName;
@@ -25,10 +25,10 @@ public class Table implements Item {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public List<Argument> getColumns() {
+	public List<Column> getColumns() {
 		return columns;
 	}
-	public void setColumns(List<Argument> columns) {
+	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
 

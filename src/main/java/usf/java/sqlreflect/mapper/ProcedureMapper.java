@@ -2,7 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.reflect.scanner.ProcedureTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -27,7 +27,7 @@ public class ProcedureMapper implements Mapper<Procedure> {
 		if(procedure.getColumns() != null){
 			ColumnProcedureMapper cm = new ColumnProcedureMapper();
 			writer.startList("COLUMNS");
-			for(Argument c : procedure.getColumns())
+			for(Column c : procedure.getColumns())
 				cm.write(writer, c);
 			writer.endList();
 		}

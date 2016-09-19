@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.item;
 
-public class Argument implements Item {
+public class Column implements Item {
 
 	private String databaseName, sourceName, name, type, valueType;
 	private int size, sqlType;
@@ -47,6 +47,5 @@ public class Argument implements Item {
 	public void setSqlType(int sqlType) {
 		this.sqlType = sqlType;
 	}
-	
 	
 }

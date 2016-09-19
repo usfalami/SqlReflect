@@ -2,14 +2,14 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ColumnTableMapper implements Mapper<Argument> {
+public class ColumnTableMapper implements Mapper<Column> {
 
 	@Override
-	public Argument map(ResultSet rs, int row) throws Exception {
-		Argument c = new Argument();
+	public Column map(ResultSet rs, int row) throws Exception {
+		Column c = new Column();
 		c.setDatabaseName(rs.getString("TABLE_SCHEM"));
 		c.setSourceName(rs.getString("TABLE_NAME"));
 		c.setName(rs.getString("COLUMN_NAME"));
@@ -20,7 +20,7 @@ public class ColumnTableMapper implements Mapper<Argument> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, Argument parameter) throws Exception {
+	public void write(StreamWriter writer, Column parameter) throws Exception {
 		writer.startObject("COLUMN");
 		writer.writeString("TABLE_SCHEM", parameter.getDatabaseName());
 		writer.writeString("TABLE_NAME", parameter.getSourceName());

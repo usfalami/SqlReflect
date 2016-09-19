@@ -8,8 +8,8 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
-import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.SqlUtils;
 
 public class RowScanner<T> extends AbstractDataScanner<T> {
 	
@@ -30,7 +30,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 			action.end();
 			
 			if(mapper.getColumnNames() == null) // set all column if no column was set
-				mapper.setColumnNames(ReflectorUtils.columnNames(rs));
+				mapper.setColumnNames(SqlUtils.columnNames(rs));
 			adapter.prepare(mapper);
 			int row = 0;
 

@@ -6,24 +6,24 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class ColumnScanner extends AbstractFieldScanner<Argument> {
+public class ColumnScanner extends AbstractFieldScanner<Column> {
 	
 	private String databasePattern, proecedurePattern, columnPattern;
-	private SourceTypes field;
+	private SourceTypes source;
 	
 	
 	public ColumnScanner(ConnectionManager cm) {
 		this(cm, SourceTypes.TABLE);
 	}
 	
-	public ColumnScanner(ConnectionManager cm, SourceTypes field) {
+	public ColumnScanner(ConnectionManager cm, SourceTypes source) {
 		super(cm);
-		this.field = field;
+		this.source = source;
 	}
 	
 	public ColumnScanner set(String databasePattern, String proecedurePattern, String columnPattern) {
@@ -34,21 +34,21 @@ public class ColumnScanner extends AbstractFieldScanner<Argument> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Argument> adapter, TimePerform tp) throws Exception {
+	protected void run(DatabaseMetaData dm, Adapter<Column> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
+			rs = source.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
 			action.end();
 			
-			Mapper<Argument> mapper = field.getMapper();
+			Mapper<Column> mapper = source.getMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
-				Argument column = mapper.map(rs, row+1);
+				Column column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
 			action.end();
