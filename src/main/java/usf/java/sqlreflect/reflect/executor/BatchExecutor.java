@@ -9,11 +9,11 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public class BatchExecutor extends AbstractExecutor<Integer> {
 	
-	private Query[] queries;
+	private Runnable[] queries;
 	private Parameters[] args;
 
 	public BatchExecutor(TransactionManager cm) {
@@ -21,13 +21,13 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	}
 
 	public BatchExecutor set(String... sql) {
-		queries = new Query[sql.length];
+		queries = new Runnable[sql.length];
 		for(int i=0; i<sql.length; i++)
 			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
 		return this;
 	}
 	public BatchExecutor set(String sql, Parameters... args) {
-		queries = new Query[1];
+		queries = new Runnable[1];
 		queries[0] = getConnectionManager().getSqlParser().parseSQL(sql);
 		this.args = args;
 		return this;

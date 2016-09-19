@@ -2,9 +2,9 @@ package usf.java.sqlreflect.item;
 
 import java.util.List;
 
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class Callable implements Query, Item {
+public abstract class Callable implements Item, Runnable {
 	
 	protected String databaseName, name, sql, parameters[];
 	protected List<Argument> columns;

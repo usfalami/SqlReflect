@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.sql;
 
-public interface Query {
+public interface Runnable {
 	
 	String asQuery();
 	

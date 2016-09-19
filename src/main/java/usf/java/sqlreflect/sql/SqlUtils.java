@@ -34,9 +34,9 @@ public class SqlUtils {
 		}
 	}
 
-	public static void buildBatch(Statement stmt, Query... queries) throws SQLException {
+	public static void buildBatch(Statement stmt, Runnable... queries) throws SQLException {
 		if(queries == null || queries.length == 0) throw new SQLException("one query at least");
-		for(Query query : queries)
+		for(Runnable query : queries)
 			stmt.addBatch(query.asQuery());
 	}
 

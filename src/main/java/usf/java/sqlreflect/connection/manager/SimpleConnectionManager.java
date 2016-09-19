@@ -11,7 +11,7 @@ import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleConnectionManager implements ConnectionManager {
@@ -70,7 +70,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Statement buildStatement(Query query, Parameter<?>... args) throws SQLException {
+	public Statement buildStatement(Runnable query, Parameter<?>... args) throws SQLException {
 		Connection cnx = getConnection();
 		if(args == null || args.length == 0) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

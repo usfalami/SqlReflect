@@ -11,11 +11,11 @@ import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	
-	private Query query;
+	private Runnable query;
 	private Parameter<?>[] args;
 
 	public AbstractDataScanner(ConnectionManager cm) {
@@ -71,7 +71,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		}
 	}
 	
-	public Query getCallable() {
+	public Runnable getCallable() {
 		return query;
 	}
 	

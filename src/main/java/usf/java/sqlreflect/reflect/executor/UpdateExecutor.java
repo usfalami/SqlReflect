@@ -8,11 +8,11 @@ import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public class UpdateExecutor extends AbstractExecutor<Integer> {
 	
-	private Query query;
+	private Runnable query;
 	private Parameter<?>[] args;
 
 	public UpdateExecutor(TransactionManager cm) {

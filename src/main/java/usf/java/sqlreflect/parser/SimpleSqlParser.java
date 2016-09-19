@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.parser;
 
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public class SimpleSqlParser implements SqlParser {
 	
@@ -17,8 +17,8 @@ public class SimpleSqlParser implements SqlParser {
 	}
 	
 	@Override
-	public Query parseSQL(String sql) {
-		Query obj = server.parseCallable(sql);
+	public Runnable parseSQL(String sql) {
+		Runnable obj = server.parseCallable(sql);
 		if(obj == null) obj = server.parseQuery(sql);
 		return obj;
 	}

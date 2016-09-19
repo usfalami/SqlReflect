@@ -10,7 +10,7 @@ import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
@@ -60,14 +60,14 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 
 	@Override
-	public Statement buildBatch(Query... queries) throws SQLException {
+	public Statement buildBatch(Runnable... queries) throws SQLException {
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
 		SqlUtils.buildBatch(stmt, queries);
 		return stmt;
 	}
 	@Override
-	public Statement buildBatch(Query query, Parameters... args) throws SQLException {
+	public Statement buildBatch(Runnable query, Parameters... args) throws SQLException {
 		Connection cnx = getConnection();
 		PreparedStatement ps = cnx.prepareStatement(query.asQuery());
 		SqlUtils.buildBatch(ps, args);
@@ -75,7 +75,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
-	public int executeUpdate(Statement stmt, Query query, Parameter<?>... args) throws SQLException {
+	public int executeUpdate(Statement stmt, Runnable query, Parameter<?>... args) throws SQLException {
 		int result = 0;
 		if(stmt instanceof PreparedStatement){
 			result = ((PreparedStatement)stmt).executeUpdate();

@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public interface ConnectionManager {
 	
@@ -23,7 +23,7 @@ public interface ConnectionManager {
 
 	void close();
 
-	Statement buildStatement(Query query, Parameter<?>... args) throws SQLException;
+	Statement buildStatement(Runnable query, Parameter<?>... args) throws SQLException;
 	
 	ResultSet executeQuery(Statement stmt, String query, Parameter<?>... args) throws SQLException;
 	

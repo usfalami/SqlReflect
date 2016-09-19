@@ -6,7 +6,7 @@ import java.sql.Statement;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.Query;
+import usf.java.sqlreflect.sql.Runnable;
 
 public interface TransactionManager extends ConnectionManager {
 	
@@ -20,10 +20,10 @@ public interface TransactionManager extends ConnectionManager {
 
 	boolean isTransacting();	
 
-	Statement buildBatch(Query... queries) throws SQLException;
+	Statement buildBatch(Runnable... queries) throws SQLException;
 	
-	Statement buildBatch(Query query, Parameters... args) throws SQLException;
+	Statement buildBatch(Runnable query, Parameters... args) throws SQLException;
 
-	int executeUpdate(Statement stmt, Query query, Parameter<?>... args) throws SQLException;
+	int executeUpdate(Statement stmt, Runnable query, Parameter<?>... args) throws SQLException;
 
 }
