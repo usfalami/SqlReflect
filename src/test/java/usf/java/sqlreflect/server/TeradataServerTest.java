@@ -3,9 +3,9 @@ package usf.java.sqlreflect.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sqlreflect.field.Macro;
-import usf.java.sqlreflect.field.Procedure;
-import usf.java.sqlreflect.field.Query;
+import usf.java.sqlreflect.item.Callable;
+import usf.java.sqlreflect.item.Macro;
+import usf.java.sqlreflect.item.Procedure;
 
 
 public class TeradataServerTest extends TestCase {
@@ -32,12 +32,12 @@ public class TeradataServerTest extends TestCase {
 		assertNull(db.parseCallable("call test_proc(?,?,?)"));
 		
 		String query = "call bd_1.test_proc(?,?,?,'param')";
-		Query p = db.parseCallable(query);
+		Callable p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getClass(), Procedure.class);
 		assertEquals(p.getName(), "test_proc");
 		assertEquals(p.getDatabaseName(), "bd_1");
-		assertEquals(p.getSQL(), query);
+		assertEquals(p.asQuery(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
 	}
 	
@@ -48,12 +48,12 @@ public class TeradataServerTest extends TestCase {
 		assertNull(db.parseCallable("call test_macro(?,?,?)"));
 		
 		String query = "exec bd_1.test_macro(1223, true, ?,'param')";
-		Query p = db.parseCallable(query);
+		Callable p = db.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getClass(), Macro.class);
 		assertEquals(p.getName(), "test_macro");
 		assertEquals(p.getDatabaseName(), "bd_1");
-		assertEquals(p.getSQL(), query);
+		assertEquals(p.asQuery(), query);
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
 	}
 	

@@ -4,9 +4,9 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Callable;
-import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.field.Procedure;
+import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Callable;
+import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.reflect.TimePerform;
@@ -35,7 +35,7 @@ public class ProcedureCallValidator implements Adapter<Procedure> {
 
 	@Override
 	public void adapte(Procedure procedure, int index) throws Exception {
-		List<?extends Column>columns = procedure.getColumns();
+		List<?extends Argument>columns = procedure.getColumns();
 		if(columns==null || columns.size()==0) {
 			if(callable.getParameters().length == 0) 
 				isValid = true;

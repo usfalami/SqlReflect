@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.parser;
 
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.sql.Query;
 
 public interface SqlParser {
 	

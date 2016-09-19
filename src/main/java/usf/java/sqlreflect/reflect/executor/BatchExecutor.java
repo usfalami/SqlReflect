@@ -5,11 +5,11 @@ import java.sql.Statement;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.Query;
 
 public class BatchExecutor extends AbstractExecutor<Integer> {
 	

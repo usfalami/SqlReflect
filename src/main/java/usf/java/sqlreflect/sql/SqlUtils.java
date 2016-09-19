@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 
-import usf.java.sqlreflect.field.Query;
-
 public class SqlUtils {
 	
 	public static void bindPreparedStatement(PreparedStatement pstmt, Parameter<?>... args) throws SQLException {
@@ -39,7 +37,7 @@ public class SqlUtils {
 	public static void buildBatch(Statement stmt, Query... queries) throws SQLException {
 		if(queries == null || queries.length == 0) throw new SQLException("one query at least");
 		for(Query query : queries)
-			stmt.addBatch(query.getSQL());
+			stmt.addBatch(query.asQuery());
 	}
 
 	public static void buildBatch(PreparedStatement pstmt, Parameters... argList) throws SQLException {//TODO test parameters before use it

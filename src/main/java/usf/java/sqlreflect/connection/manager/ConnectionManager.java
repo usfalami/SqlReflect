@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.sql.Parameter;
+import usf.java.sqlreflect.sql.Query;
 
 public interface ConnectionManager {
 	

@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
-import usf.java.sqlreflect.field.Header;
+import usf.java.sqlreflect.item.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class HeaderMapper implements Mapper<Header> {

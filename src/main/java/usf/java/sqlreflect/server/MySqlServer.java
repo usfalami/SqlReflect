@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.server;
 
-import usf.java.sqlreflect.field.Callable;
-import usf.java.sqlreflect.field.SqlQuery;
+import usf.java.sqlreflect.item.Callable;
+import usf.java.sqlreflect.item.SqlQuery;
 
 public class MySqlServer implements Server {
 

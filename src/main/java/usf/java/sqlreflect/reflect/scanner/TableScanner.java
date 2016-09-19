@@ -7,8 +7,8 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.field.Table;
+import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
@@ -54,7 +54,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 				ColumnScanner ts = new ColumnScanner(getConnectionManager(), SourceTypes.TABLE);
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					List<Column> columns = ts.set(t.getDatabaseName(), t.getName(), null).run();
+					List<Argument> columns = ts.set(t.getDatabaseName(), t.getName(), null).run();
 					t.setColumns(columns);
 					adapter.adapte(t, row++);
 				}

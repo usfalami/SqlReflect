@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Database;
+import usf.java.sqlreflect.item.Database;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;

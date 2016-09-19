@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.Query;
 import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
@@ -69,7 +69,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	@Override
 	public Statement buildBatch(Query query, Parameters... args) throws SQLException {
 		Connection cnx = getConnection();
-		PreparedStatement ps = cnx.prepareStatement(query.getSQL());
+		PreparedStatement ps = cnx.prepareStatement(query.asQuery());
 		SqlUtils.buildBatch(ps, args);
 		return ps;
 	}
@@ -82,7 +82,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 			if(stmt instanceof PreparedStatement)
 				SqlUtils.updateOutParameter((CallableStatement)stmt, args);
 		}
-		else result = stmt.executeUpdate(query.getSQL());
+		else result = stmt.executeUpdate(query.asQuery());
 		return result;
 	}
 	

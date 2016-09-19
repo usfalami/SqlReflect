@@ -7,7 +7,7 @@ import java.sql.Statement;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Header;
+import usf.java.sqlreflect.item.Header;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
@@ -25,7 +25,7 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = getConnectionManager().executeQuery(stmt, getCallable().getSQL(), getParameters());
+			rs = getConnectionManager().executeQuery(stmt, getCallable().asQuery(), getParameters());
 			action.end();
 			
 			Mapper<Header> mapper = new HeaderMapper();

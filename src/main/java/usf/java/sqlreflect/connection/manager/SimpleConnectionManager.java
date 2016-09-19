@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.sql.Parameter;
+import usf.java.sqlreflect.sql.Query;
 import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleConnectionManager implements ConnectionManager {
@@ -74,13 +74,13 @@ public class SimpleConnectionManager implements ConnectionManager {
 		Connection cnx = getConnection();
 		if(args == null || args.length == 0) 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		else if(!query.getSQL().toUpperCase().startsWith("\\s*CALL")){//TODO udapte this test
-			PreparedStatement ps = cnx.prepareStatement(query.getSQL(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		else if(!query.asQuery().toUpperCase().startsWith("\\s*CALL")){//TODO udapte this test
+			PreparedStatement ps = cnx.prepareStatement(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			SqlUtils.bindPreparedStatement(ps, args);
 			return ps;
 		}
 		else{
-			CallableStatement cs = cnx.prepareCall(query.getSQL(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			CallableStatement cs = cnx.prepareCall(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			SqlUtils.bindCallableStatement(cs, args);
 			return cs;
 		}

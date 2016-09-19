@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.field;
+package usf.java.sqlreflect.item;
 
 import java.util.HashMap;
 

@@ -2,8 +2,8 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.field.Table;
+import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class TableMapper implements Mapper<Table> {
@@ -27,7 +27,7 @@ public class TableMapper implements Mapper<Table> {
 		if(table.getColumns() != null){
 			ColumnTableMapper cm = new ColumnTableMapper();
 			writer.startList("COLUMNS");
-			for(Column c : table.getColumns())
+			for(Argument c : table.getColumns())
 				cm.write(writer, c);
 			writer.endList();
 		}

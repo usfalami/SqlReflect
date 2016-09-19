@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Column;
+import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class ColumnScanner extends AbstractFieldScanner<Column> {
+public class ColumnScanner extends AbstractFieldScanner<Argument> {
 	
 	private String databasePattern, proecedurePattern, columnPattern;
 	private SourceTypes field;
@@ -34,7 +34,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Column> adapter, TimePerform tp) throws Exception {
+	protected void run(DatabaseMetaData dm, Adapter<Argument> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 
@@ -42,13 +42,13 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 			rs = field.getColumns(dm, databasePattern, proecedurePattern, columnPattern);
 			action.end();
 			
-			Mapper<Column> mapper = field.getMapper();
+			Mapper<Argument> mapper = field.getMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
-				Column column = mapper.map(rs, row+1);
+				Argument column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
 			action.end();

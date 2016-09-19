@@ -1,35 +1,34 @@
-package usf.java.sqlreflect.field;
+package usf.java.sqlreflect.item;
 
-public class Header implements Field {
+public class Header implements Item {
 
-	protected String name, valueType, className;
-	protected int size, sqlType;
+	private String name, valueType, className;
+	private int size, sqlType;
 	
-	public Header(){
-		
-	}
-
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getValueType() {
 		return valueType;
 	}
 	public void setValueType(String valueType) {
 		this.valueType = valueType;
 	}
-
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
 	public int getSize() {
 		return size;
 	}
 	public void setSize(int size) {
 		this.size = size;
 	}
-	
 	public int getSqlType() {
 		return sqlType;
 	}
@@ -37,11 +36,4 @@ public class Header implements Field {
 		this.sqlType = sqlType;
 	}
 
-	public String getClassName() {
-		return className;
-	}
-	public void setClassName(String clazz) {
-		this.className = clazz;
-	}
-	
 }

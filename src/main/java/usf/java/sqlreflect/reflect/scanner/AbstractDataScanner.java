@@ -7,11 +7,11 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.field.Query;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameter;
+import usf.java.sqlreflect.sql.Query;
 
 public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
 	
