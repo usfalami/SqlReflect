@@ -51,11 +51,11 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
-				ColumnScanner ts = new ColumnScanner(getConnectionManager(), SourceTypes.TABLE);
+				ColumnScanner ts = new ColumnScanner(getConnectionManager());
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					List<Column> columns = ts.set(t.getDatabaseName(), t.getName(), null).run();
-					t.setColumns(columns);
+					List<Column> cols = ts.set(t.getDatabaseName(), t.getName(), null).run();
+					t.setColumns(cols);
 					adapter.adapte(t, row++);
 				}
 			}

@@ -41,20 +41,20 @@ public class TeradataServerTest extends TestCase {
 		assertTrue(Arrays.equals(p.getParameters(), new String[]{"?","?","?","'param'"}));
 	}
 	
-	public void testParseMacro() {
-		Server db = new TeradataServer();
-		assertNull(db.parseCallable("select database"));
-		assertNull(db.parseCallable("exc bd_1.test_macro(?,?,?)"));
-		assertNull(db.parseCallable("call test_macro(?,?,?)"));
-		
-		String query = "exec bd_1.test_macro(1223, true, ?,'param')";
-		Callable p = db.parseCallable(query);
-		assertNotNull(p);
-		assertEquals(p.getClass(), Macro.class);
-		assertEquals(p.getName(), "test_macro");
-		assertEquals(p.getDatabaseName(), "bd_1");
-		assertEquals(p.asQuery(), query);
-		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
-	}
+//	public void testParseMacro() {
+//		Server db = new TeradataServer();
+//		assertNull(db.parseCallable("select database"));
+//		assertNull(db.parseCallable("exc bd_1.test_macro(?,?,?)"));
+//		assertNull(db.parseCallable("call test_macro(?,?,?)"));
+//		
+//		String query = "exec bd_1.test_macro(1223, true, ?,'param')";
+//		Callable p = db.parseCallable(query);
+//		assertNotNull(p);
+//		assertEquals(p.getClass(), Macro.class);
+//		assertEquals(p.getName(), "test_macro");
+//		assertEquals(p.getDatabaseName(), "bd_1");
+//		assertEquals(p.asQuery(), query);
+//		assertTrue(Arrays.equals(p.getParameters(), new String[]{"1223","true","?","'param'"}));
+//	}
 	
 }

@@ -3,6 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
+import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.item.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -13,27 +14,27 @@ public class HeaderMapper implements Mapper<Header> {
 		ResultSetMetaData md = rs.getMetaData();
 		Header h = new Header();
 		h.setName(md.getColumnName(row));
-		h.setValueType(md.getColumnTypeName(row));
+		h.setType(md.getColumnType(row));
+		h.setTypeName(md.getColumnTypeName(row));
 		h.setSize(md.getColumnDisplaySize(row));
 		h.setClassName(md.getColumnClassName(row));
-		h.setSqlType(md.getColumnType(row));
 		return h;
 	}
 
 	@Override
 	public void write(StreamWriter writer, Header column) throws Exception {
 		writer.startObject("HEADER");
-		writer.writeString("HEADER_NAME", column.getName());
-		writer.writeString("HEADER_TYPE", column.getValueType());
-		writer.writeString("TYPE_NAME", column.getValueType());
-		writer.writeInt("LENGTH", column.getSize());
-		writer.writeString("CLASS", column.getClassName());
+		writer.writeString(SqlConstants.COLUMN_NAME, column.getName());
+		writer.writeInt(SqlConstants.COLUMN_TYPE, column.getType());
+		writer.writeString(SqlConstants.TYPE_NAME, column.getTypeName());
+		writer.writeInt(SqlConstants.COLUMN_SIZE, column.getSize());
+		writer.writeString(SqlConstants.COLUMN_CLASS, column.getClassName());
 		writer.endObject();
 	}
 	
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{"HEADER_NAME", "HEADER_TYPE", "TYPE_NAME", "LENGTH", "CLASS"};
+		return new String[]{SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
 	}
 	
 	@Override

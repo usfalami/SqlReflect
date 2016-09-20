@@ -4,37 +4,27 @@ import java.util.List;
 
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class Callable implements Item, Runnable {
+public abstract class Callable extends Entry implements Runnable {
 	
-	protected String databaseName, name, sql, parameters[];
-	protected List<Column> columns;
+	private String callable, parameters[];
+	private List<Argument> arguments;
 	
 	public Callable(){
 		
 	}
-	
-	public Callable(String sql) {
-		this.sql = sql;
-	}
-	
-	public Callable(String database, String name){
-		this.databaseName=database;
-		this.name=name;
-	}
 
-	public String getDatabaseName() {
-		return databaseName;
+	public Callable(String callable) {
+		this.callable = callable;
 	}
-	public void setDatabaseName(String databaseName) {
-		this.databaseName = databaseName;
-	}
+	
+	public abstract String getDatabaseName();
+	public abstract void setDatabaseName(String databaseName);
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	public abstract String getName();
+	public abstract void setName(String name);
+	
+	public abstract String getType();
+	public abstract void setType(String type);
 
 	public String[] getParameters() {
 		return parameters;
@@ -43,16 +33,16 @@ public abstract class Callable implements Item, Runnable {
 		this.parameters = parameters;
 	}
 
-	public List<Column> getColumns() {
-		return columns;
+	public List<Argument> getArguments() {
+		return arguments;
 	}
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
+	public void setArguments(List<Argument> arguments) {
+		this.arguments = arguments;
 	}
 	
 	@Override
 	public String asQuery() {
-		return sql;
+		return callable;
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
+import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Callable;
 import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Procedure;
@@ -35,18 +36,18 @@ public class ProcedureCallValidator implements Adapter<Procedure> {
 
 	@Override
 	public void adapte(Procedure procedure, int index) throws Exception {
-		List<?extends Column>columns = procedure.getColumns();
-		if(columns==null || columns.size()==0) {
+		List<Argument>args = procedure.getArguments();
+		if(args==null || args.size()==0) {
 			if(callable.getParameters().length == 0) 
 				isValid = true;
 			else 
 				throw new Exception("[Error] Too many parameters : expected 0 parameters");
 		}
-		else if(callable.getParameters().length > columns.size())
-			throw new Exception("[Error] Too many parameters : expected " + columns.size() + " parameters");
+		else if(callable.getParameters().length > args.size())
+			throw new Exception("[Error] Too many parameters : expected " + args.size() + " parameters");
 		
-		else if(callable.getParameters().length < columns.size())
-			throw new Exception("[Error] Too few parameters : expected " + columns.size() + " parameters");
+		else if(callable.getParameters().length < args.size())
+			throw new Exception("[Error] Too few parameters : expected " + args.size() + " parameters");
 
 		else isValid = true;
 	}

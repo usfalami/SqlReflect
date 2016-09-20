@@ -2,28 +2,29 @@ package usf.java.sqlreflect.item;
 
 import java.util.List;
 
-public class Table implements Item {
+import usf.java.sqlreflect.SqlConstants;
 
-	private String databaseName, name, type;
+public class Table extends Entry {
+
 	private List<Column> columns;
 	
 	public String getDatabaseName() {
-		return databaseName;
+		return getString(SqlConstants.TABLE_SCHEM);
 	}
 	public void setDatabaseName(String databaseName) {
-		this.databaseName = databaseName;
+		set(SqlConstants.TABLE_SCHEM, databaseName);
 	}
 	public String getName() {
-		return name;
+		return getString(SqlConstants.TABLE_NAME);
 	}
 	public void setName(String name) {
-		this.name = name;
+		set(SqlConstants.TABLE_NAME, name);
 	}
 	public String getType() {
-		return type;
+		return getString(SqlConstants.TABLE_TYPE);
 	}
 	public void setType(String type) {
-		this.type = type;
+		set(SqlConstants.TABLE_TYPE, type);
 	}
 	public List<Column> getColumns() {
 		return columns;

@@ -2,20 +2,20 @@ package usf.java.sqlreflect.item;
 
 import usf.java.sqlreflect.SqlConstants;
 
-public class Column extends Entry {
+public class Argument extends Entry {
 	
 	public String getDatabaseName() {
-		return getString(SqlConstants.TABLE_SCHEM);
+		return getString(SqlConstants.PROCEDURE_SCHEM);
 	}
 	public void setDatabaseName(String databaseName) {
-		set(SqlConstants.TABLE_SCHEM, databaseName);
+		set(SqlConstants.PROCEDURE_SCHEM, databaseName);
 	}
 	
-	public String getTableName() {
-		return getString(SqlConstants.TABLE_NAME);
+	public String getCallableName() {
+		return getString(SqlConstants.PROCEDURE_NAME);
 	}
-	public void setTableName(String tableName) {
-		set(SqlConstants.TABLE_NAME, tableName);
+	public void setCallableName(String tableName) {
+		set(SqlConstants.PROCEDURE_NAME, tableName);
 	}
 	
 	public String getName() {
@@ -23,6 +23,13 @@ public class Column extends Entry {
 	}
 	public void setName(String name) {
 		set(SqlConstants.COLUMN_NAME, name);
+	}
+	
+	public String getType() {
+		return getString(SqlConstants.COLUMN_TYPE);
+	}
+	public void setType(String name) {
+		set(SqlConstants.COLUMN_TYPE, name);
 	}
 	
 	public int getDataType() {
@@ -40,10 +47,10 @@ public class Column extends Entry {
 	}
 	
 	public int getSize() {
-		return getInteger(SqlConstants.COLUMN_SIZE);
+		return getInteger(SqlConstants.LENGTH);
 	}
 	public void setSize(int size) {
-		set(SqlConstants.COLUMN_SIZE, size);
+		set(SqlConstants.LENGTH, size);
 	}
 	
 }

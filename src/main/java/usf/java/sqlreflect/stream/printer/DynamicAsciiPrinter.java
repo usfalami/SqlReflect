@@ -33,7 +33,8 @@ public class DynamicAsciiPrinter extends AsciiPrinter implements Printer {
 	@Override
 	public void appendColumn(String value){
 		entries.get(row)[col] = value;
-		lengths[col] = Math.max(value.length(), lengths[col]);
+		if(value != null)
+			lengths[col] = Math.max(value.length(), lengths[col]);
 		col++;
 	}
 

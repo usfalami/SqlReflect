@@ -2,28 +2,44 @@ package usf.java.sqlreflect.item;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import usf.java.sqlreflect.SqlConstants;
+
 @XmlRootElement
 public class Procedure extends Callable {
-	
-	private String type;
 	
 	public Procedure() {
 		super();
 	}
-
-	public Procedure(String database, String name) {
-		super(database, name);
+	
+	public Procedure(String callable) {
+		super(callable);
 	}
 
-	public Procedure(String sql) {
-		super(sql);
+	@Override
+	public String getDatabaseName() {
+		return getString(SqlConstants.PROCEDURE_SCHEM);
+	}
+	@Override
+	public void setDatabaseName(String databaseName) {
+		set(SqlConstants.PROCEDURE_SCHEM, databaseName);
 	}
 
+	@Override
+	public String getName() {
+		return getString(SqlConstants.PROCEDURE_NAME);
+	}
+	@Override
+	public void setName(String name) {
+		set(SqlConstants.PROCEDURE_NAME, name);
+	}
+
+	@Override
 	public String getType() {
-		return type;
+		return getString(SqlConstants.PROCEDURE_TYPE);
 	}
+	@Override
 	public void setType(String type) {
-		this.type = type;
+		set(SqlConstants.PROCEDURE_TYPE, type);
 	}
 
 }

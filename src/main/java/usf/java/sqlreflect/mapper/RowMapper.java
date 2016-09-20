@@ -22,7 +22,7 @@ public class RowMapper implements Mapper<Row> {
 	public Row map(ResultSet rs, int row) throws Exception {
 		Row map = new Row();
 		for(String col : columnNames)
-			map.put(col, rs.getObject(col));
+			map.set(col, rs.getObject(col));
 		return map;
 	}
 

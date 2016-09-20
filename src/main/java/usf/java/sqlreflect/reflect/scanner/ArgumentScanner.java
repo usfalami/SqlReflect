@@ -6,44 +6,44 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Column;
-import usf.java.sqlreflect.mapper.ColumnMapper;
+import usf.java.sqlreflect.item.Argument;
+import usf.java.sqlreflect.mapper.ArgumentMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class ColumnScanner extends AbstractFieldScanner<Column> {
+public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	
-	private String databasePattern, tablePattern, columnPattern;
+	private String databasePattern, procedurePattern, columnPattern;
 	
-	public ColumnScanner(ConnectionManager cm) {
+	public ArgumentScanner(ConnectionManager cm) {
 		super(cm);
 	}
 	
-	public ColumnScanner set(String databasePattern, String tablePattern, String columnPattern) {
+	public ArgumentScanner set(String databasePattern, String procedurePattern, String columnPattern) {
 		this.databasePattern = databasePattern;
-		this.tablePattern = tablePattern;
+		this.procedurePattern = procedurePattern;
 		this.columnPattern = columnPattern;
 		return this;
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Column> adapter, TimePerform tp) throws Exception {
+	protected void run(DatabaseMetaData dm, Adapter<Argument> adapter, TimePerform tp) throws Exception {
 		ResultSet rs = null;
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getColumns(null, databasePattern, tablePattern, columnPattern);
+			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, columnPattern);
 			action.end();
 			
-			Mapper<Column> mapper = new ColumnMapper();
+			Mapper<Argument> mapper = new ArgumentMapper();
 			adapter.prepare(mapper);
 			int row = 0;
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
-				Column column = mapper.map(rs, row+1);
-				adapter.adapte(column, row++);
+				Argument argument = mapper.map(rs, row+1);
+				adapter.adapte(argument, row++);
 			}
 			action.end();
 			tp.setRowCount(row);

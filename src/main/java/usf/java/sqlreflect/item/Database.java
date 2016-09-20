@@ -1,15 +1,15 @@
 package usf.java.sqlreflect.item;
 
-public class Database implements Item {
+import usf.java.sqlreflect.SqlConstants;
 
-	private String name;
+public class Database extends Entry {
 
 	public String getName() {
-		return name;
+		return getString(SqlConstants.TABLE_SCHEM);
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		set(SqlConstants.TABLE_SCHEM, name);
 	}
 	
 }

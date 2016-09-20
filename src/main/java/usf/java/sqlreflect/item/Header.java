@@ -1,39 +1,41 @@
 package usf.java.sqlreflect.item;
 
-public class Header implements Item {
+import usf.java.sqlreflect.SqlConstants;
 
-	private String name, valueType, className;
-	private int size, sqlType;
+public class Header extends Entry {
 	
 	public String getName() {
-		return name;
+		return getString(SqlConstants.COLUMN_NAME);
 	}
 	public void setName(String name) {
-		this.name = name;
+		set(SqlConstants.COLUMN_NAME, name);
 	}
-	public String getValueType() {
-		return valueType;
+	
+	public int getType() {
+		return getInteger(SqlConstants.DATA_TYPE);
 	}
-	public void setValueType(String valueType) {
-		this.valueType = valueType;
+	public void setType(int dataType) {
+		set(SqlConstants.DATA_TYPE, dataType);
 	}
-	public String getClassName() {
-		return className;
+	
+	public String getTypeName() {
+		return getString(SqlConstants.TYPE_NAME);
 	}
-	public void setClassName(String className) {
-		this.className = className;
+	public void setTypeName(String dataTypeName) {
+		set(SqlConstants.TYPE_NAME, dataTypeName);
 	}
+	
 	public int getSize() {
-		return size;
+		return getInteger(SqlConstants.COLUMN_SIZE);
 	}
 	public void setSize(int size) {
-		this.size = size;
+		set(SqlConstants.COLUMN_SIZE, size);
 	}
-	public int getSqlType() {
-		return sqlType;
+	
+	public String getClassName() {
+		return getString(SqlConstants.COLUMN_CLASS);
 	}
-	public void setSqlType(int sqlType) {
-		this.sqlType = sqlType;
+	public void setClassName(String dataTypeName) {
+		set(SqlConstants.COLUMN_CLASS, dataTypeName);
 	}
-
 }

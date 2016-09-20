@@ -7,7 +7,7 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Column;
+import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
@@ -17,7 +17,7 @@ import usf.java.sqlreflect.reflect.TimePerform;
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	
 	private String databasePattern, proecedurePattern;
-	private boolean columns;
+	private boolean arguments;
 	
 	public ProcedureScanner(ConnectionManager cm) {
 		super(cm);
@@ -26,7 +26,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	public ProcedureScanner set(String databasePattern, String proecedurePattern, boolean columns) {
 		this.databasePattern = databasePattern;
 		this.proecedurePattern = proecedurePattern;
-		this.columns = columns;
+		this.arguments = columns;
 		return this;
 	}
 
@@ -44,12 +44,12 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			int row = 0;
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
-			if(columns) { // look for columns
-				ColumnScanner cs = new ColumnScanner(getConnectionManager(), SourceTypes.PROCEDURE);
+			if(arguments) { // look for columns
+				ArgumentScanner cs = new ArgumentScanner(getConnectionManager());
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					List<Column> columns = cs.set(p.getDatabaseName(), p.getName(), null).run();
-					p.setColumns(columns);
+					List<Argument> args = cs.set(p.getDatabaseName(), p.getName(), null).run();
+					p.setArguments(args);
 					adapter.adapte(p, row++);
 				}
 			}
