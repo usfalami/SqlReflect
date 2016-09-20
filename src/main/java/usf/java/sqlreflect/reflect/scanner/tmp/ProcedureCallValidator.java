@@ -6,7 +6,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Callable;
-import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.parser.SqlParser;

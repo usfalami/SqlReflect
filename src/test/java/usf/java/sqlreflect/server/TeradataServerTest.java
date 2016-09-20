@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 import usf.java.sqlreflect.item.Callable;
-import usf.java.sqlreflect.item.Macro;
 import usf.java.sqlreflect.item.Procedure;
 
 
