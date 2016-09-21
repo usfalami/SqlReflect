@@ -4,9 +4,8 @@
 
 	<groupId>usf.java</groupId>
 	<artifactId>SqlReflect</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<packaging>jar</packaging>
-
 	<name>SqlReflect</name>
 	<url>http://maven.apache.org</url>
 

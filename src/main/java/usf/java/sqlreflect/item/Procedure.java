@@ -1,10 +1,7 @@
 package usf.java.sqlreflect.item;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import usf.java.sqlreflect.SqlConstants;
 
-@XmlRootElement
 public class Procedure extends Callable {
 	
 	public Procedure() {

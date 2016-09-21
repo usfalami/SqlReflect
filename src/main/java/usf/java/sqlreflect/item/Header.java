@@ -12,10 +12,10 @@ public class Header extends Entry {
 	}
 	
 	public int getType() {
-		return getInteger(SqlConstants.DATA_TYPE);
+		return getInteger(SqlConstants.COLUMN_TYPE);
 	}
 	public void setType(int dataType) {
-		set(SqlConstants.DATA_TYPE, dataType);
+		set(SqlConstants.COLUMN_TYPE, dataType);
 	}
 	
 	public String getTypeName() {
