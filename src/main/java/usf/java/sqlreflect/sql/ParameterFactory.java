@@ -60,12 +60,18 @@ public class ParameterFactory {
 	public static final Parameter<Date> DATE_WRAPPER(long value){
 		return new Parameter<Date>(Types.DATE, new Date(value));  
 	}
+	public static final Parameter<Date> DATE_WRAPPER(Date value){
+		return new Parameter<Date>(Types.DATE, value);  
+	}
 	public static final Parameter<Date> DATE_WRAPPER(java.util.Date value){
 		return new Parameter<Date>(Types.DATE, value == null ? null : new Date(value.getTime()));  
 	}
 	// TIMESTAMP wrapper
 	public static final Parameter<Timestamp> TIMESTAMP_WRAPPER(long value){
 		return new Parameter<Timestamp>(Types.TIMESTAMP, new Timestamp(value));  
+	}
+	public static final Parameter<Timestamp> TIMESTAMP_WRAPPER(Timestamp value){
+		return new Parameter<Timestamp>(Types.TIMESTAMP, value);  
 	}
 	public static final Parameter<Timestamp> TIMESTAMP_WRAPPER(java.util.Date value){
 		return new Parameter<Timestamp>(Types.TIMESTAMP, value == null ? null : new Timestamp(value.getTime()));  
@@ -74,8 +80,12 @@ public class ParameterFactory {
 	public static final Parameter<Time> TIME_WRAPPER(long value){
 		return new Parameter<Time>(Types.TIME, new Time(value));
 	}
+	public static final Parameter<Time> TIME_WRAPPER(Time value){
+		return new Parameter<Time>(Types.TIME, value);  
+	}
 	public static final Parameter<Time> TIME_WRAPPER(java.util.Date value){
 		return new Parameter<Time>(Types.TIME, value == null ? null : new Time(value.getTime()));  
 	}
+	
 	
 }
