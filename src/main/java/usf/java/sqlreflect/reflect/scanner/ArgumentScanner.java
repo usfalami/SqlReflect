@@ -14,16 +14,16 @@ import usf.java.sqlreflect.reflect.TimePerform;
 
 public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	
-	private String databasePattern, procedurePattern, columnPattern;
+	private String databasePattern, procedurePattern, argumentPattern;
 	
 	public ArgumentScanner(ConnectionManager cm) {
 		super(cm);
 	}
 	
-	public ArgumentScanner set(String databasePattern, String procedurePattern, String columnPattern) {
+	public ArgumentScanner set(String databasePattern, String procedurePattern, String argumentPattern) {
 		this.databasePattern = databasePattern;
 		this.procedurePattern = procedurePattern;
-		this.columnPattern = columnPattern;
+		this.argumentPattern = argumentPattern;
 		return this;
 	}
 
@@ -33,7 +33,7 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, columnPattern);
+			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 			action.end();
 			
 			Mapper<Argument> mapper = new ArgumentMapper();
