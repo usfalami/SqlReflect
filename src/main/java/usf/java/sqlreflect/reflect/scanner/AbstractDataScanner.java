@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.reflect.scanner;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
@@ -53,9 +54,18 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 				stmt = getConnectionManager().buildStatement(query, args);
 				action.end();
 				
-				run(stmt, adapter, tp);
-			} catch (Exception e) {
-				throw e;
+				ResultSet rs = null;
+				try {
+
+					action = tp.startAction(Constants.ACTION_EXECUTION);
+					rs = getConnectionManager().executeQuery(stmt, getCallable().asQuery(), getParameters());
+					action.end();
+				
+					run(rs, adapter, tp);
+				}
+				finally {
+					getConnectionManager().close(rs);
+				}
 			}
 			finally {
 				getConnectionManager().close(stmt);
@@ -79,6 +89,6 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		return args;
 	}
 
-	protected abstract void run(Statement stmt, Adapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void run(ResultSet stmt, Adapter<T> adapter, TimePerform tp) throws Exception;
 
 }

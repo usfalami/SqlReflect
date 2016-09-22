@@ -13,6 +13,7 @@ import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.TableTypes;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
 	

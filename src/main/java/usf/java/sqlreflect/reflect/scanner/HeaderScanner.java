@@ -2,7 +2,6 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
@@ -20,32 +19,18 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	}
 
 	@Override
-	protected void run(Statement stmt, Adapter<Header> adapter, TimePerform tp) throws Exception {
-		ResultSet rs = null;
-		try {
+	protected void run(ResultSet rs, Adapter<Header> adapter, TimePerform tp) throws Exception {
+		Mapper<Header> mapper = new HeaderMapper();
+		ResultSetMetaData rm = rs.getMetaData();
+		adapter.prepare(mapper);
 
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = getConnectionManager().executeQuery(stmt, getCallable().asQuery(), getParameters());
-			action.end();
-			
-			Mapper<Header> mapper = new HeaderMapper();
-			ResultSetMetaData rm = rs.getMetaData();
-			adapter.prepare(mapper);
-
-			action = tp.startAction(Constants.ACTION_ADAPT);
-			for(int i=1; i<=rm.getColumnCount(); i++) {
-				Header col = mapper.map(rs, i);
-				adapter.adapte(col, i);
-			}
-			action.end();
-			tp.setRowCount(rm.getColumnCount());
-			
-		} catch (Exception e) {
-			throw e;
+		ActionPerform action = tp.startAction(Constants.ACTION_ADAPT);
+		for(int i=1; i<=rm.getColumnCount(); i++) {
+			Header col = mapper.map(rs, i);
+			adapter.adapte(col, i);
 		}
-		finally {
-			getConnectionManager().close(rs);
-		}
+		action.end();
+		tp.setRowCount(rm.getColumnCount());
 	}
 
 }

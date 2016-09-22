@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.sql;
 
 public enum ProcedureTypes {
 	
