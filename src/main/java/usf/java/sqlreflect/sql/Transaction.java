@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.executor;
+package usf.java.sqlreflect.sql;
 
 import usf.java.sqlreflect.reflect.ReflectorFactory;
 import usf.java.sqlreflect.reflect.TimePerform;

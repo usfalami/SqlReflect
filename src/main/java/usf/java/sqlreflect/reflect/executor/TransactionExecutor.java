@@ -6,6 +6,7 @@ import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.ReflectorFactory;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.Transaction;
 
 public class TransactionExecutor extends AbstractExecutor<Void> {
 	
