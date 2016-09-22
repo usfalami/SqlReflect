@@ -10,39 +10,29 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
-public class UpdateExecutor<P> extends AbstractExecutor<Integer> {
+public class UpdateExecutor extends AbstractExecutor<Integer> {
 
-	private Binder<P> binder;
 	private Runnable query;
-	private P args;
 
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
 	
-	public UpdateExecutor<P> set(String sql) {
+	public UpdateExecutor set(String sql) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
 		return this;
 	}
 	
-	public UpdateExecutor<P> set(String sql, P args, Binder<P> binder) {
-		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.args = args;
-		this.binder = binder;
-		return this;
-	}
-	
-	@Override
-	protected void run(TransactionManager tm, Adapter<Integer> adapter, TimePerform tp) throws Exception {
+	protected <P> void run(Adapter<Integer> adapter, P args, Binder<P> binder, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
-			stmt = tm.buildStatement(query, args, binder);
+			stmt = getConnectionManager().buildStatement(query, args, binder);
 			action.end();
 
 			action = tp.startAction(Constants.ACTION_EXECUTION);
-			int rows = tm.executeUpdate(stmt, query, args, binder);
+			int rows = getConnectionManager().executeUpdate(stmt, query, args, binder);
 			action.end();
 
 			action = tp.startAction(Constants.ACTION_ADAPT);
@@ -59,4 +49,44 @@ public class UpdateExecutor<P> extends AbstractExecutor<Integer> {
 		}
 	}
 
+	
+	public <P> void run(Adapter<Integer> adapter, P args, Binder<P> binder) throws Exception {
+		TimePerform tp = new TimePerform();
+		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
+		try {
+			adapter.start();
+			TransactionManager tm = getConnectionManager();
+			adapter.prepare(null);
+			if(tm.isTransacting())
+				run(adapter, args, binder, tp);
+			else {
+				try {
+
+					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
+					tm.startTransaction();
+					action.end();
+					run(adapter, args, binder, tp);
+					tm.endTransaction();
+				} catch (Exception e) {
+					tm.rollback();
+					throw e;
+				}
+				finally {
+					tm.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			total.end();
+			adapter.end(tp);
+		}
+	}
+
+	@Override
+	public void run(Adapter<Integer> adapter) throws Exception {
+		this.run(adapter, null, null);
+	}
+	
 }

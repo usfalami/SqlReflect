@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.reflect.executor;
 
 import java.sql.Statement;
-import java.util.Collection;
 import java.util.List;
 
 import usf.java.sqlreflect.Constants;
@@ -28,9 +27,7 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		return this;
 	}
 	
-	@Override
-	protected <P> void run(Adapter<Integer> adapter, Object args, Binder<P> binder, TimePerform tp) throws Exception {
-		List<P> argsList = (List<P>)args;
+	protected <P> void run(Adapter<Integer> adapter, List<P> argsList, Binder<P> binder, TimePerform tp) throws Exception {
 		Statement stmt = null; //TODO : Check query
 		try {
 			
@@ -59,8 +56,43 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		}
 	}
 	
-	public final <P> void run(Adapter<Integer> adapter, List<P> args, Binder<P> binder) throws Exception {
-		super.run(adapter, args, binder);
+	public <P> void run(Adapter<Integer> adapter, List<P> argsList, Binder<P> binder) throws Exception {
+		TimePerform tp = new TimePerform();
+		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
+		try {
+			adapter.start();
+			TransactionManager tm = getConnectionManager();
+			adapter.prepare(null);
+			if(tm.isTransacting())
+				run(adapter, argsList, binder, tp);
+			else {
+				try {
+
+					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
+					tm.startTransaction();
+					action.end();
+					run(adapter, argsList, binder, tp);
+					tm.endTransaction();
+				} catch (Exception e) {
+					tm.rollback();
+					throw e;
+				}
+				finally {
+					tm.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			total.end();
+			adapter.end(tp);
+		}
 	}
-	
+
+	@Override
+	public void run(Adapter<Integer> adapter) throws Exception {
+		this.run(adapter, null, null);
+	}
+
 }
