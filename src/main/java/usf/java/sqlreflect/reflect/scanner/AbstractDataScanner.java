@@ -58,7 +58,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 				try {
 
 					action = tp.startAction(Constants.ACTION_EXECUTION);
-					rs = getConnectionManager().executeQuery(stmt, getCallable().asQuery(), getParameters());
+					rs = getConnectionManager().executeQuery(stmt, query.asQuery(), args);
 					action.end();
 				
 					run(rs, adapter, tp);
@@ -80,15 +80,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 			adapter.end(tp);
 		}
 	}
-	
-	public Runnable getCallable() {
-		return query;
-	}
-	
-	public Parameter<?>[] getParameters() {
-		return args;
-	}
 
-	protected abstract void run(ResultSet stmt, Adapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
 
 }
