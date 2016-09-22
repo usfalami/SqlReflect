@@ -14,35 +14,33 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class AbstractDataScanner<P, T> extends AbstractReflector implements Scanner<T> {
+public abstract class AbstractDataScanner<T> extends AbstractReflector<ConnectionManager> implements Scanner<T> {
 	
-	private Binder<P> binder;
 	private Runnable runnable;
-	private P args;
 
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public AbstractDataScanner<P, T> set(String sql) {
-		return this.set(sql, null, null);
-	}
-	
-	public AbstractDataScanner<P, T> set(String sql, P args, Binder<P> binder) {
+	public AbstractDataScanner<T> set(String sql) {
 		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.args = args;
-		this.binder = binder;
 		return this;
 	}
-
+	
 	@Override
 	public List<T> run() throws Exception {
+		return this.run(null, null);
+	}
+	public <P> List<T> run(P args, Binder<P> binder) throws Exception {
 		ListAdapter<T> adapter = new ListAdapter<T>();
-		this.run(adapter);
+		this.run(adapter, args, binder);
 		return adapter.getList();
 	}
-
+	
 	@Override
-	public final void run(Adapter<T> adapter) throws Exception {
+	public void run(Adapter<T> adapter) throws Exception {
+		this.run(adapter, null, null);
+	}
+	public final <P> void run(Adapter<T> adapter, P args, Binder<P> binder) throws Exception {
 		TimePerform tp = new TimePerform();
 		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
 		try {

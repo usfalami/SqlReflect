@@ -38,11 +38,11 @@ public class ReflectorFactory {
 		return new ArgumentScanner(tm);
 	}
 
-	public <P, T> RowScanner<P, T> getRowScanner(Mapper<T> mapper){
-		return new RowScanner<P, T>(tm, mapper);
+	public <T> RowScanner<T> getRowScanner(Mapper<T> mapper){
+		return new RowScanner<T>(tm, mapper);
 	}
-	public <P> HeaderScanner<P> getHeaderScanner(){
-		return new HeaderScanner<P>(tm);
+	public HeaderScanner getHeaderScanner(){
+		return new HeaderScanner(tm);
 	}
 	
 	public TransactionManager getTransactionManager() {

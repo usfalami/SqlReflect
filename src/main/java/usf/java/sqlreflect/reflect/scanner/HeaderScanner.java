@@ -12,7 +12,7 @@ import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public class HeaderScanner<P> extends AbstractDataScanner<P, Header> {
+public class HeaderScanner extends AbstractDataScanner<Header> {
 
 	public HeaderScanner(ConnectionManager cm) {
 		super(cm);

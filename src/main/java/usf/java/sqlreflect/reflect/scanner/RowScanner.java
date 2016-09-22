@@ -10,7 +10,7 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.SqlUtils;
 
-public class RowScanner<P, T> extends AbstractDataScanner<P, T> {
+public class RowScanner<T> extends AbstractDataScanner<T> {
 	
 	private Mapper<T> mapper;
 
