@@ -87,8 +87,7 @@ public abstract class AbstractDataScanner<P, T> extends AbstractReflector implem
 			adapter.end(tp);
 		}
 	}
-	
-	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
 
+	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
 
 }
