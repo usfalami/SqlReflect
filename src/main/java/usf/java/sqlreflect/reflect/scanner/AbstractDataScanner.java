@@ -90,4 +90,5 @@ public abstract class AbstractDataScanner<P, T> extends AbstractReflector implem
 	
 	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
 
+
 }
