@@ -2,15 +2,15 @@ package usf.java.sqlreflect.reflect;
 
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 
-public abstract class AbstractReflector {
+public abstract class AbstractReflector<C extends ConnectionManager> {
 	
-	private ConnectionManager cm;
+	private C cm;
 	
-	public AbstractReflector(ConnectionManager cm) {
+	public AbstractReflector(C cm) {
 		this.cm = cm;
 	}
 	
-	public ConnectionManager getConnectionManager() {
+	public C getConnectionManager() {
 		return cm;
 	}
 

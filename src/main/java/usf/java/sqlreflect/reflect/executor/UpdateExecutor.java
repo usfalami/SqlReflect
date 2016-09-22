@@ -26,16 +26,16 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 	}
 	
 	@Override
-	protected void run(TransactionManager tm, Adapter<Integer> adapter, TimePerform tp) throws Exception {
+	protected void run(Adapter<Integer> adapter, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
-			stmt = tm.buildStatement(query, args);
+			stmt = getConnectionManager().buildStatement(query, args);
 			action.end();
 
 			action = tp.startAction(Constants.ACTION_EXECUTION);
-			int rows = tm.executeUpdate(stmt, query);
+			int rows = getConnectionManager().executeUpdate(stmt, query);
 			action.end();
 
 			action = tp.startAction(Constants.ACTION_ADAPT);

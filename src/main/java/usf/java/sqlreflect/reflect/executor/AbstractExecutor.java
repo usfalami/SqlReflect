@@ -10,7 +10,7 @@ import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public abstract class AbstractExecutor<T> extends AbstractReflector implements Executor<T> {
+public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionManager> implements Executor<T> {
 	
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);
@@ -22,10 +22,10 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
 		try {
 			adapter.start();
-			TransactionManager tm = (TransactionManager) getConnectionManager();
+			TransactionManager tm = getConnectionManager();
 			adapter.prepare(null);
 			if(tm.isTransacting())
-				run(tm, adapter, tp);
+				run(adapter, tp);
 			else {
 				try {
 
@@ -33,7 +33,7 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 					tm.startTransaction();
 					action.end();
 					
-					run(tm, adapter, tp);
+					run(adapter, tp);
 					tm.endTransaction();
 				} catch (Exception e) {
 					tm.rollback();
@@ -59,6 +59,6 @@ public abstract class AbstractExecutor<T> extends AbstractReflector implements E
 		return adapter.getList();
 	}
 	
-	protected abstract void run(TransactionManager tm, Adapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void run(Adapter<T> adapter, TimePerform tp) throws Exception;
 	
 }

@@ -11,7 +11,7 @@ import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 
-public abstract class AbstractFieldScanner<T> extends AbstractReflector implements Scanner<T> {
+public abstract class AbstractFieldScanner<T> extends AbstractReflector<ConnectionManager> implements Scanner<T> {
 	
 	public AbstractFieldScanner(ConnectionManager cm) {
 		super(cm);

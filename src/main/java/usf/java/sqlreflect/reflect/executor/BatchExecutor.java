@@ -34,10 +34,10 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	}
 
 	@Override
-	protected void run(TransactionManager tm, Adapter<Integer> adapter, TimePerform tp) throws Exception {
+	protected void run(Adapter<Integer> adapter, TimePerform tp) throws Exception {
 		Statement stmt = null;
 		try {
-
+			TransactionManager tm = getConnectionManager();
 			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
 			stmt = queries.length > 1 || args == null ? tm.buildBatch(queries) : tm.buildBatch(queries[0], args);
 			action.end();

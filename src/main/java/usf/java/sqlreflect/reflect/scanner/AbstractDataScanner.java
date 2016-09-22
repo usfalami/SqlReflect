@@ -14,7 +14,7 @@ import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
+public abstract class AbstractDataScanner<T> extends AbstractReflector<ConnectionManager> implements Scanner<T> {
 	
 	private Runnable query;
 	private Parameter<?>[] args;
