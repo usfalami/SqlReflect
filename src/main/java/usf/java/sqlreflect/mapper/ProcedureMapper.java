@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Procedure;
-import usf.java.sqlreflect.reflect.scanner.ProcedureTypes;
+import usf.java.sqlreflect.sql.ProcedureTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ProcedureMapper implements Mapper<Procedure> {

@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
@@ -11,7 +10,7 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.SqlUtils;
 
-public class RowScanner<T> extends AbstractDataScanner<T> {
+public class RowScanner<P, T> extends AbstractDataScanner<P, T> {
 	
 	private Mapper<T> mapper;
 
@@ -21,33 +20,19 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 	}
 
 	@Override
-	protected void run(Statement stmt, Adapter<T> adapter, TimePerform tp) throws Exception {
-		ResultSet rs = null;
-		try {
+	protected void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception {
+		if(mapper.getColumnNames() == null) // set all column if no column was set
+			mapper.setColumnNames(SqlUtils.columnNames(rs));
+		adapter.prepare(mapper);
+		int row = 0;
 
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = getConnectionManager().executeQuery(stmt, getCallable().asQuery(), getParameters());
-			action.end();
-			
-			if(mapper.getColumnNames() == null) // set all column if no column was set
-				mapper.setColumnNames(SqlUtils.columnNames(rs));
-			adapter.prepare(mapper);
-			int row = 0;
-
-			action = tp.startAction(Constants.ACTION_ADAPT);
-			while(rs.next()) {
-				T bean = mapper.map(rs, row+1);
-				adapter.adapte(bean, row++);
-			}
-			action.end();
-			tp.setRowCount(row);
-			
-		} catch (Exception e) {
-			throw e;
+		ActionPerform action = tp.startAction(Constants.ACTION_ADAPT);
+		while(rs.next()) {
+			T bean = mapper.map(rs, row+1);
+			adapter.adapte(bean, row++);
 		}
-		finally {
-			getConnectionManager().close(rs);
-		}
+		action.end();
+		tp.setRowCount(row);
 	}
 
 }

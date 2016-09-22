@@ -5,13 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
 
+import usf.java.sqlreflect.bender.Binder;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.Parameters;
 import usf.java.sqlreflect.sql.Runnable;
-import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
 	
@@ -61,26 +60,31 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public Statement buildBatch(Runnable... queries) throws SQLException {
+		if(queries == null || queries.length == 0) throw new SQLException("one query at least");
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
-		SqlUtils.buildBatch(stmt, queries);
+		for(Runnable query : queries)
+			stmt.addBatch(query.asQuery());
 		return stmt;
 	}
 	@Override
-	public Statement buildBatch(Runnable query, Parameters... args) throws SQLException {
+	public <P> Statement buildBatch(Runnable query, Collection<P> argList, Binder<P> binder) throws SQLException {
 		Connection cnx = getConnection();
-		PreparedStatement ps = cnx.prepareStatement(query.asQuery());
-		SqlUtils.buildBatch(ps, args);
+		PreparedStatement ps = cnx.prepareStatement(query.asQuery());		
+		for(P args : argList){
+			binder.bindPreparedStatement(ps, args);
+			ps.addBatch();
+		}
 		return ps;
 	}
 	
 	@Override
-	public int executeUpdate(Statement stmt, Runnable query, Parameter<?>... args) throws SQLException {
+	public <P> int executeUpdate(Statement stmt, Runnable query, P args, Binder<P> binder) throws SQLException {
 		int result = 0;
 		if(stmt instanceof PreparedStatement){
 			result = ((PreparedStatement)stmt).executeUpdate();
 			if(stmt instanceof PreparedStatement)
-				SqlUtils.updateOutParameter((CallableStatement)stmt, args);
+				binder.updateOutParameter((CallableStatement)stmt, args);
 		}
 		else result = stmt.executeUpdate(query.asQuery());
 		return result;

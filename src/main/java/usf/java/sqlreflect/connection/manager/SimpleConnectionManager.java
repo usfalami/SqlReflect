@@ -7,12 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sqlreflect.bender.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Runnable;
-import usf.java.sqlreflect.sql.SqlUtils;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
@@ -70,29 +69,29 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public Statement buildStatement(Runnable query, Parameter<?>... args) throws SQLException {
+	public <T> Statement buildStatement(Runnable query, T args, Binder<T> binder) throws SQLException {
 		Connection cnx = getConnection();
-		if(args == null || args.length == 0) 
+		if(args == null) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else if(!query.asQuery().toUpperCase().startsWith("\\s*CALL")){//TODO udapte this test
 			PreparedStatement ps = cnx.prepareStatement(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			SqlUtils.bindPreparedStatement(ps, args);
+			binder.bindPreparedStatement(ps, args);
 			return ps;
 		}
 		else{
 			CallableStatement cs = cnx.prepareCall(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			SqlUtils.bindCallableStatement(cs, args);
+			binder.bindCallableStatement(cs, args);
 			return cs;
 		}
 	}
 	
 	@Override
-	public ResultSet executeQuery(Statement stmt, String query, Parameter<?>... args) throws SQLException {
+	public <T> ResultSet executeQuery(Statement stmt, String query, T args, Binder<T> binder) throws SQLException {
 		ResultSet rs = null;
 		if(stmt instanceof PreparedStatement){
 			rs = ((PreparedStatement)stmt).executeQuery();
 			if(stmt instanceof CallableStatement)
-				SqlUtils.updateOutParameter((CallableStatement)stmt, args);
+				binder.updateOutParameter((CallableStatement)stmt, args);
 		}
 		else rs = stmt.executeQuery(query);
 		return rs;

@@ -1,35 +1,41 @@
 package usf.java.sqlreflect.reflect.scanner;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
+import usf.java.sqlreflect.bender.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
-import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class AbstractDataScanner<T> extends AbstractReflector implements Scanner<T> {
+public abstract class AbstractDataScanner<P, T> extends AbstractReflector implements Scanner<T> {
 	
-	private Runnable query;
-	private Parameter<?>[] args;
+	private Binder<P> binder;
+	private Runnable runnable;
+	private P args;
 
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
-
-	public AbstractDataScanner<T> set(String sql, Parameter<?>... parameters) {
-		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
-		this.args = parameters;
-		return this;
+	public AbstractDataScanner<P, T> set(String sql) {
+		return this.set(sql, null, null);
 	}
 	
+	public AbstractDataScanner<P, T> set(String sql, P args, Binder<P> binder) {
+		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = args;
+		this.binder = binder;
+		return this;
+	}
+
 	@Override
-	public final List<T> run() throws Exception {
+	public List<T> run() throws Exception {
 		ListAdapter<T> adapter = new ListAdapter<T>();
 		this.run(adapter);
 		return adapter.getList();
@@ -50,12 +56,23 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 			try {
 
 				action = tp.startAction(Constants.ACTION_STATEMENT);
-				stmt = getConnectionManager().buildStatement(query, args);
+				stmt = getConnectionManager().buildStatement(runnable, args, binder);
 				action.end();
 				
-				run(stmt, adapter, tp);
-			} catch (Exception e) {
-				throw e;
+				ResultSet rs = null;
+
+				try {
+				
+					action = tp.startAction(Constants.ACTION_EXECUTION);
+					rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
+					action.end();
+					
+					run(rs, adapter, tp);
+				
+				}
+				finally {
+					getConnectionManager().close(rs);
+				}
 			}
 			finally {
 				getConnectionManager().close(stmt);
@@ -71,14 +88,6 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector implement
 		}
 	}
 	
-	public Runnable getCallable() {
-		return query;
-	}
-	
-	public Parameter<?>[] getParameters() {
-		return args;
-	}
-
-	protected abstract void run(Statement stmt, Adapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
 
 }

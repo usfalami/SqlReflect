@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.bender;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -8,7 +9,11 @@ import usf.java.sqlreflect.sql.Parameter;
 
 public interface Binder<T> {
 	
-	void bind(PreparedStatement pstmt, T item) throws SQLException;
+	void bindPreparedStatement(PreparedStatement pstmt, T item) throws SQLException;
+
+	void bindCallableStatement(CallableStatement cstmt, T item) throws SQLException;
+
+	void updateOutParameter(CallableStatement cstmt, T item) throws SQLException;
 	
 	public static class Utils {
 		
@@ -19,5 +24,6 @@ public interface Binder<T> {
 		}
 		
 	}
+
 
 }

@@ -38,22 +38,22 @@ public class ReflectorFactory {
 		return new ArgumentScanner(tm);
 	}
 
-	public <T> RowScanner<T> getRowScanner(Mapper<T> mapper){
-		return new RowScanner<T>(tm, mapper);
+	public <P, T> RowScanner<P, T> getRowScanner(Mapper<T> mapper){
+		return new RowScanner<P, T>(tm, mapper);
 	}
-	public HeaderScanner getHeaderScanner(){
-		return new HeaderScanner(tm);
+	public <P> HeaderScanner<P> getHeaderScanner(){
+		return new HeaderScanner<P>(tm);
 	}
 	
 	public TransactionManager getTransactionManager() {
 		return tm;
 	}
-	public UpdateExecutor getUpdateExecutor() {
-		return new UpdateExecutor(tm);
+	public <P> UpdateExecutor<P> getUpdateExecutor() {
+		return new UpdateExecutor<P>(tm);
 	}
 	
-	public BatchExecutor getBatchExecutor() {
-		return new BatchExecutor(tm);
+	public <P> BatchExecutor<P> getBatchExecutor() {
+		return new BatchExecutor<P>(tm);
 	}
 
 

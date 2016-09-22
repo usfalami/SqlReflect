@@ -35,5 +35,10 @@ public class TimePerform {
 		return t;
 	}
 	
+	public void reset() {
+		times.clear();
+		rowCount = 0;
+	}
+	
 	
 }
