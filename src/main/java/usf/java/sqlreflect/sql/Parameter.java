@@ -1,5 +1,7 @@
 package usf.java.sqlreflect.sql;
 
+import usf.java.sqlreflect.sql.type.ParameterTypes;
+
 
 public class Parameter<T> {
 	

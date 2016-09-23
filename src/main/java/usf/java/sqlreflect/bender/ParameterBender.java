@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.ParameterTypes;
+import usf.java.sqlreflect.sql.type.ParameterTypes;
 
 public class ParameterBender implements Binder<List<Parameter<?>>> {
 

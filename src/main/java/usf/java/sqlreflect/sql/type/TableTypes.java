@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.sql;
+package usf.java.sqlreflect.sql.type;
 
 public enum TableTypes {
 
