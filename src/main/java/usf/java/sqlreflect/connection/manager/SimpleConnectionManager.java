@@ -73,7 +73,7 @@ public class SimpleConnectionManager implements ConnectionManager {
 		Connection cnx = getConnection();
 		if(args == null) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		else if(!query.asQuery().toUpperCase().startsWith("\\s*CALL")){//TODO udapte this test
+		else if(!query.asQuery().toUpperCase().startsWith("CALL")){//TODO udapte this test
 			PreparedStatement ps = cnx.prepareStatement(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			binder.bindPreparedStatement(ps, args);
 			return ps;

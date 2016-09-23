@@ -8,7 +8,7 @@ import java.util.List;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
 
-public class ParameterBender implements Binder<List<Parameter<?>>> {
+public class ParameterBinder implements Binder<List<Parameter<?>>> {
 
 	@Override
 	public void bindPreparedStatement(PreparedStatement pstmt, List<Parameter<?>> args) throws SQLException {
