@@ -45,12 +45,12 @@ public class ReflectorFactory {
 		return new HeaderScanner(tm);
 	}
 
-	public <P> UpdateExecutor<P> getUpdateExecutor() {
-		return new UpdateExecutor<P>(tm);
+	public UpdateExecutor getUpdateExecutor() {
+		return new UpdateExecutor(tm);
 	}
 	
-	public <P> BatchExecutor<P> getBatchExecutor() {
-		return new BatchExecutor<P>(tm);
+	public BatchExecutor getBatchExecutor() {
+		return new BatchExecutor(tm);
 	}
 	
 	public TransactionManager getTransactionManager() {

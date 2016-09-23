@@ -6,37 +6,29 @@ import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
-public class BatchExecutor<P> extends AbstractExecutor<Integer> {
+public class BatchExecutor extends AbstractExecutor<Integer> {
 
 	private Runnable[] queries;
-	private Collection<P> argsList; 
-	private Binder<P> binder;
 
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
 
-	public BatchExecutor<P> set(String... sql) {
+	public BatchExecutor set(String... sql) {
 		queries = new Runnable[sql.length];
 		for(int i=0; i<sql.length; i++)
 			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
 		return this;
 	}
 	
-	public BatchExecutor<P> set(String sql, List<P> argsList, Binder<P> binder) {
-		queries = new Runnable[]{getConnectionManager().getSqlParser().parseSQL(sql)};
-		this.argsList = argsList;
-		this.binder = binder;
-		return this;
-	}
-	
-	protected void run(Adapter<Integer> adapter, TimePerform tp) throws Exception {
+	protected <P> void run(Adapter<Integer> adapter, Collection<P> argsList, Binder<P> binder, TimePerform tp) throws Exception {
 		Statement stmt = null; //TODO : Check query
 		try {
 			
@@ -61,4 +53,57 @@ public class BatchExecutor<P> extends AbstractExecutor<Integer> {
 			getConnectionManager().close(stmt);
 		}
 	}
+
+	//duplicated code
+	public <P> void run(Adapter<Integer> adapter, Collection<P> argsList, Binder<P> binder) throws Exception {
+		TimePerform tp = new TimePerform();
+		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
+		try {
+			adapter.start();
+			TransactionManager tm = getConnectionManager();
+			adapter.prepare(null);
+			if(tm.isTransacting())
+				run(adapter, argsList, binder, tp);
+			else {
+				try {
+
+					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
+					tm.startTransaction();
+					action.end();
+					run(adapter, argsList, binder, tp);
+					tm.endTransaction();
+				} catch (Exception e) {
+					tm.rollback();
+					throw e;
+				}
+				finally {
+					tm.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			total.end();
+			adapter.end(tp);
+		}
+	}
+
+	@Override
+	public void run(Adapter<Integer> adapter) throws Exception {
+		this.run(adapter, null, null);
+	}
+
+
+	@Override
+	public List<Integer> run() throws Exception {
+		return this.run(null, null);
+	}
+	
+	public <P> List<Integer> run(Collection<P> argsList, Binder<P> binder) throws Exception {
+		ListAdapter<Integer> adapter = new ListAdapter<Integer>();
+		this.run(adapter, argsList, binder);
+		return adapter.getList();
+	}
+
 }
