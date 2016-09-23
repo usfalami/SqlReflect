@@ -19,17 +19,21 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	public DatabaseScanner(ConnectionManager cm) {
 		super(cm);
 	}
+	public DatabaseScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	
 	public DatabaseScanner set(String databasePattern) {
 		this.databasePattern = databasePattern;
 		return this;
 	}
 
-	protected void run(DatabaseMetaData dm, Adapter<Database> adapter, TimePerform tp) throws Exception {
+	@Override
+	protected void runScan(DatabaseMetaData dm, Adapter<Database> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			action.end();
 			
@@ -37,13 +41,13 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
 				Database database = mapper.map(rs, row+1);
 				adapter.adapte(database, row++);
 			}
 			action.end();
-			tp.setRowCount(row);
+			getTimePerform().setRowCount(row);
 		}
 		catch(Exception e) {
 			throw e;

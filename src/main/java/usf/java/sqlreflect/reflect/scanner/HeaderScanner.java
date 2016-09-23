@@ -17,20 +17,23 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 	public HeaderScanner(ConnectionManager cm) {
 		super(cm);
 	}
+	public HeaderScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 
 	@Override
-	protected void run(ResultSet rs, Adapter<Header> adapter, TimePerform tp) throws Exception {
+	protected void runScan(ResultSet rs, Adapter<Header> adapter) throws Exception {
 		Mapper<Header> mapper = new HeaderMapper();
 		ResultSetMetaData rm = rs.getMetaData();
 		adapter.prepare(mapper);
 
-		ActionPerform action = tp.startAction(Constants.ACTION_ADAPT);
+		ActionPerform action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 		for(int i=1; i<=rm.getColumnCount(); i++) {
 			Header col = mapper.map(rs, i);
 			adapter.adapte(col, i);
 		}
 		action.end();
-		tp.setRowCount(rm.getColumnCount());
+		getTimePerform().setRowCount(rm.getColumnCount());
 	}
 	
 }

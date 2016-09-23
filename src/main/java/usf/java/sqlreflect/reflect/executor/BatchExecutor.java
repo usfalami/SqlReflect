@@ -20,6 +20,9 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
+	public BatchExecutor(TransactionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 
 	public BatchExecutor set(String... sql) {
 		queries = new Runnable[sql.length];
@@ -29,27 +32,27 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	}
 	
 	@Override
-	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception {
+	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder) throws Exception {
 		Collection<P> argsList = obj == null ? null : (Collection<P>) obj;
 		Statement stmt = null; //TODO : Check query
 		try {
 			
 			TransactionManager tm = getConnectionManager();
 
-			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
 			stmt = queries.length > 1 || argsList == null || argsList.isEmpty() ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 			action.end();
 			
-			action = tp.startAction(Constants.ACTION_EXECUTION);
+			action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			int[] rows = stmt.executeBatch();
 			action.end();
 			
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			for(int i=0; i<rows.length; i++)
 				adapter.adapte(rows[i], i+1);
 			action.end();
 			
-			tp.setRowCount(Utils.sum(rows));
+			getTimePerform().setRowCount(Utils.sum(rows));
 
 		}finally {
 			getConnectionManager().close(stmt);
@@ -57,7 +60,7 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 	}
 
 	public <P> void run(Adapter<Integer> adapter, Collection<P> argsList, Binder<P> binder) throws Exception {
-		super.runExec(adapter, argsList, binder);
+		super.prepare(adapter, argsList, binder);
 	}
 	public <P> List<Integer> run(Collection<P> argsList, Binder<P> binder) throws Exception {
 		ListAdapter<Integer> adapter = new ListAdapter<Integer>();

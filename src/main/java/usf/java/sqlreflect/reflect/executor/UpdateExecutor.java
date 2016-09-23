@@ -19,6 +19,9 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
+	public UpdateExecutor(TransactionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	
 	public UpdateExecutor set(String sql) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
@@ -26,24 +29,24 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 	}
 
 	@Override
-	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception {
+	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder) throws Exception {
 		P args = (obj == null) ? null : (P) obj;
 		Statement stmt = null;
 		try {
 
-			ActionPerform action = tp.startAction(Constants.ACTION_STATEMENT);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
 			stmt = getConnectionManager().buildStatement(query, args, binder);
 			action.end();
 
-			action = tp.startAction(Constants.ACTION_EXECUTION);
+			action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			int rows = getConnectionManager().executeUpdate(stmt, query, args, binder);
 			action.end();
 
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			adapter.adapte(rows, 1);
 			action.end();
 			
-			tp.setRowCount(rows);
+			getTimePerform().setRowCount(rows);
 			
 		}finally {
 			getConnectionManager().close(stmt);
@@ -52,13 +55,12 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 	
 
 	public <P> void run(Adapter<Integer> adapter, P argsList, Binder<P> binder) throws Exception {
-		super.runExec(adapter, argsList, binder);
+		super.prepare(adapter, argsList, binder);
 	}
 	public <P> List<Integer> run(P argsList, Binder<P> binder) throws Exception {
 		ListAdapter<Integer> adapter = new ListAdapter<Integer>();
-		this.run(adapter, argsList, binder);
+		this.prepare(adapter, argsList, binder);
 		return adapter.getList();
 	}
 	
-
 }

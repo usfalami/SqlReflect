@@ -16,23 +16,26 @@ public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionM
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);
 	}
+	public AbstractExecutor(TransactionManager tm, TimePerform tp) {
+		super(tm, tp);
+	}
 	
-	protected <P> void runExec(Adapter<T> adapter, Object obj, Binder<P> binder) throws Exception {
-		TimePerform tp = new TimePerform();
-		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
+	protected <P> void prepare(Adapter<T> adapter, Object obj, Binder<P> binder) throws Exception {
+		ActionPerform total = getTimePerform().startAction(Constants.ACTION_TOTAL);
 		try {
 			adapter.start();
 			TransactionManager tm = getConnectionManager();
 			adapter.prepare(null);
-			if(tm.isTransacting())
-				runExec(adapter, obj, binder, tp);
+			if(tm.isTransacting()){
+				runExec(adapter, obj, binder);
+			}
 			else {
 				try {
 
-					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
+					ActionPerform action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
 					tm.startTransaction();
 					action.end();
-					runExec(adapter, obj, binder, tp);
+					runExec(adapter, obj, binder);
 					tm.endTransaction();
 				} catch (Exception e) {
 					tm.rollback();
@@ -47,23 +50,22 @@ public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionM
 			throw e;
 		}finally{
 			total.end();
-			adapter.end(tp);
+			adapter.end(getTimePerform());
 		}
 	}
 	
+	//No really optim, but resolve mismatch signature of derrived Class
+	protected abstract <P> void runExec(Adapter<T> adapter, Object obj, Binder<P> binder) throws Exception;
+	
 	@Override
 	public void run(Adapter<T> adapter) throws Exception {
-		this.runExec(adapter, null, null);
+		this.prepare(adapter, null, null);
 	}
 	@Override
 	public List<T> run() throws Exception {
 		ListAdapter<T> adapter = new ListAdapter<T>();
-		this.runExec(adapter, null, null);
+		this.prepare(adapter, null, null);
 		return adapter.getList();
 	}
 	
-	//No really optim, but resolve mismatch signature of derrived Class
-	protected abstract <P> void runExec(Adapter<T> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception;
-	
-
 }

@@ -15,42 +15,44 @@ import usf.java.sqlreflect.reflect.scanner.TableScanner;
 public class ReflectorFactory {
 	
 	private TransactionManager tm;
+	private TimePerform tp;
 	
-	public ReflectorFactory(TransactionManager tm) {
+	public ReflectorFactory(TransactionManager tm, TimePerform tp) {
 		this.tm = tm;
+		this.tp = tp;
 	}
 
 	public DatabaseScanner getDatabaseScanner(){
-		return new DatabaseScanner(tm);
+		return new DatabaseScanner(tm, tp);
 	}
 	
 	public TableScanner getTableScanner(){
-		return new TableScanner(tm);
+		return new TableScanner(tm, tp);
 	}
 	public ColumnScanner getColumnScanner() {
-		return new ColumnScanner(tm);
+		return new ColumnScanner(tm, tp);
 	}
 	
 	public ProcedureScanner getProcedureScanner(){
-		return new ProcedureScanner(tm);
+		return new ProcedureScanner(tm, tp);
 	}
 	public ArgumentScanner getArgumentScanner() {
-		return new ArgumentScanner(tm);
+		return new ArgumentScanner(tm, tp);
 	}
 
 	public <T> RowScanner<T> getRowScanner(Mapper<T> mapper){
-		return new RowScanner<T>(tm, mapper);
+		return new RowScanner<T>(tm, tp, mapper);
 	}
 	public HeaderScanner getHeaderScanner(){
-		return new HeaderScanner(tm);
+		return new HeaderScanner(tm, tp);
 	}
 
 	public UpdateExecutor getUpdateExecutor() {
-		return new UpdateExecutor(tm);
+		return new UpdateExecutor(tm, tp);
 	}
 	
 	public BatchExecutor getBatchExecutor() {
-		return new BatchExecutor(tm);
+		return new BatchExecutor(tm, tp);
 	}
 	
 	public TransactionManager getTransactionManager() {

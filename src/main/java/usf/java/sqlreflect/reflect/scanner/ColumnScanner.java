@@ -19,6 +19,9 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	public ColumnScanner(ConnectionManager cm) {
 		super(cm);
 	}
+	public ColumnScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	
 	public ColumnScanner set(String databasePattern, String tablePattern, String columnPattern) {
 		this.databasePattern = databasePattern;
@@ -28,11 +31,11 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Column> adapter, TimePerform tp) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Column> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getColumns(null, databasePattern, tablePattern, columnPattern);
 			action.end();
 			
@@ -40,13 +43,13 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
 				Column column = mapper.map(rs, row+1);
 				adapter.adapte(column, row++);
 			}
 			action.end();
-			tp.setRowCount(row);
+			getTimePerform().setRowCount(row);
 			
 		} catch (Exception e) {
 			throw e;

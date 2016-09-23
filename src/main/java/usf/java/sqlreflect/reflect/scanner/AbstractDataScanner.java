@@ -21,6 +21,10 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
+	public AbstractDataScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
+	
 	public AbstractDataScanner<T> set(String sql) {
 		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);
 		return this;
@@ -41,19 +45,18 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 		this.run(adapter, null, null);
 	}
 	public final <P> void run(Adapter<T> adapter, P args, Binder<P> binder) throws Exception {
-		TimePerform tp = new TimePerform();
-		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
+		ActionPerform total = getTimePerform().startAction(Constants.ACTION_TOTAL);
 		try {
 			adapter.start();
 
-			ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end();
 			
 			Statement stmt = null;
 			try {
 
-				action = tp.startAction(Constants.ACTION_STATEMENT);
+				action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
 				stmt = getConnectionManager().buildStatement(runnable, args, binder);
 				action.end();
 				
@@ -61,11 +64,11 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 
 				try {
 				
-					action = tp.startAction(Constants.ACTION_EXECUTION);
+					action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 					rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
 					action.end();
 					
-					run(rs, adapter, tp);
+					runScan(rs, adapter);
 				
 				}finally {
 					getConnectionManager().close(rs);
@@ -80,10 +83,10 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 		finally {
 			getConnectionManager().close();
 			total.end();
-			adapter.end(tp);
+			adapter.end(getTimePerform());
 		}
 	}
 
-	protected abstract void run(ResultSet rs, Adapter<T> adapter, TimePerform tp) throws Exception;
+	protected abstract void runScan(ResultSet rs, Adapter<T> adapter) throws Exception;
 
 }

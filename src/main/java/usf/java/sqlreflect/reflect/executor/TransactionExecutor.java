@@ -16,6 +16,9 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	public TransactionExecutor(TransactionManager cm) {
 		super(cm);
 	}
+	public TransactionExecutor(TransactionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	
 	public TransactionExecutor set(Transaction transaction){
 		this.transaction = transaction;
@@ -23,9 +26,9 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	}
 
 	@Override
-	protected <P> void runExec(Adapter<Void> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception {
-		ActionPerform action = tp.startAction(Constants.ACTION_TRANSACTION);
-		transaction.execute(new ReflectorFactory(getConnectionManager()), tp);
+	protected <P> void runExec(Adapter<Void> adapter, Object obj, Binder<P> binder) throws Exception {
+		ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+		transaction.execute(new ReflectorFactory(getConnectionManager(), getTimePerform()));
 		action.end();
 	}
 	

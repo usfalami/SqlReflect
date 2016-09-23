@@ -1,18 +1,19 @@
 package usf.java.sqlreflect.reflect;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TimePerform {
 	
-	private List<ActionPerform> times;
+	private Collection<ActionPerform> times;
 	private int rowCount;
 	
 	public TimePerform() {
 		times = new ArrayList<ActionPerform>();
 	}
 
-	public List<ActionPerform> getTimes() {
+	public Collection<ActionPerform> getTimes() {
 		return times;
 	}
 
@@ -35,9 +36,10 @@ public class TimePerform {
 		return t;
 	}
 	
-	public void reset() {
+	public TimePerform clear() {
 		times.clear();
 		rowCount = 0;
+		return this;
 	}
 	
 	

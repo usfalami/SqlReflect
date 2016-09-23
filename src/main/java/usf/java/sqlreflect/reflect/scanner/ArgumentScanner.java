@@ -19,6 +19,9 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	public ArgumentScanner(ConnectionManager cm) {
 		super(cm);
 	}
+	public ArgumentScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	
 	public ArgumentScanner set(String databasePattern, String procedurePattern, String argumentPattern) {
 		this.databasePattern = databasePattern;
@@ -28,11 +31,11 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Argument> adapter, TimePerform tp) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Argument> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 			action.end();
 			
@@ -40,13 +43,13 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
 				Argument argument = mapper.map(rs, row+1);
 				adapter.adapte(argument, row++);
 			}
 			action.end();
-			tp.setRowCount(row);
+			getTimePerform().setRowCount(row);
 			
 		} catch (Exception e) {
 			throw e;

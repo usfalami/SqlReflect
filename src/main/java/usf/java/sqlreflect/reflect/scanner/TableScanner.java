@@ -24,7 +24,9 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	public TableScanner(ConnectionManager cm) {
 		this(cm, TableTypes.TABLE);
 	}
-	
+	public TableScanner(ConnectionManager cm, TimePerform tp) {
+		super(cm, tp);
+	}
 	public TableScanner(ConnectionManager cm, TableTypes type) {
 		super(cm);
 		this.type = type;
@@ -38,11 +40,11 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 
 	@Override
-	protected void run(DatabaseMetaData dm, Adapter<Table> adapter, TimePerform tp) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Table> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 			
-			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
+			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getTables(null, databasePattern, tablePattern, new String[]{type.toString()});
 			action.end();
 			
@@ -50,7 +52,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = tp.startAction(Constants.ACTION_ADAPT);
+			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
 				ColumnScanner ts = new ColumnScanner(getConnectionManager());
 				while(rs.next()){
@@ -68,7 +70,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 				}
 			}
 			action.end();
-			tp.setRowCount(row);
+			getTimePerform().setRowCount(row);
 			
 		} catch (Exception e) {
 			throw e;
