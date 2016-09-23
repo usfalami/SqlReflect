@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.bender;
+package usf.java.sqlreflect.binder;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

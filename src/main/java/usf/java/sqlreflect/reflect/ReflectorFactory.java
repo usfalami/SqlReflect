@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.reflect;
 
-import usf.java.sqlreflect.connection.transaction.TransactionManager;
+import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.executor.BatchExecutor;
 import usf.java.sqlreflect.reflect.executor.UpdateExecutor;

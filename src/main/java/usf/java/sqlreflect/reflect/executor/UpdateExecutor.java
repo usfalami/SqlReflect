@@ -4,8 +4,8 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
-import usf.java.sqlreflect.bender.Binder;
-import usf.java.sqlreflect.connection.transaction.TransactionManager;
+import usf.java.sqlreflect.binder.Binder;
+import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.bender.Binder;
+import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;

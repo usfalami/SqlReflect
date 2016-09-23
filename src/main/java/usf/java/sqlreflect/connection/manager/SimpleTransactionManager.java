@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.connection.transaction;
+package usf.java.sqlreflect.connection.manager;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 
-import usf.java.sqlreflect.bender.Binder;
-import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
+import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.sql.Runnable;
 

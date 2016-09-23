@@ -7,7 +7,7 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
-import usf.java.sqlreflect.bender.Binder;
+import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionPerform;
