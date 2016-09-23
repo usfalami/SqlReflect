@@ -24,8 +24,10 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
 		return this;
 	}
-	
-	protected <P> void run(Adapter<Integer> adapter, P args, Binder<P> binder, TimePerform tp) throws Exception {
+
+	@Override
+	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception {
+		P args = (obj == null) ? null : (P) obj;
 		Statement stmt = null;
 		try {
 
@@ -48,55 +50,15 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 		}
 	}
 	
-	//duplicated code
-	public <P> void run(Adapter<Integer> adapter, P args, Binder<P> binder) throws Exception {
-		TimePerform tp = new TimePerform();
-		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
-		try {
-			adapter.start();
-			TransactionManager tm = getConnectionManager();
-			adapter.prepare(null);
-			if(tm.isTransacting())
-				run(adapter, args, binder, tp);
-			else {
-				try {
 
-					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
-					tm.startTransaction();
-					action.end();
-					run(adapter, args, binder, tp);
-					tm.endTransaction();
-				} catch (Exception e) {
-					tm.rollback();
-					throw e;
-				}
-				finally {
-					tm.close();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}finally{
-			total.end();
-			adapter.end(tp);
-		}
+	public <P> void run(Adapter<Integer> adapter, P argsList, Binder<P> binder) throws Exception {
+		super.runExec(adapter, argsList, binder);
 	}
-
-	@Override
-	public void run(Adapter<Integer> adapter) throws Exception {
-		this.run(adapter, null, null);
-	}
-
-	@Override
-	public List<Integer> run() throws Exception {
-		return this.run(null, null);
-	}
-	
 	public <P> List<Integer> run(P argsList, Binder<P> binder) throws Exception {
 		ListAdapter<Integer> adapter = new ListAdapter<Integer>();
 		this.run(adapter, argsList, binder);
 		return adapter.getList();
 	}
+	
 
 }

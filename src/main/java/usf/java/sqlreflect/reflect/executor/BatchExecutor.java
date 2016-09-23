@@ -28,7 +28,9 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		return this;
 	}
 	
-	protected <P> void run(Adapter<Integer> adapter, Collection<P> argsList, Binder<P> binder, TimePerform tp) throws Exception {
+	@Override
+	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder, TimePerform tp) throws Exception {
+		Collection<P> argsList = obj == null ? null : (Collection<P>) obj;
 		Statement stmt = null; //TODO : Check query
 		try {
 			
@@ -54,56 +56,15 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		}
 	}
 
-	//duplicated code
 	public <P> void run(Adapter<Integer> adapter, Collection<P> argsList, Binder<P> binder) throws Exception {
-		TimePerform tp = new TimePerform();
-		ActionPerform total = tp.startAction(Constants.ACTION_TOTAL);
-		try {
-			adapter.start();
-			TransactionManager tm = getConnectionManager();
-			adapter.prepare(null);
-			if(tm.isTransacting())
-				run(adapter, argsList, binder, tp);
-			else {
-				try {
-
-					ActionPerform action = tp.startAction(Constants.ACTION_CONNECTION);
-					tm.startTransaction();
-					action.end();
-					run(adapter, argsList, binder, tp);
-					tm.endTransaction();
-				} catch (Exception e) {
-					tm.rollback();
-					throw e;
-				}
-				finally {
-					tm.close();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}finally{
-			total.end();
-			adapter.end(tp);
-		}
+		super.runExec(adapter, argsList, binder);
 	}
-
-	@Override
-	public void run(Adapter<Integer> adapter) throws Exception {
-		this.run(adapter, null, null);
-	}
-
-
-	@Override
-	public List<Integer> run() throws Exception {
-		return this.run(null, null);
-	}
-	
 	public <P> List<Integer> run(Collection<P> argsList, Binder<P> binder) throws Exception {
 		ListAdapter<Integer> adapter = new ListAdapter<Integer>();
 		this.run(adapter, argsList, binder);
 		return adapter.getList();
 	}
+	
+	
 
 }

@@ -49,5 +49,5 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector<Connecti
 	}
 
 	protected abstract void run(DatabaseMetaData dm, Adapter<T> adapter, TimePerform tp) throws Exception;
-
+	
 }
