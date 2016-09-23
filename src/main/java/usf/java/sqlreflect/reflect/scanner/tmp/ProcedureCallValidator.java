@@ -4,13 +4,13 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Argument;
-import usf.java.sqlreflect.item.Callable;
-import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
+import usf.java.sqlreflect.sql.item.Argument;
+import usf.java.sqlreflect.sql.item.Callable;
+import usf.java.sqlreflect.sql.item.Procedure;
 
 public class ProcedureCallValidator implements Adapter<Procedure> {
 

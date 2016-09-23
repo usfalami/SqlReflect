@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.item;
+package usf.java.sqlreflect.sql.item;
 
 import java.util.List;
 

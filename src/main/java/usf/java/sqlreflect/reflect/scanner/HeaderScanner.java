@@ -6,11 +6,11 @@ import java.sql.ResultSetMetaData;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Header;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.item.Header;
 
 public class HeaderScanner extends AbstractDataScanner<Header> {
 

@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.mapper.ColumnMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.sql.item.Column;
 
 public class ColumnScanner extends AbstractFieldScanner<Column> {
 	

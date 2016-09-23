@@ -3,10 +3,10 @@ package usf.java.sqlreflect.server;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import usf.java.sqlreflect.item.Callable;
-import usf.java.sqlreflect.item.Macro;
-import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.sql.SqlQuery;
+import usf.java.sqlreflect.sql.item.Callable;
+import usf.java.sqlreflect.sql.item.Macro;
+import usf.java.sqlreflect.sql.item.Procedure;
 
 public class TeradataServer implements Server {
 	

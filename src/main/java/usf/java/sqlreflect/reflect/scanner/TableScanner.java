@@ -7,13 +7,13 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.item.Column;
-import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.TableTypes;
+import usf.java.sqlreflect.sql.item.Column;
+import usf.java.sqlreflect.sql.item.Table;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
 	
