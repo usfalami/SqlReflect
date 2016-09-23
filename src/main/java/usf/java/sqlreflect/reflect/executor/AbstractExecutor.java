@@ -15,14 +15,7 @@ public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionM
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);
 	}
-	
-	@Override
-	public List<T> run() throws Exception {
-		ListAdapter<T> adapter = new ListAdapter<T>();
-		this.run(adapter);
-		return adapter.getList();
-	}
-	
+
 	@Override
 	public void run(Adapter<T> adapter) throws Exception {
 		TimePerform tp = new TimePerform();
@@ -56,6 +49,13 @@ public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionM
 			total.end();
 			adapter.end(tp);
 		}
+	}
+
+	@Override
+	public List<T> run() throws Exception {
+		ListAdapter<T> adapter = new ListAdapter<T>();
+		this.run(adapter);
+		return adapter.getList();
 	}
 	
 	protected abstract void run(Adapter<T> adapter, TimePerform tp) throws Exception;
