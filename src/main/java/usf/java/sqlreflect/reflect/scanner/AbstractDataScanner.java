@@ -45,7 +45,7 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 		this.run(adapter, null, null);
 	}
 	public final <P> void run(Adapter<T> adapter, P args, Binder<P> binder) throws Exception {
-		ActionPerform total = getTimePerform().startAction(Constants.ACTION_TOTAL);
+		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 

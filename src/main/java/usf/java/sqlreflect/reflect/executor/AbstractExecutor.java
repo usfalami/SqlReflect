@@ -21,7 +21,7 @@ public abstract class AbstractExecutor<T> extends AbstractReflector<TransactionM
 	}
 	
 	protected <P> void prepare(Adapter<T> adapter, Object obj, Binder<P> binder) throws Exception {
-		ActionPerform total = getTimePerform().startAction(Constants.ACTION_TOTAL);
+		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 			TransactionManager tm = getConnectionManager();

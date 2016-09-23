@@ -29,7 +29,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector<Connecti
 	
 	@Override
 	public final void run(Adapter<T> adapter) throws Exception {
-		ActionPerform total = getTimePerform().startAction(Constants.ACTION_TOTAL);
+		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 			
