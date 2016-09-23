@@ -9,7 +9,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.bender.Binder;
 import usf.java.sqlreflect.connection.transaction.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
-import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
@@ -56,7 +55,7 @@ public class BatchExecutor<P> extends AbstractExecutor<Integer> {
 				adapter.adapte(rows[i], i+1);
 			action.end();
 			
-			tp.setRowCount(ReflectorUtils.sum(rows));
+			tp.setRowCount(Utils.sum(rows));
 			
 		} catch (Exception e) {
 			throw e;

@@ -10,7 +10,6 @@ import usf.java.sqlreflect.item.Database;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
-import usf.java.sqlreflect.reflect.ReflectorUtils;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public class DatabaseScanner extends AbstractFieldScanner<Database> {
@@ -31,7 +30,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		try {
 
 			ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
-			rs = ReflectorUtils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
+			rs = Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			action.end();
 			
 			Mapper<Database> mapper = new DatabaseMapper();
