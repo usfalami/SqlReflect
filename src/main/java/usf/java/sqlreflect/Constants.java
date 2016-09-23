@@ -13,6 +13,7 @@ public interface Constants {
 	String ACTION_STATEMENT 	= "STATEMENT";
 	String ACTION_EXECUTION 	= "EXECUTION";
 	String ACTION_ADAPT 		= "ADAPT";
+	String ACTION_TRANSACTION 	= "TRANSACTION";
 	String ACTION_TOTAL 		= "TOTAL";
 
 }

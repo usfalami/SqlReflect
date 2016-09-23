@@ -23,7 +23,7 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	
 	@Override
 	protected void run(Adapter<Void> adapter, TimePerform tp) throws Exception {
-		ActionPerform action = tp.startAction(Constants.ACTION_EXECUTION);
+		ActionPerform action = tp.startAction(Constants.ACTION_TRANSACTION);
 		transaction.execute(new ReflectorFactory(getConnectionManager()), tp);
 		action.end();
 	}

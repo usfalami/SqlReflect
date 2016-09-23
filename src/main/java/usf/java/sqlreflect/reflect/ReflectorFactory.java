@@ -44,10 +44,7 @@ public class ReflectorFactory {
 	public HeaderScanner getHeaderScanner(){
 		return new HeaderScanner(tm);
 	}
-	
-	public TransactionManager getTransactionManager() {
-		return tm;
-	}
+
 	public <P> UpdateExecutor<P> getUpdateExecutor() {
 		return new UpdateExecutor<P>(tm);
 	}
@@ -55,6 +52,9 @@ public class ReflectorFactory {
 	public <P> BatchExecutor<P> getBatchExecutor() {
 		return new BatchExecutor<P>(tm);
 	}
-
+	
+	public TransactionManager getTransactionManager() {
+		return tm;
+	}
 
 }
