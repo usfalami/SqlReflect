@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.reflect.executor;
 
 import java.sql.Statement;
-import java.util.Collection;
 import java.util.List;
 
 import usf.java.sqlreflect.Constants;
