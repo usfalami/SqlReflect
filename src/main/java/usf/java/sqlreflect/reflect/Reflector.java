@@ -21,7 +21,7 @@ public interface Reflector<T> {
 			return string == null || string.isEmpty();
 		}
 		
-		public static int sum(int ... values) {
+		public static int sum(int... values) {
 			if(values == null) return 0;
 			int sum = 0;
 			for(int v : values)

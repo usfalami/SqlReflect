@@ -67,12 +67,10 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 					
 					run(rs, adapter, tp);
 				
-				}
-				finally {
+				}finally {
 					getConnectionManager().close(rs);
 				}
-			}
-			finally {
+			}finally {
 				getConnectionManager().close(stmt);
 			}
 		} catch (Exception e) {
