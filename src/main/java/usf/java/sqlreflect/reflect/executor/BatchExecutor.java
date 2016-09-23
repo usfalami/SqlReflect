@@ -56,11 +56,8 @@ public class BatchExecutor<P> extends AbstractExecutor<Integer> {
 			action.end();
 			
 			tp.setRowCount(Utils.sum(rows));
-			
-		} catch (Exception e) {
-			throw e;
-		}
-		finally {
+
+		}finally {
 			getConnectionManager().close(stmt);
 		}
 	}

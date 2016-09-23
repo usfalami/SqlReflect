@@ -50,10 +50,7 @@ public class UpdateExecutor<P> extends AbstractExecutor<Integer> {
 			
 			tp.setRowCount(rows);
 			
-		} catch (Exception e) {
-			throw e;
-		}
-		finally {
+		}finally {
 			getConnectionManager().close(stmt);
 		}
 	}
