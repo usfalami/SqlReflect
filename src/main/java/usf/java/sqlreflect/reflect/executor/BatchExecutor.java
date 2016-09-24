@@ -68,6 +68,4 @@ public class BatchExecutor extends AbstractExecutor<Integer> {
 		return adapter.getList();
 	}
 	
-	
-
 }

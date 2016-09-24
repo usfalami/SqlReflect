@@ -14,7 +14,6 @@ public interface Reflector<T> {
 	List<T> run() throws Exception;
 	
 	
-	
 	public static class Utils {
 		
 		public static boolean isEmpty(String string) {
@@ -36,7 +35,6 @@ public interface Reflector<T> {
 				columns[i] = rm.getColumnName(i+1);
 			return columns;
 		}
-		
+
 	}
-	
 }
