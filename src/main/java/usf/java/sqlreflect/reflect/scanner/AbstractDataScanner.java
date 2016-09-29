@@ -31,16 +31,6 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 	}
 	
 	@Override
-	public List<T> run() throws Exception {
-		return this.run(null, null);
-	}
-	public <P> List<T> run(P args, Binder<P> binder) throws Exception {
-		ListAdapter<T> adapter = new ListAdapter<T>();
-		this.run(adapter, args, binder);
-		return adapter.getList();
-	}
-	
-	@Override
 	public void run(Adapter<T> adapter) throws Exception {
 		this.run(adapter, null, null);
 	}
@@ -89,4 +79,15 @@ public abstract class AbstractDataScanner<T> extends AbstractReflector<Connectio
 
 	protected abstract void runScan(ResultSet rs, Adapter<T> adapter) throws Exception;
 
+	
+	@Override
+	public List<T> run() throws Exception {
+		return this.run(null, null);
+	}
+	public <P> List<T> run(P args, Binder<P> binder) throws Exception {
+		ListAdapter<T> adapter = new ListAdapter<T>();
+		this.run(adapter, args, binder);
+		return adapter.getList();
+	}
+	
 }

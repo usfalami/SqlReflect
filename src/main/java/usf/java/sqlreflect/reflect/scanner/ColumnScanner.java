@@ -51,10 +51,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 			action.end();
 			getTimePerform().setRowCount(row);
 			
-		} catch (Exception e) {
-			throw e;
-		}
-		finally {
+		}finally {
 			getConnectionManager().close(rs);
 		}
 	}

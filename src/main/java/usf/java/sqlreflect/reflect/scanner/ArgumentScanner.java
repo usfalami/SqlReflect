@@ -51,10 +51,7 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 			action.end();
 			getTimePerform().setRowCount(row);
 			
-		} catch (Exception e) {
-			throw e;
-		}
-		finally {
+		}finally {
 			getConnectionManager().close(rs);
 		}
 	}

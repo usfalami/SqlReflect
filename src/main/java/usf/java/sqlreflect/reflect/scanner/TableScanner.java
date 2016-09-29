@@ -72,10 +72,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			action.end();
 			getTimePerform().setRowCount(row);
 			
-		} catch (Exception e) {
-			throw e;
-		}
-		finally {
+		}finally {
 			getConnectionManager().close(rs);
 		}
 	}

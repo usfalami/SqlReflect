@@ -22,4 +22,5 @@ public abstract class AbstractReflector<T extends ConnectionManager> {
 	public TimePerform getTimePerform() {
 		return tp;
 	}
+	
 }
