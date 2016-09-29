@@ -2,9 +2,11 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
+import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.ColumnMapper;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -14,8 +16,6 @@ import usf.java.sqlreflect.sql.item.Column;
 
 public class ColumnScanner extends AbstractFieldScanner<Column> {
 	
-	private String databasePattern, tablePattern, columnPattern;
-	
 	public ColumnScanner(ConnectionManager cm) {
 		super(cm);
 	}
@@ -23,20 +23,13 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 		super(cm, tp);
 	}
 	
-	public ColumnScanner set(String databasePattern, String tablePattern, String columnPattern) {
-		this.databasePattern = databasePattern;
-		this.tablePattern = tablePattern;
-		this.columnPattern = columnPattern;
-		return this;
-	}
-
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Column> adapter) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Column> adapter, String arg1, String arg2, String arg3) throws Exception {
 		ResultSet rs = null;
 		try {
 
 			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getColumns(null, databasePattern, tablePattern, columnPattern);
+			rs = dm.getColumns(null, arg1, arg2, arg3);
 			action.end();
 			
 			Mapper<Column> mapper = new ColumnMapper();
@@ -56,4 +49,13 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 		}
 	}
 
+	public final List<Column> run(String databasePattern, String tablePattern, String columnPattern) throws Exception {
+		ListAdapter<Column> adapter = new ListAdapter<Column>();
+		super.run(adapter, databasePattern, tablePattern, columnPattern);
+		return adapter.getList();
+	}
+	public void run(Adapter<Column> adapter, String databasePattern, String tablePattern, String columnPattern) throws Exception {
+		super.run(adapter, databasePattern, tablePattern, columnPattern);
+	}
+	
 }

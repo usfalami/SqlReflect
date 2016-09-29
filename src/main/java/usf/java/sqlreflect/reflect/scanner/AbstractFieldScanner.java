@@ -20,15 +20,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector<Connecti
 		super(cm, tp);
 	}
 
-	@Override
-	public final List<T> run() throws Exception {
-		ListAdapter<T> adapter = new ListAdapter<T>();
-		this.run(adapter);
-		return adapter.getList();
-	}
-	
-	@Override
-	public final void run(Adapter<T> adapter) throws Exception {
+	protected void run(Adapter<T> adapter, String arg1, String arg2, String arg3) throws Exception {
 		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
@@ -38,7 +30,7 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector<Connecti
 			action.end();
 			
 			DatabaseMetaData dm = getConnectionManager().getConnection().getMetaData();
-			runScan(dm, adapter);
+			runScan(dm, adapter, arg1, arg2, arg3);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -50,6 +42,17 @@ public abstract class AbstractFieldScanner<T> extends AbstractReflector<Connecti
 		}
 	}
 
-	protected abstract void runScan(DatabaseMetaData dm, Adapter<T> adapter) throws Exception;
+	protected abstract void runScan(DatabaseMetaData dm, Adapter<T> adapter, String arg1, String arg2, String arg3) throws Exception;
+	
+	@Override
+	public final List<T> run() throws Exception {
+		ListAdapter<T> adapter = new ListAdapter<T>();
+		this.run(adapter, null, null, null);
+		return adapter.getList();
+	}
+	@Override
+	public void run(Adapter<T> adapter) throws Exception {
+		this.run(adapter, null, null, null);
+	}
 	
 }

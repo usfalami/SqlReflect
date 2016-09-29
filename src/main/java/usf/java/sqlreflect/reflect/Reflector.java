@@ -20,6 +20,10 @@ public interface Reflector<T> {
 			return string == null || string.isEmpty();
 		}
 		
+		public static <P> boolean isEmpty(P... args) {
+			return args == null || args.length == 0;
+		}
+		
 		public static int sum(int... values) {
 			if(values == null) return 0;
 			int sum = 0;
