@@ -55,7 +55,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 
 			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
-				ColumnScanner cs = new ColumnScanner(getConnectionManager(), getTimePerform());
+				ColumnScanner cs = new ColumnScanner(getConnectionManager());
 				ListAdapter<Column> ca = new ListAdapter<Column>();
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
