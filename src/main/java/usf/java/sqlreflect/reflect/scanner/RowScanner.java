@@ -15,6 +15,7 @@ public class RowScanner<T> extends AbstractDataScanner<T> {
 
 	public RowScanner(ConnectionManager cm, Mapper<T> mapper) {
 		super(cm);
+		this.mapper = mapper;
 	}
 	public RowScanner(ConnectionManager cm, TimePerform tp, Mapper<T> mapper) {
 		super(cm, tp);
