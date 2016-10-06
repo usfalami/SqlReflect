@@ -14,7 +14,6 @@ import usf.java.sqlreflect.mapper.ProcedureMapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Argument;
-import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Procedure;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {

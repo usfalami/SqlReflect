@@ -12,7 +12,6 @@ import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
-import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Database;
 
 public class DatabaseScanner extends AbstractFieldScanner<Database> {
