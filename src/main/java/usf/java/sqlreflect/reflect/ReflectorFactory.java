@@ -40,19 +40,19 @@ public class ReflectorFactory {
 		return new ArgumentScanner(tm, tp);
 	}
 
-	public <T> RowScanner<T> getRowScanner(Mapper<T> mapper){
-		return new RowScanner<T>(tm, tp, mapper);
+	public <A, R> RowScanner<A, R> getRowScanner(Mapper<R> mapper){
+		return new RowScanner<A, R>(tm, tp, mapper);
 	}
-	public HeaderScanner getHeaderScanner(){
-		return new HeaderScanner(tm, tp);
+	public <A> HeaderScanner<A> getHeaderScanner(){
+		return new HeaderScanner<A>(tm, tp);
 	}
 
-	public UpdateExecutor getUpdateExecutor() {
-		return new UpdateExecutor(tm, tp);
+	public <A> UpdateExecutor<A> getUpdateExecutor() {
+		return new UpdateExecutor<A>(tm, tp);
 	}
 	
-	public BatchExecutor getBatchExecutor() {
-		return new BatchExecutor(tm, tp);
+	public <A> BatchExecutor<A> getBatchExecutor() {
+		return new BatchExecutor<A>(tm, tp);
 	}
 	
 	public TransactionManager getTransactionManager() {

@@ -12,7 +12,7 @@ import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Header;
 
-public class HeaderScanner extends AbstractDataScanner<Header> {
+public class HeaderScanner<A> extends AbstractDataScanner<A, Header> {
 
 	public HeaderScanner(ConnectionManager cm) {
 		super(cm);
@@ -28,9 +28,9 @@ public class HeaderScanner extends AbstractDataScanner<Header> {
 		adapter.prepare(mapper);
 
 		ActionPerform action = getTimePerform().startAction(Constants.ACTION_ADAPT);
-		for(int i=1; i<=rm.getColumnCount(); i++) {
-			Header col = mapper.map(rs, i);
-			adapter.adapte(col, i);
+		for(int i=0; i<rm.getColumnCount(); i++) {
+			Header col = mapper.map(rs, i+1);
+			adapter.adapte(col, i++);
 		}
 		action.end();
 		getTimePerform().setRowCount(rm.getColumnCount());

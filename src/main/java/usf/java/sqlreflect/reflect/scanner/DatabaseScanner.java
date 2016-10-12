@@ -2,11 +2,9 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
-import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -16,6 +14,8 @@ import usf.java.sqlreflect.sql.item.Database;
 
 public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	
+	private String databasePattern;
+	
 	public DatabaseScanner(ConnectionManager cm) {
 		super(cm);
 	}
@@ -24,12 +24,12 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Database> adapter, String arg1, String arg2, String arg3) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Database> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 
 			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
-			rs = Utils.isEmpty(arg1) ? dm.getSchemas() : dm.getSchemas(null, arg1);
+			rs = Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 			action.end();
 			
 			Mapper<Database> mapper = new DatabaseMapper();
@@ -48,13 +48,8 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 		}
 	}
 	
-	public final List<Database> run(String databasePattern) throws Exception {
-		ListAdapter<Database> adapter = new ListAdapter<Database>();
-		super.run(adapter, databasePattern, null, null);
-		return adapter.getList();
+	public DatabaseScanner set(String databasePattern){
+		this.databasePattern = databasePattern;
+		return this;
 	}
-	public void run(Adapter<Database> adapter, String databasePattern) throws Exception {
-		super.run(adapter, databasePattern, null, null);
-	}
-
 }

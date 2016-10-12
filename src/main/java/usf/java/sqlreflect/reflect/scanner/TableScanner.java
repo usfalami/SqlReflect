@@ -2,7 +2,6 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
@@ -18,8 +17,9 @@ import usf.java.sqlreflect.sql.type.TableTypes;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
 	
+	private String databasePattern, tablePattern;
 	private boolean columns;
-	private String[] types = {TableTypes.TABLE.toString()};
+	private String[] types;
 	
 	public TableScanner(ConnectionManager cm) {
 		super(cm);
@@ -27,26 +27,14 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	public TableScanner(ConnectionManager cm, TimePerform tp) {
 		super(cm, tp);
 	}
-	
-	public TableScanner set(boolean columns, TableTypes... types) {
-		this.columns = columns;
-		if(Utils.isEmpty(types)) 
-			this.types = new String[]{TableTypes.TABLE.toString()};
-		else{
-			this.types = new String[types.length];
-			for(int i=0; i<types.length; i++)
-				this.types[i] = types[i].toString();
-		}
-		return this;
-	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Table> adapter, String arg1, String arg2, String arg3) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Table> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 			
 			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getTables(null, arg1, arg2, types); //TODO : check types == null
+			rs = dm.getTables(null, databasePattern, tablePattern, types);
 			action.end();
 			
 			Mapper<Table> mapper = new TableMapper();
@@ -59,7 +47,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 				ListAdapter<Column> ca = new ListAdapter<Column>();
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					cs.runScan(dm, ca, t.getDatabaseName(), t.getName(), null);
+					cs.set(t.getDatabaseName(), t.getName(), null).runScan(dm, ca);
 					t.setColumns(ca.getList());
 					adapter.adapte(t, row++);
 				}
@@ -79,12 +67,23 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		}
 	}
 	
-	public final List<Table> run(String databasePattern, String tablePattern) throws Exception {
-		ListAdapter<Table> adapter = new ListAdapter<Table>();
-		super.run(adapter, databasePattern, tablePattern,  null);
-		return adapter.getList();
+	public TableScanner set(String databasePattern, String tablePattern, boolean columns, TableTypes... types) {
+		this.databasePattern = databasePattern;
+		this.tablePattern = tablePattern;
+		this.columns = columns;
+		if(Utils.isEmpty(types)) 
+			this.types = new String[]{TableTypes.TABLE.toString()};
+		else{
+			this.types = new String[types.length];
+			for(int i=0; i<types.length; i++)
+				this.types[i] = types[i].toString();
+		}
+		return this;
 	}
-	public void run(Adapter<Table> adapter, String databasePattern, String tablePattern) throws Exception {
-		super.run(adapter, databasePattern, tablePattern, null);
+	public TableScanner set(String databasePattern, String tablePattern, boolean columns) {
+		return set(databasePattern, tablePattern, columns, TableTypes.TABLE);
+	}
+	public TableScanner set(String databasePattern, String tablePattern) {
+		return set(databasePattern, tablePattern, false, TableTypes.TABLE);
 	}
 }

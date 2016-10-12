@@ -1,20 +1,20 @@
 package usf.java.sqlreflect.reflect.executor;
 
 import java.sql.Statement;
-import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
-import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
-public class UpdateExecutor extends AbstractExecutor<Integer> {
+public class UpdateExecutor<A> extends AbstractExecutor<Integer> {
 
 	private Runnable query;
+	private Binder<A> binder;
+	private A args;
 
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
@@ -22,15 +22,9 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 	public UpdateExecutor(TransactionManager cm, TimePerform tp) {
 		super(cm, tp);
 	}
-	
-	public UpdateExecutor set(String sql) {
-		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
-		return this;
-	}
 
 	@Override
-	protected <P> void runExec(Adapter<Integer> adapter, Object obj, Binder<P> binder) throws Exception {
-		P args = (obj == null) ? null : (P) obj;
+	protected void runExec(Adapter<Integer> adapter) throws Exception {
 		Statement stmt = null;
 		try {
 
@@ -52,15 +46,15 @@ public class UpdateExecutor extends AbstractExecutor<Integer> {
 			getConnectionManager().close(stmt);
 		}
 	}
-	
 
-	public <P> void run(Adapter<Integer> adapter, P argsList, Binder<P> binder) throws Exception {
-		super.prepare(adapter, argsList, binder);
+	public UpdateExecutor<A> set(String sql, A args, Binder<A> binder) {
+		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.args = args;
+		this.binder = binder;
+		return this;
 	}
-	public <P> List<Integer> run(P argsList, Binder<P> binder) throws Exception {
-		ListAdapter<Integer> adapter = new ListAdapter<Integer>();
-		this.prepare(adapter, argsList, binder);
-		return adapter.getList();
+	public UpdateExecutor<A> set(String sql) {
+		return this.set(sql, null, null);
 	}
-	
+
 }

@@ -2,7 +2,6 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
@@ -17,7 +16,8 @@ import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Procedure;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
-	
+
+	private String databasePattern, procedurePattern;
 	private boolean arguments;
 	
 	public ProcedureScanner(ConnectionManager cm) {
@@ -26,19 +26,14 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	public ProcedureScanner(TransactionManager cm, TimePerform tp) {
 		super(cm, tp);
 	}
-	
-	public ProcedureScanner set(boolean columns) {
-		this.arguments = columns;
-		return this;
-	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Procedure> adapter, String arg1, String arg2, String arg3) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Procedure> adapter) throws Exception {
 		ResultSet rs = null;
 		try {
 
 			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getProcedures(null, arg1, arg2);
+			rs = dm.getProcedures(null, databasePattern, procedurePattern);
 			action.end();
 			
 			Mapper<Procedure> mapper = new ProcedureMapper();
@@ -46,12 +41,12 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			int row = 0;
 
 			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
-			if(arguments) { // look for columns
+			if(arguments) { // look for arguments
 				ArgumentScanner as = new ArgumentScanner(getConnectionManager()); 
 				ListAdapter<Argument> aa = new ListAdapter<Argument>();
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					as.runScan(dm, aa, p.getDatabaseName(), p.getName(), null);	
+					as.set(p.getDatabaseName(), p.getName(), null).runScan(dm, aa);	
 					p.setArguments(aa.getList());
 					adapter.adapte(p, row++);
 				}
@@ -70,13 +65,13 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 		}
 	}
 	
-	public final List<Procedure> run(String databasePattern, String tablePattern) throws Exception {
-		ListAdapter<Procedure> adapter = new ListAdapter<Procedure>();
-		super.run(adapter, databasePattern, tablePattern,  null);
-		return adapter.getList();
+	public ProcedureScanner set(String databasePattern, String procedurePattern, boolean arguments) {
+		this.databasePattern = databasePattern;
+		this.procedurePattern = procedurePattern;
+		this.arguments = arguments;
+		return this;
 	}
-	public void run(Adapter<Procedure> adapter, String databasePattern, String tablePattern) throws Exception {
-		super.run(adapter, databasePattern, tablePattern, null);
+	public ProcedureScanner set(String databasePattern, String procedurePattern) {
+		return set(databasePattern, procedurePattern, false);
 	}
-	
 }

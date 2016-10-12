@@ -7,7 +7,6 @@ public class Procedure extends Callable {
 	public Procedure() {
 		super();
 	}
-	
 	public Procedure(String callable) {
 		super(callable);
 	}

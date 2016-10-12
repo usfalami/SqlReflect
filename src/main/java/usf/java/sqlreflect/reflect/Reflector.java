@@ -7,11 +7,11 @@ import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 
-public interface Reflector<T> {
+public interface Reflector<R> {
 	
-	void run(Adapter<T> adapter) throws Exception;
+	void run(Adapter<R> adapter) throws Exception;
 	
-	List<T> run() throws Exception;
+	List<R> run() throws Exception;
 	
 	
 	public static class Utils {
