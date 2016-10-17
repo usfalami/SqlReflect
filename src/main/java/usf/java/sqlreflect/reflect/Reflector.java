@@ -17,16 +17,16 @@ public interface Reflector<R> {
 	
 	public static class Utils {
 		
-		public static boolean isEmpty(String string) {
-			return string == null || string.isEmpty();
+		public static boolean isEmpty(String arg) {
+			return arg == null || arg.isEmpty();
 		}
 		
 		public static <P> boolean isEmpty(P... args) {
 			return args == null || args.length == 0;
 		}
 		
-		public static <P> boolean isEmpty(Collection<P> c) {
-			return c == null || c.isEmpty();
+		public static boolean isEmpty(Collection<?> arg) {
+			return arg == null || arg.isEmpty();
 		}
 		
 		
