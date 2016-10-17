@@ -3,6 +3,7 @@ package usf.java.sqlreflect.reflect;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
@@ -23,6 +24,11 @@ public interface Reflector<R> {
 		public static <P> boolean isEmpty(P... args) {
 			return args == null || args.length == 0;
 		}
+		
+		public static <P> boolean isEmpty(Collection<P> c) {
+			return c == null || c.isEmpty();
+		}
+		
 		
 		public static int sum(int... values) {
 			if(values == null) return 0;

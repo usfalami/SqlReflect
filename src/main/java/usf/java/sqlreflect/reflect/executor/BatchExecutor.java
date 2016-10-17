@@ -32,7 +32,7 @@ public class BatchExecutor<A> extends AbstractExecutor<Integer> {
 			TransactionManager tm = getConnectionManager();
 
 			ActionPerform action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
-			stmt = queries.length > 1 || argsList == null || argsList.isEmpty() ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
+			stmt = queries.length > 1 || Utils.isEmpty(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 			action.end();
 			
 			action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
