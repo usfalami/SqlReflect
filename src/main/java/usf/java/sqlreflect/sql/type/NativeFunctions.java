@@ -29,6 +29,6 @@ public enum NativeFunctions {
 	
 	public abstract String[] getFunctions(DatabaseMetaData dm) throws SQLException;
 	
-	private static final String SEPERATOR = ";";
+	private static final String SEPERATOR = ",";
 
 }
