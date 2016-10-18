@@ -3,6 +3,7 @@ package usf.java.sqlreflect.binder;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import usf.java.sqlreflect.sql.Parameter;
@@ -14,7 +15,7 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 	public void bindPreparedStatement(PreparedStatement pstmt, List<Parameter<?>> args) throws SQLException {
 		if(args == null) return;
 		for(int i=0; i<args.size(); i++)
-			Utils.set(pstmt, i+1, args.get(i));
+			set(pstmt, i+1, args.get(i));
 	}
 	
 	@Override
@@ -25,7 +26,7 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 			if(ParameterTypes.isOut(arg.getType())) //Parameter can be inout type
 				cstmt.registerOutParameter(i+1, arg.getSqlType());
 			if(ParameterTypes.isIN(arg.getType()))
-				Utils.set(cstmt, i+1, arg);
+				set(cstmt, i+1, arg);
 		}
 	}
 
@@ -37,5 +38,11 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 			if(ParameterTypes.isOut(arg.getType()))
 				arg.setValue(cstmt.getObject(i+1));
 		}
+	}
+	
+	public static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException {
+		if(arg == null) pstmt.setNull(index, Types.NULL); //TODO check that
+		else if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());
+		else pstmt.setObject(index, arg.getValue(), arg.getSqlType());
 	}
 }

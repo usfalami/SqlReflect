@@ -6,7 +6,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public class RowScanner<A, R> extends AbstractDataScanner<A, R> {
@@ -29,7 +29,7 @@ public class RowScanner<A, R> extends AbstractDataScanner<A, R> {
 		adapter.prepare(mapper);
 		int row = 0;
 
-		ActionPerform action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+		ActionTimer action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 		while(rs.next()) {
 			R bean = mapper.map(rs, row+1);
 			adapter.adapte(bean, row++);

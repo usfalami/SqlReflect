@@ -1,15 +1,15 @@
 package usf.java.sqlreflect.reflect;
 
-public class ActionPerform {
+public class ActionTimer {
 
-	private long start, end;
 	private String name;
+	private long start, end;
 
-	protected ActionPerform() {
+	protected ActionTimer() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ActionPerform(String name) {
+	public ActionTimer(String name) {
 		this.name = name;
 	}
 
@@ -28,7 +28,7 @@ public class ActionPerform {
 	public String getName() {
 		return name;
 	}
-	public ActionPerform setName(String name) {
+	public ActionTimer setName(String name) {
 		this.name = name;
 		return this;
 	}

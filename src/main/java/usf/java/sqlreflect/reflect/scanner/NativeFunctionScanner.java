@@ -5,7 +5,7 @@ import java.sql.DatabaseMetaData;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
@@ -22,7 +22,7 @@ public class NativeFunctionScanner extends AbstractFieldScanner<String> {
 
 	@Override
 	protected void runScan(DatabaseMetaData dm, Adapter<String> adapter) throws Exception {
-		ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+		ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 		String[] functions = nf.getFunctions(dm);
 		action.end();
 		

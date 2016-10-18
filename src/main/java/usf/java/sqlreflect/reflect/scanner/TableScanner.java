@@ -9,7 +9,7 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Table;
@@ -33,7 +33,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		ResultSet rs = null;
 		try {
 			
-			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getTables(null, databasePattern, tablePattern, types);
 			action.end();
 			

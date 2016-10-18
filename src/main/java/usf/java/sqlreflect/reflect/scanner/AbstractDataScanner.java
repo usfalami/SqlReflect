@@ -8,7 +8,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
@@ -27,11 +27,11 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 	
 	@Override
 	public void run(Adapter<R> adapter) throws Exception {
-		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
+		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 
-			ActionPerform action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+			ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end();
 			

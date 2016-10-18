@@ -6,7 +6,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
@@ -28,7 +28,7 @@ public class UpdateExecutor<A> extends AbstractExecutor<Integer> {
 		Statement stmt = null;
 		try {
 
-			ActionPerform action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
+			ActionTimer action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
 			stmt = getConnectionManager().buildStatement(query, args, binder);
 			action.end();
 

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -16,7 +16,7 @@ public class TimePerformMapper implements Mapper<TimePerform> {
 	@Override
 	public void write(StreamWriter writer, TimePerform time) throws Exception {
 		final String MS_FORMAT = "%5d";
-		for(ActionPerform action : time.getTimes()){
+		for(ActionTimer action : time.getTimes()){
 			writer.startObject("");
 				writer.writeString("Action", action.getName());
 				writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(action.getStart()));

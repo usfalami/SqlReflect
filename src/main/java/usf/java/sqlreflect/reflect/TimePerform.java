@@ -6,18 +6,18 @@ import java.util.List;
 
 public class TimePerform {
 	
-	private Collection<ActionPerform> times;
+	private Collection<ActionTimer> times;
 	private int rowCount;
 	
 	public TimePerform() {
-		times = new ArrayList<ActionPerform>();
+		times = new ArrayList<ActionTimer>();
 	}
 
-	public Collection<ActionPerform> getTimes() {
+	public Collection<ActionTimer> getTimes() {
 		return times;
 	}
 
-	public void setTimes(List<ActionPerform> times) {
+	public void setTimes(List<ActionTimer> times) {
 		this.times = times;
 	}
 
@@ -29,8 +29,8 @@ public class TimePerform {
 		this.rowCount = rowCount;
 	}
 	
-	public ActionPerform startAction(String name){
-		ActionPerform t = new ActionPerform(name);
+	public ActionTimer startAction(String name){
+		ActionTimer t = new ActionTimer(name);
 		times.add(t);
 		t.start();
 		return t;
@@ -41,6 +41,5 @@ public class TimePerform {
 		rowCount = 0;
 		return this;
 	}
-	
 	
 }

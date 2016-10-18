@@ -4,7 +4,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionManager, R> implements Executor {
@@ -18,7 +18,7 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 	
 	@Override
 	public void run(Adapter<R> adapter) throws Exception {
-		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
+		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 			TransactionManager tm = getConnectionManager();
@@ -29,7 +29,7 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 			else {
 				try {
 
-					ActionPerform action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+					ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
 					tm.startTransaction();
 					action.end();
 					

@@ -8,7 +8,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Header;
 
@@ -27,7 +27,7 @@ public class HeaderScanner<A> extends AbstractDataScanner<A, Header> {
 		ResultSetMetaData rm = rs.getMetaData();
 		adapter.prepare(mapper);
 
-		ActionPerform action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+		ActionTimer action = getTimePerform().startAction(Constants.ACTION_ADAPT);
 		for(int i=0; i<rm.getColumnCount(); i++) {
 			Header col = mapper.map(rs, i+1);
 			adapter.adapte(col, i++);

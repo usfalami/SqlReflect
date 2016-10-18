@@ -6,7 +6,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractFieldScanner<R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
@@ -20,11 +20,11 @@ public abstract class AbstractFieldScanner<R> extends AbstractReflector<Connecti
 	
 	@Override
 	public void run(Adapter<R> adapter) throws Exception {
-		ActionPerform total = getTimePerform().startAction(getClass().getSimpleName());
+		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
 		try {
 			adapter.start();
 			
-			ActionPerform action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+			ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end();
 			

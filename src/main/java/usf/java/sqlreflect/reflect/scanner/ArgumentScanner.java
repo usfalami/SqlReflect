@@ -8,7 +8,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.ArgumentMapper;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Argument;
 
@@ -28,7 +28,7 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 		ResultSet rs = null;
 		try {
 
-			ActionPerform action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 			action.end();
 			
