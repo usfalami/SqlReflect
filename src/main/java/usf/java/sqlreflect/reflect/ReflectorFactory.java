@@ -15,44 +15,44 @@ import usf.java.sqlreflect.reflect.scanner.TableScanner;
 public class ReflectorFactory {
 	
 	private TransactionManager tm;
-	private TimePerform tp;
+	private ActionTimer at;
 	
-	public ReflectorFactory(TransactionManager tm, TimePerform tp) {
+	public ReflectorFactory(TransactionManager tm, ActionTimer at) {
 		this.tm = tm;
-		this.tp = tp;
+		this.at = at;
 	}
 
 	public DatabaseScanner getDatabaseScanner(){
-		return new DatabaseScanner(tm, tp);
+		return new DatabaseScanner(tm, at.createAction());
 	}
 	
 	public TableScanner getTableScanner(){
-		return new TableScanner(tm, tp);
+		return new TableScanner(tm, at.createAction());
 	}
 	public ColumnScanner getColumnScanner() {
-		return new ColumnScanner(tm, tp);
+		return new ColumnScanner(tm, at.createAction());
 	}
 	
-	public ProcedureScanner getProcedureScanner(){
-		return new ProcedureScanner(tm, tp);
+	public ProcedureScanner geatrocedureScanner(){
+		return new ProcedureScanner(tm, at.createAction());
 	}
 	public ArgumentScanner getArgumentScanner() {
-		return new ArgumentScanner(tm, tp);
+		return new ArgumentScanner(tm, at.createAction());
 	}
 
 	public <A, R> RowScanner<A, R> getRowScanner(Mapper<R> mapper){
-		return new RowScanner<A, R>(tm, tp, mapper);
+		return new RowScanner<A, R>(tm, at.createAction(), mapper);
 	}
 	public <A> HeaderScanner<A> getHeaderScanner(){
-		return new HeaderScanner<A>(tm, tp);
+		return new HeaderScanner<A>(tm, at.createAction());
 	}
 
 	public <A> UpdateExecutor<A> getUpdateExecutor() {
-		return new UpdateExecutor<A>(tm, tp);
+		return new UpdateExecutor<A>(tm, at.createAction());
 	}
 	
 	public <A> BatchExecutor<A> getBatchExecutor() {
-		return new BatchExecutor<A>(tm, tp);
+		return new BatchExecutor<A>(tm, at.createAction());
 	}
 	
 	public TransactionManager getTransactionManager() {

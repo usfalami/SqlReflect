@@ -10,7 +10,6 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
@@ -24,16 +23,16 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	public TableScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public TableScanner(ConnectionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public TableScanner(ConnectionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Table> adapter) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Table> adapter, ActionTimer at) throws Exception {
 		ResultSet rs = null;
 		try {
 			
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getTables(null, databasePattern, tablePattern, types);
 			action.end();
 			
@@ -41,13 +40,13 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_ADAPT);
 			if(columns) { // look for columns
 				ColumnScanner cs = new ColumnScanner(getConnectionManager());
 				ListAdapter<Column> ca = new ListAdapter<Column>();
 				while(rs.next()){
 					Table t = mapper.map(rs, row+1);
-					cs.set(t.getDatabaseName(), t.getName(), null).runScan(dm, ca);
+					cs.set(t.getDatabaseName(), t.getName(), null).runScan(dm, ca, at.createAction());
 					t.setColumns(ca.getList());
 					adapter.adapte(t, row++);
 				}
@@ -60,7 +59,6 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 				}
 			}
 			action.end();
-			getTimePerform().setRowCount(row);
 			
 		}finally {
 			getConnectionManager().close(rs);

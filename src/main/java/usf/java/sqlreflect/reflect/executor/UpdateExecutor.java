@@ -7,7 +7,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
 public class UpdateExecutor<A> extends AbstractExecutor<Integer> {
@@ -19,28 +18,26 @@ public class UpdateExecutor<A> extends AbstractExecutor<Integer> {
 	public UpdateExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public UpdateExecutor(TransactionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public UpdateExecutor(TransactionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runExec(Adapter<Integer> adapter) throws Exception {
+	protected void runExec(Adapter<Integer> adapter, ActionTimer at) throws Exception {
 		Statement stmt = null;
 		try {
 
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
+			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
 			stmt = getConnectionManager().buildStatement(query, args, binder);
 			action.end();
 
-			action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			action = at.startAction(Constants.ACTION_EXECUTION);
 			int rows = getConnectionManager().executeUpdate(stmt, query, args, binder);
 			action.end();
 
-			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_ADAPT);
 			adapter.adapte(rows, 1);
 			action.end();
-			
-			getTimePerform().setRowCount(rows);
 			
 		}finally {
 			getConnectionManager().close(stmt);

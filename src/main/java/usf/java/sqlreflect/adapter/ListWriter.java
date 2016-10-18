@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.adapter;
 
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ListWriter<T> implements Adapter<T> {
@@ -30,7 +30,7 @@ public class ListWriter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void end(TimePerform time) throws Exception {
+	public void end(ActionTimer time) throws Exception {
 		writer.endList();
 		writer.end();
 	}

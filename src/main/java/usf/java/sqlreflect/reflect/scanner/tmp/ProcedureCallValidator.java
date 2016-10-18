@@ -6,7 +6,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Callable;
@@ -52,7 +52,7 @@ public class ProcedureCallValidator implements Adapter<Procedure> {
 	}
 	
 	@Override
-	public void end(TimePerform time) { }
+	public void end(ActionTimer time) { }
 	
 	public boolean validate(ConnectionManager cm, String callable) throws Exception {
 		this.callable = sqlParser.getServer().parseCallable(callable);

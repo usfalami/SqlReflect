@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 
 public class ListAdapter<T> implements Adapter<T> {
 
 	private List<T> list;
-	private TimePerform time;
+	private ActionTimer timer;
 	
 	public ListAdapter() {
 		list = new ArrayList<T>();
@@ -31,15 +31,15 @@ public class ListAdapter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void end(TimePerform time) {
-		this.time = time;
+	public void end(ActionTimer timer) {
+		this.timer = timer;
 	}
 	
 	public List<T> getList() {
 		return list;
 	}
-	public TimePerform getTime() {
-		return time;
+	public ActionTimer getActionTimer() {
+		return timer;
 	}
 	
 }

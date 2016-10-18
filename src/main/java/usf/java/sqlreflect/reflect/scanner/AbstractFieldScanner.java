@@ -7,36 +7,31 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractFieldScanner<R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
 	
 	public AbstractFieldScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public AbstractFieldScanner(ConnectionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public AbstractFieldScanner(ConnectionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 	
 	@Override
-	public void run(Adapter<R> adapter) throws Exception {
-		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
+	public void run(Adapter<R> adapter, ActionTimer at) throws Exception {
 		try {
-			adapter.start();
 			
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+			ActionTimer action = at.startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end();
 			
 			DatabaseMetaData dm = getConnectionManager().getConnection().getMetaData();
-			runScan(dm, adapter);
+			runScan(dm, adapter, at);
 			
 		}finally {
 			getConnectionManager().close();
-			total.end();
-			adapter.end(getTimePerform());
 		}
 	}
 
-	protected abstract void runScan(DatabaseMetaData dm, Adapter<R> adapter) throws Exception;
+	protected abstract void runScan(DatabaseMetaData dm, Adapter<R> adapter, ActionTimer at) throws Exception;
 }

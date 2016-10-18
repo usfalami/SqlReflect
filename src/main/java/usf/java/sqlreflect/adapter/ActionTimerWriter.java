@@ -1,18 +1,18 @@
 package usf.java.sqlreflect.adapter;
 
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.TimePerformMapper;
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.mapper.ActionTimerMapper;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TimePerformWriter<T> implements Adapter<T> {
+public class ActionTimerWriter<T> implements Adapter<T> {
 	
 	private StreamWriter writer;
-	private Mapper<TimePerform> mapper;
+	private Mapper<ActionTimer> mapper;
 	
-	public TimePerformWriter(StreamWriter writer) {
+	public ActionTimerWriter(StreamWriter writer) {
 		this.writer = writer;
-		mapper = new TimePerformMapper();
+		mapper = new ActionTimerMapper();
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class TimePerformWriter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void end(TimePerform time) throws Exception {
+	public void end(ActionTimer time) throws Exception {
 		mapper.write(writer, time);
 		writer.endList();
 		writer.end();

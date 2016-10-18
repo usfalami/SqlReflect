@@ -9,7 +9,6 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.ArgumentMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Argument;
 
 public class ArgumentScanner extends AbstractFieldScanner<Argument> {
@@ -19,16 +18,16 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	public ArgumentScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public ArgumentScanner(ConnectionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public ArgumentScanner(ConnectionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Argument> adapter) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Argument> adapter, ActionTimer at) throws Exception {
 		ResultSet rs = null;
 		try {
 
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 			action.end();
 			
@@ -36,13 +35,12 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_ADAPT);
 			while(rs.next()){
 				Argument argument = mapper.map(rs, row+1);
 				adapter.adapte(argument, row++);
 			}
 			action.end();
-			getTimePerform().setRowCount(row);
 			
 		}finally {
 			getConnectionManager().close(rs);

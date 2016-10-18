@@ -2,35 +2,51 @@ package usf.java.sqlreflect.reflect;
 
 import java.util.List;
 
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 
 public abstract class AbstractReflector<C extends ConnectionManager, R> implements Reflector<R> {
 	
 	private C cm;
-	private TimePerform tp;
+	private ActionTimer at;
 	
 	public AbstractReflector(C cm) {
-		this(cm, new TimePerform());
+		this(cm, new ActionTimer());
 	}
-	public AbstractReflector(C cm, TimePerform tp) {
+	public AbstractReflector(C cm, ActionTimer at) {
 		this.cm = cm;
-		this.tp = tp;
+		this.at = at;
 	}
 	
 	public C getConnectionManager() {
 		return cm;
 	}
 	
-	public TimePerform getTimePerform() {
-		return tp;
-	}
-	
 	@Override
-	public List<R> run() throws Exception {
+	public final List<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
 		return adapter.getList();
 	}
+	
+
+	@Override
+	public final void run(Adapter<R> adapter) throws Exception {
+		if(at == null) at = new ActionTimer();
+		at.setName(getClass().getSimpleName());
+		try {
+			adapter.start();
+			
+			at.start();
+			run(adapter, at);
+			at.end();
+		
+		} finally {
+			adapter.end(at);
+		}
+	}
+	
+	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 }

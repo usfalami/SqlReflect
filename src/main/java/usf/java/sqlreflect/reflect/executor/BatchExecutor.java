@@ -8,7 +8,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
 public class BatchExecutor<A> extends AbstractExecutor<Integer> {
@@ -20,32 +19,30 @@ public class BatchExecutor<A> extends AbstractExecutor<Integer> {
 	public BatchExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public BatchExecutor(TransactionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public BatchExecutor(TransactionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runExec(Adapter<Integer> adapter) throws Exception {
+	protected void runExec(Adapter<Integer> adapter, ActionTimer at) throws Exception {
 		Statement stmt = null; //TODO : Check query
 		try {
 			
 			TransactionManager tm = getConnectionManager();
 
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
+			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
 			stmt = queries.length > 1 || Utils.isEmpty(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 			action.end();
 			
-			action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			action = at.startAction(Constants.ACTION_EXECUTION);
 			int[] rows = stmt.executeBatch();
 			action.end();
 			
-			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_ADAPT);
 			for(int i=0; i<rows.length; i++)
 				adapter.adapte(rows[i], i+1);
 			action.end();
 			
-			getTimePerform().setRowCount(Utils.sum(rows));
-
 		}finally {
 			getConnectionManager().close(stmt);
 		}

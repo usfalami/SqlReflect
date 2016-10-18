@@ -11,7 +11,6 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Procedure;
 
@@ -23,16 +22,16 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	public ProcedureScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public ProcedureScanner(TransactionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public ProcedureScanner(TransactionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Procedure> adapter) throws Exception {
+	protected void runScan(DatabaseMetaData dm, Adapter<Procedure> adapter, ActionTimer at) throws Exception {
 		ResultSet rs = null;
 		try {
 
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 			rs = dm.getProcedures(null, databasePattern, procedurePattern);
 			action.end();
 			
@@ -40,13 +39,13 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 			adapter.prepare(mapper);
 			int row = 0;
 
-			action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_ADAPT);
 			if(arguments) { // look for arguments
 				ArgumentScanner as = new ArgumentScanner(getConnectionManager()); 
 				ListAdapter<Argument> aa = new ListAdapter<Argument>();
 				while(rs.next()){
 					Procedure p = mapper.map(rs, row+1);
-					as.set(p.getDatabaseName(), p.getName(), null).runScan(dm, aa);	
+					as.set(p.getDatabaseName(), p.getName(), null).runScan(dm, aa, at.createAction());	
 					p.setArguments(aa.getList());
 					adapter.adapte(p, row++);
 				}
@@ -58,7 +57,6 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 				}
 			}
 			action.end();
-			getTimePerform().setRowCount(row);
 			
 		}finally {
 			getConnectionManager().close(rs);

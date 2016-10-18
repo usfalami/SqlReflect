@@ -9,7 +9,6 @@ import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Runnable;
 
 public abstract class AbstractDataScanner<A, R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
@@ -21,36 +20,33 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 	public AbstractDataScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public AbstractDataScanner(ConnectionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public AbstractDataScanner(ConnectionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 	
 	@Override
-	public void run(Adapter<R> adapter) throws Exception {
-		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
+	public void run(Adapter<R> adapter, ActionTimer at) throws Exception {
 		try {
-			adapter.start();
 
-			ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+			ActionTimer action = at.startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end();
 			
 			Statement stmt = null;
 			try {
 
-				action = getTimePerform().startAction(Constants.ACTION_STATEMENT);
+				action = at.startAction(Constants.ACTION_STATEMENT);
 				stmt = getConnectionManager().buildStatement(runnable, args, binder);
 				action.end();
 				
 				ResultSet rs = null;
-
 				try {
 				
-					action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+					action = at.startAction(Constants.ACTION_EXECUTION);
 					rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
 					action.end();
 					
-					runScan(rs, adapter);
+					runScan(rs, adapter, at);
 				
 				}finally {
 					getConnectionManager().close(rs);
@@ -60,12 +56,10 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 			}
 		}finally {
 			getConnectionManager().close();
-			total.end();
-			adapter.end(getTimePerform());
 		}
 	}
 
-	protected abstract void runScan(ResultSet rs, Adapter<R> adapter) throws Exception;
+	protected abstract void runScan(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {
 		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);

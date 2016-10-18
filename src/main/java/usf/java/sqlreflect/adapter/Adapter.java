@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.adapter;
 
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 
 public interface Adapter<T> {
 	
@@ -11,6 +11,6 @@ public interface Adapter<T> {
 	
 	void adapte(T field, int index) throws Exception;
 	
-	void end(TimePerform time) throws Exception;
+	void end(ActionTimer at) throws Exception;
 
 }

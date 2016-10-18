@@ -5,35 +5,32 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 
 public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionManager, R> implements Executor {
 	
 	public AbstractExecutor(TransactionManager tm) {
 		super(tm);
 	}
-	public AbstractExecutor(TransactionManager tm, TimePerform tp) {
-		super(tm, tp);
+	public AbstractExecutor(TransactionManager tm, ActionTimer at) {
+		super(tm, at);
 	}
 	
 	@Override
-	public void run(Adapter<R> adapter) throws Exception {
-		ActionTimer total = getTimePerform().startAction(getClass().getSimpleName());
+	public void run(Adapter<R> adapter, ActionTimer at) throws Exception {
 		try {
-			adapter.start();
 			TransactionManager tm = getConnectionManager();
 			adapter.prepare(null);
 			if(tm.isTransacting()){
-				runExec(adapter);
+				runExec(adapter, at);
 			}
 			else {
 				try {
 
-					ActionTimer action = getTimePerform().startAction(Constants.ACTION_CONNECTION);
+					ActionTimer action = at.startAction(Constants.ACTION_CONNECTION);
 					tm.startTransaction();
 					action.end();
 					
-					runExec(adapter);
+					runExec(adapter, at);
 					tm.endTransaction();
 				} catch (Exception e) {
 					tm.rollback();
@@ -44,11 +41,10 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 				}
 			}
 		}finally{
-			total.end();
-			adapter.end(getTimePerform());
+			
 		}
 	}
 	
-	protected abstract void runExec(Adapter<R> adapter) throws Exception;
+	protected abstract void runExec(Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 }

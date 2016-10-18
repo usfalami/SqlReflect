@@ -6,7 +6,6 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
 public class NativeFunctionScanner extends AbstractFieldScanner<String> {
@@ -16,24 +15,23 @@ public class NativeFunctionScanner extends AbstractFieldScanner<String> {
 	public NativeFunctionScanner(ConnectionManager cm) {
 		super(cm);
 	}
-	public NativeFunctionScanner(ConnectionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public NativeFunctionScanner(ConnectionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<String> adapter) throws Exception {
-		ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
+	protected void runScan(DatabaseMetaData dm, Adapter<String> adapter, ActionTimer at) throws Exception {
+		ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 		String[] functions = nf.getFunctions(dm);
 		action.end();
 		
 		adapter.prepare(null);
 
-		action = getTimePerform().startAction(Constants.ACTION_ADAPT);
+		action = at.startAction(Constants.ACTION_ADAPT);
 		for(int i=0; i<functions.length; i++)
 			adapter.adapte(functions[i], i);
 		action.end();
 		
-		getTimePerform().setRowCount(functions.length);
 	}
 	
 	public NativeFunctionScanner set(NativeFunctions nf) throws Exception {

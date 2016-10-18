@@ -5,7 +5,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.ReflectorFactory;
-import usf.java.sqlreflect.reflect.TimePerform;
 import usf.java.sqlreflect.sql.Transaction;
 
 public class TransactionExecutor extends AbstractExecutor<Void> {
@@ -15,14 +14,14 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	public TransactionExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public TransactionExecutor(TransactionManager cm, TimePerform tp) {
-		super(cm, tp);
+	public TransactionExecutor(TransactionManager cm, ActionTimer at) {
+		super(cm, at);
 	}
 	
 	@Override
-	protected void runExec(Adapter<Void> adapter) throws Exception {
-		ActionTimer action = getTimePerform().startAction(Constants.ACTION_EXECUTION);
-		transaction.execute(new ReflectorFactory(getConnectionManager(), getTimePerform()));
+	protected void runExec(Adapter<Void> adapter, ActionTimer at) throws Exception {
+		ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
+		transaction.execute(new ReflectorFactory(getConnectionManager(), action));
 		action.end();
 	}
 
