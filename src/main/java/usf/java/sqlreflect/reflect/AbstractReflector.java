@@ -29,11 +29,9 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 		run(adapter);
 		return adapter.getList();
 	}
-	
 
 	@Override
 	public final void run(Adapter<R> adapter) throws Exception {
-		if(at == null) at = new ActionTimer();
 		at.setName(getClass().getSimpleName());
 		try {
 			adapter.start();

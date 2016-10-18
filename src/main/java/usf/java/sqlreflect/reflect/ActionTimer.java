@@ -9,12 +9,6 @@ public class ActionTimer {
 	private long start, end;
 	private Collection<ActionTimer> timers;
 
-	protected ActionTimer() {}
-	
-	public ActionTimer(String name) {
-		this.name = name;
-	}
-
 	public long start() {
 		return start = end = System.currentTimeMillis();
 	}
