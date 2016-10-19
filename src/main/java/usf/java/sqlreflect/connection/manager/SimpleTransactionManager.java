@@ -21,7 +21,6 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void startTransaction() throws SQLException {
-		openConnection();
 		getConnection().setAutoCommit(false);
 		transact = true;
 	}

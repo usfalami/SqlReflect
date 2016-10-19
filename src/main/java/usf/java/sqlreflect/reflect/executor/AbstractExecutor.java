@@ -27,11 +27,13 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 				try {
 
 					ActionTimer action = at.startAction(Constants.ACTION_CONNECTION);
-					tm.startTransaction();
+					tm.openConnection();
 					action.end();
 					
+					tm.startTransaction();
 					runExec(adapter, at);
 					tm.endTransaction();
+					
 				} catch (Exception e) {
 					tm.rollback();
 					throw e;
@@ -40,9 +42,7 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 					tm.close();
 				}
 			}
-		}finally{
-			
-		}
+		}finally{ }
 	}
 	
 	protected abstract void runExec(Adapter<R> adapter, ActionTimer at) throws Exception;
