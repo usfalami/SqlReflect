@@ -2,7 +2,6 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -28,12 +27,10 @@ public class RowScanner<A, R> extends AbstractDataScanner<A, R> {
 		adapter.prepare(mapper);
 		int row = 0;
 
-		ActionTimer action = at.startAction(Constants.ACTION_ADAPT);
 		while(rs.next()) {
 			R bean = mapper.map(rs, row+1);
 			adapter.adapte(bean, row++);
 		}
-		action.end();
 	}
 
 }

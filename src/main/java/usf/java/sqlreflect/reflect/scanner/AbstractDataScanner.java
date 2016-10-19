@@ -40,7 +40,9 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 				rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
 				action.end();
 				
+				action = at.startAction(Constants.ACTION_ADAPT);
 				runScan(rs, adapter, at);
+				action.end();
 			
 			}finally {
 				getConnectionManager().close(rs);

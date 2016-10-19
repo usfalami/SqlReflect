@@ -3,7 +3,6 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
-import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.HeaderMapper;
@@ -26,13 +25,10 @@ public class HeaderScanner<A> extends AbstractDataScanner<A, Header> {
 		ResultSetMetaData rm = rs.getMetaData();
 		adapter.prepare(mapper);
 
-		ActionTimer action = at.startAction(Constants.ACTION_ADAPT);
 		for(int i=0; i<rm.getColumnCount(); i++) {
 			Header col = mapper.map(rs, i+1);
 			adapter.adapte(col, i++);
 		}
-		action.end();
-		
 	}
 	
 }
