@@ -3,11 +3,8 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.Constants;
-import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.ArgumentMapper;
-import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.item.Argument;
 
@@ -16,35 +13,15 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	private String databasePattern, procedurePattern, argumentPattern;
 	
 	public ArgumentScanner(ConnectionManager cm) {
-		super(cm);
+		super(cm, new ArgumentMapper());
 	}
 	public ArgumentScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at);
+		super(cm, at, new ArgumentMapper());
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Argument> adapter, ActionTimer at) throws Exception {
-		ResultSet rs = null;
-		try {
-
-			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
-			rs = dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
-			action.end();
-			
-			Mapper<Argument> mapper = new ArgumentMapper();
-			adapter.prepare(mapper);
-			int row = 0;
-
-			action = at.startAction(Constants.ACTION_ADAPT);
-			while(rs.next()){
-				Argument argument = mapper.map(rs, row+1);
-				adapter.adapte(argument, row++);
-			}
-			action.end();
-			
-		}finally {
-			getConnectionManager().close(rs);
-		}
+	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+		return dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 	}
 
 	public ArgumentScanner set(String databasePattern, String procedurePattern, String argumentPattern) {

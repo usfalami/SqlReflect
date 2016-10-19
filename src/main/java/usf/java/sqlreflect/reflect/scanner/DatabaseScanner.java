@@ -3,11 +3,8 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.Constants;
-import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
-import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.item.Database;
 
@@ -16,35 +13,15 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	private String databasePattern;
 	
 	public DatabaseScanner(ConnectionManager cm) {
-		super(cm);
+		super(cm, new DatabaseMapper());
 	}
 	public DatabaseScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at);
+		super(cm, at, new DatabaseMapper());
 	}
 
 	@Override
-	protected void runScan(DatabaseMetaData dm, Adapter<Database> adapter, ActionTimer at) throws Exception {
-		ResultSet rs = null;
-		try {
-
-			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
-			rs = Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
-			action.end();
-			
-			Mapper<Database> mapper = new DatabaseMapper();
-			adapter.prepare(mapper);
-			int row = 0;
-
-			action = at.startAction(Constants.ACTION_ADAPT);
-			while(rs.next()){
-				Database database = mapper.map(rs, row+1);
-				adapter.adapte(database, row++);
-			}
-			action.end();
-			
-		}finally {
-			getConnectionManager().close(rs);
-		}
+	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+		return Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 	}
 	
 	public DatabaseScanner set(String databasePattern){

@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.adapter;
 
-import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.ActionTimerMapper;
+import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 

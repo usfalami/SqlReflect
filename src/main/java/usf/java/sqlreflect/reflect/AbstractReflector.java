@@ -2,6 +2,7 @@ package usf.java.sqlreflect.reflect;
 
 import java.util.List;
 
+import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
@@ -9,14 +10,14 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 public abstract class AbstractReflector<C extends ConnectionManager, R> implements Reflector<R> {
 	
 	private C cm;
-	private ActionTimer at;
+	private ActionTimer timer;
 	
 	public AbstractReflector(C cm) {
 		this(cm, new ActionTimer());
 	}
-	public AbstractReflector(C cm, ActionTimer at) {
+	public AbstractReflector(C cm, ActionTimer timer) {
 		this.cm = cm;
-		this.at = at;
+		this.timer = timer;
 	}
 	
 	public C getConnectionManager() {
@@ -32,16 +33,24 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 
 	@Override
 	public final void run(Adapter<R> adapter) throws Exception {
-		at.setName(getClass().getSimpleName());
+		timer.setName(getClass().getSimpleName());
 		try {
 			adapter.start();
-			
-			at.start();
-			run(adapter, at);
-			at.end();
-		
+			timer.start();
+			try {
+				
+				ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
+				getConnectionManager().openConnection();
+				action.end();
+
+				run(adapter, timer);
+				
+			} finally {
+				getConnectionManager().close();
+			}
 		} finally {
-			adapter.end(at);
+			timer.end();
+			adapter.end(timer);
 		}
 	}
 	

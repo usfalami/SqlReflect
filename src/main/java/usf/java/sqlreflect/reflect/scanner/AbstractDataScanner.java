@@ -26,36 +26,27 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 	
 	@Override
 	public void run(Adapter<R> adapter, ActionTimer at) throws Exception {
+		Statement stmt = null;
 		try {
 
-			ActionTimer action = at.startAction(Constants.ACTION_CONNECTION);
-			getConnectionManager().openConnection();
+			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
+			stmt = getConnectionManager().buildStatement(runnable, args, binder);
 			action.end();
 			
-			Statement stmt = null;
+			ResultSet rs = null;
 			try {
-
-				action = at.startAction(Constants.ACTION_STATEMENT);
-				stmt = getConnectionManager().buildStatement(runnable, args, binder);
+			
+				action = at.startAction(Constants.ACTION_EXECUTION);
+				rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
 				action.end();
 				
-				ResultSet rs = null;
-				try {
-				
-					action = at.startAction(Constants.ACTION_EXECUTION);
-					rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
-					action.end();
-					
-					runScan(rs, adapter, at);
-				
-				}finally {
-					getConnectionManager().close(rs);
-				}
+				runScan(rs, adapter, at);
+			
 			}finally {
-				getConnectionManager().close(stmt);
+				getConnectionManager().close(rs);
 			}
 		}finally {
-			getConnectionManager().close();
+			getConnectionManager().close(stmt);
 		}
 	}
 
