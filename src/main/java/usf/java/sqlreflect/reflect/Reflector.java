@@ -29,15 +29,6 @@ public interface Reflector<R> {
 			return arg == null || arg.isEmpty();
 		}
 		
-		
-		public static int sum(int... values) {
-			if(values == null) return 0;
-			int sum = 0;
-			for(int v : values)
-				sum += v;
-			return sum;
-		}
-		
 		public static final String[] columnNames(ResultSet rs) throws SQLException {
 			ResultSetMetaData rm = rs.getMetaData();
 			String[] columns = new String[rm.getColumnCount()];

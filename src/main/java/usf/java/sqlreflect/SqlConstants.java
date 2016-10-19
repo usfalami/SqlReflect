@@ -5,6 +5,9 @@ public interface SqlConstants {
 	String DATA_TYPE = "DATA_TYPE";
 	String TYPE_NAME = "TYPE_NAME";
 	String LENGTH = "LENGTH";
+	
+	String PK_NAME = "PK_NAME";
+	String KEY_SEQ = "KEY_SEQ";
 
 	String COLUMN_NAME = "COLUMN_NAME";
 	String COLUMN_TYPE = "COLUMN_TYPE";
