@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.field;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	}
 
 	@Override
-	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
+	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
 		return Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
 	}
 	

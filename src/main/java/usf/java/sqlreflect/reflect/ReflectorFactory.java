@@ -4,13 +4,13 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.executor.BatchExecutor;
 import usf.java.sqlreflect.reflect.executor.UpdateExecutor;
-import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
-import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
-import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
-import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
-import usf.java.sqlreflect.reflect.scanner.RowScanner;
-import usf.java.sqlreflect.reflect.scanner.TableScanner;
+import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
+import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ArgumentScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;
+import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
+import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 
 public class ReflectorFactory {
 	

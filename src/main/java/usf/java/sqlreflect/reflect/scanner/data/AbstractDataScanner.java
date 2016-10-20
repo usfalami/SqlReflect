@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.data;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -7,21 +7,22 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.reflect.AbstractReflector;
+import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class AbstractDataScanner<A, R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
+public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 	
 	private Runnable runnable;
 	private Binder<A> binder;
 	private A args;
 
-	public AbstractDataScanner(ConnectionManager cm) {
-		super(cm);
+	public AbstractDataScanner(ConnectionManager cm, Mapper<R> mapper) {
+		super(cm, mapper);
 	}
-	public AbstractDataScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at);
+	public AbstractDataScanner(ConnectionManager cm, ActionTimer at, Mapper<R> mapper) {
+		super(cm, at, mapper);
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 				action.end();
 				
 				action = at.startAction(Constants.ACTION_ADAPT);
-				runScan(rs, adapter, at);
+				runAdapt(rs, adapter, at);
 				action.end();
 			
 			}finally {
@@ -52,7 +53,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractReflector<Connec
 		}
 	}
 
-	protected abstract void runScan(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
+	protected abstract void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {
 		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);

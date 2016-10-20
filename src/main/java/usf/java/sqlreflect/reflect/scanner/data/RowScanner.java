@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.data;
 
 import java.sql.ResultSet;
 
@@ -9,26 +9,21 @@ import usf.java.sqlreflect.reflect.ActionTimer;
 
 public class RowScanner<A, R> extends AbstractDataScanner<A, R> {
 	
-	private Mapper<R> mapper;
-
 	public RowScanner(ConnectionManager cm, Mapper<R> mapper) {
-		super(cm);
-		this.mapper = mapper;
+		super(cm, mapper);
 	}
 	public RowScanner(ConnectionManager cm, ActionTimer at, Mapper<R> mapper) {
-		super(cm, at);
-		this.mapper = mapper;
+		super(cm, at, mapper);
 	}
 
 	@Override
-	protected void runScan(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		if(mapper.getColumnNames() == null) // set all column if no column was set
-			mapper.setColumnNames(Utils.columnNames(rs));
-		adapter.prepare(mapper);
+	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
+		if(getMapper().getColumnNames() == null) // set all column if no column was set
+			getMapper().setColumnNames(Utils.columnNames(rs));
+		adapter.prepare(getMapper());
 		int row = 0;
-
 		while(rs.next()) {
-			R bean = mapper.map(rs, row+1);
+			R bean = getMapper().map(rs, row+1);
 			adapter.adapte(bean, row++);
 		}
 	}

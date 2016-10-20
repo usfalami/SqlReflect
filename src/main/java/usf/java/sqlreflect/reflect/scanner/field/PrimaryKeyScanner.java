@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.field;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class PrimaryKeyScanner extends AbstractFieldScanner<PrimaryKey>{
 	}
 	
 	@Override
-	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
+	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
 		return dm.getPrimaryKeys(null, databasePattern, tablePattern);
 	}
 	

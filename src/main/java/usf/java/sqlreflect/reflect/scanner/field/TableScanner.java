@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.field;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -26,8 +26,8 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 
 	@Override
-	protected void runScan(ResultSet rs, Adapter<Table> adapter, ActionTimer at) throws Exception {
-		if(!columns) super.runScan(rs, adapter, at);
+	protected void runAdapt(ResultSet rs, Adapter<Table> adapter, ActionTimer at) throws Exception {
+		if(!columns) super.runAdapt(rs, adapter, at);
 		else {
 			int row = 0;
 			ColumnScanner as = new ColumnScanner(getConnectionManager()); 
@@ -42,7 +42,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 	
 	@Override
-	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
+	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
 		return dm.getTables(null, databasePattern, tablePattern, types);
 	}
 	

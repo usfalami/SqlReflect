@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner;
+package usf.java.sqlreflect.reflect.scanner.field;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -25,8 +25,8 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	}
 
 	@Override
-	protected void runScan(ResultSet rs, Adapter<Procedure> adapter, ActionTimer at) throws Exception {
-		if(!arguments) super.runScan(rs, adapter, at);
+	protected void runAdapt(ResultSet rs, Adapter<Procedure> adapter, ActionTimer at) throws Exception {
+		if(!arguments) super.runAdapt(rs, adapter, at);
 		else {
 			int row = 0;
 			ArgumentScanner as = new ArgumentScanner(getConnectionManager()); 
@@ -41,7 +41,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	}
 	
 	@Override
-	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
+	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
 		return dm.getProcedures(null, databasePattern, procedurePattern);
 	}
 	
