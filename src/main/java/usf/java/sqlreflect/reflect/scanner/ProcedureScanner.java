@@ -3,10 +3,13 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
+import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Procedure;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
@@ -22,7 +25,23 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	}
 
 	@Override
-	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+	protected void runScan(ResultSet rs, Adapter<Procedure> adapter, ActionTimer at) throws Exception {
+		if(!arguments) super.runScan(rs, adapter, at);
+		else {
+			int row = 0;
+			ArgumentScanner as = new ArgumentScanner(getConnectionManager()); 
+			ListAdapter<Argument> aa = new ListAdapter<Argument>();
+			while(rs.next()){
+				Procedure p = getMapper().map(rs, row+1);
+				as.set(p.getDatabaseName(), p.getName(), null).run(aa, at.createAction());	
+				p.setArguments(aa.getList());
+				adapter.adapte(p, row++);
+			}
+		}
+	}
+	
+	@Override
+	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
 		return dm.getProcedures(null, databasePattern, procedurePattern);
 	}
 	

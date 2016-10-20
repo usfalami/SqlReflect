@@ -20,7 +20,7 @@ public class PrimaryKeyScanner extends AbstractFieldScanner<PrimaryKey>{
 	}
 	
 	@Override
-	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
 		return dm.getPrimaryKeys(null, databasePattern, tablePattern);
 	}
 	

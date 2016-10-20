@@ -1,12 +1,13 @@
 package usf.java.sqlreflect.sql.item;
 
+import java.util.Collection;
 import java.util.List;
 
 import usf.java.sqlreflect.SqlConstants;
 
 public class Table extends Entry {
 
-	private List<Column> columns;
+	private Collection<Column> columns;
 	
 	public String getDatabaseName() {
 		return getString(SqlConstants.TABLE_SCHEM);
@@ -26,10 +27,10 @@ public class Table extends Entry {
 	public void setType(String type) {
 		set(SqlConstants.TABLE_TYPE, type);
 	}
-	public List<Column> getColumns() {
+	public Collection<Column> getColumns() {
 		return columns;
 	}
-	public void setColumns(List<Column> columns) {
+	public void setColumns(Collection<Column> columns) {
 		this.columns = columns;
 	}
 

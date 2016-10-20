@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.reflect.scanner.tmp;
 
-import java.util.List;
+import java.util.Collection;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
@@ -35,7 +35,7 @@ public class ProcedureCallValidator implements Adapter<Procedure> {
 
 	@Override
 	public void adapte(Procedure procedure, int index) throws Exception {
-		List<Argument>args = procedure.getArguments();
+		Collection<Argument>args = procedure.getArguments();
 		if(args==null || args.size()==0) {
 			if(callable.getParameters().length == 0) 
 				isValid = true;

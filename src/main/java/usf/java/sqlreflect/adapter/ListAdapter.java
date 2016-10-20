@@ -1,20 +1,20 @@
 package usf.java.sqlreflect.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 
 public class ListAdapter<T> implements Adapter<T> {
 
-	private List<T> list;
+	private Collection<T> list;
 	private ActionTimer timer;
 	
 	public ListAdapter() {
-		list = new ArrayList<T>();
+		this.list = new ArrayList<T>();
 	}
-
+	
 	@Override
 	public void start() {
 		
@@ -35,7 +35,7 @@ public class ListAdapter<T> implements Adapter<T> {
 		this.timer = timer;
 	}
 	
-	public List<T> getList() {
+	public Collection<T> getList() {
 		return list;
 	}
 	public ActionTimer getActionTimer() {

@@ -31,23 +31,31 @@ public abstract class AbstractFieldScanner<R> extends AbstractReflector<Connecti
 		try {
 
 			ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
-			rs = runScan(dm);
+			rs = getResultSet(dm);
 			action.end();
-			
-			adapter.prepare(mapper);
-			int row = 0;
 
 			action = at.startAction(Constants.ACTION_ADAPT);
-			while(rs.next()){
-				R field = mapper.map(rs, row+1);
-				adapter.adapte(field, row++);
-			}
+			adapter.prepare(mapper);
+			runScan(rs, adapter, at);
 			action.end();
 			
 		}finally {
 			getConnectionManager().close(rs);
 		}
 	}
+	
+	protected void runScan(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
+		int row = 0;
+		while(rs.next()){
+			R field = mapper.map(rs, row+1);
+			adapter.adapte(field, row++);
+		}
+	}
 
-	protected abstract ResultSet runScan(DatabaseMetaData dm) throws Exception;
+	protected abstract ResultSet getResultSet(DatabaseMetaData dm) throws Exception;
+	
+	
+	public Mapper<R> getMapper() {
+		return mapper;
+	}
 }

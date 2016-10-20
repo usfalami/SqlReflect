@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.reflect;
 
-import java.util.List;
+import java.util.Collection;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
@@ -25,7 +25,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 	}
 	
 	@Override
-	public final List<R> run() throws Exception {
+	public final Collection<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
 		return adapter.getList();

@@ -1,13 +1,13 @@
 package usf.java.sqlreflect.sql.item;
 
-import java.util.List;
+import java.util.Collection;
 
 import usf.java.sqlreflect.sql.Runnable;
 
 public abstract class Callable extends Entry implements Runnable {
 	
 	private String callable, parameters[];
-	private List<Argument> arguments;
+	private Collection<Argument> arguments;
 	
 	public Callable(){
 		
@@ -33,10 +33,10 @@ public abstract class Callable extends Entry implements Runnable {
 		this.parameters = parameters;
 	}
 
-	public List<Argument> getArguments() {
+	public Collection<Argument> getArguments() {
 		return arguments;
 	}
-	public void setArguments(List<Argument> arguments) {
+	public void setArguments(Collection<Argument> arguments) {
 		this.arguments = arguments;
 	}
 	

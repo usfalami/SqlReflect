@@ -20,7 +20,7 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	}
 
 	@Override
-	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
 		return dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
 	}
 

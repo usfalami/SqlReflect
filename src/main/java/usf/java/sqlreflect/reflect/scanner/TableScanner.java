@@ -3,9 +3,12 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
+import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 
@@ -23,7 +26,23 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	}
 
 	@Override
-	protected ResultSet runScan(DatabaseMetaData dm) throws Exception {
+	protected void runScan(ResultSet rs, Adapter<Table> adapter, ActionTimer at) throws Exception {
+		if(!columns) super.runScan(rs, adapter, at);
+		else {
+			int row = 0;
+			ColumnScanner as = new ColumnScanner(getConnectionManager()); 
+			ListAdapter<Column> aa = new ListAdapter<Column>();
+			while(rs.next()){
+				Table t = getMapper().map(rs, row+1);
+				as.set(t.getDatabaseName(), t.getName(), null).run(aa, at.createAction());	
+				t.setColumns(aa.getList());
+				adapter.adapte(t, row++);
+			}
+		}
+	}
+	
+	@Override
+	protected ResultSet getResultSet(DatabaseMetaData dm) throws Exception {
 		return dm.getTables(null, databasePattern, tablePattern, types);
 	}
 	

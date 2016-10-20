@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 
@@ -12,7 +11,7 @@ public interface Reflector<R> {
 	
 	void run(Adapter<R> adapter) throws Exception;
 	
-	List<R> run() throws Exception;
+	Collection<R> run() throws Exception;
 	
 	
 	public static class Utils {
