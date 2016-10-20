@@ -35,8 +35,8 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 	public final void run(Adapter<R> adapter) throws Exception {
 		timer.setName(getClass().getSimpleName());
 		try {
-			adapter.start();
 			timer.start();
+			adapter.start();
 			try {
 				
 				ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
