@@ -49,7 +49,7 @@ public class BatchExecutor<A> extends AbstractExecutor<Integer> {
 	}
 
 	public BatchExecutor<A> set(String sql, Collection<A> argsList, Binder<A> binder) throws Exception {
-		queries = new Runnable[]{getConnectionManager().getSqlParser().parseSQL(sql)};
+		this.queries = new Runnable[]{getConnectionManager().getSqlParser().parseSQL(sql)};
 		this.argsList = argsList;
 		this.binder = binder;
 		return this;
