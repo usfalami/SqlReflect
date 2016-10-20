@@ -10,7 +10,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.Runnable;
 
-public class BatchExecutor<A> extends AbstractExecutor<Integer> {
+public class BatchExecutor<A> extends AbstractExecutor<Integer[]> {
 
 	private Runnable[] queries;
 	private Collection<A> argsList;
@@ -24,7 +24,7 @@ public class BatchExecutor<A> extends AbstractExecutor<Integer> {
 	}
 
 	@Override
-	protected void runExec(Adapter<Integer> adapter, ActionTimer at) throws Exception {
+	protected void runExec(Adapter<Integer[]> adapter, ActionTimer at) throws Exception {
 		Statement stmt = null; //TODO : Check query
 		try {
 			
@@ -35,12 +35,11 @@ public class BatchExecutor<A> extends AbstractExecutor<Integer> {
 			action.end();
 			
 			action = at.startAction(Constants.ACTION_EXECUTION);
-			int[] rows = stmt.executeBatch();
+			Integer[] rows = Utils.convert(stmt.executeBatch());
 			action.end();
 			
 			action = at.startAction(Constants.ACTION_ADAPT);
-			for(int i=0; i<rows.length; i++)
-				adapter.adapte(rows[i], i+1);
+			adapter.adapte(rows, 1);
 			action.end();
 			
 		}finally {

@@ -28,6 +28,13 @@ public interface Reflector<R> {
 			return arg == null || arg.isEmpty();
 		}
 		
+		public static Integer[] convert(int... values){
+			if(values == null) return null;
+			Integer[] arr = new Integer[values.length];
+			for(int i=0; i<values.length; i++) arr[i] = values[i];
+			return arr;
+		} 
+		
 		public static final String[] columnNames(ResultSet rs) throws SQLException {
 			ResultSetMetaData rm = rs.getMetaData();
 			String[] columns = new String[rm.getColumnCount()];
