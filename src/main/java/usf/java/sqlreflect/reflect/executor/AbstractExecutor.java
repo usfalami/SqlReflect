@@ -22,15 +22,15 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 			runExec(adapter, at);
 		}
 		else {
+			tm.startTransaction();
 			try {
-				
-				tm.startTransaction();
 				runExec(adapter, at);
-				tm.endTransaction();
-				
 			} catch (Exception e) {
 				tm.rollback();
 				throw e;
+			}
+			finally{
+				tm.endTransaction();
 			}
 		}
 	}

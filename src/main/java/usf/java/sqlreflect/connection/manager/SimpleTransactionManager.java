@@ -27,7 +27,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void endTransaction() throws SQLException {
-		transact = false; //keep set transact false before setAutoCommit
+		transact = false; //set transact false before setAutoCommit
 		getConnection().setAutoCommit(true);
 	}
 	
