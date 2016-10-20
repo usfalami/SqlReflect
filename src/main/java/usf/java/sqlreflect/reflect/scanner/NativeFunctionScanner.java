@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect.scanner.field;
+package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.DatabaseMetaData;
 
@@ -6,7 +6,6 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
 public class NativeFunctionScanner extends AbstractScanner<String> {
@@ -40,5 +39,5 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		this.nf = nf;
 		return this;
 	}
-
+	
 }
