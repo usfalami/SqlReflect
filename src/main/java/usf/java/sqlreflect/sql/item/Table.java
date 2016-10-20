@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.sql.item;
 
 import java.util.Collection;
-import java.util.List;
 
 import usf.java.sqlreflect.SqlConstants;
 

@@ -23,13 +23,6 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 	public C getConnectionManager() {
 		return cm;
 	}
-	
-	@Override
-	public final Collection<R> run() throws Exception {
-		ListAdapter<R> adapter = new ListAdapter<R>();
-		run(adapter);
-		return adapter.getList();
-	}
 
 	@Override
 	public final void run(Adapter<R> adapter) throws Exception {
@@ -52,6 +45,13 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			timer.end();
 			adapter.end(timer);
 		}
+	}
+	
+	@Override
+	public final Collection<R> run() throws Exception {
+		ListAdapter<R> adapter = new ListAdapter<R>();
+		run(adapter);
+		return adapter.getList();
 	}
 	
 	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;
