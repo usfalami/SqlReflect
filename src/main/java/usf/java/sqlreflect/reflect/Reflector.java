@@ -11,9 +11,6 @@ public interface Reflector<R> {
 	
 	void run(Adapter<R> adapter) throws Exception;
 	
-	Collection<R> run() throws Exception;
-	
-	
 	public static class Utils {
 		
 		public static boolean isEmpty(String arg) {

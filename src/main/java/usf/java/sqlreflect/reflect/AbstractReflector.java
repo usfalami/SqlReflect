@@ -47,7 +47,6 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 		}
 	}
 	
-	@Override
 	public final Collection<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
