@@ -7,8 +7,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.server.TeradataServer;
 import usf.java.sqlreflect.server.User;
 
 public class WeblogicPoolConnectionProvider extends PoolConnectionProvider {
@@ -33,8 +31,4 @@ public class WeblogicPoolConnectionProvider extends PoolConnectionProvider {
 	    ds = (DataSource) ctx.lookup(jndi);
 	}
 	
-	@Override
-	public Server getServer() {
-		return new TeradataServer();
-	}
 }

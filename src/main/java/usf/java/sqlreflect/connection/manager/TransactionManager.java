@@ -5,7 +5,6 @@ import java.sql.Statement;
 import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
-import usf.java.sqlreflect.sql.Runnable;
 
 public interface TransactionManager extends ConnectionManager {
 	
@@ -19,10 +18,10 @@ public interface TransactionManager extends ConnectionManager {
 
 	boolean isTransacting();	
 
-	Statement buildBatch(Runnable... queries) throws SQLException;
+	Statement buildBatch(String... queries) throws SQLException;
 
-	<P> Statement buildBatch(Runnable query, Collection<P> argsList, Binder<P> binder) throws SQLException;
+	<P> Statement buildBatch(String query, Collection<P> argsList, Binder<P> binder) throws SQLException;
 
-	<P> int executeUpdate(Statement stmt, Runnable query, P args, Binder<P> binder) throws SQLException;
+	<P> int executeUpdate(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
 
 }

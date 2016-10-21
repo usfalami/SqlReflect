@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.binder.Binder;
-import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.sql.Runnable;
 
 public interface ConnectionManager {
 	
@@ -23,10 +21,8 @@ public interface ConnectionManager {
 
 	void close();
 
-	<P> Statement buildStatement(Runnable query, P args, Binder<P> binder) throws SQLException;
+	<P> Statement buildStatement(String query, P args, Binder<P> binder) throws SQLException;
 
 	<P> ResultSet executeQuery(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
 	
-	SqlParser getSqlParser();
-
 }

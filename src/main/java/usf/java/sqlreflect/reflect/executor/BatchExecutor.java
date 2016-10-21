@@ -7,11 +7,10 @@ import java.util.Collection;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.Runnable;
 
 public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 
-	private Runnable[] queries;
+	private String[] queries;
 	private Collection<A> argsList;
 	private Binder<A> binder;
 
@@ -33,15 +32,13 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	}
 
 	public BatchExecutor<A> set(String sql, Collection<A> argsList, Binder<A> binder) throws Exception {
-		this.queries = new Runnable[]{getConnectionManager().getSqlParser().parseSQL(sql)};
+		this.queries = new String[]{sql};
 		this.argsList = argsList;
 		this.binder = binder;
 		return this;
 	}
 	public BatchExecutor<A> set(String... sql) throws Exception {
-		queries = new Runnable[queries.length];
-		for(int i=0; i<queries.length; i++)
-			queries[i] = getConnectionManager().getSqlParser().parseSQL(sql[i]);
+		this.queries = sql;
 		return this;
 	}
 	

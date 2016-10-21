@@ -10,11 +10,10 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
-import usf.java.sqlreflect.sql.Runnable;
 
 public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 	
-	private Runnable runnable;
+	private String sql;
 	private Binder<A> binder;
 	private A args;
 
@@ -31,14 +30,14 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		try {
 
 			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
-			stmt = getConnectionManager().buildStatement(runnable, args, binder);
+			stmt = getConnectionManager().buildStatement(sql, args, binder);
 			action.end();
 			
 			ResultSet rs = null;
 			try {
 			
 				action = at.startAction(Constants.ACTION_EXECUTION);
-				rs = getConnectionManager().executeQuery(stmt, runnable.asQuery(), args, binder);
+				rs = getConnectionManager().executeQuery(stmt, sql, args, binder);
 				action.end();
 				
 				action = at.startAction(Constants.ACTION_ADAPT);
@@ -56,7 +55,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 	protected abstract void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {
-		this.runnable = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.sql = sql;
 		this.binder = binder;
 		this.args = args;
 		return this;

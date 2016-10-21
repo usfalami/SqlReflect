@@ -6,11 +6,10 @@ import java.sql.Statement;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.Runnable;
 
 public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 
-	private Runnable query;
+	private String query;
 	private Binder<A> binder;
 	private A args;
 
@@ -31,7 +30,7 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 	}
 	
 	public UpdateExecutor<A> set(String sql, A args, Binder<A> binder) {
-		this.query = getConnectionManager().getSqlParser().parseSQL(sql);
+		this.query = sql;
 		this.args = args;
 		this.binder = binder;
 		return this;

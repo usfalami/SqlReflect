@@ -9,26 +9,22 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.parser.SimpleSqlParser;
-import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.sql.Runnable;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
 	private ConnectionProvider cp;
 	private Connection connection;
-	private SqlParser sqlParser;
 	
 	public SimpleConnectionManager(ConnectionProvider cp) {
 		this.cp = cp;
-		this.sqlParser = new SimpleSqlParser(cp.getServer());
 	}
 
 	@Override
 	public void openConnection() throws SQLException {
-		if(!isValid()) connection = cp.getConnection();
+		if(!isValid()) this.connection = cp.getConnection();
 	}
 
+	@Override
 	public Connection getConnection() throws SQLException {
 		if(!isValid()) throw new SQLException("Canot execute this operation on closed connection");
 		return connection;
@@ -56,7 +52,14 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	@Override
 	public void close() {
-		cp.release(connection);
+		try {
+			if(connection != null && !connection.isClosed())
+				connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			connection = null;
+		}
 	}
 	
 	@Override
@@ -69,17 +72,17 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public <T> Statement buildStatement(Runnable query, T args, Binder<T> binder) throws SQLException {
+	public <T> Statement buildStatement(String query, T args, Binder<T> binder) throws SQLException {
 		Connection cnx = getConnection();
 		if(args == null) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		else if(!query.asQuery().toUpperCase().startsWith("CALL")){//TODO udapte this test
-			PreparedStatement ps = cnx.prepareStatement(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		else if(!query.toUpperCase().startsWith("CALL")){//TODO udapte this test
+			PreparedStatement ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			binder.bindPreparedStatement(ps, args);
 			return ps;
 		}
 		else{
-			CallableStatement cs = cnx.prepareCall(query.asQuery(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			CallableStatement cs = cnx.prepareCall(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			binder.bindCallableStatement(cs, args);
 			return cs;
 		}
@@ -95,11 +98,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 		}
 		else rs = stmt.executeQuery(query);
 		return rs;
-	}
-	
-	@Override
-	public SqlParser getSqlParser() {
-		return sqlParser;
 	}
 
 	//TODO Check this

@@ -8,7 +8,7 @@ import java.util.Collection;
 import usf.java.sqlreflect.adapter.Adapter;
 
 public interface Reflector<R> {
-	
+
 	void run(Adapter<R> adapter) throws Exception;
 	
 	public static class Utils {
@@ -41,4 +41,5 @@ public interface Reflector<R> {
 		}
 
 	}
+
 }

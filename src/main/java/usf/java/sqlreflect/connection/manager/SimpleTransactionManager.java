@@ -9,12 +9,11 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.sql.Runnable;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
-	
-	private boolean transact;
 
+	private boolean transact;
+	
 	public SimpleTransactionManager(ConnectionProvider cp) {
 		super(cp);
 	}
@@ -57,18 +56,18 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 
 	@Override
-	public Statement buildBatch(Runnable... queries) throws SQLException {
+	public Statement buildBatch(String... queries) throws SQLException {
 		if(queries == null || queries.length == 0) throw new SQLException("one query at least");
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
-		for(Runnable query : queries)
-			stmt.addBatch(query.asQuery());
+		for(String query : queries)
+			stmt.addBatch(query);
 		return stmt;
 	}
 	@Override
-	public <P> Statement buildBatch(Runnable query, Collection<P> argList, Binder<P> binder) throws SQLException {
+	public <P> Statement buildBatch(String query, Collection<P> argList, Binder<P> binder) throws SQLException {
 		Connection cnx = getConnection();
-		PreparedStatement ps = cnx.prepareStatement(query.asQuery());		
+		PreparedStatement ps = cnx.prepareStatement(query);		
 		for(P args : argList){
 			binder.bindPreparedStatement(ps, args);
 			ps.addBatch();
@@ -77,14 +76,14 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
-	public <P> int executeUpdate(Statement stmt, Runnable query, P args, Binder<P> binder) throws SQLException {
+	public <P> int executeUpdate(Statement stmt, String query, P args, Binder<P> binder) throws SQLException {
 		int result = 0;
 		if(stmt instanceof PreparedStatement){
 			result = ((PreparedStatement)stmt).executeUpdate();
 			if(stmt instanceof PreparedStatement)
 				binder.updateOutParameter((CallableStatement)stmt, args);
 		}
-		else result = stmt.executeUpdate(query.asQuery());
+		else result = stmt.executeUpdate(query);
 		return result;
 	}
 	
