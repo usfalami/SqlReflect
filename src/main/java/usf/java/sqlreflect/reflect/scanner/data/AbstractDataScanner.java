@@ -30,7 +30,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		try {
 
 			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
-			stmt = getConnectionManager().buildStatement(sql, args, binder);
+			stmt = getConnectionManager().prepare(sql, args, binder);
 			action.end();
 			
 			ResultSet rs = null;

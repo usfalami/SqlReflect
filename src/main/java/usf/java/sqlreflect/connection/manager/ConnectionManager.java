@@ -21,8 +21,10 @@ public interface ConnectionManager {
 
 	void close();
 
-	<P> Statement buildStatement(String query, P args, Binder<P> binder) throws SQLException;
+	<P> Statement prepare(String query, P args, Binder<P> binder) throws SQLException;
 
 	<P> ResultSet executeQuery(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
+
+	boolean execute(Statement stmt, String query) throws SQLException;
 	
 }

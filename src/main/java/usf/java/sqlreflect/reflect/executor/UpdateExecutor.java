@@ -22,7 +22,7 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 	
 	@Override
 	protected Statement runStatement() throws SQLException {
-		return getConnectionManager().buildStatement(query, args, binder);
+		return getConnectionManager().prepare(query, args, binder);
 	}
 	@Override
 	protected Integer runExecution(Statement stmt) throws SQLException {

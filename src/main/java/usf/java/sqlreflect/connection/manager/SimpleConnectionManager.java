@@ -72,9 +72,9 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public <T> Statement buildStatement(String query, T args, Binder<T> binder) throws SQLException {
+	public <T> Statement prepare(String query, T args, Binder<T> binder) throws SQLException {
 		Connection cnx = getConnection();
-		if(args == null) //TODO : check args.isEmpty 
+		if(args == null || binder == null) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		else if(!query.toUpperCase().startsWith("CALL")){//TODO udapte this test
 			PreparedStatement ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -98,6 +98,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 		}
 		else rs = stmt.executeQuery(query);
 		return rs;
+	}
+	
+	@Override
+	public boolean execute(Statement stmt, String query) throws SQLException {
+		return stmt.execute(query);
 	}
 
 	//TODO Check this
