@@ -24,7 +24,7 @@ public class HeaderScanner<A> extends AbstractDataScanner<A, Header> {
 		ResultSetMetaData rm = rs.getMetaData();
 		for(int i=0; i<rm.getColumnCount(); i++) {
 			Header col = getMapper().map(rs, i+1);
-			adapter.adapte(col, i++);
+			adapter.adapte(col, i);
 		}
 	}
 	

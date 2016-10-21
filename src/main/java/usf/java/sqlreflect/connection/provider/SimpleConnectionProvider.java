@@ -3,6 +3,7 @@ package usf.java.sqlreflect.connection.provider;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
@@ -16,6 +17,10 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 	public SimpleConnectionProvider(Server server, Env env, User user) {
 		this.url = server.buildURL(env);
 		this.user = user;
+	}
+	
+	public SimpleConnectionProvider(Server server, Properties properties) {
+		this(server, new Env(properties), new User(properties));
 	}
 	
 	@Override
