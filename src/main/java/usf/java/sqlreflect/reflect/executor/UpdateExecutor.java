@@ -25,12 +25,10 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 	protected Statement runStatement() throws SQLException {
 		return getConnectionManager().buildStatement(query, args, binder);
 	}
-	
 	@Override
 	protected Integer runExecution(Statement stmt) throws SQLException {
 		return getConnectionManager().executeUpdate(stmt, query, args, binder);
 	}
-
 	
 	public UpdateExecutor<A> set(String sql, A args, Binder<A> binder) {
 		this.query = getConnectionManager().getSqlParser().parseSQL(sql);

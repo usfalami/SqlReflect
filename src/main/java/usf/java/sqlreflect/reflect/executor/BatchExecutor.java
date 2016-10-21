@@ -27,7 +27,6 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 		TransactionManager tm = getConnectionManager();
 		return queries.length > 1 || Utils.isEmpty(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 	}
-	
 	@Override
 	protected Integer[] runExecution(Statement stmt) throws SQLException {
 		return Utils.convert(stmt.executeBatch());

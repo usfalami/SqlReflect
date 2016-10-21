@@ -19,7 +19,7 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	}
 	
 	@Override
-	protected void runExec(Adapter<Void> adapter, ActionTimer at) throws Exception {
+	protected void runExecutor(Adapter<Void> adapter, ActionTimer at) throws Exception {
 		ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 		transaction.execute(new ReflectorFactory(getConnectionManager(), action));
 		action.end();

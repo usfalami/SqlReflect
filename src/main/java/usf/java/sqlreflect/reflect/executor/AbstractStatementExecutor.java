@@ -18,7 +18,7 @@ public abstract class AbstractStatementExecutor<R> extends AbstractExecutor<R> {
 	}
 	
 	@Override
-	protected void runExec(Adapter<R> adapter, ActionTimer at) throws Exception {
+	protected void runExecutor(Adapter<R> adapter, ActionTimer at) throws Exception {
 
 		Statement stmt = null;
 		try {

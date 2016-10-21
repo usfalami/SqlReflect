@@ -19,12 +19,12 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 		TransactionManager tm = getConnectionManager();
 		adapter.prepare(null);
 		if(tm.isTransacting()){
-			runExec(adapter, at);
+			runExecutor(adapter, at);
 		}
 		else {
 			tm.startTransaction();
 			try {
-				runExec(adapter, at);
+				runExecutor(adapter, at);
 			} catch (Exception e) {
 				tm.rollback();
 				throw e;
@@ -35,6 +35,6 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 		}
 	}
 	
-	protected abstract void runExec(Adapter<R> adapter, ActionTimer at) throws Exception;
+	protected abstract void runExecutor(Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 }
