@@ -3,7 +3,7 @@ package usf.java.sqlreflect.reflect;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.executor.BatchExecutor;
-import usf.java.sqlreflect.reflect.executor.MultiQueryExecutor;
+import usf.java.sqlreflect.reflect.executor.MultiQueyExecutor;
 import usf.java.sqlreflect.reflect.executor.UpdateExecutor;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
@@ -56,8 +56,8 @@ public class ReflectorFactory {
 		return new BatchExecutor<A>(tm, at.createAction());
 	}
 	
-	public <A> MultiQueryExecutor<A> getMultiQueryExecutor() {
-		return new MultiQueryExecutor<A>(tm, at.createAction());
+	public <A> MultiQueyExecutor<A> getMultiQueryExecutor() {
+		return new MultiQueyExecutor<A>(tm, at.createAction());
 	}
 	
 	

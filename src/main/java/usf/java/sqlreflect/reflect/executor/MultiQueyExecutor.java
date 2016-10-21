@@ -6,14 +6,14 @@ import java.sql.Statement;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
 
-public class MultiQueryExecutor<A> extends AbstractStatementExecutor<Boolean> {
+public class MultiQueyExecutor<A> extends AbstractStatementExecutor<Boolean> {
 
 	private String[] queries;
 
-	public MultiQueryExecutor(TransactionManager cm) {
+	public MultiQueyExecutor(TransactionManager cm) {
 		super(cm);
 	}
-	public MultiQueryExecutor(TransactionManager cm, ActionTimer at) {
+	public MultiQueyExecutor(TransactionManager cm, ActionTimer at) {
 		super(cm, at);
 	}
 	
@@ -29,7 +29,7 @@ public class MultiQueryExecutor<A> extends AbstractStatementExecutor<Boolean> {
 		return getConnectionManager().execute(stmt, sb.toString());
 	}
 	
-	public MultiQueryExecutor<A> set(String... queries) {
+	public MultiQueyExecutor<A> set(String... queries) {
 		this.queries = queries;
 		return this;
 	}
