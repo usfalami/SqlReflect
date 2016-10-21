@@ -45,14 +45,18 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 
 	@Override
-	public boolean isTransacting() {
-		return transact;
+	public boolean isTransacting() throws SQLException {
+		return transact && !getConnection().getAutoCommit();
 	}
 
 	@Override
 	public void close() {
-		if(!isTransacting()) //
-			super.close();
+		try {
+			if(!isTransacting()) //
+				super.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

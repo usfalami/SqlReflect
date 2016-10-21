@@ -16,7 +16,7 @@ public interface TransactionManager extends ConnectionManager {
 	
 	void rollback();
 
-	boolean isTransacting();	
+	boolean isTransacting() throws SQLException;	
 
 	Statement buildBatch(String... queries) throws SQLException;
 

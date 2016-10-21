@@ -21,12 +21,12 @@ public class SimpleConnectionManager implements ConnectionManager {
 
 	@Override
 	public void openConnection() throws SQLException {
-		if(!isValid()) this.connection = cp.getConnection();
+		if(isClosed()) this.connection = cp.getConnection();
 	}
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		if(!isValid()) throw new SQLException("Canot execute this operation on closed connection");
+		if(isClosed()) throw new SQLException("Canot execute this operation on closed connection");
 		return connection;
 	}
 	
@@ -53,22 +53,18 @@ public class SimpleConnectionManager implements ConnectionManager {
 	@Override
 	public void close() {
 		try {
-			if(connection != null && !connection.isClosed())
+			if(connection != null)
 				connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		}finally{	
 			connection = null;
 		}
 	}
 	
 	@Override
-	public boolean isValid() {
-		boolean valid = false;
-		try {
-			valid = connection != null && !connection.isClosed();
-		} catch (Exception e) {}
-		return valid;
+	public boolean isClosed() throws SQLException {
+		return connection == null || connection.isClosed();
 	}
 	
 	@Override
@@ -108,8 +104,8 @@ public class SimpleConnectionManager implements ConnectionManager {
 	//TODO Check this
 	@Override
 	protected void finalize() throws Throwable {
-		super.finalize();
 		this.close(); //close current connection
+		super.finalize();
 	}
 	
 }

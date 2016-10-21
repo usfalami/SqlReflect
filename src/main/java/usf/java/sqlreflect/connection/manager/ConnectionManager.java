@@ -13,7 +13,7 @@ public interface ConnectionManager {
 	
 	Connection getConnection() throws SQLException;
 	
-	boolean isValid();
+	boolean isClosed() throws SQLException;
 	
 	void close(Statement stmt);
 	
