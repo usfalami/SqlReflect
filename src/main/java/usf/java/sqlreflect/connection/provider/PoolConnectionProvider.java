@@ -22,9 +22,8 @@ public class PoolConnectionProvider implements ConnectionProvider {
 	}
 
 	@Override
-	public synchronized Connection getConnection() throws SQLException {//TODO Check this
-	//		return user == null ? ds.getConnection() : ds.getConnection(user.getLogin(), user.getPass());
-		return ds.getConnection();
+	public synchronized Connection getConnection() throws SQLException {
+		return user == null ? ds.getConnection() : ds.getConnection(user.getLogin(), user.getPass());
 	}
 	
 	public void setDataSource(DataSource ds) {

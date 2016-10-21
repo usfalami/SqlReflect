@@ -19,7 +19,7 @@ public class MultiQueyExecutor<A> extends AbstractStatementExecutor<Boolean> {
 	
 	@Override
 	protected Statement runStatement() throws SQLException {
-		return getConnectionManager().prepare(null, null, null);
+		return getConnectionManager().getConnection().createStatement();
 	}
 	@Override
 	protected Boolean runExecution(Statement stmt) throws SQLException {
