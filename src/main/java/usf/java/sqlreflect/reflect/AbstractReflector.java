@@ -16,10 +16,6 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 		this.cm = cm;
 		this.timer = timer;
 	}
-	
-	public C getConnectionManager() {
-		return cm;
-	}
 
 	@Override
 	public final void run(Adapter<R> adapter) throws Exception {
@@ -27,23 +23,23 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 		try {
 			timer.start();
 			adapter.start();
-			try {
-				
-				ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
-				getConnectionManager().openConnection();
-				action.end();
+			
+			ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
+			getConnectionManager().openConnection();
+			action.end();
 
-				run(adapter, timer);
-				
-			} finally {
-				getConnectionManager().close();
-			}
+			run(adapter, timer);
+			
 		} finally {
+			getConnectionManager().close();
 			timer.end();
 			adapter.end(timer);
 		}
 	}
 
 	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;
-	
+		
+	public C getConnectionManager() {
+		return cm;
+	}
 }

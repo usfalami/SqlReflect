@@ -17,7 +17,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	public SimpleTransactionManager(ConnectionProvider cp) {
 		super(cp);
 	}
-
+	
 	@Override
 	public void startTransaction() throws SQLException {
 		getConnection().setAutoCommit(false);
@@ -29,7 +29,12 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 		transact = false; //set transact false before setAutoCommit
 		getConnection().setAutoCommit(true);
 	}
-	
+
+	@Override
+	public boolean isTransacting() throws SQLException {
+		return transact && !getConnection().getAutoCommit();
+	}
+
 	@Override
 	public void commit() throws SQLException {
 		getConnection().commit();
@@ -42,11 +47,6 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public boolean isTransacting() throws SQLException {
-		return transact && !getConnection().getAutoCommit();
 	}
 
 	@Override

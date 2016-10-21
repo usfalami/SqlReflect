@@ -21,15 +21,14 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		this.mapper = mapper;
 	}
 	
-	public Mapper<R> getMapper() {
-		return mapper;
-	}
-	
 	public final Collection<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
 		return adapter.getList();
 	}
 	
+	public Mapper<R> getMapper() {
+		return mapper;
+	}
 	
 }
