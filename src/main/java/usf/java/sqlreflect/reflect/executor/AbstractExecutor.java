@@ -17,7 +17,6 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 	@Override
 	public void run(Adapter<R> adapter, ActionTimer at) throws Exception {
 		TransactionManager tm = getConnectionManager();
-		adapter.prepare(null);
 		if(tm.isTransacting()){
 			runExecutor(adapter, at);
 		}
