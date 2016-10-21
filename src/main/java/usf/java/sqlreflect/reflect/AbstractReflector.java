@@ -1,10 +1,7 @@
 package usf.java.sqlreflect.reflect;
 
-import java.util.Collection;
-
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
-import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 
 public abstract class AbstractReflector<C extends ConnectionManager, R> implements Reflector<R> {
@@ -46,13 +43,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			adapter.end(timer);
 		}
 	}
-	
-	public final Collection<R> run() throws Exception {
-		ListAdapter<R> adapter = new ListAdapter<R>();
-		run(adapter);
-		return adapter.getList();
-	}
-	
+
 	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 }
