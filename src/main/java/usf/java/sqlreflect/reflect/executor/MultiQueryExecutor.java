@@ -24,12 +24,12 @@ public class MultiQueryExecutor<A> extends AbstractStatementExecutor<Boolean> {
 	@Override
 	protected Boolean runExecution(Statement stmt) throws SQLException {
 		StringBuilder sb = new StringBuilder();
-		for(String query : queries) sb.append(query);
+		for(String query : queries) 
+			sb.append(query).append(";");
 		return getConnectionManager().execute(stmt, sb.toString());
 	}
 	
 	public MultiQueryExecutor<A> set(String... queries) {
-		//throws exeption
 		this.queries = queries;
 		return this;
 	}

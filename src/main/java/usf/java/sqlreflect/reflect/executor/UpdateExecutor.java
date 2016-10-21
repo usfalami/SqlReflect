@@ -36,7 +36,7 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 		return this;
 	}
 	public UpdateExecutor<A> set(String sql) {
-		return this.set(sql, null, null);
+		return set(sql, null, null);
 	}
 
 }

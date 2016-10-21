@@ -39,6 +39,8 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	}
 	public BatchExecutor<A> set(String... sql) throws Exception {
 		this.queries = sql;
+		this.argsList = null;
+		this.binder = null;
 		return this;
 	}
 	

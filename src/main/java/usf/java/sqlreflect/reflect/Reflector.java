@@ -28,7 +28,8 @@ public interface Reflector<R> {
 		public static Integer[] convert(int... values){
 			if(values == null) return null;
 			Integer[] arr = new Integer[values.length];
-			for(int i=0; i<values.length; i++) arr[i] = values[i];
+			for(int i=0; i<values.length; i++)
+				arr[i] = values[i];
 			return arr;
 		} 
 		
