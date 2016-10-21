@@ -9,7 +9,7 @@ import usf.java.sqlreflect.server.User;
 
 public class PoolConnectionProvider implements ConnectionProvider {
 
-	protected DataSource ds;
+	private DataSource ds;
 	private User user;
 
 	protected PoolConnectionProvider() {
@@ -25,6 +25,10 @@ public class PoolConnectionProvider implements ConnectionProvider {
 	public synchronized Connection getConnection() throws SQLException {//TODO Check this
 	//		return user == null ? ds.getConnection() : ds.getConnection(user.getLogin(), user.getPass());
 		return ds.getConnection();
+	}
+	
+	public void setDataSource(DataSource ds) {
+		this.ds = ds;
 	}
 
 }

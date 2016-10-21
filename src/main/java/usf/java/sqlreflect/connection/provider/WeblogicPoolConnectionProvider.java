@@ -28,7 +28,7 @@ public class WeblogicPoolConnectionProvider extends PoolConnectionProvider {
 	
 	protected void configure(Hashtable<String,String> env, String jndi) throws NamingException{
 	    InitialContext ctx = new InitialContext(env);
-	    ds = (DataSource) ctx.lookup(jndi);
+	    setDataSource((DataSource) ctx.lookup(jndi));
 	}
 	
 }
