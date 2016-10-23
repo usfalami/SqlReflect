@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import usf.java.sqlreflect.binder.Binder;
+import usf.java.sqlreflect.server.Server;
 
 public interface ConnectionManager {
 	
@@ -26,5 +27,7 @@ public interface ConnectionManager {
 	<P> ResultSet executeQuery(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
 
 	boolean execute(Statement stmt, String query) throws SQLException;
+	
+	Server getServer();
 	
 }

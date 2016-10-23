@@ -21,7 +21,7 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	
 	@Override
 	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
-		return dm.getColumns(null, databasePattern, tablePattern, columnPattern);
+		return getConnectionManager().getServer().getColumns(dm, databasePattern, tablePattern, columnPattern);
 	}
 
 	public ColumnScanner set(String databasePattern, String tablePattern, String columnPattern) {

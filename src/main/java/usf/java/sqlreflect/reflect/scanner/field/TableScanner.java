@@ -43,7 +43,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	
 	@Override
 	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
-		return dm.getTables(null, databasePattern, tablePattern, types);
+		return getConnectionManager().getServer().getTables(dm, databasePattern, tablePattern, types);
 	}
 	
 	public TableScanner set(String databasePattern, String tablePattern, boolean columns, TableTypes... types) {

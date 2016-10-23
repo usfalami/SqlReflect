@@ -1,5 +1,8 @@
 package usf.java.sqlreflect.server;
 
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +45,31 @@ public class TeradataServer implements Server {
 	@Override
 	public SqlQuery parseQuery(String sql) {
 		return new SqlQuery(sql);
+	}
+	
+	@Override
+	public ResultSet getDatabase(DatabaseMetaData dm, String databasePattern) throws SQLException {
+		return dm.getSchemas();
+	}
+	@Override
+	public ResultSet getTables(DatabaseMetaData dm, String databasePattern, String tablePattern, String... types) throws SQLException {
+		return dm.getTables(null, databasePattern, tablePattern, types);
+	}
+	@Override
+	public ResultSet getColumns(DatabaseMetaData dm, String databasePattern, String tablePattern, String columnPattern) throws SQLException {
+		return dm.getColumns(null, databasePattern, tablePattern, columnPattern);
+	}
+	@Override
+	public ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
+		return dm.getPrimaryKeys(null, databasePattern, tablePattern);
+	}
+	@Override
+	public ResultSet getProcedures(DatabaseMetaData dm, String databasePattern, String procedurePattern) throws SQLException {
+		return dm.getProcedures(null, databasePattern, procedurePattern);
+	}
+	@Override
+	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String Attributepattern) throws SQLException {
+		return dm.getProcedureColumns(null, databasePattern, procedurePattern, Attributepattern);
 	}
 	
 }

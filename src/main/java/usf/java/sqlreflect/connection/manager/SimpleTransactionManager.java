@@ -9,13 +9,14 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.server.Server;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
 
 	private boolean transact;
 	
-	public SimpleTransactionManager(ConnectionProvider cp) {
-		super(cp);
+	public SimpleTransactionManager(ConnectionProvider cp, Server server) {
+		super(cp, server);
 	}
 	
 	@Override

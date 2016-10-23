@@ -9,14 +9,17 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.server.Server;
 
 public class SimpleConnectionManager implements ConnectionManager {
 
 	private ConnectionProvider cp;
 	private Connection connection;
+	private Server server;
 	
-	public SimpleConnectionManager(ConnectionProvider cp) {
+	public SimpleConnectionManager(ConnectionProvider cp, Server server) {
 		this.cp = cp;
+		this.server = server;
 	}
 
 	@Override
@@ -101,6 +104,11 @@ public class SimpleConnectionManager implements ConnectionManager {
 		return stmt.execute(query);
 	}
 
+	@Override
+	public Server getServer() {
+		return server;
+	}
+	
 	//TODO Check this
 	@Override
 	protected void finalize() throws Throwable {

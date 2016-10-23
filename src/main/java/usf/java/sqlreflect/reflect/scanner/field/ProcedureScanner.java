@@ -42,7 +42,7 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	
 	@Override
 	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
-		return dm.getProcedures(null, databasePattern, procedurePattern);
+		return getConnectionManager().getServer().getProcedures(dm, databasePattern, procedurePattern);
 	}
 	
 	public ProcedureScanner set(String databasePattern, String procedurePattern, boolean arguments) {

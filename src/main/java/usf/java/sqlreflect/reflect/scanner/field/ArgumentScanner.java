@@ -21,7 +21,7 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 
 	@Override
 	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
-		return dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
+		return getConnectionManager().getServer().getArguments(dm, databasePattern, procedurePattern, argumentPattern);
 	}
 
 	public ArgumentScanner set(String databasePattern, String procedurePattern, String argumentPattern) {

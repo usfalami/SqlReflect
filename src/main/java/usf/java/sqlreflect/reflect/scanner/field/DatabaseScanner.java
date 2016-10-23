@@ -21,7 +21,7 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 
 	@Override
 	protected ResultSet runExecution(DatabaseMetaData dm) throws Exception {
-		return Utils.isEmpty(databasePattern) ? dm.getSchemas() : dm.getSchemas(null, databasePattern);
+		return getConnectionManager().getServer().getDatabase(dm, databasePattern);
 	}
 	
 	public DatabaseScanner set(String databasePattern){
