@@ -68,9 +68,13 @@ public class OracleServer implements Server {
 	}
 
 	@Override
-	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern,
-			String Attributespattern) throws SQLException {
+	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentPattern) throws SQLException {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
 		return null;
 	}
 	

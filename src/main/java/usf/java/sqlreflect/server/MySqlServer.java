@@ -68,8 +68,11 @@ public class MySqlServer implements Server {
 		return dm.getProcedures(databasePattern, null, procedurePattern);
 	}
 	@Override
-	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String Attributepattern) throws SQLException {
-		return dm.getProcedureColumns(databasePattern, null, procedurePattern, Attributepattern);
+	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentpattern) throws SQLException {
+		return dm.getProcedureColumns(databasePattern, null, procedurePattern, argumentpattern);
 	}
-	
+	@Override
+	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
+		return dm.getFunctions(databasePattern, null, functionPattern);
+	}
 }

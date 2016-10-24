@@ -22,5 +22,7 @@ public interface Server {
 	ResultSet getColumns(DatabaseMetaData dm, String databasePattern, String tablePattern, String columnPattern) throws SQLException;
 	ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException;
 	ResultSet getProcedures(DatabaseMetaData dm, String databasePattern, String procedurePattern) throws SQLException;
-	ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String Attributespattern) throws SQLException;
+	ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentpattern) throws SQLException;
+	ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException;
+	
 }

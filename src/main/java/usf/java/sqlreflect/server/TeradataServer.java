@@ -68,8 +68,12 @@ public class TeradataServer implements Server {
 		return dm.getProcedures(null, databasePattern, procedurePattern);
 	}
 	@Override
-	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String Attributepattern) throws SQLException {
-		return dm.getProcedureColumns(null, databasePattern, procedurePattern, Attributepattern);
+	public ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentPattern) throws SQLException {
+		return dm.getProcedureColumns(null, databasePattern, procedurePattern, argumentPattern);
+	}
+	@Override
+	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
+		return dm.getFunctions(null, databasePattern, functionPattern);
 	}
 	
 }
