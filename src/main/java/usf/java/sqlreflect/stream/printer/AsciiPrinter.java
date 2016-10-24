@@ -21,10 +21,10 @@ public class AsciiPrinter extends AbstractPrinter {
 		//size += marge !!
 		for (int i = 0; i < cols; i++)
 			s.append(COLOMN_SEPAR).append("%").append(size).append("s");
-		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
+		columns = s.append(COLOMN_SEPAR).append(System.getProperty("line.separator")).toString();
 		int length = cols * (Math.abs(size) + COLOMN_SEPAR.length()) + COLOMN_SEPAR.length();
-		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', TABLE_BORDER);
-		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.getProperty("line.separator"), "").replace(' ', TABLE_BORDER);
+		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.getProperty("line.separator");
 	}
 
 	public void configure(boolean inverse, int... sizes) {
@@ -36,10 +36,10 @@ public class AsciiPrinter extends AbstractPrinter {
 			s.append(COLOMN_SEPAR).append("%").append(size).append("s");
 			length += Math.abs(size) + COLOMN_SEPAR.length();
 		}
-		columns = s.append(COLOMN_SEPAR).append(System.lineSeparator()).toString();
+		columns = s.append(COLOMN_SEPAR).append(System.getProperty("line.separator")).toString();
 		length += COLOMN_SEPAR.length();
-		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.lineSeparator(), "").replace(' ', TABLE_BORDER);
-		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.lineSeparator();
+		layout = String.format(TABLE_CORN+"%" + (TABLE_CORN.length()*2-length) + "s"+TABLE_CORN+System.getProperty("line.separator"), "").replace(' ', TABLE_BORDER);
+		row = COLOMN_SEPAR+"%" + (COLOMN_SEPAR.length()*2-length) + "s"+ COLOMN_SEPAR + System.getProperty("line.separator");
 	}
 	
 	@Override
