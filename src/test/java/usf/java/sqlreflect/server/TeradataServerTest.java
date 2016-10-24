@@ -3,8 +3,8 @@ package usf.java.sqlreflect.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import usf.java.sqlreflect.sql.item.Callable;
-import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
 
 
 public class TeradataServerTest extends TestCase {

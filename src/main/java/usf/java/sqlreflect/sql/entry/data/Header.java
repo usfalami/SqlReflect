@@ -1,8 +1,9 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.data;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.sql.entry.Entry;
 
-public class Header extends Entry {
+public class Header extends Entry implements Data {
 	
 	public String getName() {
 		return getString(SqlConstants.COLUMN_NAME);

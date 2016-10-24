@@ -5,7 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.item.Callable;
+import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public class OracleServer implements Server {
 
@@ -75,6 +76,12 @@ public class OracleServer implements Server {
 	
 	@Override
 	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
+		return null;
+	}
+	
+	@Override
+	public ServerConstants getType() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

@@ -6,17 +6,17 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.PrimaryKeyMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
 
 public class PrimaryKeyScanner extends AbstractFieldScanner<PrimaryKey>{
 
 	private String databasePattern, tablePattern;
 	
 	public PrimaryKeyScanner(ConnectionManager cm) {
-		super(cm, new PrimaryKeyMapper());
+		super(cm, new PrimaryKeyMapper(cm.getServer().getType()));
 	}
 	public PrimaryKeyScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new PrimaryKeyMapper());
+		super(cm, at, new PrimaryKeyMapper(cm.getServer().getType()));
 	}
 	
 	@Override

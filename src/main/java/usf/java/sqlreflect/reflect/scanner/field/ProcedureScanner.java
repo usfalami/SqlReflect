@@ -9,8 +9,8 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.Argument;
-import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Argument;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 
@@ -18,10 +18,10 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	private boolean arguments;
 	
 	public ProcedureScanner(ConnectionManager cm) {
-		super(cm, new ProcedureMapper());
+		super(cm, new ProcedureMapper(cm.getServer().getType()));
 	}
 	public ProcedureScanner(TransactionManager cm, ActionTimer at) {
-		super(cm, at, new ProcedureMapper());
+		super(cm, at, new ProcedureMapper(cm.getServer().getType()));
 	}
 
 	@Override

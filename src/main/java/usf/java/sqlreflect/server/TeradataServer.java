@@ -7,9 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.item.Callable;
-import usf.java.sqlreflect.sql.item.Macro;
-import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.entry.item.Macro;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public class TeradataServer implements Server {
 	
@@ -76,4 +77,8 @@ public class TeradataServer implements Server {
 		return dm.getFunctions(null, databasePattern, functionPattern);
 	}
 	
+	@Override
+	public ServerConstants getType() {
+		return ServerConstants.SCHEMA;
+	}
 }

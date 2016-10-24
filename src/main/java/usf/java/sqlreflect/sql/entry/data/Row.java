@@ -1,6 +1,8 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.data;
 
-public class Row extends Entry {
+import usf.java.sqlreflect.sql.entry.Entry;
+
+public class Row extends Entry implements Data {
 	
 	@Override
 	public void set(String field, Object value) {

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 
-import usf.java.sqlreflect.sql.item.Row;
+import usf.java.sqlreflect.sql.entry.data.Row;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class RowMapper implements Mapper<Row> {

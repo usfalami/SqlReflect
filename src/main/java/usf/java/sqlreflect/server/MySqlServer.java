@@ -7,9 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.item.Callable;
-import usf.java.sqlreflect.sql.item.Macro;
-import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.entry.item.Macro;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public class MySqlServer implements Server {
 
@@ -74,5 +75,10 @@ public class MySqlServer implements Server {
 	@Override
 	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
 		return dm.getFunctions(databasePattern, null, functionPattern);
+	}
+	
+	@Override
+	public ServerConstants getType() {
+		return ServerConstants.CATALOG;
 	}
 }

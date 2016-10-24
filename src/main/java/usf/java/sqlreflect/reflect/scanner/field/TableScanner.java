@@ -8,8 +8,8 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.Column;
-import usf.java.sqlreflect.sql.item.Table;
+import usf.java.sqlreflect.sql.entry.item.Column;
+import usf.java.sqlreflect.sql.entry.item.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 
 public class TableScanner extends AbstractFieldScanner<Table> {
@@ -19,10 +19,10 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	private String[] types;
 	
 	public TableScanner(ConnectionManager cm) {
-		super(cm, new TableMapper());
+		super(cm, new TableMapper(cm.getServer().getType()));
 	}
 	public TableScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new TableMapper());
+		super(cm, at, new TableMapper(cm.getServer().getType()));
 	}
 
 	@Override

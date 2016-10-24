@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.item;
 
 import usf.java.sqlreflect.SqlConstants;
 
@@ -6,11 +6,11 @@ public class Function extends Callable {
 
 	@Override
 	public String getDatabaseName() {
-		return getString(SqlConstants.FUNCTION_SCHEM);
+		return getString(SqlConstants.DATABASE_NAME);
 	}
 	@Override
 	public void setDatabaseName(String databaseName) {
-		set(SqlConstants.FUNCTION_SCHEM, databaseName);
+		set(SqlConstants.DATABASE_NAME, databaseName);
 	}
 
 	@Override

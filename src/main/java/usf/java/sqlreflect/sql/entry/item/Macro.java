@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.item;
 
 public class Macro extends Callable {
 

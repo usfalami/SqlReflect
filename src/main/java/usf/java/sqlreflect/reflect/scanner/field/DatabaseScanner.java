@@ -6,17 +6,17 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.DatabaseMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.Database;
+import usf.java.sqlreflect.sql.entry.item.Database;
 
 public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	
 	private String databasePattern;
 	
 	public DatabaseScanner(ConnectionManager cm) {
-		super(cm, new DatabaseMapper());
+		super(cm, new DatabaseMapper(cm.getServer().getType()));
 	}
 	public DatabaseScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new DatabaseMapper());
+		super(cm, at, new DatabaseMapper(cm.getServer().getType()));
 	}
 
 	@Override

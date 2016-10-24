@@ -5,7 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.item.Callable;
+import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public interface Server {
 
@@ -24,5 +25,7 @@ public interface Server {
 	ResultSet getProcedures(DatabaseMetaData dm, String databasePattern, String procedurePattern) throws SQLException;
 	ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentpattern) throws SQLException;
 	ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException;
+	
+	ServerConstants getType();
 	
 }

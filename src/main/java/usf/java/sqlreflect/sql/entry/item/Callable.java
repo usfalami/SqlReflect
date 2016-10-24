@@ -1,10 +1,11 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.item;
 
 import java.util.Collection;
 
 import usf.java.sqlreflect.sql.Runnable;
+import usf.java.sqlreflect.sql.entry.Entry;
 
-public abstract class Callable extends Entry implements Runnable {
+public abstract class Callable extends Entry implements Runnable, Item {
 	
 	private String callable, parameters[];
 	private Collection<Argument> arguments;

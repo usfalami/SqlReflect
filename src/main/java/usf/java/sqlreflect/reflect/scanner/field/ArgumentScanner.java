@@ -6,17 +6,17 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.ArgumentMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.Argument;
+import usf.java.sqlreflect.sql.entry.item.Argument;
 
 public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	
 	private String databasePattern, procedurePattern, argumentPattern;
 	
 	public ArgumentScanner(ConnectionManager cm) {
-		super(cm, new ArgumentMapper());
+		super(cm, new ArgumentMapper(cm.getServer().getType()));
 	}
 	public ArgumentScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new ArgumentMapper());
+		super(cm, at, new ArgumentMapper(cm.getServer().getType()));
 	}
 
 	@Override

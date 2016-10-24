@@ -1,18 +1,19 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.item;
 
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.sql.entry.Entry;
 
-public class Table extends Entry {
+public class Table extends Entry implements Item {
 
 	private Collection<Column> columns;
 	
 	public String getDatabaseName() {
-		return getString(SqlConstants.TABLE_SCHEM);
+		return getString(SqlConstants.DATABASE_NAME);
 	}
 	public void setDatabaseName(String databaseName) {
-		set(SqlConstants.TABLE_SCHEM, databaseName);
+		set(SqlConstants.DATABASE_NAME, databaseName);
 	}
 	public String getName() {
 		return getString(SqlConstants.TABLE_NAME);

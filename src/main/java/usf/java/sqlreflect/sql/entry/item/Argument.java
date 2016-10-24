@@ -1,14 +1,15 @@
-package usf.java.sqlreflect.sql.item;
+package usf.java.sqlreflect.sql.entry.item;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.sql.entry.Entry;
 
-public class Argument extends Entry {
+public class Argument extends Entry implements Item {
 	
 	public String getDatabaseName() {
-		return getString(SqlConstants.PROCEDURE_SCHEM);
+		return getString(SqlConstants.DATABASE_NAME);
 	}
 	public void setDatabaseName(String databaseName) {
-		set(SqlConstants.PROCEDURE_SCHEM, databaseName);
+		set(SqlConstants.DATABASE_NAME, databaseName);
 	}
 	
 	public String getCallableName() {
