@@ -15,7 +15,7 @@ public class SimpleConnectionProvider implements ConnectionProvider {
 	private User user;
 	
 	public SimpleConnectionProvider(Server server, Env env, User user) {
-		this.url = server.buildURL(env);
+		this.url = server.getURL(env);
 		this.user = user;
 	}
 	

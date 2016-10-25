@@ -24,7 +24,7 @@ public class Env {
 		this.host = properties.getProperty(Constants.ENV_HOST);
 		this.database = properties.getProperty(Constants.ENV_DATABASE);
 		this.port = Integer.parseInt(properties.getProperty(Constants.ENV_PORT));
-		this.params = properties.getProperty(Constants.ENV_PARAMS);
+		this.params = properties.getProperty(Constants.ENV_PARAMS, "");
 	}
 
 	public String getHost() {

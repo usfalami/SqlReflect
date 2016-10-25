@@ -1,11 +1,14 @@
 package usf.java.sqlreflect.parser;
 
-import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.Runnable;
+import usf.java.sqlreflect.sql.SqlQuery;
+import usf.java.sqlreflect.sql.entry.item.Callable;
 
 public interface SqlParser {
 	
-	Server getServer();
+	Callable parseCallable(String sql);
+	
+	SqlQuery parseQuery(String sql);
 	
 	Runnable parseSQL(String sql);
 

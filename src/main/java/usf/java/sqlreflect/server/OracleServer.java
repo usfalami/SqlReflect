@@ -4,8 +4,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.entry.item.Callable;
 import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public class OracleServer implements Server {
@@ -17,19 +15,7 @@ public class OracleServer implements Server {
 	}
 
 	@Override
-	public String buildURL(Env env) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Callable parseCallable(String sql) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public SqlQuery parseQuery(String sql) {
+	public String getURL(Env env) {
 		// TODO Auto-generated method stub
 		return null;
 	}

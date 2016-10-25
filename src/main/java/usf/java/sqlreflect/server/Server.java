@@ -4,19 +4,15 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.entry.item.Callable;
 import usf.java.sqlreflect.sql.type.ServerConstants;
 
 public interface Server {
 
 	String getDriver();
 	
-	String buildURL(Env env);
-	
-	Callable parseCallable(String sql);
-	
-	SqlQuery parseQuery(String sql);
+	String getURL(Env env);
+
+	ServerConstants getType();
 	
 	ResultSet getDatabase(DatabaseMetaData dm, String databasePattern) throws SQLException;
 	ResultSet getTables(DatabaseMetaData dm, String databasePattern, String tablePattern, String... types) throws SQLException;
@@ -26,6 +22,5 @@ public interface Server {
 	ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentpattern) throws SQLException;
 	ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException;
 	
-	ServerConstants getType();
 	
 }

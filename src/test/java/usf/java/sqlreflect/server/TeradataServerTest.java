@@ -16,10 +16,10 @@ public class TeradataServerTest extends TestCase {
 	
 	public void testMakeURL() {
 		Server db = new TeradataServer();
-		String url = db.buildURL(new Env("localhost", "db_1", 6655));
+		String url = db.getURL(new Env("localhost", "db_1", 6655));
 		String exp = "jdbc:teradata://localhost/database=db_1,dbs_port=6655,";
 		assertEquals(exp, url);
-		url = db.buildURL(new Env("127.0.0.1", "db_2", 7001, "tmode=tera,charset=utf8"));
+		url = db.getURL(new Env("127.0.0.1", "db_2", 7001, "tmode=tera,charset=utf8"));
 		exp = "jdbc:teradata://127.0.0.1/database=db_2,dbs_port=7001,tmode=tera,charset=utf8";
 		assertEquals(exp, url);
 	}
