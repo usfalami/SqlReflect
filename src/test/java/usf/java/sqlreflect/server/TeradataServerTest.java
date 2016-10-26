@@ -3,6 +3,8 @@ package usf.java.sqlreflect.server;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
+import usf.java.sqlreflect.parser.SimpleSqlParser;
+import usf.java.sqlreflect.parser.SqlParser;
 import usf.java.sqlreflect.sql.entry.item.Callable;
 import usf.java.sqlreflect.sql.entry.item.Procedure;
 
@@ -25,13 +27,13 @@ public class TeradataServerTest extends TestCase {
 	}
 	
 	public void testParseProcedure() {
-		Server db = new TeradataServer();
-		assertNull(db.parseCallable("select database"));
-		assertNull(db.parseCallable("cal bd_1.test_proc(?,?,?)"));
-		assertNull(db.parseCallable("call test_proc(?,?,?)"));
+		SqlParser sp = new SimpleSqlParser();
+		assertNull(sp.parseCallable("select database"));
+		assertNull(sp.parseCallable("cal bd_1.test_proc(?,?,?)"));
+		assertNull(sp.parseCallable("call test_proc(?,?,?)"));
 		
 		String query = "call bd_1.test_proc(?,?,?,'param')";
-		Callable p = db.parseCallable(query);
+		Callable p = sp.parseCallable(query);
 		assertNotNull(p);
 		assertEquals(p.getClass(), Procedure.class);
 		assertEquals(p.getName(), "test_proc");
