@@ -41,6 +41,8 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 				action.end();
 				
 				action = at.startAction(Constants.ACTION_ADAPT);
+				getMapper().prepare(rs);
+				adapter.prepare(getMapper());
 				runAdapt(rs, adapter, at);
 				action.end();
 			
@@ -51,7 +53,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 			getConnectionManager().close(stmt);
 		}
 	}
-
+	
 	protected abstract void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
 	
 	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {

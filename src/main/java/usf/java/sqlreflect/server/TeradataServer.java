@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.sql.type.ServerConstants;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class TeradataServer implements Server {
 	
@@ -20,8 +20,8 @@ public class TeradataServer implements Server {
 	}
 	
 	@Override
-	public ServerConstants getType() {
-		return ServerConstants.SCHEMA;
+	public DatabaseType getDatabaseType() {
+		return DatabaseType.SCHEMA;
 	}
 	
 	@Override

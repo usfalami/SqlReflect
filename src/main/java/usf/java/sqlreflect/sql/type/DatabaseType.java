@@ -1,10 +1,10 @@
 package usf.java.sqlreflect.sql.type;
 
-public enum ServerConstants {
+public enum DatabaseType {
 	
 	CATALOG("CAT"), SCHEMA("SCHEM");
 
-	private ServerConstants(String suffix) {
+	private DatabaseType(String suffix) {
 		this.TABLE_DATABASE += suffix;
 		this.PROCEDURE_DATABASE += suffix;
 		this.FUNCTION_DATABASE += suffix;
@@ -13,6 +13,5 @@ public enum ServerConstants {
 	public String 
 		TABLE_DATABASE = "TABLE_", 
 		PROCEDURE_DATABASE = "PROCEDURE_",
-		FUNCTION_DATABASE = "FUNCTION_"
-	;
+		FUNCTION_DATABASE = "FUNCTION_";
 }

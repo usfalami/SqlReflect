@@ -1,6 +1,7 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -8,8 +9,11 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ActionTimerMapper implements Mapper<ActionTimer> {
 
 	@Override
+	public void prepare(ResultSet rs) throws SQLException {}
+	
+	@Override
 	public ActionTimer map(ResultSet rs, int row) throws Exception {
-		return null;
+		return new ActionTimer();
 	}
 
 	@Override
@@ -20,11 +24,6 @@ public class ActionTimerMapper implements Mapper<ActionTimer> {
 	@Override
 	public String[] getColumnNames() {
 		return new String[]{"Action", "Start", "End", "Duration"};
-	}
-
-	@Override
-	public void setColumnNames(String... columnNames) {
-		
 	}
 	
 	private void recusiveWrite(StreamWriter writer, ActionTimer action, int level) throws Exception {

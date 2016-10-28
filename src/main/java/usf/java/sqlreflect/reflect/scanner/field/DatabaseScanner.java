@@ -13,10 +13,10 @@ public class DatabaseScanner extends AbstractFieldScanner<Database> {
 	private String databasePattern;
 	
 	public DatabaseScanner(ConnectionManager cm) {
-		super(cm, new DatabaseMapper(cm.getServer().getType()));
+		super(cm, new DatabaseMapper());
 	}
 	public DatabaseScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new DatabaseMapper(cm.getServer().getType()));
+		super(cm, at, new DatabaseMapper());
 	}
 
 	@Override

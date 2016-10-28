@@ -6,8 +6,8 @@ import usf.java.sqlreflect.Constants;
 
 public class Env {
 
-	protected String host, database, params;
-	protected int port;
+	private String host, database, params;
+	private int port;
 
 	public Env(String host, String database, int port) {
 		this(host, database, port, "");
@@ -16,7 +16,7 @@ public class Env {
 	public Env(String host, String database, int port, String params) {
 		this.host = host;
 		this.database = database;
-		this.params = params;
+		this.params = params == null ? "" : params;
 		this.port = port;
 	}
 	

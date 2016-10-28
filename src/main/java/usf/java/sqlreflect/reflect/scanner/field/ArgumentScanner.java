@@ -13,10 +13,10 @@ public class ArgumentScanner extends AbstractFieldScanner<Argument> {
 	private String databasePattern, procedurePattern, argumentPattern;
 	
 	public ArgumentScanner(ConnectionManager cm) {
-		super(cm, new ArgumentMapper(cm.getServer().getType()));
+		super(cm, new ArgumentMapper());
 	}
 	public ArgumentScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new ArgumentMapper(cm.getServer().getType()));
+		super(cm, at, new ArgumentMapper());
 	}
 
 	@Override

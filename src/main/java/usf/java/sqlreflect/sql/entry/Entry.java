@@ -21,14 +21,14 @@ public abstract class Entry {
 		fields.put(key, value);
 	}
 	
+	public Object get(String key){
+		return fields.get(key);
+	}	
 	protected String getString(String key){
 		return (String) fields.get(key);
 	}
 	protected Integer getInteger(String key){
 		return (Integer) fields.get(key);
-	}
-	protected Object getObject(String key){
-		return fields.get(key);
 	}
 
 }

@@ -8,6 +8,7 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.item.Column;
 import usf.java.sqlreflect.sql.entry.item.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
@@ -19,10 +20,10 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 	private String[] types;
 	
 	public TableScanner(ConnectionManager cm) {
-		super(cm, new TableMapper(cm.getServer().getType()));
+		super(cm, new TableMapper());
 	}
 	public TableScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new TableMapper(cm.getServer().getType()));
+		super(cm, at, new TableMapper());
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class TableScanner extends AbstractFieldScanner<Table> {
 		this.databasePattern = databasePattern;
 		this.tablePattern = tablePattern;
 		this.columns = columns;
-		if(Utils.isEmpty(types)) 
+		if(Utils.isEmptyArray(types)) 
 			this.types = new String[]{TableTypes.TABLE.toString()};
 		else{
 			this.types = new String[types.length];

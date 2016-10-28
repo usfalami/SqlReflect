@@ -5,14 +5,9 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Argument;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ArgumentMapper extends AbstractItemMapper<Argument> {
-
-	public ArgumentMapper(ServerConstants sc) {
-		super(sc);
-	}
 
 	@Override
 	public Argument map(ResultSet rs, int row) throws Exception {
@@ -44,10 +39,4 @@ public class ArgumentMapper extends AbstractItemMapper<Argument> {
 	public String[] getColumnNames() {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.LENGTH};
 	}
-	
-	@Override
-	public void setColumnNames(String... columnNames) {
-		
-	}
-
 }

@@ -13,10 +13,10 @@ public class ColumnScanner extends AbstractFieldScanner<Column> {
 	private String databasePattern, tablePattern, columnPattern;
 	
 	public ColumnScanner(ConnectionManager cm) {
-		super(cm, new ColumnMapper(cm.getServer().getType()));
+		super(cm, new ColumnMapper());
 	}
 	public ColumnScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new ColumnMapper(cm.getServer().getType()));
+		super(cm, at, new ColumnMapper());
 	}
 	
 	@Override

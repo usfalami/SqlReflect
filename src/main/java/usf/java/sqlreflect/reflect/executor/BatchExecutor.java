@@ -7,6 +7,7 @@ import java.util.Collection;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 
 public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 
@@ -24,7 +25,7 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	@Override
 	protected Statement runStatement() throws SQLException {
 		TransactionManager tm = getConnectionManager();
-		return queries.length > 1 || Utils.isEmpty(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
+		return queries.length > 1 || Utils.isEmptyCollection(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 	}
 	@Override
 	protected Integer[] runExecution(Statement stmt) throws SQLException {

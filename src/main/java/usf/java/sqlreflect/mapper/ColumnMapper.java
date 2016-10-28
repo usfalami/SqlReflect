@@ -4,14 +4,9 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Column;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ColumnMapper extends AbstractItemMapper<Column> {
-
-	public ColumnMapper(ServerConstants sc) {
-		super(sc);
-	}
 
 	@Override
 	public Column map(ResultSet rs, int row) throws Exception {
@@ -42,9 +37,4 @@ public class ColumnMapper extends AbstractItemMapper<Column> {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE};
 	}
 	
-	@Override
-	public void setColumnNames(String... columnNames) {
-		
-	}
-
 }

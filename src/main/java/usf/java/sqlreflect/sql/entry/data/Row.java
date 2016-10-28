@@ -10,7 +10,7 @@ public class Row extends Entry implements Data {
 	}
 	
 	public Object get(String field){
-		return super.getObject(field);
+		return super.get(field);
 	}
 	
 }

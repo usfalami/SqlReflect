@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.sql.type.ServerConstants;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class OracleServer implements Server {
 
@@ -66,7 +66,7 @@ public class OracleServer implements Server {
 	}
 	
 	@Override
-	public ServerConstants getType() {
+	public DatabaseType getDatabaseType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

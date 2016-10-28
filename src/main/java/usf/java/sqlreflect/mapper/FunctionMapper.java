@@ -5,14 +5,9 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Function;
 import usf.java.sqlreflect.sql.type.FunctionTypes;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class FunctionMapper extends AbstractItemMapper<Function> {
-
-	public FunctionMapper(ServerConstants sc) {
-		super(sc);
-	}
 
 	@Override
 	public Function map(ResultSet rs, int row) throws Exception {
@@ -35,11 +30,6 @@ public class FunctionMapper extends AbstractItemMapper<Function> {
 	@Override
 	public String[] getColumnNames() {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.FUNCTION_NAME, SqlConstants.FUNCTION_TYPE};
-	}
-
-	@Override
-	public void setColumnNames(String... columnNames) {
-		// TODO Auto-generated method stub
 	}
 
 }

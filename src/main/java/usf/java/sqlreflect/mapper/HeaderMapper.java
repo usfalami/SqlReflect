@@ -2,12 +2,16 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.data.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class HeaderMapper implements Mapper<Header> {
+	
+	@Override
+	public void prepare(ResultSet rs) throws SQLException {}
 
 	@Override
 	public Header map(ResultSet rs, int row) throws Exception {
@@ -36,10 +40,4 @@ public class HeaderMapper implements Mapper<Header> {
 	public String[] getColumnNames() {
 		return new String[]{SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
 	}
-	
-	@Override
-	public void setColumnNames(String... columnNames) {
-		// TODO Auto-generated method stub
-	}
-
 }

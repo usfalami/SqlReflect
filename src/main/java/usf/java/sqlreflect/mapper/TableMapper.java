@@ -5,15 +5,10 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Column;
 import usf.java.sqlreflect.sql.entry.item.Table;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class TableMapper extends AbstractItemMapper<Table> {
 	
-	public TableMapper(ServerConstants sc) {
-		super(sc);
-	}
-
 	@Override
 	public Table map(ResultSet rs, int row) throws Exception {
 		Table t = new Table();
@@ -31,7 +26,7 @@ public class TableMapper extends AbstractItemMapper<Table> {
 		writer.writeString(SqlConstants.TABLE_TYPE, table.getType());
 		//TODO : Update this
 		if(table.getColumns() != null){
-			ColumnMapper cm = new ColumnMapper(getServerConstants());
+			ColumnMapper cm = new ColumnMapper();
 			writer.startList("COLUMNS");
 			for(Column c : table.getColumns())
 				cm.write(writer, c);
@@ -43,11 +38,6 @@ public class TableMapper extends AbstractItemMapper<Table> {
 	@Override
 	public String[] getColumnNames() {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.TABLE_TYPE};
-	}
-
-	@Override
-	public void setColumnNames(String... columnNames) {
-		// TODO Auto-generated method stub
 	}
 
 }

@@ -18,14 +18,10 @@ public class RowScanner<A, R> extends AbstractDataScanner<A, R> {
 
 	@Override
 	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		if(getMapper().getColumnNames() == null) // set all column if no column was set
-			getMapper().setColumnNames(Utils.columnNames(rs));
-		adapter.prepare(getMapper());
 		int row = 0;
 		while(rs.next()) {
 			R bean = getMapper().map(rs, row+1);
 			adapter.adapte(bean, row++);
 		}
 	}
-
 }

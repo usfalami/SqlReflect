@@ -13,10 +13,10 @@ public class PrimaryKeyScanner extends AbstractFieldScanner<PrimaryKey>{
 	private String databasePattern, tablePattern;
 	
 	public PrimaryKeyScanner(ConnectionManager cm) {
-		super(cm, new PrimaryKeyMapper(cm.getServer().getType()));
+		super(cm, new PrimaryKeyMapper());
 	}
 	public PrimaryKeyScanner(ConnectionManager cm, ActionTimer at) {
-		super(cm, at, new PrimaryKeyMapper(cm.getServer().getType()));
+		super(cm, at, new PrimaryKeyMapper());
 	}
 	
 	@Override

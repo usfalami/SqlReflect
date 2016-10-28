@@ -4,14 +4,9 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class PrimaryKeyMapper extends AbstractItemMapper<PrimaryKey> {
-
-	public PrimaryKeyMapper(ServerConstants sc) {
-		super(sc);
-	}
 
 	@Override
 	public PrimaryKey map(ResultSet rs, int row) throws Exception {
@@ -39,12 +34,5 @@ public class PrimaryKeyMapper extends AbstractItemMapper<PrimaryKey> {
 	public String[] getColumnNames() {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.PK_NAME, SqlConstants.KEY_SEQ};
 	}
-
-	@Override
-	public void setColumnNames(String... columnNames) {
-		
-	}
-	
-	
 
 }

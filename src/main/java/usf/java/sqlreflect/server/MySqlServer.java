@@ -4,15 +4,15 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import usf.java.sqlreflect.sql.type.ServerConstants;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class MySqlServer implements Server {
 
-	private static final String URL_TEMPLATE = "jdbc:mysql://%s:%d/%s";
+	private static final String URL_TEMPLATE = "jdbc:mysql://%s:%d/%s?%s";
 
 	@Override
 	public String getURL(Env env) {
-		return String.format(URL_TEMPLATE, env.getHost(), env.getPort(), env.getDatabase());
+		return String.format(URL_TEMPLATE, env.getHost(), env.getPort(), env.getDatabase(), env.getParams());
 	}
 	@Override
 	public String getDriver() {
@@ -20,8 +20,8 @@ public class MySqlServer implements Server {
 	}
 	
 	@Override
-	public ServerConstants getType() {
-		return ServerConstants.CATALOG;
+	public DatabaseType getDatabaseType() {
+		return DatabaseType.CATALOG;
 	}
 	
 	@Override

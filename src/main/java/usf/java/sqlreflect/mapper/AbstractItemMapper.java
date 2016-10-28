@@ -1,18 +1,22 @@
 package usf.java.sqlreflect.mapper;
 
-import usf.java.sqlreflect.sql.entry.item.Item;
-import usf.java.sqlreflect.sql.type.ServerConstants;
+import java.sql.ResultSet;
 
-public abstract class AbstractItemMapper<T extends Item> implements Mapper<T> {
+import usf.java.sqlreflect.sql.type.DatabaseType;
+
+public abstract class AbstractItemMapper<T> implements Mapper<T> {
 	
-	private ServerConstants sc;
+	private DatabaseType sc;
 	
-	public AbstractItemMapper(ServerConstants sc) {
-		this.sc = sc;
+	@Override
+	public void prepare(ResultSet rs) {}
+	
+	public DatabaseType getServerConstants() {
+		return sc;
 	}
 	
-	public ServerConstants getServerConstants() {
-		return sc;
+	public void setDatabaseType(DatabaseType sc) {
+		this.sc = sc;
 	}
 
 }

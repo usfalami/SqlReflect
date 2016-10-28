@@ -18,10 +18,10 @@ public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 	private boolean arguments;
 	
 	public ProcedureScanner(ConnectionManager cm) {
-		super(cm, new ProcedureMapper(cm.getServer().getType()));
+		super(cm, new ProcedureMapper());
 	}
 	public ProcedureScanner(TransactionManager cm, ActionTimer at) {
-		super(cm, at, new ProcedureMapper(cm.getServer().getType()));
+		super(cm, at, new ProcedureMapper());
 	}
 
 	@Override

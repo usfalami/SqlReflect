@@ -13,7 +13,7 @@ import usf.java.sqlreflect.server.Server;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
 
-	private boolean transact;
+	private boolean defaultAutoCommit, transacting;
 	
 	public SimpleTransactionManager(ConnectionProvider cp, Server server) {
 		super(cp, server);
@@ -21,19 +21,21 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	
 	@Override
 	public void startTransaction() throws SQLException {
-		getConnection().setAutoCommit(false);
-		transact = true;
+		Connection cnx = getConnection();
+		this.defaultAutoCommit = cnx.getAutoCommit();
+		if(!defaultAutoCommit) cnx.setAutoCommit(false);
+		this.transacting = true;
 	}
 
 	@Override
 	public void endTransaction() throws SQLException {
-		transact = false; //set transact false before setAutoCommit
-		getConnection().setAutoCommit(true);
+		this.transacting = false; //set transact false before setAutoCommit
+		if(!defaultAutoCommit) getConnection().setAutoCommit(true);
 	}
 
 	@Override
 	public boolean isTransacting() throws SQLException {
-		return transact && !getConnection().getAutoCommit();
+		return this.transacting && !getConnection().getAutoCommit();
 	}
 
 	@Override
@@ -52,12 +54,8 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public void close() {
-		try {
-			if(!isTransacting()) //
-				super.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(!this.transacting) //
+			super.close();
 	}
 
 	@Override

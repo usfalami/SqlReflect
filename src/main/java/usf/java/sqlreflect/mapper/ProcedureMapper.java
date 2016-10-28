@@ -6,14 +6,9 @@ import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Argument;
 import usf.java.sqlreflect.sql.entry.item.Procedure;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ProcedureMapper extends AbstractItemMapper<Procedure> {
-
-	public ProcedureMapper(ServerConstants sc) {
-		super(sc);
-	}
 
 	@Override
 	public Procedure map(ResultSet rs, int row) throws Exception {
@@ -31,7 +26,7 @@ public class ProcedureMapper extends AbstractItemMapper<Procedure> {
 		writer.writeString(SqlConstants.PROCEDURE_NAME, procedure.getName());
 		writer.writeString(SqlConstants.PROCEDURE_TYPE, procedure.getType());
 		if(procedure.getArguments() != null){
-			ArgumentMapper cm = new ArgumentMapper(getServerConstants());
+			ArgumentMapper cm = new ArgumentMapper();
 			writer.startList("COLUMNS");
 			for(Argument c : procedure.getArguments())
 				cm.write(writer, c);
@@ -45,8 +40,4 @@ public class ProcedureMapper extends AbstractItemMapper<Procedure> {
 		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.PROCEDURE_NAME, SqlConstants.PROCEDURE_TYPE};
 	}
 	
-	@Override
-	public void setColumnNames(String... columnNames) {
-		// TODO Auto-generated method stub
-	}
 }

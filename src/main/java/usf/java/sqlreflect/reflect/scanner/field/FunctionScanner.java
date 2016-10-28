@@ -14,10 +14,10 @@ public class FunctionScanner extends AbstractFieldScanner<Function> {
 	private String databasePattern, functionPattern;
 	
 	public FunctionScanner(ConnectionManager cm) {
-		super(cm, new FunctionMapper(cm.getServer().getType()));
+		super(cm, new FunctionMapper());
 	}
 	public FunctionScanner(TransactionManager cm, ActionTimer at) {
-		super(cm, at, new FunctionMapper(cm.getServer().getType()));
+		super(cm, at, new FunctionMapper());
 	}
 	
 	@Override

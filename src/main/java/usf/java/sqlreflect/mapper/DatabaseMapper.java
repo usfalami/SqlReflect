@@ -4,15 +4,10 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.item.Database;
-import usf.java.sqlreflect.sql.type.ServerConstants;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class DatabaseMapper extends AbstractItemMapper<Database> {
 	
-	public DatabaseMapper(ServerConstants sc) {
-		super(sc);
-	}
-
 	@Override
 	public Database map(ResultSet rs, int row) throws Exception {
 		Database d = new Database();
@@ -32,9 +27,4 @@ public class DatabaseMapper extends AbstractItemMapper<Database> {
 		return new String[]{SqlConstants.DATABASE_NAME};
 	}
 	
-	@Override
-	public void setColumnNames(String... columnNames) {
-		
-	}
-
 }
