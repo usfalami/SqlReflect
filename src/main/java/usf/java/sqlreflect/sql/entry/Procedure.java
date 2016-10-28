@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.sql.entry.item;
+package usf.java.sqlreflect.sql.entry;
 
 import usf.java.sqlreflect.SqlConstants;
 

@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.entry.item.Callable;
-import usf.java.sqlreflect.sql.entry.item.Macro;
-import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.entry.Callable;
+import usf.java.sqlreflect.sql.entry.Macro;
+import usf.java.sqlreflect.sql.entry.Procedure;
 
 public class SimpleSqlParser implements SqlParser {
 	

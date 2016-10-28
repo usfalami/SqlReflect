@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.PrimaryKeyMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.PrimaryKey;
 
 public class PrimaryKeyScanner extends AbstractFieldScanner<PrimaryKey>{
 

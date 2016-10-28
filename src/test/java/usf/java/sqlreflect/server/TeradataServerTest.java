@@ -5,8 +5,8 @@ import java.util.Arrays;
 import junit.framework.TestCase;
 import usf.java.sqlreflect.parser.SimpleSqlParser;
 import usf.java.sqlreflect.parser.SqlParser;
-import usf.java.sqlreflect.sql.entry.item.Callable;
-import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.entry.Callable;
+import usf.java.sqlreflect.sql.entry.Procedure;
 
 
 public class TeradataServerTest extends TestCase {

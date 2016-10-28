@@ -7,7 +7,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.HeaderMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.entry.data.Header;
+import usf.java.sqlreflect.sql.entry.Header;
 
 public class HeaderScanner<A> extends AbstractDataScanner<A, Header> {
 

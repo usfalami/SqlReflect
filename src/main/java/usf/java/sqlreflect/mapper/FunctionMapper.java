@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.sql.entry.item.Function;
+import usf.java.sqlreflect.sql.entry.Function;
 import usf.java.sqlreflect.sql.type.FunctionTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 

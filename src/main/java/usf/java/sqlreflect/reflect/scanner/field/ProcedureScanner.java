@@ -9,8 +9,8 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.mapper.ProcedureMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.entry.item.Argument;
-import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.entry.Argument;
+import usf.java.sqlreflect.sql.entry.Procedure;
 
 public class ProcedureScanner extends AbstractFieldScanner<Procedure> {
 

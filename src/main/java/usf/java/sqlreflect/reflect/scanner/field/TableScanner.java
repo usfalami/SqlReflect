@@ -9,8 +9,8 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
-import usf.java.sqlreflect.sql.entry.item.Column;
-import usf.java.sqlreflect.sql.entry.item.Table;
+import usf.java.sqlreflect.sql.entry.Column;
+import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 
 public class TableScanner extends AbstractFieldScanner<Table> {

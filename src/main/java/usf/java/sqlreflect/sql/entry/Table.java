@@ -1,11 +1,10 @@
-package usf.java.sqlreflect.sql.entry.item;
+package usf.java.sqlreflect.sql.entry;
 
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.sql.entry.Entry;
 
-public class Table extends Entry implements Item {
+public class Table extends Entry {
 
 	private Collection<Column> columns;
 	

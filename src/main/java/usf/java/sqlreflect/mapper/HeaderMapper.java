@@ -5,7 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.sql.entry.data.Header;
+import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class HeaderMapper implements Mapper<Header> {

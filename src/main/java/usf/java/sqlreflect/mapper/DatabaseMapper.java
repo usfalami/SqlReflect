@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.sql.entry.item.Database;
+import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class DatabaseMapper extends AbstractItemMapper<Database> {

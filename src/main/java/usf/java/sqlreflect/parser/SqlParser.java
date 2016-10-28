@@ -2,7 +2,7 @@ package usf.java.sqlreflect.parser;
 
 import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlQuery;
-import usf.java.sqlreflect.sql.entry.item.Callable;
+import usf.java.sqlreflect.sql.entry.Callable;
 
 public interface SqlParser {
 	

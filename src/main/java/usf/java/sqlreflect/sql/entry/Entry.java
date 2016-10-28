@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Entry {
+public class Entry {
 	
 	private Map<String, Object> fields;
 	

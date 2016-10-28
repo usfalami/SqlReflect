@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class PrimaryKeyMapper extends AbstractItemMapper<PrimaryKey> {
