@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 
+import usf.java.sqlreflect.server.User;
+
 public class Utils {
 
 	public static boolean isEmptyString(String arg) {
@@ -19,6 +21,9 @@ public class Utils {
 	}
 	public static boolean isEmptyMap(Map<?,?> arg) {
 		return arg == null || arg.isEmpty();
+	}
+	public static boolean isEmptyUser(User user) {
+		return user == null || isEmptyString(user.getLogin());
 	}
 	
 	public static Integer[] convert(int... values){

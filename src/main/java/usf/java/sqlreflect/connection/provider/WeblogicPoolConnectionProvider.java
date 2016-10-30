@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 import usf.java.sqlreflect.server.User;
 
-public class WeblogicPoolConnectionProvider extends PoolConnectionProvider {
+public class WeblogicPoolConnectionProvider extends DataSourceConnectionProvider {
 
 	public WeblogicPoolConnectionProvider(Hashtable<String,String> env, String jndi) throws NamingException {
 		configure(env, jndi);

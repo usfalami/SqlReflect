@@ -27,32 +27,12 @@ public class SimpleConnectionManagerTest {
 	private static Server server;
 	private static ConnectionProvider cp;
 	private static ConnectionManager cm;
+	
 	private static String query = "SELECT 1";
 	private static String query1 = "SELECT * FROM city where CountryCode=? and District=?";
 	
 	private Statement stmt = null;
 	private ResultSet rs = null;
-
-	@BeforeClass
-	public static void init(){		
-		try {
-			System.out.println("Start loading...");
-			
-			InputStream inputStream  = SimpleConnectionManagerTest.class.getClassLoader().getResourceAsStream("env.properties");
-			Properties properties = new Properties();
-			properties.load(inputStream);
-
-			server = (Server) Class.forName(properties.getProperty("server")).newInstance();
-			//Class.forName(server.getDriver());
-
-			cp = new SimpleConnectionProvider(server, properties);
-			cm = new SimpleConnectionManager(cp, server);
-			
-			System.out.println("Env has been loaded");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Test
 	public void testServer() {
@@ -60,7 +40,7 @@ public class SimpleConnectionManagerTest {
 	}
 
 	@Test
-	public void testConnectionStatus() {
+	public void testOpenCloseConnection() {
 		try {
 			assertTrue(cm.isClosed());
 			cm.openConnection();
@@ -136,13 +116,34 @@ public class SimpleConnectionManagerTest {
 	public void beforeTest(){
 		System.out.println("Start Test");
 	}
-	
 	@After
 	public void afterTest(){
 		cm.close(rs);
 		cm.close(stmt);
 		cm.close();
 		System.out.println("End Test");
+	}
+	
+
+	@BeforeClass
+	public static void init(){		
+		try {
+			System.out.println("Start loading...");
+			
+			InputStream inputStream  = SimpleConnectionManagerTest.class.getClassLoader().getResourceAsStream("env.properties");
+			Properties properties = new Properties();
+			properties.load(inputStream);
+
+			server = (Server) Class.forName(properties.getProperty("server")).newInstance();
+			//Class.forName(server.getDriver());
+
+			cp = new SimpleConnectionProvider(server, properties);
+			cm = new SimpleConnectionManager(cp, server);
+			
+			System.out.println("Env has been loaded");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

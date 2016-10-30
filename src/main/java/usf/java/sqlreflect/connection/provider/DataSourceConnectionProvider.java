@@ -5,25 +5,28 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.User;
 
-public class PoolConnectionProvider implements ConnectionProvider {
+public class DataSourceConnectionProvider implements ConnectionProvider {
 
 	private DataSource ds;
 	private User user;
 
-	protected PoolConnectionProvider() {
+	protected DataSourceConnectionProvider() {
 
 	}
 
-	public PoolConnectionProvider(DataSource ds, User user) {
+	public DataSourceConnectionProvider(DataSource ds, User user) {
 		this.ds = ds;
 		this.user = user;
 	}
 
 	@Override
 	public synchronized Connection getConnection() throws SQLException {
-		return user == null ? ds.getConnection() : ds.getConnection(user.getLogin(), user.getPass());
+		return Utils.isEmptyUser(user) ? 
+				ds.getConnection() : 
+				ds.getConnection(user.getLogin(), user.getPass());
 	}
 	
 	public void setDataSource(DataSource ds) {
