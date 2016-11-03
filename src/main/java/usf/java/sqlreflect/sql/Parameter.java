@@ -10,10 +10,13 @@ public class Parameter<T> {
 	
 	private int sqlType;
 	
-	protected Parameter(int sqlType, T value) {
+	public Parameter(int sqlType, T value) {
+		this(sqlType, value, ParameterTypes.IN);
+	}
+	public Parameter(int sqlType, T value, ParameterTypes type) {
 		this.sqlType = sqlType;
 		this.value = value;
-		this.type = ParameterTypes.IN;
+		this.type = type;
 	}
 	
 	public int getSqlType() {
