@@ -32,9 +32,13 @@ public class ParameterFactory {
 	public static final Parameter<Long> BIGINT_WRAPPER(Long value){
 		return new Parameter<Long>(Types.BIGINT, value);  
 	}
+	// FLOAT wrapper
+	public static final Parameter<Double> FLOAT_WRAPPER(Double value){
+		return new Parameter<Double>(Types.FLOAT, value);
+	}
 	// REAL wrapper
 	public static final Parameter<Float> REAL_WRAPPER(Float value){
-		return new Parameter<Float>(Types.FLOAT, value);  
+		return new Parameter<Float>(Types.REAL, value);
 	}
 	// DOUBLE wrapper
 	public static final Parameter<Double> DOUBLE_WRAPPER(Double value){
@@ -55,6 +59,10 @@ public class ParameterFactory {
 	// LONGVARCHAR wrapper
 	public static final Parameter<String> LONGVARCHAR_WRAPPER(Object obj){
 		return new Parameter<String>(Types.LONGVARCHAR, obj == null ? null : obj.toString());  
+	}
+	// Array wrapper
+	public static final <T> Parameter<T[]> ARRAY_WRAPPER(T[] arr){
+		return new Parameter<T[]>(Types.ARRAY, arr);  
 	}
 	// DATE wrapper
 	public static final Parameter<Date> DATE_WRAPPER(long value){
@@ -85,6 +93,10 @@ public class ParameterFactory {
 	}
 	public static final Parameter<Time> TIME_WRAPPER(java.util.Date value){
 		return new Parameter<Time>(Types.TIME, value == null ? null : new Time(value.getTime()));  
+	}
+	// Object wrapper
+	public static final Parameter<Object> OBJECT_WRAPPER(Object obj){
+		return new Parameter<Object>(Types.OTHER, obj);  
 	}
 	
 	
