@@ -1,7 +1,9 @@
 package usf.java.sqlreflect.reflect.scanner;
 
+import java.sql.ResultSet;
 import java.util.Collection;
 
+import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
@@ -31,4 +33,11 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		return mapper;
 	}
 	
+	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
+		int row = 0;
+		while(rs.next()){
+			R field = getMapper().map(rs, row+1);
+			adapter.adapte(field, row++);
+		}
+	}
 }

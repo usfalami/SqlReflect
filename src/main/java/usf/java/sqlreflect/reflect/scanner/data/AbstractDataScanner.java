@@ -54,8 +54,6 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		}
 	}
 	
-	protected abstract void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception;
-	
 	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {
 		this.sql = sql;
 		this.binder = binder;

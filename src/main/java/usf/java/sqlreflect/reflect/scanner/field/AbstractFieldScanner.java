@@ -43,14 +43,6 @@ public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
 		}
 	}
 	
-	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		int row = 0;
-		while(rs.next()){
-			R field = getMapper().map(rs, row+1);
-			adapter.adapte(field, row++);
-		}
-	}
-	
 	protected abstract ResultSet runExecution(DatabaseMetaData dm) throws Exception;
 
 }
