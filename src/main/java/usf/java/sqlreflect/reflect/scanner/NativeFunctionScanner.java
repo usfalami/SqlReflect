@@ -25,7 +25,7 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		
 		ActionTimer action = at.startAction(Constants.ACTION_EXECUTION);
 		String[] functions = nf.getFunctions(dm);
-		action.end();
+		action.end();//ACTION_EXECUTION end
 
 		action = at.startAction(Constants.ACTION_ADAPT);
 		adapter.prepare(null);

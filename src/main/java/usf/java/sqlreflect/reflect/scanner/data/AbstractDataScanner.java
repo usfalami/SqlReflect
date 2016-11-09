@@ -31,14 +31,14 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 
 			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
 			stmt = getConnectionManager().prepare(sql, args, binder);
-			action.end();
+			action.end(); //ACTION_STATEMENT end
 			
 			ResultSet rs = null;
 			try {
 			
 				action = at.startAction(Constants.ACTION_EXECUTION);
 				rs = getConnectionManager().executeQuery(stmt, sql, args, binder);
-				action.end();
+				action.end(); //ACTION_EXECUTION end
 				
 				action = at.startAction(Constants.ACTION_ADAPT);
 				getMapper().prepare(rs);

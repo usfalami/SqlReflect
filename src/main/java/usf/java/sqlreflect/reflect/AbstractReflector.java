@@ -26,7 +26,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			
 			ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
-			action.end();
+			action.end(); //ACTION_CONNECTION end
 
 			run(adapter, timer);
 			

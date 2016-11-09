@@ -2,6 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 
 	@Override
 	public String[] getColumnNames() {
-		Set<String> set = columnMapper.keySet();
+		Collection<String> set = columnMapper.values();
 		return set.toArray(new String[set.size()]);
 	}
 	
