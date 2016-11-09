@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.connection.manager;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,31 +70,23 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 	
 	@Override
-	public <T> Statement prepare(String query, T args, Binder<T> binder) throws SQLException {
+	public <P> Statement prepare(String query, P args, Binder<P> binder) throws SQLException {
 		Connection cnx = getConnection();
 		if(args == null || binder == null) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		else if(!query.toUpperCase().startsWith("CALL")){//TODO udapte this test
-			PreparedStatement ps = cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			binder.bindPreparedStatement(ps, args);
-			return ps;
-		}
-		else{
-			CallableStatement cs = cnx.prepareCall(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			binder.bindCallableStatement(cs, args);
-			return cs;
-		}
+		Statement stmt = query.toUpperCase().startsWith("CALL") ?
+				cnx.prepareCall(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY) : 
+				cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		binder.bind(stmt, args);
+		return stmt;
 	}
 	
 	@Override
 	public <T> ResultSet executeQuery(Statement stmt, String query, T args, Binder<T> binder) throws SQLException {
 		ResultSet rs = null;
-		if(stmt instanceof PreparedStatement){
-			rs = ((PreparedStatement)stmt).executeQuery();
-			if(stmt instanceof CallableStatement)
-				binder.updateOutParameter((CallableStatement)stmt, args);
-		}
-		else rs = stmt.executeQuery(query);
+		rs = stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
+		if(binder != null)
+			binder.post(stmt, args);
 		return rs;
 	}
 	

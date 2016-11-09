@@ -3,36 +3,40 @@ package usf.java.sqlreflect.binder;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.List;
 
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
 
 public class ParameterBinder implements Binder<List<Parameter<?>>> {
 
 	@Override
-	public void bindPreparedStatement(PreparedStatement pstmt, List<Parameter<?>> args) throws SQLException {
+	public void bind(Statement stmt, List<Parameter<?>> args) throws SQLException {
 		if(args == null) return;
-		for(int i=0; i<args.size(); i++)
-			set(pstmt, i+1, args.get(i));
-	}
-	
-	@Override
-	public void bindCallableStatement(CallableStatement cstmt, List<Parameter<?>> args) throws SQLException {
-		if(args == null) return;
-		for(int i=0; i<args.size(); i++){
-			Parameter<?> arg = args.get(i);
-			if(ParameterTypes.isOut(arg.getType())) //Parameter can be inout type
-				cstmt.registerOutParameter(i+1, arg.getSqlType());
-			if(ParameterTypes.isIN(arg.getType()))
-				set(cstmt, i+1, arg);
+		if(stmt instanceof CallableStatement){
+			CallableStatement cstmt = (CallableStatement)stmt;
+			for(int i=0; i<args.size(); i++){
+				Parameter<?> arg = args.get(i);
+				if(ParameterTypes.isOut(arg.getType())) //Parameter can be inout type
+					cstmt.registerOutParameter(i+1, arg.getSqlType());
+				if(ParameterTypes.isIN(arg.getType()))
+					set(cstmt, i+1, arg);
+			}
+		}
+		else if(stmt instanceof PreparedStatement){
+			PreparedStatement pstmt = (PreparedStatement)stmt;
+			for(int i=0; i<args.size(); i++)
+				set(pstmt, i+1, args.get(i));
 		}
 	}
 
 	@Override
-	public void updateOutParameter(CallableStatement cstmt, List<Parameter<?>> args) throws SQLException {
-		if(args == null) return;
+	public void post(Statement stmt, List<Parameter<?>> args) throws SQLException {
+		if(!(stmt instanceof CallableStatement) || Utils.isEmptyCollection(args)) return;
+		CallableStatement cstmt = (CallableStatement)stmt;
 		for(int i=0; i<args.size(); i++){
 			Parameter arg = args.get(i);
 			if(ParameterTypes.isOut(arg.getType()))

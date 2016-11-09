@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.connection.manager;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -72,7 +71,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 		Connection cnx = getConnection();
 		PreparedStatement ps = cnx.prepareStatement(query);		
 		for(P args : argList){
-			binder.bindPreparedStatement(ps, args);
+			binder.bind(ps, args);
 			ps.addBatch();
 		}
 		return ps;
@@ -81,12 +80,9 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	@Override
 	public <P> int executeUpdate(Statement stmt, String query, P args, Binder<P> binder) throws SQLException {
 		int result = 0;
-		if(stmt instanceof PreparedStatement){
-			result = ((PreparedStatement)stmt).executeUpdate();
-			if(stmt instanceof PreparedStatement)
-				binder.updateOutParameter((CallableStatement)stmt, args);
-		}
-		else result = stmt.executeUpdate(query);
+		result = stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query);
+		if(binder != null)
+			binder.post(stmt, args);
 		return result;
 	}
 	
