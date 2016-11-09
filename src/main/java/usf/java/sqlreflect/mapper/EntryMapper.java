@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Entry;
@@ -61,7 +60,7 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 			columnMapper.put(cn, cn);
 	}
 	/**
-	 * KEY	 	: SQL column name <br>
+	 * KEY	 	: ResultSet column name <br>
 	 * VALUE 	: bean field name
 	 */
 	public void setColumnMapper(Map<String, String> columnMapper) {
