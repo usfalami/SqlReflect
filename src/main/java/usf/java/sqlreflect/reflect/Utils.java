@@ -42,4 +42,8 @@ public class Utils {
 		return columns;
 	}
 	
+	public static boolean sameClass(Object o, Class<?> c) {
+		return c.getName().equals(o.getClass().getName());
+	}
+	
 }

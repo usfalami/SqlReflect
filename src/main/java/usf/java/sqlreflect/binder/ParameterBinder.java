@@ -15,7 +15,7 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 
 	@Override
 	public void bind(Statement stmt, List<Parameter<?>> args) throws SQLException {
-		if(args == null) return;
+		if(Utils.isEmptyCollection(args)) return;
 		if(stmt instanceof CallableStatement){
 			CallableStatement cstmt = (CallableStatement)stmt;
 			for(int i=0; i<args.size(); i++){
@@ -43,7 +43,7 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 				arg.setValue(cstmt.getObject(i+1));
 		}
 	}
-	
+
 	public static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException {
 		if(arg == null) pstmt.setNull(index, Types.NULL); //TODO check that
 		else if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());

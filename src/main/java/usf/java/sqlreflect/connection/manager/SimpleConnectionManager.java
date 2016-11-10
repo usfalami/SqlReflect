@@ -84,7 +84,8 @@ public class SimpleConnectionManager implements ConnectionManager {
 	@Override
 	public <T> ResultSet executeQuery(Statement stmt, String query, T args, Binder<T> binder) throws SQLException {
 		ResultSet rs = null;
-		rs = stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
+		rs = stmt instanceof PreparedStatement ? 
+				((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
 		if(binder != null)
 			binder.post(stmt, args);
 		return rs;
