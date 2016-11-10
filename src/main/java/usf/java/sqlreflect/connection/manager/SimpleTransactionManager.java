@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
@@ -59,7 +60,7 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 
 	@Override
 	public Statement buildBatch(String... queries) throws SQLException {
-		if(queries == null || queries.length == 0) throw new SQLException("one query at least");
+		if(Utils.isEmptyArray(queries)) throw new SQLException("one query at least");
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
 		for(String query : queries)
