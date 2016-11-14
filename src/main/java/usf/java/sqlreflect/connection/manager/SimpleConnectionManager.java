@@ -9,7 +9,6 @@ import java.sql.Statement;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.SqlQuery;
 
 public class SimpleConnectionManager implements ConnectionManager {
 

@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import usf.java.sqlreflect.AbstractTest;
@@ -68,18 +66,6 @@ public class SimpleConnectionManagerTest   {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Before
-	public void beforeTest(){
-		System.out.println("Start Test");
-	}
-	@After
-	public void afterTest(){
-		AbstractTest.getConnectionManager().close(rs);
-		AbstractTest.getConnectionManager().close(stmt);
-		AbstractTest.getConnectionManager().close();
-		System.out.println("End Test");
 	}
 
 }
