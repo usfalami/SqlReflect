@@ -62,7 +62,7 @@ public class BinderProxy<T> implements Binder<T> {
 			else 
 				throw new SQLException(); //TODO check this
 		}catch(Exception e){
-			throw new SQLException("No match method was found for " + methodName); //TODO check this
+			throw new SQLException("No match method was found for " + methodName + "(" + stmt.getClass().getName() + "," + item.getClass().getName()+")"); //TODO check this
 		}
 	}
 

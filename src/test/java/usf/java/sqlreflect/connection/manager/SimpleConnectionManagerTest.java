@@ -1,5 +1,11 @@
 package usf.java.sqlreflect.connection.manager;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertTrue;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +19,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
-
 import usf.java.sqlreflect.binder.BinderProxy;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
@@ -22,7 +26,6 @@ import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.SqlQuery;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class SimpleConnectionManagerTest {
