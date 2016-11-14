@@ -15,12 +15,14 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
+import usf.java.sqlreflect.binder.BinderProxy;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.entry.Entry;
 
 public class SimpleConnectionManagerTest {
 	
@@ -96,6 +98,34 @@ public class SimpleConnectionManagerTest {
 			stmt = cm.prepare(query1, p, pb);
 			assertTrue(stmt instanceof PreparedStatement);
 			rs = cm.executeQuery(stmt, query1, p, pb);
+			assertTrue(rs.next());
+			assertEquals(rs.getString("Name"), "Fès");
+			cm.close(rs);
+			assertTrue(rs.isClosed());
+			assertFalse(cm.isClosed());
+			cm.close(stmt);
+			assertTrue(stmt.isClosed());
+			assertFalse(cm.isClosed());
+			cm.close();
+			assertTrue(cm.isClosed());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testProxyBinderStatment() {
+		Entry entry = new Entry();
+		entry.set("CountryCode", "MAR");
+		entry.set("District", "Fès-Boulemane");
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), "findCityByCountryAndDistrict");
+		try {
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			stmt = cm.prepare(query1, entry, binder);
+			assertTrue(stmt instanceof PreparedStatement);
+			rs = cm.executeQuery(stmt, query1, entry, binder);
 			assertTrue(rs.next());
 			assertEquals(rs.getString("Name"), "Fès");
 			cm.close(rs);
