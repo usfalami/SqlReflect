@@ -22,6 +22,7 @@ import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.SqlQuery;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class SimpleConnectionManagerTest {
@@ -138,6 +139,30 @@ public class SimpleConnectionManagerTest {
 			assertTrue(cm.isClosed());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testProxyBinderStatment2() {
+		String methodName = "findCityByXOrY";
+		Entry entry = new Entry();
+		entry.set("CountryCode", "MAR");
+		entry.set("District", "Fès-Boulemane");
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), methodName);
+		try {
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			stmt = cm.prepare(query1, entry, binder);
+		} catch (SQLException e) {
+			
+		}finally{
+			assertNull(stmt);
+			try {
+				assertFalse(cm.isClosed());
+				cm.close();
+				assertTrue(cm.isClosed());
+			} catch (SQLException e) {}
 		}
 	}
 	

@@ -45,21 +45,22 @@ public class BinderProxy<T> implements Binder<T> {
 		this.postBinderMethod = binderMethod;
 	}
 
-	private void invok(String methodName, Statement stmt, T item) throws SQLException{
+	private void invok(String methodName, Statement stmt, T item) throws SQLException {
 		if(Utils.isEmptyString(methodName)) return;
 		try{
-			int i=0;
 			Method[] list = mb.getClass().getDeclaredMethods();
-			while(i<list.length && list[i].getName().equals(methodName)){
-				System.out.println(list[i].getName());
-				Class<?>[] clazz = list[i].getParameterTypes();
-				if(clazz.length == 2 && clazz[0].isInstance(stmt) && clazz[1].equals(item.getClass()))
-					break;
-				i++;
+			int i=0;
+			while(i<list.length){
+				if(list[i].getName().equals(methodName)){
+					Class<?>[] clazz = list[i].getParameterTypes();
+					if(clazz.length == 2 && clazz[0].isInstance(stmt) && clazz[1].isInstance(item))
+						break;
+				}i++;
 			}
 			if(i<list.length)
 				list[i].invoke(mb, stmt, item);
-			else new SQLException("No match method was found for " + methodName); //TODO check this
+			else 
+				throw new SQLException(); //TODO check this
 		}catch(Exception e){
 			throw new SQLException("No match method was found for " + methodName); //TODO check this
 		}
