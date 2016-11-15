@@ -11,9 +11,6 @@ public class BinderProxy<T> implements Binder<T> {
 	private Class<? extends MultipleBinder<T>> clazz;
 	private String binderMethod, postBinderMethod;
 	
-	public BinderProxy(Class<MultipleBinder<T>> clazz) {
-		this(clazz, null, null);
-	}
 	public BinderProxy(Class<? extends MultipleBinder<T>> clazz,  String binderMethod) {
 		this(clazz, binderMethod, null);
 	}
