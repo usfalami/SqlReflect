@@ -24,6 +24,9 @@ public class ParameterFactory {
 	public static final Parameter<Character> CHAR_WRAPPER(Character value){
 		return new Parameter<Character>(Types.CHAR, value);  
 	}
+	public static final Parameter<String> CHAR_WRAPPER(String value){
+		return new Parameter<String>(Types.CHAR, value);  
+	}
 	// INTEGER wrapper
 	public static final Parameter<Integer> INTEGER_WRAPPER(Integer value){
 		return new Parameter<Integer>(Types.INTEGER, value);  

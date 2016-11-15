@@ -17,8 +17,9 @@ public class Entry {
 		fields = new HashMap<String, Object>();
 	}
 	
-	public void set(String key, Object value) {
+	public Entry set(String key, Object value) {
 		fields.put(key, value);
+		return this;
 	}
 	
 	public Object get(String key){

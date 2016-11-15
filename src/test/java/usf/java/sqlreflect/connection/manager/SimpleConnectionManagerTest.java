@@ -12,32 +12,30 @@ import java.sql.Statement;
 
 import org.junit.Test;
 
-import usf.java.sqlreflect.AbstractTest;
+import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
 
 public class SimpleConnectionManagerTest   {
 
-	private Statement stmt = null;
-	private ResultSet rs = null;
-
 	@Test
 	public void testServer() {
-		assertNotNull(AbstractTest.getConnectionManager().getServer());
+		assertNotNull(ContextLoader.get().getServer());
 	}
 
 	@Test
 	public void testOpenCloseConnection() {
+		ConnectionManager cm = ContextLoader.get();
 		try {
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().openConnection();
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			Connection c = AbstractTest.getConnectionManager().getConnection();
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			Connection c = cm.getConnection();
 			assertNotNull(c);
 			assertFalse(c.isClosed());
-			AbstractTest.getConnectionManager().openConnection();
-			assertEquals(c, AbstractTest.getConnectionManager().getConnection());
-			AbstractTest.getConnectionManager().close();
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
+			cm.openConnection();
+			assertEquals(c, cm.getConnection());
+			cm.close();
+			assertTrue(cm.isClosed());
 			assertTrue(c.isClosed());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -46,23 +44,26 @@ public class SimpleConnectionManagerTest   {
 	
 	@Test
 	public void testExecStatment() {
+		ConnectionManager cm = ContextLoader.get();
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().openConnection();
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			stmt = AbstractTest.getConnectionManager().prepare(Queries.query, null, null);
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			stmt = cm.prepare(Queries.query, null, null);
 			assertTrue(stmt instanceof Statement);
-			rs = AbstractTest.getConnectionManager().executeQuery(stmt, Queries.query, null, null);
+			rs = cm.executeQuery(stmt, Queries.query, null, null);
 			assertTrue(rs.next());
 			assertEquals(rs.getInt(1), 1);
-			AbstractTest.getConnectionManager().close(rs);
+			cm.close(rs);
 			assertTrue(rs.isClosed());
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().close(stmt);
+			assertFalse(cm.isClosed());
+			cm.close(stmt);
 			assertTrue(stmt.isClosed());
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().close();
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
+			assertFalse(cm.isClosed());
+			cm.close();
+			assertTrue(cm.isClosed());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

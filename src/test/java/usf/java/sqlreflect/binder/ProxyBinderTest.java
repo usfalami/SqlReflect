@@ -12,39 +12,37 @@ import java.sql.Statement;
 
 import org.junit.Test;
 
-import usf.java.sqlreflect.AbstractTest;
+import usf.java.sqlreflect.ContextLoader;
+import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.Queries;
-import usf.java.sqlreflect.connection.manager.EntryBinder;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class ProxyBinderTest {
-	
-	private Statement stmt = null;
-	private ResultSet rs = null;
-	
+
 	@Test
 	public void testProxyBinderStatment() {
-		Entry entry = new Entry();
-		entry.set("CountryCode", "MAR");
-		entry.set("District", "Fès-Boulemane");
+		Entry entry = new Entry().set("CountryCode", "MAR").set("District", "Fès-Boulemane");
 		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), "findCityByCountryAndDistrict");
+		ConnectionManager cm = ContextLoader.get();
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().openConnection();
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			stmt = AbstractTest.getConnectionManager().prepare(Queries.query1, entry, binder);
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			stmt = cm.prepare(Queries.query1, entry, binder);
 			assertTrue(stmt instanceof PreparedStatement);
-			rs = AbstractTest.getConnectionManager().executeQuery(stmt, Queries.query1, entry, binder);
+			rs = cm.executeQuery(stmt, Queries.query1, entry, binder);
 			assertTrue(rs.next());
 			assertEquals(rs.getString("Name"), "Fès");
-			AbstractTest.getConnectionManager().close(rs);
+			cm.close(rs);
 			assertTrue(rs.isClosed());
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().close(stmt);
+			assertFalse(cm.isClosed());
+			cm.close(stmt);
 			assertTrue(stmt.isClosed());
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().close();
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
+			assertFalse(cm.isClosed());
+			cm.close();
+			assertTrue(cm.isClosed());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -57,19 +55,21 @@ public class ProxyBinderTest {
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
 		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), methodName);
+		ConnectionManager cm = ContextLoader.get();
+		Statement stmt = null;
 		try {
-			assertTrue(AbstractTest.getConnectionManager().isClosed());
-			AbstractTest.getConnectionManager().openConnection();
-			assertFalse(AbstractTest.getConnectionManager().isClosed());
-			stmt = AbstractTest.getConnectionManager().prepare(Queries.query1, entry, binder);
+			assertTrue(cm.isClosed());
+			cm.openConnection();
+			assertFalse(cm.isClosed());
+			stmt = cm.prepare(Queries.query1, entry, binder);
 		} catch (SQLException e) {
 			
 		}finally{
 			assertNull(stmt);
 			try {
-				assertFalse(AbstractTest.getConnectionManager().isClosed());
-				AbstractTest.getConnectionManager().close();
-				assertTrue(AbstractTest.getConnectionManager().isClosed());
+				assertFalse(cm.isClosed());
+				cm.close();
+				assertTrue(cm.isClosed());
 			} catch (SQLException e) {}
 		}
 	}

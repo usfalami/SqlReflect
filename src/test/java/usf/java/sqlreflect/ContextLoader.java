@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -21,11 +22,11 @@ import usf.java.sqlreflect.server.Server;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	SimpleConnectionManagerTest.class, 
-	ProxyBinderTest.class, 
-	ParameterBinderTest.class})
+	SimpleConnectionManagerTest.class,
+	ParameterBinderTest.class,
+	ProxyBinderTest.class})
 
-public class AbstractTest {
+public class ContextLoader {
 
 	private static Server server;
 	private static ConnectionProvider cp;
@@ -34,35 +35,42 @@ public class AbstractTest {
 	@BeforeClass
 	public static void init(){		
 		try {
-			System.out.println("Start loading...");
+			System.out.println("Start loading env ...");
 			
 			InputStream inputStream  = SimpleConnectionManagerTest.class.getClassLoader().getResourceAsStream("env.properties");
 			Properties properties = new Properties();
 			properties.load(inputStream);
 
 			server = (Server) Class.forName(properties.getProperty("server")).newInstance();
+			System.out.println("\t" + server.getClass().getName());
 			//Class.forName(server.getDriver());
 
 			cp = new SimpleConnectionProvider(server, properties);
-			cm = new SimpleConnectionManager(cp, server);
+			System.out.println("\t" + cp.getClass().getName());
 			
-			System.out.println("Env has been loaded");
+			cm = new SimpleConnectionManager(cp, server);
+			System.out.println("\t" + cm.getClass().getName());
+			
+			System.out.println("Env has been initialized");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-
-	@Before
-	public void beforeTest(){
-		System.out.println("Start Test");
-	}
-	@After
-	public void afterTest(){
-		System.out.println("End Test");
+	@AfterClass
+	public static void clean() {
+		cm.close();
+		System.out.println("Test end");
 	}
 	
-	public static ConnectionManager getConnectionManager() {
+	@Before
+	public void before() {}
+
+	@After
+	public void after() {}
+	
+	public static ConnectionManager get() {
 		return cm;
 	}
 	
