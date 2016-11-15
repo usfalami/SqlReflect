@@ -4,66 +4,66 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.jdbc.Util;
+
 import usf.java.sqlreflect.reflect.Utils;
 
 public class BinderProxy<T> implements Binder<T> {
 
 	private MultipleBinder<T> mb;
-	private String binderMethod, postBinderMethod;
+	private String binderMethodName, postBinderMethodName;
+	private Method binderMethod, postBinderMethod;
 	
-	public BinderProxy(MultipleBinder<T> mb) {
-		this(mb, null, null);
-	}
-	public BinderProxy(MultipleBinder<T> mb,  String binderMethod) {
-		this(mb, binderMethod, null);
-	}
-	public BinderProxy(MultipleBinder<T> mb,  String binderMethod, String postBinderMethod) {
+	private BinderProxy(MultipleBinder<T> mb, String binderMethod, String postBinderMethod) {
 		this.mb = mb;
-		this.binderMethod  = binderMethod;
-		this.postBinderMethod  = postBinderMethod;
+		this.binderMethodName = binderMethod;
+		this.postBinderMethodName = postBinderMethod;
 	}
 	
 	@Override
 	public final void bind(Statement stmt, T item) throws SQLException {
+		if(binderMethod == null)
+			binderMethod = search(binderMethodName, stmt, item);
 		invok(binderMethod, stmt, item);
 	}
 	@Override
 	public final void post(Statement stmt, T item) throws SQLException {
+		if(Utils.isEmptyString(postBinderMethodName)) return;
+		if(postBinderMethod == null)
+			postBinderMethod = search(postBinderMethodName, stmt, item);
 		invok(postBinderMethod, stmt, item);
 	}
-	
-	public String getBinderMethod() {
-		return binderMethod;
-	}
-	public void setBinderMethod(String binderMetod) {
-		this.binderMethod = binderMetod;
-	}
-	public String getPostBinderMethod() {
-		return postBinderMethod;
-	}
-	public void setPostBinderMethod(String binderMethod) {
-		this.postBinderMethod = binderMethod;
-	}
 
-	private void invok(String methodName, Statement stmt, T item) throws SQLException {
-		if(Utils.isEmptyString(methodName)) return;
+	private Method search(String methodName, Statement stmt, T item) throws SQLException {
 		try{
-			Method[] list = mb.getClass().getDeclaredMethods();
-			int i=0;
-			while(i<list.length){
-				if(list[i].getName().equals(methodName)){
-					Class<?>[] clazz = list[i].getParameterTypes();
-					if(clazz.length == 2 && clazz[0].isInstance(stmt) && clazz[1].isInstance(item))
-						break;
-				}i++;
-			}
-			if(i<list.length)
-				list[i].invoke(mb, stmt, item);
-			else 
-				throw new SQLException(); //TODO check this
+			return Utils.findMethod(mb, methodName, stmt, item);
 		}catch(Exception e){
 			throw new SQLException("No match method was found for " + methodName + "(" + stmt.getClass().getName() + "," + item.getClass().getName()+")"); //TODO check this
 		}
+	}
+	private void invok(Method method, Statement stmt, T item) throws SQLException {
+		try {
+			method.invoke(mb, stmt, item);
+		} catch (Exception e) {
+			throw new SQLException("An error occurred while executing " + method.getName(), e);
+		}
+	}
+	
+	public static <T> BinderProxy<T> get(String className, String binderMethod, String postBinderMethod) throws Exception {
+		if(Utils.isEmptyString(className) || Utils.isEmptyString(binderMethod)) throw new Exception("");
+		Class<?> clazz = Class.forName(className);
+		if(clazz.isAssignableFrom(MultipleBinder.class)) throw new Exception("");
+		Class<MultipleBinder<T>> multiBinderClazz = (Class<MultipleBinder<T>>) clazz; 
+		return new BinderProxy<T>(multiBinderClazz.newInstance(), binderMethod, postBinderMethod);
+	}
+	public static <T, B extends MultipleBinder<T>> BinderProxy<T> get(Class<B> clazz, String binderMethod, String postBinderMethod) throws Exception {
+		if(Utils.isEmptyString(binderMethod)) throw new Exception("");
+		MultipleBinder<T> obj = clazz.newInstance();
+		return new BinderProxy<T>(obj, binderMethod, postBinderMethod);
+	}
+	public static <T> BinderProxy<T> get(MultipleBinder<T> mb, String binderMethod, String postBinderMethod) throws Exception {
+		if(Utils.isEmptyString(binderMethod)) throw new Exception("");
+		return new BinderProxy<T>(mb, binderMethod, postBinderMethod);
 	}
 
 }

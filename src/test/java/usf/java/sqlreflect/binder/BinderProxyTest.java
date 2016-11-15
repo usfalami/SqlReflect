@@ -22,11 +22,11 @@ public class BinderProxyTest {
 	@Test
 	public void testProxyBinderStatment() {
 		Entry entry = new Entry().set("CountryCode", "MAR").set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryMultiBinder(), "findCityByCountryAndDistrict");
 		ConnectionManager cm = ContextLoader.get();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, "findCityByCountryAndDistrict", null);
 			assertTrue(cm.isClosed());
 			cm.openConnection();
 			assertFalse(cm.isClosed());
@@ -43,7 +43,7 @@ public class BinderProxyTest {
 			assertFalse(cm.isClosed());
 			cm.close();
 			assertTrue(cm.isClosed());
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -54,15 +54,15 @@ public class BinderProxyTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryMultiBinder(), methodName);
 		ConnectionManager cm = ContextLoader.get();
 		Statement stmt = null;
 		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName, null);
 			assertTrue(cm.isClosed());
 			cm.openConnection();
 			assertFalse(cm.isClosed());
 			stmt = cm.prepare(Queries.query1, entry, binder);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
 		}finally{
 			assertNull(stmt);

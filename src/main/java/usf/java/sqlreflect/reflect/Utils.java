@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.reflect;
 
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class Utils {
 		return arg == null || arg.isEmpty();
 	}
 	public static boolean isEmptyUser(User user) {
-		return user == null || isEmptyString(user.getLogin()); //not empty login at least
+		return user == null || isEmptyString(user.getLogin()); //valid login at least
 	}
 	
 	public static Integer[] convert(int... values){
@@ -46,4 +47,22 @@ public class Utils {
 		return c.getName().equals(o.getClass().getName());
 	}
 	
+	public static <T> Method findMethod(Object o, String methodName, T... args) throws Exception {
+		Method[] methods = null; int index = -1; boolean found = false;
+		methods = o.getClass().getDeclaredMethods();
+		while(index<methods.length && !found){
+			index++;
+			if(methods[index].getName().equals(methodName)){
+				Class<?>[] clazz = methods[index].getParameterTypes();
+				if(clazz.length == args.length){
+					int i=0;
+					while(i<clazz.length && clazz[i].isInstance(args[i])) i++;
+					found = i == clazz.length;
+				}
+			}
+		}
+		if(!found)
+			throw new NoSuchMethodError();
+		return methods[index];
+	}
 }
