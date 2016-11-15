@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.mysql.jdbc.Util;
-
 import usf.java.sqlreflect.reflect.Utils;
 
 public class BinderProxy<T> implements Binder<T> {
@@ -28,7 +26,7 @@ public class BinderProxy<T> implements Binder<T> {
 	}
 	@Override
 	public final void post(Statement stmt, T item) throws SQLException {
-		if(Utils.isEmptyString(postBinderMethodName)) return;
+		if(Utils.isEmptyString(postBinderMethodName)) return; //facultatif
 		if(postBinderMethod == null)
 			postBinderMethod = search(postBinderMethodName, stmt, item);
 		invok(postBinderMethod, stmt, item);
