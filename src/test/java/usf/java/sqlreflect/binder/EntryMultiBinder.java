@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import usf.java.sqlreflect.binder.MultipleBinder;
 import usf.java.sqlreflect.sql.entry.Entry;
 
-public class EntryBinder implements MultipleBinder<Entry> {
+public class EntryMultiBinder implements MultipleBinder<Entry> {
 	
 	public void findCityByCountryAndDistrict(CallableStatement pstmt, Entry entry) throws SQLException{
 		pstmt.setString(1, entry.get("CountryCode").toString());

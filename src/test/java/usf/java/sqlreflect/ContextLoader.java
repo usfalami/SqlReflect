@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import usf.java.sqlreflect.binder.ParameterBinderTest;
-import usf.java.sqlreflect.binder.ProxyBinderTest;
+import usf.java.sqlreflect.binder.BinderProxyTest;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManagerTest;
@@ -24,7 +24,7 @@ import usf.java.sqlreflect.server.Server;
 @SuiteClasses({
 	SimpleConnectionManagerTest.class,
 	ParameterBinderTest.class,
-	ProxyBinderTest.class})
+	BinderProxyTest.class})
 
 public class ContextLoader {
 

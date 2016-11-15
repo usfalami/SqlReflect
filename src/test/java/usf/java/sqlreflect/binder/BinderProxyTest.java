@@ -17,12 +17,12 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.sql.entry.Entry;
 
-public class ProxyBinderTest {
+public class BinderProxyTest {
 
 	@Test
 	public void testProxyBinderStatment() {
 		Entry entry = new Entry().set("CountryCode", "MAR").set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), "findCityByCountryAndDistrict");
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryMultiBinder(), "findCityByCountryAndDistrict");
 		ConnectionManager cm = ContextLoader.get();
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -54,7 +54,7 @@ public class ProxyBinderTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), methodName);
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryMultiBinder(), methodName);
 		ConnectionManager cm = ContextLoader.get();
 		Statement stmt = null;
 		try {
