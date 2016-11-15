@@ -27,8 +27,8 @@ public class ProxyBinderTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(EntryBinder.class, "findCityByCountryAndDistrict");
 		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryBinder.class, "findCityByCountryAndDistrict", null);
 			assertTrue(AbstractTest.getConnectionManager().isClosed());
 			AbstractTest.getConnectionManager().openConnection();
 			assertFalse(AbstractTest.getConnectionManager().isClosed());
@@ -45,7 +45,7 @@ public class ProxyBinderTest {
 			assertFalse(AbstractTest.getConnectionManager().isClosed());
 			AbstractTest.getConnectionManager().close();
 			assertTrue(AbstractTest.getConnectionManager().isClosed());
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -56,13 +56,13 @@ public class ProxyBinderTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(EntryBinder.class, methodName);
 		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryBinder.class, methodName, null);
 			assertTrue(AbstractTest.getConnectionManager().isClosed());
 			AbstractTest.getConnectionManager().openConnection();
 			assertFalse(AbstractTest.getConnectionManager().isClosed());
 			stmt = AbstractTest.getConnectionManager().prepare(Queries.query1, entry, binder);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
 		}finally{
 			assertNull(stmt);
