@@ -26,7 +26,7 @@ public class BinderProxyTest {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, "findCityByCountryAndDistrict", null);
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, "findCityByCountryAndDistrict");
 			assertTrue(cm.isClosed());
 			cm.openConnection();
 			assertFalse(cm.isClosed());
@@ -57,7 +57,7 @@ public class BinderProxyTest {
 		ConnectionManager cm = ContextLoader.get();
 		Statement stmt = null;
 		try {
-			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName, null);
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
 			assertTrue(cm.isClosed());
 			cm.openConnection();
 			assertFalse(cm.isClosed());

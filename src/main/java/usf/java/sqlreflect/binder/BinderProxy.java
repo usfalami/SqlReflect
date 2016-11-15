@@ -36,7 +36,8 @@ public class BinderProxy<T> implements Binder<T> {
 		try{
 			return Utils.findMethod(mb, methodName, stmt, item);
 		}catch(Exception e){
-			throw new SQLException("No match method was found for " + methodName + "(" + stmt.getClass().getName() + "," + item.getClass().getName()+")"); //TODO check this
+			throw new SQLException("No match method was found for " +
+					methodName + "(" + stmt.getClass().getName() + "," + item.getClass().getName()+")"); //TODO check this
 		}
 	}
 	private void invok(Method method, Statement stmt, T item) throws SQLException {
@@ -62,6 +63,16 @@ public class BinderProxy<T> implements Binder<T> {
 	public static <T> BinderProxy<T> get(MultipleBinder<T> mb, String binderMethod, String postBinderMethod) throws Exception {
 		if(Utils.isEmptyString(binderMethod)) throw new Exception("");
 		return new BinderProxy<T>(mb, binderMethod, postBinderMethod);
+	}
+
+	public static <T> BinderProxy<T> get(String className, String binderMethod) throws Exception {
+		return get(className, binderMethod, null);
+	}
+	public static <T, B extends MultipleBinder<T>> BinderProxy<T> get(Class<B> clazz, String binderMethod) throws Exception {
+		return get(clazz, binderMethod, null);
+	}
+	public static <T> BinderProxy<T> get(MultipleBinder<T> mb, String binderMethod) throws Exception {
+		return get(mb, binderMethod, null);
 	}
 
 }
