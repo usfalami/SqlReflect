@@ -23,7 +23,7 @@ public class Utils {
 		return arg == null || arg.isEmpty();
 	}
 	public static boolean isEmptyUser(User user) {
-		return user == null || isEmptyString(user.getLogin()); //not empty login at least
+		return user == null || isEmptyString(user.getLogin()); //valid login at least
 	}
 	
 	public static Integer[] convert(int... values){

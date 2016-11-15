@@ -60,7 +60,6 @@ public class ReflectorFactory {
 		return new MultiQueyExecutor<A>(tm, at.createAction());
 	}
 	
-	
 	public TransactionManager getTransactionManager() {
 		return tm;
 	}

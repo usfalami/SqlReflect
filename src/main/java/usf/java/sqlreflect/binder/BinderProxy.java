@@ -8,17 +8,17 @@ import usf.java.sqlreflect.reflect.Utils;
 
 public class BinderProxy<T> implements Binder<T> {
 
-	private MultipleBinder<T> mb;
+	private Class<? extends MultipleBinder<T>> clazz;
 	private String binderMethod, postBinderMethod;
 	
-	public BinderProxy(MultipleBinder<T> mb) {
-		this(mb, null, null);
+	public BinderProxy(Class<MultipleBinder<T>> clazz) {
+		this(clazz, null, null);
 	}
-	public BinderProxy(MultipleBinder<T> mb,  String binderMethod) {
-		this(mb, binderMethod, null);
+	public BinderProxy(Class<? extends MultipleBinder<T>> clazz,  String binderMethod) {
+		this(clazz, binderMethod, null);
 	}
-	public BinderProxy(MultipleBinder<T> mb,  String binderMethod, String postBinderMethod) {
-		this.mb = mb;
+	public BinderProxy(Class<? extends MultipleBinder<T>> clazz,  String binderMethod, String postBinderMethod) {
+		this.clazz = clazz;
 		this.binderMethod  = binderMethod;
 		this.postBinderMethod  = postBinderMethod;
 	}
@@ -46,9 +46,10 @@ public class BinderProxy<T> implements Binder<T> {
 	}
 
 	private void invok(String methodName, Statement stmt, T item) throws SQLException {
-		if(Utils.isEmptyString(methodName)) return;
+		if(clazz == null || Utils.isEmptyString(methodName)) return;
 		try{
-			Method[] list = mb.getClass().getDeclaredMethods();
+			Object obj = clazz.newInstance();
+			Method[] list = obj.getClass().getDeclaredMethods();
 			int i=0;
 			while(i<list.length){
 				if(list[i].getName().equals(methodName)){
@@ -58,7 +59,7 @@ public class BinderProxy<T> implements Binder<T> {
 				}i++;
 			}
 			if(i<list.length)
-				list[i].invoke(mb, stmt, item);
+				list[i].invoke(obj, stmt, item);
 			else 
 				throw new SQLException(); //TODO check this
 		}catch(Exception e){

@@ -27,7 +27,7 @@ public class ProxyBinderTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), "findCityByCountryAndDistrict");
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(EntryBinder.class, "findCityByCountryAndDistrict");
 		try {
 			assertTrue(AbstractTest.getConnectionManager().isClosed());
 			AbstractTest.getConnectionManager().openConnection();
@@ -56,7 +56,7 @@ public class ProxyBinderTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		BinderProxy<Entry> binder = new BinderProxy<Entry>(new EntryBinder(), methodName);
+		BinderProxy<Entry> binder = new BinderProxy<Entry>(EntryBinder.class, methodName);
 		try {
 			assertTrue(AbstractTest.getConnectionManager().isClosed());
 			AbstractTest.getConnectionManager().openConnection();
