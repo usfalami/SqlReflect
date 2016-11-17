@@ -103,12 +103,12 @@ public class UtilsTest {
 
 	@Test
 	public void testFindMethod() throws Exception {
-		testTrueFindMethod(new Integer(0), "intValue");//find method without args
-		testTrueFindMethod(new Integer(9), "compareTo", new Integer(5));//String=String
+		testFindMethodTrue(new Integer(0), "intValue");//find method without args
+		testFindMethodTrue(new Integer(9), "compareTo", new Integer(5));//String=String
 //		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
-		testTrueFindMethod("", "concat", "");
-		testTrueFindMethod("", "equals", new Double(5)); //Double->Object
-		testTrueFindMethod(new ArrayList<Entry>(), "add", new Table());//Table->Entry
+		testFindMethodTrue("", "concat", "");
+		testFindMethodTrue("", "equals", new Double(5)); //Double->Object
+		testFindMethodTrue(new ArrayList<Entry>(), "add", new Table());//Table->Entry
 	}
 	@Test(expected=NoSuchMethodError.class)
 	public void testFindMethod2() throws Exception {
@@ -116,10 +116,10 @@ public class UtilsTest {
 	}
 	@Test(expected=NoSuchMethodError.class)
 	public void testFindMethod3() throws Exception {
-		testTrueFindMethod("", "concat", 99);
+		Utils.findMethod("", "concat", 99);//Integer # String
 	}
 	
-	private void testTrueFindMethod(Object o, String methodName, Object... args) throws Exception{
+	private void testFindMethodTrue(Object o, String methodName, Object... args) throws Exception{
 		Method m = Utils.findMethod(o, methodName, args);
 		assertEquals(m.getName(), methodName);
 		assertEquals(m.getParameterTypes().length, args.length);
