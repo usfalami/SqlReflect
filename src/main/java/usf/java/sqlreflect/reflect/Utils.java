@@ -50,7 +50,7 @@ public class Utils {
 	public static Method findMethod(Object o, String methodName, Object... args) throws Exception {
 		Method[] methods = null; int index = -1; boolean found = false;
 		methods = o.getClass().getDeclaredMethods();
-		while(index<methods.length && !found){
+		do{
 			index++;
 			if(methods[index].getName().equals(methodName)){
 				Class<?>[] clazz = methods[index].getParameterTypes();
@@ -60,7 +60,7 @@ public class Utils {
 					found = i == clazz.length;
 				}
 			}
-		}
+		}while(index<methods.length && !found);
 		if(!found)
 			throw new NoSuchMethodError();
 		return methods[index];

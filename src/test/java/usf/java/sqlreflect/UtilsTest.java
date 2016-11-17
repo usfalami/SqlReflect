@@ -103,7 +103,10 @@ public class UtilsTest {
 	public void testFindMethod() throws Exception {
 		testTrueFindMethod(new Integer(0), "intValue");
 		testTrueFindMethod(new Integer(9), "compareTo", new Integer(5));
+//		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
+		testTrueFindMethod("", "equals", new Double(5));
 		testTrueFindMethod("", "contentEquals", "");
+		testTrueFindMethod(new ArrayList<User>(), "add", new User("",""));
 	}
 	private void testTrueFindMethod(Object o, String methodName, Object... args) throws Exception{
 		Method m = Utils.findMethod(o, methodName, args);
