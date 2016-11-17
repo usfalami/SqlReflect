@@ -19,6 +19,8 @@ import org.junit.Test;
 
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.User;
+import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Table;
 
 public class UtilsTest {
 
@@ -106,7 +108,7 @@ public class UtilsTest {
 //		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
 		testTrueFindMethod("", "equals", new Double(5));
 		testTrueFindMethod("", "contentEquals", "");
-		testTrueFindMethod(new ArrayList<User>(), "add", new User("",""));
+		testTrueFindMethod(new ArrayList<Entry>(), "add", new Table());//Table->Entry
 	}
 	private void testTrueFindMethod(Object o, String methodName, Object... args) throws Exception{
 		Method m = Utils.findMethod(o, methodName, args);
