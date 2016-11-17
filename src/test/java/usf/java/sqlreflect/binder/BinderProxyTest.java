@@ -62,7 +62,7 @@ public class BinderProxyTest {
 			cm.openConnection();
 			assertFalse(cm.isClosed());
 			stmt = cm.prepare(Queries.query1, entry, binder);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			
 		}finally{
 			assertNull(stmt);

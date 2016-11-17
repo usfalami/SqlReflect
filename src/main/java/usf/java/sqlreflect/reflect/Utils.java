@@ -47,11 +47,10 @@ public class Utils {
 		return c.getName().equals(o.getClass().getName());
 	}
 	
-	public static Method findMethod(Object o, String methodName, Object... args) throws Exception {
-		Method[] methods = null; int index = -1; boolean found = false;
+	public static Method findMethod(Object o, String methodName, Object... args) throws Error {
+		Method[] methods = null; int index = 0; boolean found = false;
 		methods = o.getClass().getDeclaredMethods();
-		do{
-			index++;
+		while(index<methods.length && !found){
 			if(methods[index].getName().equals(methodName)){
 				Class<?>[] clazz = methods[index].getParameterTypes();
 				if(clazz.length == args.length){
@@ -60,9 +59,9 @@ public class Utils {
 					found = i == clazz.length;
 				}
 			}
-		}while(index<methods.length && !found);
-		if(!found)
-			throw new NoSuchMethodError();
-		return methods[index];
+			index++;
+		}
+		if(!found) throw new NoSuchMethodError();
+		return methods[index-1];
 	}
 }
