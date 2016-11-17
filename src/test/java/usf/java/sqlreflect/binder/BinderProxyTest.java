@@ -13,8 +13,8 @@ import java.sql.Statement;
 import org.junit.Test;
 
 import usf.java.sqlreflect.ContextLoader;
-import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.Queries;
+import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class BinderProxyTest {
