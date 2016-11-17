@@ -47,7 +47,7 @@ public class Utils {
 		return c.getName().equals(o.getClass().getName());
 	}
 	
-	public static <T> Method findMethod(Object o, String methodName, T... args) throws Exception {
+	public static Method findMethod(Object o, String methodName, Object... args) throws Exception {
 		Method[] methods = null; int index = -1; boolean found = false;
 		methods = o.getClass().getDeclaredMethods();
 		while(index<methods.length && !found){
