@@ -26,14 +26,7 @@ public class SimpleConnectionManagerTest {
 	public void testOpenCloseConnection() {
 		ConnectionManager cm = getConnectionManager();
 		try {
-			assertTrue(cm.isClosed());
-			cm.openConnection();
-			assertFalse(cm.isClosed());
-			Connection c = cm.getConnection();
-			assertNotNull(c);
-			assertFalse(c.isClosed());
-			cm.openConnection();
-			assertEquals(c, cm.getConnection());
+			Connection c = openConnectionTest(cm);
 			cm.close();
 			assertTrue(cm.isClosed());
 			assertTrue(c.isClosed());
@@ -69,7 +62,23 @@ public class SimpleConnectionManagerTest {
 		}
 	}
 	
+	@Test(expected=SQLException.class)
+	public void getConnection() throws SQLException {
+		getConnectionManager().getConnection();
+	}
+	
 	protected ConnectionManager getConnectionManager(){
 		return ContextLoader.getConnectionManager();
+	}
+	
+	public Connection openConnectionTest(ConnectionManager cm) throws SQLException {
+		assertNotNull(cm);
+		assertTrue(cm.isClosed());
+		Connection c = cm.openConnection();
+		assertNotNull(c);
+		assertFalse(cm.isClosed());
+		assertFalse(c.isClosed());
+		assertEquals(c, cm.getConnection());
+		return c;
 	}
 }

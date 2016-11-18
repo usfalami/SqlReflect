@@ -22,8 +22,9 @@ public class SimpleConnectionManager implements ConnectionManager {
 	}
 
 	@Override
-	public void openConnection() throws SQLException {
+	public Connection openConnection() throws SQLException {
 		if(isClosed()) this.connection = cp.getConnection();
+		return connection;
 	}
 
 	@Override

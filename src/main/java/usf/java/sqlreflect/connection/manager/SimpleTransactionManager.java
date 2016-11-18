@@ -20,9 +20,10 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
-	public void openConnection() throws SQLException {
-		super.openConnection();
-		defaultAutoCommit = super.getConnection().getAutoCommit();
+	public Connection openConnection() throws SQLException {
+		Connection c = super.openConnection();
+		defaultAutoCommit = c.getAutoCommit();
+		return c;
 	}
 	
 	@Override

@@ -10,7 +10,7 @@ import usf.java.sqlreflect.server.Server;
 
 public interface ConnectionManager {
 	
-	void openConnection() throws SQLException;
+	Connection openConnection() throws SQLException;
 	
 	Connection getConnection() throws SQLException;
 	
