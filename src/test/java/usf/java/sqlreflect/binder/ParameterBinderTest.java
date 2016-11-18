@@ -25,7 +25,7 @@ public class ParameterBinderTest {
 				ParameterFactory.VARCHAR_WRAPPER("MAR"),
 				ParameterFactory.VARCHAR_WRAPPER("Fès-Boulemane"));
 		ParameterBinder pb = new ParameterBinder();
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -55,7 +55,7 @@ public class ParameterBinderTest {
 		Parameters p = new Parameters(
 				ParameterFactory.INTEGER_WRAPPER(2486));
 		ParameterBinder pb = new ParameterBinder();
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -85,7 +85,7 @@ public class ParameterBinderTest {
 		Parameters p = new Parameters(
 				ParameterFactory.CHAR_WRAPPER("MAR"));
 		ParameterBinder pb = new ParameterBinder();
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {

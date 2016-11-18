@@ -20,17 +20,21 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 	}
 	
 	@Override
+	public void openConnection() throws SQLException {
+		super.openConnection();
+		defaultAutoCommit = super.getConnection().getAutoCommit();
+	}
+	
+	@Override
 	public void startTransaction() throws SQLException {
-		Connection cnx = getConnection();
-		this.defaultAutoCommit = cnx.getAutoCommit();
-		if(!defaultAutoCommit) cnx.setAutoCommit(false);
+		if(defaultAutoCommit) getConnection().setAutoCommit(false);
 		this.transacting = true;
 	}
 
 	@Override
 	public void endTransaction() throws SQLException {
 		this.transacting = false; //set transact false before setAutoCommit
-		if(!defaultAutoCommit) getConnection().setAutoCommit(true);
+		if(defaultAutoCommit) getConnection().setAutoCommit(true);
 	}
 
 	@Override

@@ -3,13 +3,11 @@ package usf.java.sqlreflect;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManagerTest;
+import usf.java.sqlreflect.connection.manager.SimpleTransactionManager;
+import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.server.Server;
@@ -18,7 +16,9 @@ public class ContextLoader {
 
 	private static Server server;
 	private static ConnectionProvider cp;
+	
 	private static ConnectionManager cm;
+	private static TransactionManager tm;
 
 	public static void init(){		
 		try {
@@ -38,6 +38,9 @@ public class ContextLoader {
 			cm = new SimpleConnectionManager(cp, server);
 			System.out.println("\t" + cm.getClass().getName());
 			
+			tm = new SimpleTransactionManager(cp, server);
+			System.out.println("\t" + tm.getClass().getName());
+			
 			System.out.println("Env has been initialized");
 			
 		} catch (Exception e) {
@@ -45,21 +48,13 @@ public class ContextLoader {
 		}
 	}
 	
-	@AfterClass
-	public static void clean() {
-		cm.close();
-		System.out.println("Test end");
-	}
-	
-	@Before
-	public void before() {}
-
-	@After
-	public void after() {}
-	
-	public static ConnectionManager get() {
+	public static ConnectionManager getConnectionManager() {
 		if(cm == null) init(); // not clean but resolve singleton problems
 		return cm;
 	}
 	
+	public static TransactionManager getTransactionManager(){
+		if(tm == null) init(); // not clean but resolve singleton problems
+		return tm;
+	}
 }

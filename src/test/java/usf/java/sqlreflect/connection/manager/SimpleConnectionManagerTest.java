@@ -15,16 +15,16 @@ import org.junit.Test;
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
 
-public class SimpleConnectionManagerTest   {
-
+public class SimpleConnectionManagerTest {
+	
 	@Test
 	public void testServer() {
-		assertNotNull(ContextLoader.get().getServer());
+		assertNotNull(getConnectionManager().getServer());
 	}
 
 	@Test
 	public void testOpenCloseConnection() {
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = getConnectionManager();
 		try {
 			assertTrue(cm.isClosed());
 			cm.openConnection();
@@ -44,7 +44,7 @@ public class SimpleConnectionManagerTest   {
 	
 	@Test
 	public void testExecStatment() {
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -68,5 +68,8 @@ public class SimpleConnectionManagerTest   {
 			e.printStackTrace();
 		}
 	}
-
+	
+	protected ConnectionManager getConnectionManager(){
+		return ContextLoader.getConnectionManager();
+	}
 }

@@ -22,7 +22,7 @@ public class BinderProxyTest {
 	@Test
 	public void testProxyBinderStatment() {
 		Entry entry = new Entry().set("CountryCode", "MAR").set("District", "Fès-Boulemane");
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -54,7 +54,7 @@ public class BinderProxyTest {
 		Entry entry = new Entry();
 		entry.set("CountryCode", "MAR");
 		entry.set("District", "Fès-Boulemane");
-		ConnectionManager cm = ContextLoader.get();
+		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Statement stmt = null;
 		try {
 			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
