@@ -42,7 +42,7 @@ public class SimpleConnectionManagerTest {
 		try {
 			Connection c = openConnectionTest(cm);
 			stmt = cm.prepare(Queries.query, null, null);
-			assertTrue(stmt instanceof Statement);
+			statementTest(stmt, Statement.class);
 			rs = cm.executeQuery(stmt, Queries.query, null, null);
 			assertTrue(rs.next());
 			assertEquals(rs.getInt(1), 1);
@@ -68,6 +68,10 @@ public class SimpleConnectionManagerTest {
 		assertFalse(c.isClosed());
 		assertEquals(c, cm.getConnection());
 		return c;
+	}
+	
+	protected <T extends Statement> void statementTest(Statement stmt, Class<T> clazz){
+		assertTrue(clazz.isInstance(stmt));
 	}
 	protected Connection closeConnectionTest(ConnectionManager cm, Connection c) throws SQLException {
 		assertEquals(cm.getConnection(), c);
