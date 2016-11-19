@@ -27,11 +27,12 @@ public class SimpleConnectionManagerTest {
 		ConnectionManager cm = getConnectionManager();
 		try {
 			Connection c = openConnectionTest(cm);
-			cm.close();
-			assertTrue(cm.isClosed());
-			assertTrue(c.isClosed());
+			closeConnectionTest(cm ,c);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			cm.close();
 		}
 	}
 	
@@ -41,24 +42,22 @@ public class SimpleConnectionManagerTest {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			assertTrue(cm.isClosed());
-			cm.openConnection();
-			assertFalse(cm.isClosed());
+			Connection c = openConnectionTest(cm);
 			stmt = cm.prepare(Queries.query, null, null);
 			assertTrue(stmt instanceof Statement);
 			rs = cm.executeQuery(stmt, Queries.query, null, null);
 			assertTrue(rs.next());
 			assertEquals(rs.getInt(1), 1);
-			cm.close(rs);
-			assertTrue(rs.isClosed());
-			assertFalse(cm.isClosed());
-			cm.close(stmt);
-			assertTrue(stmt.isClosed());
-			assertFalse(cm.isClosed());
-			cm.close();
-			assertTrue(cm.isClosed());
+			closeResultSetTest(cm, rs);
+			closeStatementTest(cm, stmt);
+			closeConnectionTest(cm, c);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			cm.close(rs);
+			cm.close(stmt);
+			cm.close();
 		}
 	}
 	
@@ -67,11 +66,7 @@ public class SimpleConnectionManagerTest {
 		getConnectionManager().getConnection();
 	}
 	
-	protected ConnectionManager getConnectionManager(){
-		return ContextLoader.getConnectionManager();
-	}
-	
-	public Connection openConnectionTest(ConnectionManager cm) throws SQLException {
+	protected Connection openConnectionTest(ConnectionManager cm) throws SQLException {
 		assertNotNull(cm);
 		assertTrue(cm.isClosed());
 		Connection c = cm.openConnection();
@@ -81,4 +76,30 @@ public class SimpleConnectionManagerTest {
 		assertEquals(c, cm.getConnection());
 		return c;
 	}
+	protected Connection closeConnectionTest(ConnectionManager cm, Connection c) throws SQLException {
+		assertEquals(cm.getConnection(), c);
+		assertFalse(c.isClosed());
+		assertFalse(cm.isClosed());
+		cm.close();
+		assertTrue(c.isClosed());
+		assertTrue(cm.isClosed());
+		return c;
+	}
+	protected void closeStatementTest(ConnectionManager cm, Statement stmt) throws SQLException{
+		assertFalse(cm.isClosed());
+		cm.close(stmt);
+		assertTrue(stmt.isClosed());
+		assertFalse(cm.isClosed());
+	}
+	protected void closeResultSetTest(ConnectionManager cm, ResultSet rs) throws SQLException{
+		assertFalse(cm.isClosed());
+		cm.close(rs);
+		assertTrue(rs.isClosed());
+		assertFalse(cm.isClosed());
+	}
+
+	protected ConnectionManager getConnectionManager(){
+		return ContextLoader.getConnectionManager();
+	}
+	
 }

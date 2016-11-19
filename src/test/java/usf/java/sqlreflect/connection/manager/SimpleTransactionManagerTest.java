@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.connection.manager;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 import java.sql.Connection;
@@ -22,26 +22,30 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	public void testOpenCloseTransaction() throws SQLException {
 		TransactionManager tm = getConnectionManager();
 		try{
-			assertTrue(tm.isClosed());
-			tm.openConnection();
-			assertFalse(tm.isClosed());
-			Connection c = tm.getConnection();
-			assertFalse(c.isClosed());
-			assertNotNull(c);
-			assertFalse(tm.isTransacting());
-			assertTrue(c.getAutoCommit());
-			tm.startTransaction();
-			assertTrue(tm.isTransacting());
-			assertFalse(c.getAutoCommit());
-			tm.endTransaction();
-			assertFalse(tm.isTransacting());
-			assertTrue(c.getAutoCommit());
+			Connection c = openConnectionTest(tm);
+			openTransactionTest(tm, c);
+			closeTransactionTest(tm, c);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			tm.endTransaction();
 			tm.close();
 		}
+	}
+	
+	protected void openTransactionTest(TransactionManager tm, Connection c) throws SQLException {
+		assertFalse(tm.isTransacting());
+		assertTrue(c.getAutoCommit());
+		tm.startTransaction();
+		assertTrue(tm.isTransacting());
+		assertFalse(c.getAutoCommit());
+		assertEquals(tm.getConnection(), c);
+	}
+	protected void closeTransactionTest(TransactionManager tm, Connection c) throws SQLException {
+		tm.endTransaction();
+		assertFalse(tm.isTransacting());
+		assertTrue(c.getAutoCommit());
+		assertEquals(tm.getConnection(), c);
 	}
 
 }
