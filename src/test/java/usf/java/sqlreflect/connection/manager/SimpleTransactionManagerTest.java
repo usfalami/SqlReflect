@@ -14,6 +14,8 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Test;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.binder.Binder;
@@ -39,40 +41,43 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	@Test
 	public void testInsertRollback() throws SQLException {
 		TransactionManager tm = getConnectionManager();
-		List<Parameter<?>> insertParam = new ArrayList<Parameter<?>>();
-		insertParam.add(ParameterFactory.CHAR_WRAPPER("XYZ"));
-		insertParam.add(ParameterFactory.CHAR_WRAPPER("MyCountry"));
-		insertParam.add(ParameterFactory.INTEGER_WRAPPER(null));
-		insertParam.add(ParameterFactory.CHAR_WRAPPER("ZZ"));
+		List<Parameter<?>> insertParams = new ArrayList<Parameter<?>>();
+		insertParams.add(ParameterFactory.CHAR_WRAPPER("XYZ"));
+		insertParams.add(ParameterFactory.CHAR_WRAPPER("MyCountry"));
+		insertParams.add(ParameterFactory.INTEGER_WRAPPER(null));
+		insertParams.add(ParameterFactory.CHAR_WRAPPER("ZZ"));
 
-		List<Parameter<?>> selectParam = new ArrayList<Parameter<?>>();
-		selectParam.add(insertParam.get(0));
+		List<Parameter<?>> selectParams = new ArrayList<Parameter<?>>();
+		selectParams.add(insertParams.get(0));
 		
 		Binder<List<Parameter<?>>> binder = new ParameterBinder();
 		try{
 			Connection c = openConnectionTest(tm);
 			openTransactionTest(tm, c);
-			// insert
-			Statement stmt = tm.prepare(Queries.query4, insertParam, binder);
-			statementTest(stmt, Statement.class);
-			int res = tm.executeUpdate(stmt, Queries.query4, insertParam, binder);
+			// insert <= XYZ
+			Statement stmt = tm.prepare(Queries.query4, insertParams, binder);
+			statementTest(stmt, PreparedStatement.class);
+			int res = tm.executeUpdate(stmt, Queries.query4, insertParams, binder);
 			closeStatementTest(tm, stmt);
 			assertEquals(res, 1);
-			//select
-			stmt = tm.prepare(Queries.query3, selectParam, binder);
-			statementTest(stmt, Statement.class);
-			ResultSet rs = tm.executeQuery(stmt, Queries.query3, selectParam, binder);
+			//select => XYZ
+			stmt = tm.prepare(Queries.query3, selectParams, binder);
+			statementTest(stmt, PreparedStatement.class);
+			ResultSet rs = tm.executeQuery(stmt, Queries.query3, selectParams, binder);
 			assertTrue(rs.next());
-			assertEquals(rs.getString(2), insertParam.get(1).getValue());
+			for(int i=0; i<insertParams.size(); i++)
+				assertEquals(rs.getObject(i+1), insertParams.get(i).getValue());
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//rollback
 			tm.rollback();
-			//select
-			stmt = tm.prepare(Queries.query3, selectParam, binder);
-			statementTest(stmt, Statement.class);
-			rs = tm.executeQuery(stmt, Queries.query3, selectParam, binder);
+			//select => null
+			stmt = tm.prepare(Queries.query3, selectParams, binder);
+			statementTest(stmt, PreparedStatement.class);
+			rs = tm.executeQuery(stmt, Queries.query3, selectParams, binder);
 			assertFalse(rs.next());
+			closeResultSetTest(tm, rs);
+			closeStatementTest(tm, stmt);
 			//end
 			closeTransactionTest(tm, c);
 			closeConnectionTest(tm, c);
