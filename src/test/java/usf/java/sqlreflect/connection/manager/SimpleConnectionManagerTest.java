@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import usf.java.sqlreflect.ContextLoader;
@@ -31,9 +32,6 @@ public class SimpleConnectionManagerTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			cm.close();
-		}
 	}
 	
 	@Test
@@ -53,11 +51,6 @@ public class SimpleConnectionManagerTest {
 			closeConnectionTest(cm, c);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
-			cm.close(rs);
-			cm.close(stmt);
-			cm.close();
 		}
 	}
 	
@@ -100,6 +93,13 @@ public class SimpleConnectionManagerTest {
 
 	protected ConnectionManager getConnectionManager(){
 		return ContextLoader.getConnectionManager();
+	}
+	
+	@AfterClass
+	public static void afterTest(){
+		try {
+			ContextLoader.getConnectionManager().getConnection().close();
+		} catch (SQLException e) {}
 	}
 	
 }
