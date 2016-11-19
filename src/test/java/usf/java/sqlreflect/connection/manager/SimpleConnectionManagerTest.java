@@ -97,9 +97,7 @@ public class SimpleConnectionManagerTest {
 	
 	@AfterClass
 	public static void afterTest(){
-		try {
-			ContextLoader.getConnectionManager().getConnection().close();
-		} catch (SQLException e) {}
+		ContextLoader.closeConnectionManager();
 	}
 	
 }

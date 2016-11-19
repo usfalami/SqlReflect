@@ -51,9 +51,7 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	
 	@AfterClass
 	public static void afterTest(){
-		try {
-			ContextLoader.getTransactionManager().getConnection().close();
-		} catch (SQLException e) {}
+		ContextLoader.closeTransactionManager();
 	}
 
 }
