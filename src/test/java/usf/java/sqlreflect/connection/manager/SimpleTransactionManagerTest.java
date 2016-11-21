@@ -138,7 +138,7 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	
 	@AfterClass
 	public static void afterTest(){
-		ContextLoader.closeTransactionManager();
+		ContextLoader.forceCloseTransactionManager();
 	}
 
 }

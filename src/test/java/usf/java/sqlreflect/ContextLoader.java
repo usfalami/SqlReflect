@@ -1,6 +1,7 @@
 package usf.java.sqlreflect;
 
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -59,16 +60,32 @@ public class ContextLoader {
 		return tm;
 	}
 	
-	public static void closeConnectionManager(){
-		try {
-			cm.getConnection().close();
-		} catch (SQLException e) {}
-		
+	public static void forceCloseConnectionManager(){
+		close(cm);
 	}
-	public static void closeTransactionManager(){
+	public static void forceCloseTransactionManager(){
+		close(tm);
+	}
+	
+	protected static void close(ConnectionManager cm) {
+		Connection c = null;
 		try {
-			tm.getConnection().close();
-		} catch (SQLException e) {}
-		
+			c = cm.getConnection();
+			throw new Exception("Connection still open");
+		} catch (SQLException e) {
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(c != null){
+				try {
+					c.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			else System.out.println("Connection are closed");
+		}
 	}
 }

@@ -137,7 +137,7 @@ public class SimpleConnectionManagerTest {
 	
 	@AfterClass
 	public static void afterTest(){
-		ContextLoader.closeConnectionManager();
+		ContextLoader.forceCloseConnectionManager();
 	}
 	
 }
