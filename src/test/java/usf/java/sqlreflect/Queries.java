@@ -6,6 +6,7 @@ import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;
+import usf.java.sqlreflect.sql.entry.Entry;
 
 public interface Queries {
 
@@ -13,12 +14,13 @@ public interface Queries {
 
 	Object[] select_country_result_1				= new Object[]{"MAR", "Morocco", 2486, "MA"};
 	List<Parameter<?>> select_country_bind_Params_1 = new Parameters(
-			ParameterFactory.CHAR_WRAPPER((String)select_country_result_1[0])
+			ParameterFactory.CHAR_WRAPPER(select_country_result_1[0].toString())
 	);
 	Object[] select_country_result_2				= new Object[]{"XYZ", "MyCountry", null, "ZZ"};
 	List<Parameter<?>> select_country_bind_Params_2 = new Parameters(
-			ParameterFactory.CHAR_WRAPPER((String)select_country_result_2[0])
+			ParameterFactory.CHAR_WRAPPER(select_country_result_2[0].toString())
 	);
+	Entry select_country_bind_Params_3 = new Entry().set("code", select_country_result_1[0]);
 	String select_country_query 		= "SELECT * FROM country where code=%s";
 	
 	Object[] insert_country_result		= new Object[]{"XYZ", "MyCountry", null, "ZZ"};

@@ -11,11 +11,11 @@ import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
-public class SimpleTransactionManager extends SimpleConnectionManager implements TransactionManager {
+public class TransactionManagerImpl extends ConnectionManagerImpl implements TransactionManager {
 
 	private boolean defaultAutoCommit, transacting;
 	
-	public SimpleTransactionManager(ConnectionProvider cp, Server server) {
+	public TransactionManagerImpl(ConnectionProvider cp, Server server) {
 		super(cp, server);
 	}
 	
@@ -90,6 +90,11 @@ public class SimpleTransactionManager extends SimpleConnectionManager implements
 		if(binder != null)
 			binder.post(stmt, args);
 		return result;
+	}
+	
+	@Override
+	public boolean execute(Statement stmt, String query) throws SQLException {
+		return stmt.execute(query);
 	}
 	
 }

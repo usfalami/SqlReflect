@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
-import usf.java.sqlreflect.connection.manager.SimpleConnectionManagerTest;
-import usf.java.sqlreflect.connection.manager.SimpleTransactionManager;
+import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
+import usf.java.sqlreflect.connection.manager.ConnectionManagerImplTest;
+import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
@@ -26,7 +26,7 @@ public class ContextLoader {
 		try {
 			System.out.println("Start loading env ...");
 			
-			InputStream inputStream  = SimpleConnectionManagerTest.class.getClassLoader().getResourceAsStream("env.properties");
+			InputStream inputStream  = ConnectionManagerImplTest.class.getClassLoader().getResourceAsStream("env.properties");
 			Properties properties = new Properties();
 			properties.load(inputStream);
 
@@ -37,10 +37,10 @@ public class ContextLoader {
 			cp = new SimpleConnectionProvider(server, properties);
 			System.out.println("\t" + cp.getClass().getName());
 			
-			cm = new SimpleConnectionManager(cp, server);
+			cm = new ConnectionManagerImpl(cp, server);
 			System.out.println("\t" + cm.getClass().getName());
 			
-			tm = new SimpleTransactionManager(cp, server);
+			tm = new TransactionManagerImpl(cp, server);
 			System.out.println("\t" + tm.getClass().getName());
 			
 			System.out.println("Env has been initialized");
@@ -71,7 +71,7 @@ public class ContextLoader {
 		Connection c = null;
 		try {
 			c = cm.getConnection();
-			throw new Exception("Connection still open");
+			throw new Exception("GRAVE : Connection still open");
 		} catch (SQLException e) {
 			
 		}catch (Exception e) {

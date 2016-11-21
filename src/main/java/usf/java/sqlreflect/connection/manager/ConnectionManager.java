@@ -25,8 +25,6 @@ public interface ConnectionManager {
 	<P> Statement prepare(String query, P args, Binder<P> binder) throws SQLException;
 
 	<P> ResultSet executeQuery(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
-
-	boolean execute(Statement stmt, String query) throws SQLException;
 	
 	Server getServer();
 	

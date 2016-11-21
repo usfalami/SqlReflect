@@ -5,7 +5,9 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
+import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,17 +16,18 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-import com.mysql.jdbc.PreparedStatement;
-
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.Queries.Helper;
 import usf.java.sqlreflect.binder.Binder;
+import usf.java.sqlreflect.binder.BinderProxy;
+import usf.java.sqlreflect.binder.EntryMultiBinder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
+import usf.java.sqlreflect.sql.entry.Entry;
 
-public class SimpleConnectionManagerTest {
+public class ConnectionManagerImplTest {
 	
 	@Test
 	public void testServer() {
@@ -63,6 +66,35 @@ public class SimpleConnectionManagerTest {
 	}
 	
 	@Test
+	public void testSelect11() {
+		ConnectionManager cm = getConnectionManager();
+		String setlectQuery = Helper.build(Queries.select_country_query);
+		Binder<Serializable[]> binder = new Binder<Serializable[]>() {
+			@Override
+			public void post(Statement stmt, Serializable[] item) throws SQLException {}
+			@Override
+			public void bind(Statement stmt, Serializable[] item) throws SQLException {
+				((PreparedStatement)stmt).setString(1, (String)item[0]);
+			}
+		};
+		Serializable[] args = new Serializable[]{"MAR"};
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection c = openConnectionTest(cm);
+			stmt = cm.prepare(setlectQuery, args, binder);
+			statementTest(stmt, Statement.class);
+			rs = cm.executeQuery(stmt, setlectQuery, args, binder);
+			resultTest(rs, Queries.select_country_result_1); 
+			closeResultSetTest(cm, rs);
+			closeStatementTest(cm, stmt);
+			closeConnectionTest(cm, c);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testSelect2() {
 		ConnectionManager cm = getConnectionManager();
 		String setlectQuery = Helper.build(Queries.select_country_query);
@@ -82,6 +114,29 @@ public class SimpleConnectionManagerTest {
 			e.printStackTrace();
 		}
 	}
+	
+
+	@Test
+	public void testSelect3() {
+		String selectQuery = Helper.build(Queries.select_country_query);
+		ConnectionManager cm = getConnectionManager();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, "findCityByCountryAndDistrict");
+			Connection c = openConnectionTest(cm);
+			stmt = cm.prepare(selectQuery, Queries.select_country_bind_Params_3, binder);
+			assertTrue(stmt instanceof PreparedStatement);
+			rs = cm.executeQuery(stmt, selectQuery, Queries.select_country_bind_Params_3, binder);
+			resultTest(rs, Queries.select_country_result_1);
+			closeResultSetTest(cm, rs);
+			closeStatementTest(cm, stmt);
+			closeConnectionTest(cm, c);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	@Test(expected=SQLException.class)
 	public void testGetConnection() throws SQLException {

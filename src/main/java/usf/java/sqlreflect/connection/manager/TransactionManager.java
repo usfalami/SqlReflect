@@ -24,4 +24,5 @@ public interface TransactionManager extends ConnectionManager {
 
 	<P> int executeUpdate(Statement stmt, String query, P args, Binder<P> binder) throws SQLException;
 
+	boolean execute(Statement stmt, String query) throws SQLException;
 }

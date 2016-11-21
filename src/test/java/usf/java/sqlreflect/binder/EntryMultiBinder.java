@@ -14,8 +14,7 @@ public class EntryMultiBinder implements MultipleBinder<Entry> {
 	}
 	
 	public void findCityByCountryAndDistrict(PreparedStatement pstmt, Entry entry) throws SQLException{
-		pstmt.setString(1, entry.get("CountryCode").toString());
-		pstmt.setString(2, entry.get("District").toString());
+		pstmt.setString(1, entry.get("code").toString());
 	}
 	
 }

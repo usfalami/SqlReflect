@@ -21,7 +21,7 @@ import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.sql.Parameter;
 
-public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
+public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 
 	@Test
 	public void testOpenCloseTransaction() throws SQLException {

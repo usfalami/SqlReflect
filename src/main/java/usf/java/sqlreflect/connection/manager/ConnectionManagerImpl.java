@@ -10,13 +10,13 @@ import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.server.Server;
 
-public class SimpleConnectionManager implements ConnectionManager {
+public class ConnectionManagerImpl implements ConnectionManager {
 
 	private ConnectionProvider cp;
 	private Connection connection;
 	private Server server;
 	
-	public SimpleConnectionManager(ConnectionProvider cp, Server server) {
+	public ConnectionManagerImpl(ConnectionProvider cp, Server server) {
 		this.cp = cp;
 		this.server = server;
 	}
@@ -90,11 +90,6 @@ public class SimpleConnectionManager implements ConnectionManager {
 		if(binder != null)
 			binder.post(stmt, args);
 		return rs;
-	}
-	
-	@Override
-	public boolean execute(Statement stmt, String query) throws SQLException {
-		return stmt.execute(query);
 	}
 
 	@Override
