@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -17,6 +16,7 @@ import org.junit.Test;
 
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
+import usf.java.sqlreflect.Queries.Helper;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.sql.Parameter;
@@ -39,28 +39,30 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	@Test
 	public void testInsertRollback1() throws SQLException {
 		TransactionManager tm = getConnectionManager();
+		String inserQuery = Helper.build(Queries.insert_country_query, Queries.insert_country_result);
+		String selectQuery = Helper.build(Queries.select_country_query, Queries.insert_country_result[0]);
 		try{
 			Connection c = openConnectionTest(tm);
 			openTransactionTest(tm, c);
 			// insert <= XYZ
-			Statement stmt = tm.prepare(Queries.insert_country_query, null, null);
+			Statement stmt = tm.prepare(inserQuery, null, null);
 			statementTest(stmt, Statement.class);
-			int res = tm.executeUpdate(stmt, Queries.insert_country_query, null, null);
+			int res = tm.executeUpdate(stmt, inserQuery, null, null);
 			closeStatementTest(tm, stmt);
 			assertEquals(res, 1);
 			//select => XYZ
-			stmt = tm.prepare(Queries.select_country_query, null, null);
+			stmt = tm.prepare(selectQuery, null, null);
 			statementTest(stmt, Statement.class);
-			ResultSet rs = tm.executeQuery(stmt, Queries.select_country_query, null, null);
-			resultTest(rs, Queries.insert_country_bind_Params);
+			ResultSet rs = tm.executeQuery(stmt, selectQuery, null, null);
+			resultTest(rs, Queries.insert_country_result);
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//rollback
 			tm.rollback();
 			//select => null
-			stmt = tm.prepare(Queries.select_country_query, null, null);
+			stmt = tm.prepare(selectQuery, null, null);
 			statementTest(stmt, Statement.class);
-			rs = tm.executeQuery(stmt, Queries.select_country_query, null, null);
+			rs = tm.executeQuery(stmt, selectQuery, null, null);
 			assertFalse(rs.next());
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
@@ -75,33 +77,32 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	@Test
 	public void testInsertRollback2() throws SQLException {
 		TransactionManager tm = getConnectionManager();
-		
-		List<Parameter<?>> selectParams = new ArrayList<Parameter<?>>();
-		selectParams.add(Queries.insert_country_bind_Params.get(0));
+		String inserQuery = Helper.build(Queries.insert_country_query);
+		String selectQuery = Helper.build(Queries.select_country_query);
 		
 		Binder<List<Parameter<?>>> binder = new ParameterBinder();
 		try{
 			Connection c = openConnectionTest(tm);
 			openTransactionTest(tm, c);
 			// insert <= XYZ
-			Statement stmt = tm.prepare(Queries.insert_country_bind_query, Queries.insert_country_bind_Params, binder);
+			Statement stmt = tm.prepare(inserQuery, Queries.insert_country_bind_params, binder);
 			statementTest(stmt, PreparedStatement.class);
-			int res = tm.executeUpdate(stmt, Queries.insert_country_bind_query, Queries.insert_country_bind_Params, binder);
+			int res = tm.executeUpdate(stmt, inserQuery, Queries.insert_country_bind_params, binder);
 			closeStatementTest(tm, stmt);
 			assertEquals(res, 1);
 			//select => XYZ
-			stmt = tm.prepare(Queries.select_country_bind_query, selectParams, binder);
+			stmt = tm.prepare(selectQuery, Queries.select_country_bind_Params_2, binder);
 			statementTest(stmt, PreparedStatement.class);
-			ResultSet rs = tm.executeQuery(stmt, Queries.select_country_bind_query, selectParams, binder);
-			resultTest(rs, Queries.insert_country_bind_Params);
+			ResultSet rs = tm.executeQuery(stmt, selectQuery, Queries.select_country_bind_Params_2, binder);
+			resultTest(rs, Queries.insert_country_result);
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//rollback
 			tm.rollback();
 			//select => null
-			stmt = tm.prepare(Queries.select_country_bind_query, selectParams, binder);
+			stmt = tm.prepare(selectQuery, Queries.select_country_bind_Params_2, binder);
 			statementTest(stmt, PreparedStatement.class);
-			rs = tm.executeQuery(stmt, Queries.select_country_bind_query, selectParams, binder);
+			rs = tm.executeQuery(stmt, selectQuery, Queries.select_country_bind_Params_2, binder);
 			assertFalse(rs.next());
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);

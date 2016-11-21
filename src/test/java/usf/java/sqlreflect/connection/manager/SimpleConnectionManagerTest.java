@@ -14,8 +14,13 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Test;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
+import usf.java.sqlreflect.Queries.Helper;
+import usf.java.sqlreflect.binder.Binder;
+import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 
@@ -38,17 +43,38 @@ public class SimpleConnectionManagerTest {
 	}
 	
 	@Test
-	public void testExecStatment() {
+	public void testSelect1() {
 		ConnectionManager cm = getConnectionManager();
+		String setlectQuery = Helper.build(Queries.select_country_query, Queries.select_country_result_1[0]);
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			Connection c = openConnectionTest(cm);
-			stmt = cm.prepare(Queries.query, null, null);
+			stmt = cm.prepare(setlectQuery, null, null);
 			statementTest(stmt, Statement.class);
-			rs = cm.executeQuery(stmt, Queries.query, null, null);
-			assertTrue(rs.next());
-			assertEquals(rs.getInt(1), 1);
+			rs = cm.executeQuery(stmt, setlectQuery, null, null);
+			resultTest(rs, Queries.select_country_result_1); 
+			closeResultSetTest(cm, rs);
+			closeStatementTest(cm, stmt);
+			closeConnectionTest(cm, c);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testSelect2() {
+		ConnectionManager cm = getConnectionManager();
+		String setlectQuery = Helper.build(Queries.select_country_query);
+		Binder<List<Parameter<?>>> binder = new ParameterBinder();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Connection c = openConnectionTest(cm);
+			stmt = cm.prepare(setlectQuery, Queries.select_country_bind_Params_1, binder);
+			statementTest(stmt, PreparedStatement.class);
+			rs = cm.executeQuery(stmt, setlectQuery, Queries.select_country_bind_Params_1, binder);
+			resultTest(rs, Queries.select_country_result_1); 
 			closeResultSetTest(cm, rs);
 			closeStatementTest(cm, stmt);
 			closeConnectionTest(cm, c);
@@ -58,7 +84,7 @@ public class SimpleConnectionManagerTest {
 	}
 	
 	@Test(expected=SQLException.class)
-	public void getConnection() throws SQLException {
+	public void testGetConnection() throws SQLException {
 		getConnectionManager().getConnection();
 	}
 	
@@ -98,11 +124,11 @@ public class SimpleConnectionManagerTest {
 		assertFalse(cm.isClosed());
 	}
 	
-	protected void resultTest(ResultSet rs, List<Parameter<?>> data) throws SQLException{
-		if(Utils.isEmptyCollection(data)) return;
+	protected void resultTest(ResultSet rs, Object... data) throws SQLException{
+		if(Utils.isEmptyArray(data)) return;
 		assertTrue(rs.next());
-		for(int i=0; i<data.size(); i++)
-			assertEquals(rs.getObject(i+1), data.get(i).getValue());
+		for(int i=0; i<data.length; i++)
+			assertEquals(rs.getObject(i+1), data[i]);
 	}
 
 	protected ConnectionManager getConnectionManager(){
