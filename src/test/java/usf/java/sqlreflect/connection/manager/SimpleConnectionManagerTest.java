@@ -9,12 +9,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.Test;
 
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
+import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.sql.Parameter;
 
 public class SimpleConnectionManagerTest {
 	
@@ -93,6 +96,13 @@ public class SimpleConnectionManagerTest {
 		cm.close(rs);
 		assertTrue(rs.isClosed());
 		assertFalse(cm.isClosed());
+	}
+	
+	protected void resultTest(ResultSet rs, List<Parameter<?>> data) throws SQLException{
+		if(Utils.isEmptyCollection(data)) return;
+		assertTrue(rs.next());
+		for(int i=0; i<data.size(); i++)
+			assertEquals(rs.getObject(i+1), data.get(i).getValue());
 	}
 
 	protected ConnectionManager getConnectionManager(){

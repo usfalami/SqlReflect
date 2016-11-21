@@ -92,9 +92,9 @@ public class ParameterBinderTest {
 			assertTrue(cm.isClosed());
 			cm.openConnection();
 			assertFalse(cm.isClosed());
-			stmt = cm.prepare(Queries.query3, p, pb);
+			stmt = cm.prepare(Queries.select_country_bind_query, p, pb);
 			assertTrue(stmt instanceof PreparedStatement);
-			rs = cm.executeQuery(stmt, Queries.query1, p, pb);
+			rs = cm.executeQuery(stmt, Queries.select_country_bind_query, p, pb);
 			assertTrue(rs.next());
 			assertEquals(rs.getString("Name"), "Morocco");
 			cm.close(rs);

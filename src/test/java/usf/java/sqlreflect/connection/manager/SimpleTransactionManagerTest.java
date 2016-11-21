@@ -21,7 +21,6 @@ import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.sql.Parameter;
-import usf.java.sqlreflect.sql.ParameterFactory;
 
 public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 
@@ -39,42 +38,71 @@ public class SimpleTransactionManagerTest extends SimpleConnectionManagerTest {
 	}
 	
 	@Test
-	public void testInsertRollback() throws SQLException {
+	public void testInsertRollback1() throws SQLException {
 		TransactionManager tm = getConnectionManager();
-		List<Parameter<?>> insertParams = new ArrayList<Parameter<?>>();
-		insertParams.add(ParameterFactory.CHAR_WRAPPER("XYZ"));
-		insertParams.add(ParameterFactory.CHAR_WRAPPER("MyCountry"));
-		insertParams.add(ParameterFactory.INTEGER_WRAPPER(null));
-		insertParams.add(ParameterFactory.CHAR_WRAPPER("ZZ"));
-
+		try{
+			Connection c = openConnectionTest(tm);
+			openTransactionTest(tm, c);
+			// insert <= XYZ
+			Statement stmt = tm.prepare(Queries.insert_country_query, null, null);
+			statementTest(stmt, Statement.class);
+			int res = tm.executeUpdate(stmt, Queries.insert_country_query, null, null);
+			closeStatementTest(tm, stmt);
+			assertEquals(res, 1);
+			//select => XYZ
+			stmt = tm.prepare(Queries.select_country_query, null, null);
+			statementTest(stmt, Statement.class);
+			ResultSet rs = tm.executeQuery(stmt, Queries.select_country_query, null, null);
+			resultTest(rs, Queries.insert_country_bind_Params);
+			closeResultSetTest(tm, rs);
+			closeStatementTest(tm, stmt);
+			//rollback
+			tm.rollback();
+			//select => null
+			stmt = tm.prepare(Queries.select_country_query, null, null);
+			statementTest(stmt, Statement.class);
+			rs = tm.executeQuery(stmt, Queries.select_country_query, null, null);
+			assertFalse(rs.next());
+			closeResultSetTest(tm, rs);
+			closeStatementTest(tm, stmt);
+			//end
+			closeTransactionTest(tm, c);
+			closeConnectionTest(tm, c);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testInsertRollback2() throws SQLException {
+		TransactionManager tm = getConnectionManager();
+		
 		List<Parameter<?>> selectParams = new ArrayList<Parameter<?>>();
-		selectParams.add(insertParams.get(0));
+		selectParams.add(Queries.insert_country_bind_Params.get(0));
 		
 		Binder<List<Parameter<?>>> binder = new ParameterBinder();
 		try{
 			Connection c = openConnectionTest(tm);
 			openTransactionTest(tm, c);
 			// insert <= XYZ
-			Statement stmt = tm.prepare(Queries.query4, insertParams, binder);
+			Statement stmt = tm.prepare(Queries.insert_country_bind_query, Queries.insert_country_bind_Params, binder);
 			statementTest(stmt, PreparedStatement.class);
-			int res = tm.executeUpdate(stmt, Queries.query4, insertParams, binder);
+			int res = tm.executeUpdate(stmt, Queries.insert_country_bind_query, Queries.insert_country_bind_Params, binder);
 			closeStatementTest(tm, stmt);
 			assertEquals(res, 1);
 			//select => XYZ
-			stmt = tm.prepare(Queries.query3, selectParams, binder);
+			stmt = tm.prepare(Queries.select_country_bind_query, selectParams, binder);
 			statementTest(stmt, PreparedStatement.class);
-			ResultSet rs = tm.executeQuery(stmt, Queries.query3, selectParams, binder);
-			assertTrue(rs.next());
-			for(int i=0; i<insertParams.size(); i++)
-				assertEquals(rs.getObject(i+1), insertParams.get(i).getValue());
+			ResultSet rs = tm.executeQuery(stmt, Queries.select_country_bind_query, selectParams, binder);
+			resultTest(rs, Queries.insert_country_bind_Params);
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//rollback
 			tm.rollback();
 			//select => null
-			stmt = tm.prepare(Queries.query3, selectParams, binder);
+			stmt = tm.prepare(Queries.select_country_bind_query, selectParams, binder);
 			statementTest(stmt, PreparedStatement.class);
-			rs = tm.executeQuery(stmt, Queries.query3, selectParams, binder);
+			rs = tm.executeQuery(stmt, Queries.select_country_bind_query, selectParams, binder);
 			assertFalse(rs.next());
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
