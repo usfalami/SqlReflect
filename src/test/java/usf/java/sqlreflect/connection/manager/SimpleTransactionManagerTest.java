@@ -5,6 +5,7 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,8 +14,6 @@ import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.Test;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
