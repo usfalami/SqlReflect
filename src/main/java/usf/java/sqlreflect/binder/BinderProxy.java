@@ -3,6 +3,7 @@ package usf.java.sqlreflect.binder;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 import usf.java.sqlreflect.reflect.Utils;
 
@@ -31,6 +32,13 @@ public class BinderProxy<T> implements Binder<T> {
 			postBinderMethod = search(postBinderMethodName, stmt, item);
 		invok(postBinderMethod, stmt, item);
 	}
+	
+	public MultipleBinder<T> getBinder() {
+		return mb;
+	}
+	public String getBinderMethodName() {
+		return binderMethodName;
+	}
 
 	private Method search(String methodName, Statement stmt, T item) throws SQLException {
 		try{
@@ -51,7 +59,7 @@ public class BinderProxy<T> implements Binder<T> {
 	public static <T> BinderProxy<T> get(String className, String binderMethod, String postBinderMethod) throws Exception {
 		if(Utils.isEmptyString(className) || Utils.isEmptyString(binderMethod)) throw new Exception("");
 		Class<?> clazz = Class.forName(className);
-		if(clazz.isAssignableFrom(MultipleBinder.class)) throw new ClassCastException(); //TODO check this exception
+//		if(!clazz.isAssignableFrom(MultipleBinder.class)) throw new ClassCastException(); //TODO check this exception
 		Class<MultipleBinder<T>> multiBinderClazz = (Class<MultipleBinder<T>>) clazz; 
 		return new BinderProxy<T>(multiBinderClazz.newInstance(), binderMethod, postBinderMethod);
 	}

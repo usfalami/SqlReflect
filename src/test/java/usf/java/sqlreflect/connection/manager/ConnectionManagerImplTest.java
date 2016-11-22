@@ -22,6 +22,7 @@ import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.Queries.Helper;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.BinderProxy;
+import usf.java.sqlreflect.binder.EntryMultiBinder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
@@ -74,7 +75,7 @@ public class ConnectionManagerImplTest {
 			public void post(Statement stmt, Serializable[] item) throws SQLException {}
 			@Override
 			public void bind(Statement stmt, Serializable[] item) throws SQLException {
-				((PreparedStatement)stmt).setString(1, (String)item[0]);
+				((PreparedStatement)stmt).setString(1, item[0].toString());
 			}
 		};
 		Serializable[] args = new Serializable[]{Queries.select_country_result_1[0].toString()};
@@ -136,9 +137,10 @@ public class ConnectionManagerImplTest {
 			e.printStackTrace();
 		}
 	}
+
 	
 	@Test(expected=SQLException.class)
-	public void testSelect5() throws Throwable {
+	public void testSelect6() throws Throwable {
 		String methodName = "notExistingMethod";
 		ConnectionManager cm = ContextLoader.getConnectionManager();
 		Connection c = null;
