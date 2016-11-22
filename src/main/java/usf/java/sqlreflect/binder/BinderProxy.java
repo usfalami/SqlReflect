@@ -26,7 +26,7 @@ public class BinderProxy<T> implements Binder<T> {
 	}
 	@Override
 	public final void post(Statement stmt, T item) throws SQLException {
-		if(Utils.isEmptyString(postBinderMethodName)) return; //facultatif
+		if(Utils.isEmptyString(postBinderMethodName)) return; //optional
 		if(postBinderMethod == null)
 			postBinderMethod = search(postBinderMethodName, stmt, item);
 		invok(postBinderMethod, stmt, item);
@@ -35,7 +35,7 @@ public class BinderProxy<T> implements Binder<T> {
 	private Method search(String methodName, Statement stmt, T item) throws SQLException {
 		try{
 			return Utils.findMethod(mb, methodName, stmt, item);
-		}catch(Exception e){
+		}catch(Throwable e){
 			throw new SQLException("No match method was found for " +
 					methodName + "(" + stmt.getClass().getName() + "," + item.getClass().getName()+")"); //TODO check this
 		}
@@ -43,7 +43,7 @@ public class BinderProxy<T> implements Binder<T> {
 	private void invok(Method method, Statement stmt, T item) throws SQLException {
 		try {
 			method.invoke(mb, stmt, item);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throw new SQLException("An error occurred while executing " + method.getName(), e);
 		}
 	}

@@ -3,6 +3,7 @@ package usf.java.sqlreflect.connection.manager;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 
 import java.io.Serializable;
@@ -21,7 +22,6 @@ import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.Queries.Helper;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.BinderProxy;
-import usf.java.sqlreflect.binder.EntryMultiBinder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
@@ -66,7 +66,7 @@ public class ConnectionManagerImplTest {
 	}
 	
 	@Test
-	public void testSelect11() {
+	public void testSelect2() {
 		ConnectionManager cm = getConnectionManager();
 		String setlectQuery = Helper.build(Queries.select_country_query);
 		Binder<Serializable[]> binder = new Binder<Serializable[]>() {
@@ -77,7 +77,7 @@ public class ConnectionManagerImplTest {
 				((PreparedStatement)stmt).setString(1, (String)item[0]);
 			}
 		};
-		Serializable[] args = new Serializable[]{"MAR"};
+		Serializable[] args = new Serializable[]{Queries.select_country_result_1[0].toString()};
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -95,7 +95,7 @@ public class ConnectionManagerImplTest {
 	}
 	
 	@Test
-	public void testSelect2() {
+	public void testSelect3() {
 		ConnectionManager cm = getConnectionManager();
 		String setlectQuery = Helper.build(Queries.select_country_query);
 		Binder<List<Parameter<?>>> binder = new ParameterBinder();
@@ -114,16 +114,16 @@ public class ConnectionManagerImplTest {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Test
-	public void testSelect3() {
+	public void testSelect4() {
 		String selectQuery = Helper.build(Queries.select_country_query);
+		String methodName = "findCityByCountryAndDistrict";
 		ConnectionManager cm = getConnectionManager();
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, "findCityByCountryAndDistrict");
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
 			Connection c = openConnectionTest(cm);
 			stmt = cm.prepare(selectQuery, Queries.select_country_bind_Params_3, binder);
 			assertTrue(stmt instanceof PreparedStatement);
@@ -134,6 +134,24 @@ public class ConnectionManagerImplTest {
 			closeConnectionTest(cm, c);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Test(expected=SQLException.class)
+	public void testSelect5() throws Throwable {
+		String methodName = "notExistingMethod";
+		ConnectionManager cm = ContextLoader.getConnectionManager();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			BinderProxy<Entry> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
+			c = openConnectionTest(cm);
+			stmt = cm.prepare(Queries.query1, Queries.select_country_bind_Params_3, binder);
+		}finally{
+			assertNull(stmt);
+			try {
+				closeConnectionTest(cm, c);
+			} catch (SQLException e) {}
 		}
 	}
 	

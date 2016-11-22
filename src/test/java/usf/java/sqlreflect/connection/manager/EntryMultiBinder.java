@@ -1,9 +1,10 @@
-package usf.java.sqlreflect.binder;
+package usf.java.sqlreflect.connection.manager;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import usf.java.sqlreflect.binder.MultipleBinder;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class EntryMultiBinder implements MultipleBinder<Entry> {
