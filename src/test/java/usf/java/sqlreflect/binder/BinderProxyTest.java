@@ -1,11 +1,10 @@
 package usf.java.sqlreflect.binder;
 
-import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
+
+import org.junit.Test;
+
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class BinderProxyTest {
@@ -94,12 +93,14 @@ public class BinderProxyTest {
 		assertNotNull(b1.getBinderMethodName());
 		BinderProxy<Entry> b2 =  BinderProxy.get(EntryMultiBinder.class, method);
 		assertNotNull(b2.getBinder());
-		assertNotNull(b1.getBinderMethodName());
+		assertNotNull(b2.getBinderMethodName());
 		BinderProxy<Entry> b3 =  BinderProxy.get(new EntryMultiBinder(), method);
 		assertNotNull(b3.getBinder());
-		assertNotNull(b1.getBinderMethodName());
+		assertNotNull(b3.getBinderMethodName());
+		assertEquals(b1.getBinderMethodName(), method);
 		assertEquals(b1.getBinderMethodName(), b2.getBinderMethodName());
 		assertEquals(b1.getBinderMethodName(), b3.getBinderMethodName());
+		assertEquals(b1.getBinder().getClass(), EntryMultiBinder.class);
 		assertEquals(b1.getBinder().getClass(), b2.getBinder().getClass());
 		assertEquals(b1.getBinder().getClass(), b3.getBinder().getClass());
 	}

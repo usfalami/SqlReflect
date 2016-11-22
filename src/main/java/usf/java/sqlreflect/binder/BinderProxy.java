@@ -3,7 +3,6 @@ package usf.java.sqlreflect.binder;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Objects;
 
 import usf.java.sqlreflect.reflect.Utils;
 
