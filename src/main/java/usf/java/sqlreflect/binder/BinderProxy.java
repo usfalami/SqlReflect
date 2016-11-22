@@ -56,19 +56,19 @@ public class BinderProxy<T> implements Binder<T> {
 	}
 	
 	public static <T> BinderProxy<T> get(String className, String binderMethod, String postBinderMethod) throws Exception {
-		if(Utils.isEmptyString(className) || Utils.isEmptyString(binderMethod)) throw new Exception("");
+		if(Utils.isEmptyString(className) || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException();
 		Class<?> clazz = Class.forName(className);
 //		if(!clazz.isAssignableFrom(MultipleBinder.class)) throw new ClassCastException(); //TODO check this exception
 		Class<MultipleBinder<T>> multiBinderClazz = (Class<MultipleBinder<T>>) clazz; 
 		return new BinderProxy<T>(multiBinderClazz.newInstance(), binderMethod, postBinderMethod);
 	}
 	public static <T, B extends MultipleBinder<T>> BinderProxy<T> get(Class<B> clazz, String binderMethod, String postBinderMethod) throws Exception {
-		if(clazz == null || Utils.isEmptyString(binderMethod)) throw new Exception(""); //TODO check this exception
+		if(clazz == null || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
 		MultipleBinder<T> obj = clazz.newInstance();
 		return new BinderProxy<T>(obj, binderMethod, postBinderMethod);
 	}
 	public static <T> BinderProxy<T> get(MultipleBinder<T> mb, String binderMethod, String postBinderMethod) throws Exception {
-		if(mb == null || Utils.isEmptyString(binderMethod)) throw new Exception(""); //TODO check this exception
+		if(mb == null || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
 		return new BinderProxy<T>(mb, binderMethod, postBinderMethod);
 	}
 

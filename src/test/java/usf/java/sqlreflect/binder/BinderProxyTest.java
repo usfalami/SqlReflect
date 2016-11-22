@@ -9,29 +9,29 @@ import usf.java.sqlreflect.sql.entry.Entry;
 
 public class BinderProxyTest {
 
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_1() throws Exception {
 		String className = null;
 		BinderProxy.get(className, null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_2() throws Exception {
 		String className = null;
 		BinderProxy.get(className, "");
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_3() throws Exception {
 		BinderProxy.get("", null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_4() throws Exception {
 		BinderProxy.get("", "");
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_5() throws Exception {
 		BinderProxy.get(MultipleBinder.class.getName(), null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet1_6() throws Exception {
 		BinderProxy.get(MultipleBinder.class.getName(), "");
 	}
@@ -40,48 +40,48 @@ public class BinderProxyTest {
 		BinderProxy.get(this.getClass().getName(), "concat");
 	}
 	
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_1() throws Exception {
 		Class<MultipleBinder<Entry>> className = null;
 		BinderProxy.get(className, null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_2() throws Exception {
 		Class<MultipleBinder<Entry>> className = null;
 		BinderProxy.get(className, "");
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_3() throws Exception {
 		BinderProxy.get(EntryMultiBinder.class, null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_4() throws Exception {
 		BinderProxy.get(EntryMultiBinder.class, "");
 	}
 	
 	
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_1() throws Exception {
 		MultipleBinder<Entry> obj = null;
 		BinderProxy.get(obj, null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_2() throws Exception {
 		MultipleBinder<Entry> obj = null;
 		BinderProxy.get(obj, "");
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_3() throws Exception {
 		MultipleBinder<Entry> obj = new EntryMultiBinder();
 		BinderProxy.get(obj, null);
 	}
-	@Test(expected=Exception.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_4() throws Exception {
 		MultipleBinder<Entry> obj = new EntryMultiBinder();
 		BinderProxy.get(obj, "");
 	}
 	
-	@Test(expected=Exception.class)
+	@Test(expected=ClassNotFoundException.class)
 	public void testGet4() throws Exception {
 		BinderProxy.get("a.b.c.d.class", "notExistingMethod");
 	}
