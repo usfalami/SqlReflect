@@ -83,7 +83,7 @@ public class BinderProxyTest {
 	
 	@Test(expected=ClassNotFoundException.class)
 	public void testGet4() throws Exception {
-		BinderProxy.get("a.b.c.d.class", "notExistingMethod");
+		BinderProxy.get("a.b.c.MyBinder.class", "notExistingMethod");
 	}
 	@Test
 	public void testGet5() throws Exception {

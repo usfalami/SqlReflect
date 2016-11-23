@@ -31,7 +31,7 @@ import usf.java.sqlreflect.sql.entry.Entry;
 public class ConnectionManagerImplTest {
 	
 	@Test
-	public void testServer() {
+	public void testGetServer() {
 		assertNotNull(getConnectionManager().getServer());
 	}
 
@@ -44,6 +44,21 @@ public class ConnectionManagerImplTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testIsClose() throws SQLException {
+		assertTrue(getConnectionManager().isClosed());
+	}
+
+	@Test(expected=SQLException.class)
+	public void testPrepare() throws SQLException {
+		getConnectionManager().prepare("SELECT 1", null, null);
+	}
+	
+	@Test(expected=SQLException.class)
+	public void testGetConnection() throws SQLException {
+		getConnectionManager().getConnection();
 	}
 	
 	@Test
@@ -138,7 +153,6 @@ public class ConnectionManagerImplTest {
 		}
 	}
 
-	
 	@Test(expected=SQLException.class)
 	public void testSelect6() throws Throwable {
 		String methodName = "notExistingMethod";
@@ -155,12 +169,6 @@ public class ConnectionManagerImplTest {
 				closeConnectionTest(cm, c);
 			} catch (SQLException e) {}
 		}
-	}
-	
-	
-	@Test(expected=SQLException.class)
-	public void testGetConnection() throws SQLException {
-		getConnectionManager().getConnection();
 	}
 	
 	protected Connection openConnectionTest(ConnectionManager cm) throws SQLException {
