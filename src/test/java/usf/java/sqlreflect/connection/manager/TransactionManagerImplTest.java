@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -24,17 +26,47 @@ import usf.java.sqlreflect.sql.Parameter;
 public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 
 	@Test
-	public void testOpenCloseTransaction() throws SQLException {
+	public void testStartEndTransaction() throws SQLException {
 		TransactionManager tm = getConnectionManager();
 		try{
 			Connection c = openConnectionTest(tm);
-			openTransactionTest(tm, c);
-			closeTransactionTest(tm, c);
+			startTransactionTest(tm, c);
+			endTransactionTest(tm, c);
 			closeConnectionTest(tm, c);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+	
+	@Test(expected=SQLException.class)
+	public void testStartTransaction() throws SQLException {
+		getConnectionManager().startTransaction();
+	}
+	
+	@Test(expected=SQLException.class)
+	public void testEndTransaction() throws SQLException {
+		getConnectionManager().endTransaction();
+	}
+	
+	@Test(expected=SQLException.class)
+	public void testCommit() throws SQLException {
+		getConnectionManager().commit();
+	}
+	
+	@Test(expected=SQLException.class)
+	public void testBuildBatch1() throws SQLException {
+		getConnectionManager().buildBatch();
+	}
+	@Test(expected=SQLException.class)
+	public void testBuildBatch2() throws SQLException {
+		getConnectionManager().buildBatch("Query 1", "Query 2");
+	}
+	@Test(expected=SQLException.class)
+	public void testBuildBatch3() throws SQLException {
+		Collection<String> list = new ArrayList<String>();
+		getConnectionManager().buildBatch("Query 1", list, null);
+	}
+	
 	
 	@Test
 	public void testInsertRollback1() throws SQLException {
@@ -43,7 +75,7 @@ public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 		String selectQuery = Helper.build(Queries.select_country_query, Queries.insert_country_result[0]);
 		try{
 			Connection c = openConnectionTest(tm);
-			openTransactionTest(tm, c);
+			startTransactionTest(tm, c);
 			// insert <= XYZ
 			Statement stmt = tm.prepare(inserQuery, null, null);
 			statementTest(stmt, Statement.class);
@@ -67,7 +99,7 @@ public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//end
-			closeTransactionTest(tm, c);
+			endTransactionTest(tm, c);
 			closeConnectionTest(tm, c);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -83,7 +115,7 @@ public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 		Binder<List<Parameter<?>>> binder = new ParameterBinder();
 		try{
 			Connection c = openConnectionTest(tm);
-			openTransactionTest(tm, c);
+			startTransactionTest(tm, c);
 			// insert <= XYZ
 			Statement stmt = tm.prepare(inserQuery, Queries.insert_country_bind_params, binder);
 			statementTest(stmt, PreparedStatement.class);
@@ -107,14 +139,14 @@ public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 			closeResultSetTest(tm, rs);
 			closeStatementTest(tm, stmt);
 			//end
-			closeTransactionTest(tm, c);
+			endTransactionTest(tm, c);
 			closeConnectionTest(tm, c);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	protected void openTransactionTest(TransactionManager tm, Connection c) throws SQLException {
+	protected void startTransactionTest(TransactionManager tm, Connection c) throws SQLException {
 		assertFalse(tm.isTransacting());
 		assertTrue(c.getAutoCommit());
 		tm.startTransaction();
@@ -122,7 +154,7 @@ public class TransactionManagerImplTest extends ConnectionManagerImplTest {
 		assertFalse(c.getAutoCommit());
 		assertEquals(tm.getConnection(), c);
 	}
-	protected void closeTransactionTest(TransactionManager tm, Connection c) throws SQLException {
+	protected void endTransactionTest(TransactionManager tm, Connection c) throws SQLException {
 		assertTrue(tm.isTransacting());
 		assertFalse(c.getAutoCommit());
 		tm.endTransaction();

@@ -6,6 +6,7 @@ import java.sql.Statement;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 
 public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 
@@ -27,6 +28,12 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 	@Override
 	protected Integer runExecution(Statement stmt) throws SQLException {
 		return getConnectionManager().executeUpdate(stmt, query, args, binder);
+	}
+	
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(Utils.isEmptyString(query)) throw new IllegalArgumentException("Query can't be null");
 	}
 	
 	public UpdateExecutor<A> set(String sql, A args, Binder<A> binder) {

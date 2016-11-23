@@ -5,6 +5,7 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 
 public class MultiQueyExecutor<A> extends AbstractStatementExecutor<Boolean> {
 
@@ -27,6 +28,12 @@ public class MultiQueyExecutor<A> extends AbstractStatementExecutor<Boolean> {
 		for(String query : queries) 
 			sb.append(query).append(";");
 		return getConnectionManager().execute(stmt, sb.toString());
+	}
+	
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(Utils.isEmptyArray(queries)) throw new IllegalArgumentException("Queries can't be null or empty");
 	}
 	
 	public MultiQueyExecutor<A> set(String... queries) {

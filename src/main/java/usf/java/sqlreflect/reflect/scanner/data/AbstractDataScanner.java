@@ -9,11 +9,12 @@ import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 
 public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 	
-	private String sql;
+	private String query;
 	private Binder<A> binder;
 	private A args;
 
@@ -30,17 +31,17 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		try {
 
 			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
-			stmt = getConnectionManager().prepare(sql, args, binder);
+			stmt = getConnectionManager().prepare(query, args, binder);
 			action.end(); //ACTION_STATEMENT end
 			
 			ResultSet rs = null;
 			try {
 			
 				action = at.startAction(Constants.ACTION_EXECUTION);
-				rs = getConnectionManager().executeQuery(stmt, sql, args, binder);
+				rs = getConnectionManager().executeQuery(stmt, query, args, binder);
 				action.end(); //ACTION_EXECUTION end
 				
-				action = at.startAction(Constants.ACTION_ADAPT);
+				action = at.startAction(Constants.ACTION_MAPPING);
 				getMapper().prepare(rs);
 				adapter.prepare(getMapper());
 				runAdapt(rs, adapter, at);
@@ -54,13 +55,20 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		}
 	}
 	
-	public AbstractDataScanner<A, R> set(String sql, A args, Binder<A> binder) {
-		this.sql = sql;
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(Utils.isEmptyString(query)) throw new IllegalArgumentException("Query can't be null");
+		if(getMapper() == null) throw new IllegalArgumentException("Mapper can't be  is null");
+	}
+	
+	public AbstractDataScanner<A, R> set(String query, A args, Binder<A> binder) {
+		this.query = query;
 		this.binder = binder;
 		this.args = args;
 		return this;
 	}
-	public AbstractDataScanner<A, R> set(String sql) {
-		return set(sql, null, null);
+	public AbstractDataScanner<A, R> set(String query) {
+		return set(query, null, null);
 	}
 }

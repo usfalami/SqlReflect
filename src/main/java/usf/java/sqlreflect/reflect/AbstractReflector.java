@@ -19,24 +19,34 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 
 	@Override
 	public final void run(Adapter<R> adapter) throws Exception {
-		timer.setName(getClass().getSimpleName());
+		timer.setName(getClass().getSimpleName()).start();
 		try {
-			timer.start();
+			ActionTimer action = null;
 			adapter.start();
+
+			action = timer.startAction(Constants.ACTION_VALIDATION);
+			validateArgs();
+			action.end();
 			
-			ActionTimer action = timer.startAction(Constants.ACTION_CONNECTION);
+			action = timer.startAction(Constants.ACTION_CONNECTION);
 			getConnectionManager().openConnection();
 			action.end(); //ACTION_CONNECTION end
 
 			run(adapter, timer);
-			
+		}catch (Exception e) {
+			timer.setMessage(e.getMessage());
+			throw e;
 		} finally {
 			getConnectionManager().close();
 			timer.end();
 			adapter.end(timer);
 		}
 	}
-
+	
+	protected void validateArgs() {
+		if(cm == null) throw new IllegalArgumentException("ConnectionManager can't be null");
+	}
+	
 	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;
 		
 	public C getConnectionManager() {

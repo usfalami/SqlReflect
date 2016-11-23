@@ -27,11 +27,17 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		String[] functions = nf.getFunctions(dm);
 		action.end();//ACTION_EXECUTION end
 
-		action = at.startAction(Constants.ACTION_ADAPT);
+		action = at.startAction(Constants.ACTION_MAPPING);
 		adapter.prepare(null);
 		for(int i=0; i<functions.length; i++)
 			adapter.adapte(functions[i], i);
 		action.end();
+	}
+	
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(nf == null) throw new IllegalArgumentException("NativeFunction type can't be null");
 	}
 	
 	public NativeFunctionScanner set(NativeFunctions nf) throws Exception {

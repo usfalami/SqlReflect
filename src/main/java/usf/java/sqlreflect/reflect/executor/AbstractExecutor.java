@@ -1,6 +1,9 @@
 package usf.java.sqlreflect.reflect.executor;
 
+import java.util.Iterator;
+
 import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
@@ -32,6 +35,13 @@ public abstract class AbstractExecutor<R> extends AbstractReflector<TransactionM
 				tm.endTransaction();
 			}
 		}
+	}
+	
+	public final R run() throws Exception {
+		ListAdapter<R> adapter = new ListAdapter<R>();
+		run(adapter);
+		 Iterator<R> it = adapter.getList().iterator();
+		return it.hasNext() ? it.next() : null;
 	}
 	
 	protected abstract void runExecutor(Adapter<R> adapter, ActionTimer at) throws Exception;

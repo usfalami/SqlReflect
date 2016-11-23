@@ -31,8 +31,14 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	protected Integer[] runExecution(Statement stmt) throws SQLException {
 		return Utils.convert(stmt.executeBatch());
 	}
+	
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(Utils.isEmptyArray(queries)) throw new IllegalArgumentException();
+	}
 
-	public BatchExecutor<A> set(String sql, Collection<A> argsList, Binder<A> binder) throws Exception {
+	public BatchExecutor<A> set(String sql, Collection<A> argsList, Binder<A> binder) {
 		this.queries = new String[]{sql};
 		this.argsList = argsList;
 		this.binder = binder;

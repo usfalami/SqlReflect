@@ -24,6 +24,12 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 		transaction.execute(new ReflectorFactory(getConnectionManager(), action));
 		action.end(); //ACTION_EXECUTION end
 	}
+	
+	@Override
+	protected void validateArgs() {
+		super.validateArgs();
+		if(transaction == null) throw new IllegalArgumentException("Transaction can't be null");
+	}
 
 	public TransactionExecutor set(Transaction transaction) {
 		this.transaction = transaction;

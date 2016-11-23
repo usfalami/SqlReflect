@@ -8,7 +8,6 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class TransactionManagerImpl extends ConnectionManagerImpl implements TransactionManager {
@@ -65,7 +64,6 @@ public class TransactionManagerImpl extends ConnectionManagerImpl implements Tra
 
 	@Override
 	public Statement buildBatch(String... queries) throws SQLException {
-		if(Utils.isEmptyArray(queries)) throw new SQLException("one query at least");
 		Connection cnx = getConnection();
 		Statement stmt = cnx.createStatement();
 		for(String query : queries)
@@ -86,7 +84,8 @@ public class TransactionManagerImpl extends ConnectionManagerImpl implements Tra
 	@Override
 	public <P> int executeUpdate(Statement stmt, String query, P args, Binder<P> binder) throws SQLException {
 		int result = 0;
-		result = stmt instanceof PreparedStatement ? ((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query);
+		result = stmt instanceof PreparedStatement ? 
+				((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query);
 		if(binder != null)
 			binder.post(stmt, args);
 		return result;

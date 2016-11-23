@@ -33,7 +33,7 @@ public abstract class AbstractStatementExecutor<R> extends AbstractExecutor<R> {
 			R r = runExecution(stmt);
 			action.end();//ACTION_EXECUTION end
 
-			action = at.startAction(Constants.ACTION_ADAPT);
+			action = at.startAction(Constants.ACTION_MAPPING);
 			adapter.prepare(null);
 			adapter.adapte(r, 1);
 			action.end();//ACTION_ADAPT end
@@ -41,13 +41,6 @@ public abstract class AbstractStatementExecutor<R> extends AbstractExecutor<R> {
 		}finally {
 			getConnectionManager().close(stmt);
 		}
-	}
-	
-	public final R run() throws Exception {
-		ListAdapter<R> adapter = new ListAdapter<R>();
-		run(adapter);
-		 Iterator<R> it = adapter.getList().iterator();
-		return it.hasNext() ? it.next() : null;
 	}
 
 	protected abstract Statement runStatement() throws SQLException ;
