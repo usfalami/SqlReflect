@@ -23,9 +23,9 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	}
 	
 	@Override
-	protected Statement runStatement() throws SQLException {
+	protected Statement runPreparation() throws SQLException {
 		TransactionManager tm = getConnectionManager();
-		return queries.length > 1 || Utils.isEmptyCollection(argsList) ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
+		return queries.length > 1 ? tm.buildBatch(queries) : tm.buildBatch(queries[0], argsList, binder);
 	}
 	@Override
 	protected Integer[] runExecution(Statement stmt) throws SQLException {
@@ -35,7 +35,12 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 	@Override
 	protected void validateArgs() {
 		super.validateArgs();
-		if(Utils.isEmptyArray(queries)) throw new IllegalArgumentException();
+		if(Utils.isEmptyArray(queries)) throw new IllegalArgumentException("Query can't be null or empty");
+		if(queries.length==1){
+			if(Utils.isEmptyString(queries[0])) throw new IllegalArgumentException("Query can't be null or empty");
+		}
+		else if(queries.length > 1 && (!Utils.isEmptyCollection(argsList) || !Utils.isNull(binder))) 
+			throw new IllegalArgumentException("Can't");
 	}
 
 	public BatchExecutor<A> set(String sql, Collection<A> argsList, Binder<A> binder) {

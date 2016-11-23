@@ -8,7 +8,6 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.AbstractItemMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 
 public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {

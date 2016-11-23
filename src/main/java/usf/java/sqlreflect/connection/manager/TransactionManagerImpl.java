@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class TransactionManagerImpl extends ConnectionManagerImpl implements TransactionManager {
@@ -73,10 +74,12 @@ public class TransactionManagerImpl extends ConnectionManagerImpl implements Tra
 	@Override
 	public <P> Statement buildBatch(String query, Collection<P> argList, Binder<P> binder) throws SQLException {
 		Connection cnx = getConnection();
-		PreparedStatement ps = cnx.prepareStatement(query);		
-		for(P args : argList){
-			binder.bind(ps, args);
-			ps.addBatch();
+		PreparedStatement ps = cnx.prepareStatement(query);
+		if(!Utils.isEmptyCollection(argList)){
+			for(P args : argList){
+				binder.bind(ps, args);
+				ps.addBatch();
+			}
 		}
 		return ps;
 	}

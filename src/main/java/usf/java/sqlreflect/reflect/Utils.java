@@ -11,20 +11,23 @@ import usf.java.sqlreflect.server.User;
 
 public class Utils {
 
+	public static boolean isNull(Object arg) {
+		return arg == null;
+	}
 	public static boolean isEmptyString(String arg) {
-		return arg == null || arg.isEmpty();
+		return isNull(arg) || arg.isEmpty();
 	}
 	public static <P> boolean isEmptyArray(P... args) {
-		return args == null || args.length == 0;
+		return isNull(args) || args.length == 0;
 	}
 	public static boolean isEmptyCollection(Collection<?> arg) {
-		return arg == null || arg.isEmpty();
+		return isNull(arg) || arg.isEmpty();
 	}
 	public static boolean isEmptyMap(Map<?,?> arg) {
-		return arg == null || arg.isEmpty();
+		return isNull(arg) || arg.isEmpty();
 	}
 	public static boolean isEmptyUser(User user) {
-		return user == null || isEmptyString(user.getLogin()); //valid login at least
+		return isNull(user) || isEmptyString(user.getLogin()); //valid login at least
 	}
 	
 	public static Integer[] convert(int... values){
