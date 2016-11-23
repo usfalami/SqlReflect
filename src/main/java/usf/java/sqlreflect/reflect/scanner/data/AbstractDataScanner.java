@@ -30,7 +30,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 		Statement stmt = null;
 		try {
 
-			ActionTimer action = at.startAction(Constants.ACTION_STATEMENT);
+			ActionTimer action = at.startAction(Constants.ACTION_PREPARATION);
 			stmt = getConnectionManager().prepare(query, args, binder);
 			action.end(); //ACTION_STATEMENT end
 			
@@ -41,7 +41,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 				rs = getConnectionManager().executeQuery(stmt, query, args, binder);
 				action.end(); //ACTION_EXECUTION end
 				
-				action = at.startAction(Constants.ACTION_MAPPING);
+				action = at.startAction(Constants.ACTION_PROCESSING);
 				getMapper().prepare(rs);
 				adapter.prepare(getMapper());
 				runAdapt(rs, adapter, at);

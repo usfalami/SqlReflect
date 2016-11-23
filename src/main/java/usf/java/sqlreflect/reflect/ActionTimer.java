@@ -2,6 +2,7 @@ package usf.java.sqlreflect.reflect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ActionTimer {
 
@@ -35,6 +36,14 @@ public class ActionTimer {
 	public ActionTimer setMessage(String message) {
 		this.message = message;
 		return this;
+	}
+	
+	public ActionTimer last(){
+		ActionTimer at = this;
+		if(Utils.isEmptyCollection(timers)) return at;
+		Iterator<ActionTimer> it = timers.iterator();
+		while(it.hasNext()) at = it.next();
+		return at.last();
 	}
 	
 	public long duration(){

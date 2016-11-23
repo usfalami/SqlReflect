@@ -27,7 +27,7 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		String[] functions = nf.getFunctions(dm);
 		action.end();//ACTION_EXECUTION end
 
-		action = at.startAction(Constants.ACTION_MAPPING);
+		action = at.startAction(Constants.ACTION_PROCESSING);
 		adapter.prepare(null);
 		for(int i=0; i<functions.length; i++)
 			adapter.adapte(functions[i], i);

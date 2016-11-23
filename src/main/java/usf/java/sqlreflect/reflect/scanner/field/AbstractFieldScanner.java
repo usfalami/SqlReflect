@@ -33,7 +33,7 @@ public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
 			rs = runExecution(dm);
 			action.end(); //ACTION_EXECUTION end
 
-			action = at.startAction(Constants.ACTION_MAPPING);
+			action = at.startAction(Constants.ACTION_PROCESSING);
 			getMapper().prepare(rs);
 			adapter.prepare(getMapper());
 			runAdapt(rs, adapter, at);

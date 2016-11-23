@@ -34,7 +34,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 
 			run(adapter, timer);
 		}catch (Exception e) {
-			timer.setMessage(e.getMessage());
+			timer.last().setMessage("Error : "+e.getMessage());
 			throw e;
 		} finally {
 			getConnectionManager().close();
