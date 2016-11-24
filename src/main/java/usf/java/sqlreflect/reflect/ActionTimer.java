@@ -33,8 +33,8 @@ public class ActionTimer {
 	public String getMessage() {
 		return msg;
 	}
-	public ActionTimer setMessage(String message) {
-		this.msg = message;
+	public ActionTimer setMessage(String msg) {
+		this.msg = msg;
 		return this;
 	}
 	

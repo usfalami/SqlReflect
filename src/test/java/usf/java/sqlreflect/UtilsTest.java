@@ -95,7 +95,7 @@ public class UtilsTest {
 	}
 
 	@Test
-	public void isLegalArgTest() {
+	public void testIisLegalArg() {
 		List<Parameter<?>> args = null;
 		assertTrue(Utils.isLegalArg(args, null));
 		assertFalse(Utils.isLegalArg(args, new ParameterBinder()));
@@ -108,7 +108,7 @@ public class UtilsTest {
 	}
 	
 	@Test
-	public void isLegalArgsTest() {
+	public void testIsLegalArgs() {
 		List<List<Parameter<?>>> args = null;
 		assertTrue(Utils.isLegalArgs(args, null));
 		assertFalse(Utils.isLegalArgs(args, new ParameterBinder()));
