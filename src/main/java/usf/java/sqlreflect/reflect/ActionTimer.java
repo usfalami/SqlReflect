@@ -9,7 +9,7 @@ public class ActionTimer {
 	private String name;
 	private long start, end;
 	private Collection<ActionTimer> timers;
-	private String message;
+	private String msg;
 
 	public long start() {
 		return start = end = System.currentTimeMillis();
@@ -31,10 +31,10 @@ public class ActionTimer {
 		return this;
 	}
 	public String getMessage() {
-		return message;
+		return msg;
 	}
 	public ActionTimer setMessage(String message) {
-		this.message = message;
+		this.msg = message;
 		return this;
 	}
 	

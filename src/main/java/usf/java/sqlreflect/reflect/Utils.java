@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
 
+import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.server.User;
 
 public class Utils {
@@ -28,6 +29,19 @@ public class Utils {
 	}
 	public static boolean isEmptyUser(User user) {
 		return isNull(user) || isEmptyString(user.getLogin()); //valid login at least
+	}
+	
+	public static <T> boolean isNull(T arg, Binder<T> binder) { //TODO optim test
+		return isNull(arg) && isNull(binder);
+	}
+	public static <T> boolean isLegalArg(T arg, Binder<T> binder) { //TODO optim test
+		return isNull(arg, binder) || (!isNull(arg) && !isNull(binder));
+	}
+	public static <T> boolean isEmpty(Collection<T> args, Binder<T> binder) { //TODO optim test
+		return isEmptyCollection(args) && isNull(binder);
+	}
+	public static <T> boolean isLegalArgs(Collection<T> args, Binder<T> binder) { //TODO optim test
+		return isEmpty(args, binder) || (!isEmptyCollection(args) && !isNull(binder));
 	}
 	
 	public static Integer[] convert(int... values){

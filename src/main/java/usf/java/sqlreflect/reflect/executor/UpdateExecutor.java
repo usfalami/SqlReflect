@@ -34,6 +34,7 @@ public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 	protected void validateArgs() {
 		super.validateArgs();
 		if(Utils.isEmptyString(query)) throw new IllegalArgumentException("Query can't be null");
+		if(!Utils.isLegalArg(args, binder)) throw new IllegalArgumentException("Query parameters are not valid");
 	}
 	
 	public UpdateExecutor<A> set(String sql, A args, Binder<A> binder) {

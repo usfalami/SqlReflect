@@ -6,19 +6,24 @@ import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 
 import java.lang.reflect.Method;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.User;
+import usf.java.sqlreflect.sql.Parameter;
+import usf.java.sqlreflect.sql.Parameters;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.entry.Table;
 
@@ -87,6 +92,32 @@ public class UtilsTest {
 		assertTrue(Utils.isEmptyUser(new User(p)));
 		p.put(Constants.USER_LOGIN, "root");
 		assertFalse(Utils.isEmptyUser(new User(p)));
+	}
+
+	@Test
+	public void isLegalArgTest() {
+		List<Parameter<?>> args = null;
+		assertTrue(Utils.isLegalArg(args, null));
+		assertFalse(Utils.isLegalArg(args, new ParameterBinder()));
+		args = new ArrayList<Parameter<?>>();
+		assertFalse(Utils.isLegalArg(args, null));
+		assertTrue(Utils.isLegalArg(args, new ParameterBinder()));
+		args.add(new Parameter<String>(Types.CHAR, "Test"));
+		assertFalse(Utils.isLegalArg(args, null));
+		assertTrue(Utils.isLegalArg(args, new ParameterBinder()));
+	}
+	
+	@Test
+	public void isLegalArgsTest() {
+		List<List<Parameter<?>>> args = null;
+		assertTrue(Utils.isLegalArgs(args, null));
+		assertFalse(Utils.isLegalArgs(args, new ParameterBinder()));
+		args = new ArrayList<List<Parameter<?>>>();
+		assertTrue(Utils.isLegalArgs(args, null));
+		assertFalse(Utils.isLegalArgs(args, new ParameterBinder()));
+		args.add(new Parameters());
+		assertFalse(Utils.isLegalArgs(args, null));
+		assertTrue(Utils.isLegalArgs(args, new ParameterBinder()));
 	}
 	
 	@Test

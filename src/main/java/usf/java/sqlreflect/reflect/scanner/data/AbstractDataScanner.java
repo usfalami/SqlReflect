@@ -58,8 +58,9 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 	@Override
 	protected void validateArgs() {
 		super.validateArgs();
+		if(Utils.isNull(getMapper())) throw new IllegalArgumentException("Mapper can't be  is null");
 		if(Utils.isEmptyString(query)) throw new IllegalArgumentException("Query can't be null");
-		if(getMapper() == null) throw new IllegalArgumentException("Mapper can't be  is null");
+		if(!Utils.isLegalArg(args, binder)) throw new IllegalArgumentException("Query parameters are not valid");
 	}
 	
 	public AbstractDataScanner<A, R> set(String query, A args, Binder<A> binder) {
