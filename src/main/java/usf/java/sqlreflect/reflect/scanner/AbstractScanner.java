@@ -29,18 +29,18 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		return adapter.getList();
 	}
 	
-	public Mapper<R> getMapper() {
-		return mapper;
-	}
-	public void setMapper(Mapper<R> mapper) {
-		this.mapper = mapper;
-	}
-	
 	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
 		int row = 0;
 		while(rs.next()){
 			R field = getMapper().map(rs, row+1);
 			adapter.adapte(field, row++);
 		}
+	}
+	
+	public Mapper<R> getMapper() {
+		return mapper;
+	}
+	public void setMapper(Mapper<R> mapper) {
+		this.mapper = mapper;
 	}
 }
