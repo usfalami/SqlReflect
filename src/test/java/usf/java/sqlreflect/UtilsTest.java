@@ -35,6 +35,7 @@ public class UtilsTest {
 		String s = null;
 		assertTrue(Utils.isNull(s));
 		assertFalse(Utils.isNull(""));
+		assertFalse(Utils.isNull(0));
 		s="";
 		assertFalse(Utils.isNull(s));
 	}
@@ -44,6 +45,7 @@ public class UtilsTest {
 		String s = null;
 		assertFalse(Utils.isNotNull(s));
 		assertTrue(Utils.isNotNull(""));
+		assertTrue(Utils.isNotNull(0));
 		s="";
 		assertTrue(Utils.isNotNull(s));
 	}
