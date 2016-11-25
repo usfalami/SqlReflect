@@ -76,7 +76,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		Connection cnx = getConnection();
 		if(Utils.isNull(args, binder)) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		Statement stmt = query.toUpperCase().startsWith("CALL") ?
+		Statement stmt = query.substring(0, 4).toUpperCase().startsWith("CALL") ?
 				cnx.prepareCall(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY) : 
 				cnx.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		binder.bind(stmt, args);
