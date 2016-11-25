@@ -5,6 +5,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.ReflectorFactory;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Transaction;
 
 public class TransactionExecutor extends AbstractExecutor<Void> {
@@ -28,7 +29,7 @@ public class TransactionExecutor extends AbstractExecutor<Void> {
 	@Override
 	protected void validateArgs() {
 		super.validateArgs();
-		if(transaction == null) throw new IllegalArgumentException("Transaction can't be null");
+		if(Utils.isNull(transaction)) throw new IllegalArgumentException("Transaction can't be null");
 	}
 
 	public TransactionExecutor set(Transaction transaction) {

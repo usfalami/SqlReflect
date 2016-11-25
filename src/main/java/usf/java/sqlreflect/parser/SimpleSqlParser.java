@@ -3,6 +3,7 @@ package usf.java.sqlreflect.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlQuery;
 import usf.java.sqlreflect.sql.entry.Callable;
@@ -41,7 +42,7 @@ public class SimpleSqlParser implements SqlParser {
 	@Override
 	public Runnable parseSQL(String sql) {
 		Runnable obj = parseCallable(sql);
-		if(obj == null) obj = parseQuery(sql);
+		if(Utils.isNull(obj)) obj = parseQuery(sql);
 		return obj;
 	}
 

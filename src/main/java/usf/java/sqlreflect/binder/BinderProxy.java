@@ -20,14 +20,14 @@ public class BinderProxy<T> implements Binder<T> {
 	
 	@Override
 	public final void bind(Statement stmt, T item) throws SQLException {
-		if(binderMethod == null)
+		if(Utils.isNull(binderMethod))
 			binderMethod = search(binderMethodName, stmt, item);
 		invok(binderMethod, stmt, item);
 	}
 	@Override
 	public final void post(Statement stmt, T item) throws SQLException {
 		if(Utils.isEmptyString(postBinderMethodName)) return; //optional
-		if(postBinderMethod == null)
+		if(Utils.isNull(postBinderMethodName))
 			postBinderMethod = search(postBinderMethodName, stmt, item);
 		invok(postBinderMethod, stmt, item);
 	}
@@ -63,12 +63,12 @@ public class BinderProxy<T> implements Binder<T> {
 		return new BinderProxy<T>(multiBinderClazz.newInstance(), binderMethod, postBinderMethod);
 	}
 	public static <T, B extends MultipleBinder<T>> BinderProxy<T> get(Class<B> clazz, String binderMethod, String postBinderMethod) throws Exception {
-		if(clazz == null || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
+		if(Utils.isNull(clazz) || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
 		MultipleBinder<T> obj = clazz.newInstance();
 		return new BinderProxy<T>(obj, binderMethod, postBinderMethod);
 	}
 	public static <T> BinderProxy<T> get(MultipleBinder<T> mb, String binderMethod, String postBinderMethod) throws Exception {
-		if(mb == null || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
+		if(Utils.isNull(mb) || Utils.isEmptyString(binderMethod)) throw new IllegalArgumentException(); //TODO check this exception
 		return new BinderProxy<T>(mb, binderMethod, postBinderMethod);
 	}
 

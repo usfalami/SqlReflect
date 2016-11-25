@@ -89,7 +89,7 @@ public class TransactionManagerImpl extends ConnectionManagerImpl implements Tra
 		int result = 0;
 		result = stmt instanceof PreparedStatement ? 
 				((PreparedStatement)stmt).executeUpdate() : stmt.executeUpdate(query);
-		if(binder != null)
+		if(Utils.isNotNull(binder))
 			binder.post(stmt, args);
 		return result;
 	}

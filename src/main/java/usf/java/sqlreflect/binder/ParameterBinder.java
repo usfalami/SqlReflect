@@ -45,8 +45,8 @@ public class ParameterBinder implements Binder<List<Parameter<?>>> {
 	}
 
 	public static void set(PreparedStatement pstmt, int index, Parameter<?> arg) throws SQLException {
-		if(arg == null) pstmt.setNull(index, Types.NULL); //TODO check that
-		else if(arg.getValue() == null) pstmt.setNull(index, arg.getSqlType());
+		if(Utils.isNull(arg)) pstmt.setNull(index, Types.NULL); //TODO check that
+		else if(Utils.isNull(arg.getValue())) pstmt.setNull(index, arg.getSqlType());
 		else pstmt.setObject(index, arg.getValue(), arg.getSqlType());
 	}
 }

@@ -4,6 +4,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import usf.java.sqlreflect.reflect.Utils;
+
 public class DynamicAsciiPrinter extends AsciiPrinter implements Printer {
 	
 	private List<String[]> entries;
@@ -33,7 +35,7 @@ public class DynamicAsciiPrinter extends AsciiPrinter implements Printer {
 	@Override
 	public void appendColumn(String value){
 		entries.get(row)[col] = value;
-		if(value != null)
+		if(Utils.isNotNull(value))
 			lengths[col] = Math.max(value.length(), lengths[col]);
 		col++;
 	}

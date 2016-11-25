@@ -7,6 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.User;
 
 public class WeblogicPoolConnectionProvider extends DataSourceConnectionProvider {
@@ -19,7 +20,7 @@ public class WeblogicPoolConnectionProvider extends DataSourceConnectionProvider
 		Hashtable<String,String> env = new Hashtable<String,String>();
 	    env.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory" );
 	    env.put(Context.PROVIDER_URL, url);
-	    if(user != null){
+	    if(Utils.isNotNull(user)){
 	    	env.put(Context.SECURITY_PRINCIPAL, user.getLogin());
 	    	env.put(Context.SECURITY_CREDENTIALS, user.getPass());
 	    }

@@ -12,6 +12,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class ContextLoader {
@@ -51,12 +52,12 @@ public class ContextLoader {
 	}
 	
 	public static ConnectionManager getConnectionManager() {
-		if(cm == null) load(); // not clean but resolve singleton problems
+		if(Utils.isNull(cm)) load(); // not clean but resolve singleton problems
 		return cm;
 	}
 	
 	public static TransactionManager getTransactionManager(){
-		if(tm == null) load(); // not clean but resolve singleton problems
+		if(Utils.isNull(tm)) load(); // not clean but resolve singleton problems
 		return tm;
 	}
 	
@@ -78,7 +79,7 @@ public class ContextLoader {
 			e.printStackTrace();
 		}
 		finally {
-			if(c != null){
+			if(Utils.isNotNull(c)){
 				try {
 					c.close();
 				} catch (SQLException e) {

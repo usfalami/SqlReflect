@@ -44,7 +44,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 	}
 	
 	protected void validateArgs() {
-		if(cm == null) throw new IllegalArgumentException("ConnectionManager can't be null");
+		if(Utils.isNull(cm)) throw new IllegalArgumentException("ConnectionManager can't be null");
 	}
 	
 	public abstract void run(Adapter<R> adapter, ActionTimer at) throws Exception;

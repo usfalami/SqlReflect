@@ -95,31 +95,31 @@ public class UtilsTest {
 	}
 
 	@Test
-	public void testIisLegalArg() {
+	public void testIsIllegalArg() {
 		List<Parameter<?>> args = null;
-		assertTrue(Utils.isLegalArg(args, null));
-		assertFalse(Utils.isLegalArg(args, new ParameterBinder()));
+		assertFalse(Utils.isIllegalArg(args, null));
+		assertTrue(Utils.isIllegalArg(args, new ParameterBinder()));
 		args = new ArrayList<Parameter<?>>();
-		assertFalse(Utils.isLegalArg(args, null));
-		assertTrue(Utils.isLegalArg(args, new ParameterBinder()));
+		assertTrue(Utils.isIllegalArg(args, null));
+		assertFalse(Utils.isIllegalArg(args, new ParameterBinder()));
 		args.add(new Parameter<String>(Types.CHAR, "Test"));
-		assertFalse(Utils.isLegalArg(args, null));
-		assertTrue(Utils.isLegalArg(args, new ParameterBinder()));
+		assertTrue(Utils.isIllegalArg(args, null));
+		assertFalse(Utils.isIllegalArg(args, new ParameterBinder()));
 	}
-	
+
 	@Test
-	public void testIsLegalArgs() {
+	public void testIsIllegalArgs() {
 		List<List<Parameter<?>>> args = null;
-		assertTrue(Utils.isLegalArgs(args, null));
-		assertFalse(Utils.isLegalArgs(args, new ParameterBinder()));
+		assertFalse(Utils.isIllegalArgs(args, null));
+		assertTrue(Utils.isIllegalArgs(args, new ParameterBinder()));
 		args = new ArrayList<List<Parameter<?>>>();
-		assertTrue(Utils.isLegalArgs(args, null));
-		assertFalse(Utils.isLegalArgs(args, new ParameterBinder()));
+		assertFalse(Utils.isIllegalArgs(args, null));
+		assertTrue(Utils.isIllegalArgs(args, new ParameterBinder()));
 		args.add(new Parameters());
-		assertFalse(Utils.isLegalArgs(args, null));
-		assertTrue(Utils.isLegalArgs(args, new ParameterBinder()));
+		assertTrue(Utils.isIllegalArgs(args, null));
+		assertFalse(Utils.isIllegalArgs(args, new ParameterBinder()));
 	}
-	
+
 	@Test
 	public void testConvert() {
 		assertNull(Utils.convert(null));
@@ -136,7 +136,7 @@ public class UtilsTest {
 	public void testFindMethod() throws Exception {
 		testFindMethodTrue(new Integer(0), "intValue");//find method without args
 		testFindMethodTrue(new Integer(9), "compareTo", new Integer(5));//String=String
-//		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
+		//		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
 		testFindMethodTrue("", "concat", "");
 		testFindMethodTrue("", "equals", new Double(5)); //Double->Object
 		testFindMethodTrue(new ArrayList<Entry>(), "add", new Table());//Table->Entry
@@ -149,7 +149,7 @@ public class UtilsTest {
 	public void testFindMethod3() throws Exception {
 		Utils.findMethod("", "concat", 99);//Integer # String
 	}
-	
+
 	private void testFindMethodTrue(Object o, String methodName, Object... args) throws Exception{
 		Method m = Utils.findMethod(o, methodName, args);
 		assertEquals(m.getName(), methodName);
@@ -157,5 +157,5 @@ public class UtilsTest {
 		for(int i=0; i<args.length; i++)
 			assertTrue(m.getParameterTypes()[i].isInstance(args[i]));
 	}
-	
+
 }

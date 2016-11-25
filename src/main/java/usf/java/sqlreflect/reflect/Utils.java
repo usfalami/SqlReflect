@@ -15,6 +15,9 @@ public class Utils {
 	public static boolean isNull(Object arg) {
 		return arg == null;
 	}
+	public static boolean isNotNull(Object arg) {
+		return arg != null;
+	}
 	public static boolean isEmptyString(String arg) {
 		return isNull(arg) || arg.isEmpty();
 	}
@@ -34,18 +37,18 @@ public class Utils {
 	public static <T> boolean isNull(T arg, Binder<T> binder) { //TODO optim test
 		return isNull(arg) && isNull(binder);
 	}
-	public static <T> boolean isLegalArg(T arg, Binder<T> binder) { //TODO optim test
-		return isNull(arg, binder) || (!isNull(arg) && !isNull(binder));
+	public static <T> boolean isIllegalArg(T arg, Binder<T> binder) {
+		return isNull(arg) ^ isNull(binder);
 	}
-	public static <T> boolean isEmpty(Collection<T> args, Binder<T> binder) { //TODO optim test
+	public static <T> boolean isEmpty(Collection<T> args, Binder<T> binder) {
 		return isEmptyCollection(args) && isNull(binder);
 	}
-	public static <T> boolean isLegalArgs(Collection<T> args, Binder<T> binder) { //TODO optim test
-		return isEmpty(args, binder) || (!isEmptyCollection(args) && !isNull(binder));
+	public static <T> boolean isIllegalArgs(Collection<T> args, Binder<T> binder) {
+		return isEmptyCollection(args) ^ isNull(binder);
 	}
 	
 	public static Integer[] convert(int... values){
-		if(values == null) return null;
+		if(isNull(values)) return null;
 		Integer[] arr = new Integer[values.length];
 		for(int i=0; i<values.length; i++)
 			arr[i] = values[i];
@@ -80,5 +83,9 @@ public class Utils {
 		}
 		if(!found) throw new NoSuchMethodError();
 		return methods[index-1];
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(true^false);
 	}
 }

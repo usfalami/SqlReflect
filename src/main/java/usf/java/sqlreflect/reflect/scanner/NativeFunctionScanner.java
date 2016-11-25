@@ -6,6 +6,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
 public class NativeFunctionScanner extends AbstractScanner<String> {
@@ -37,7 +38,7 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 	@Override
 	protected void validateArgs() {
 		super.validateArgs();
-		if(nf == null) throw new IllegalArgumentException("NativeFunction type can't be null");
+		if(Utils.isNull(nf)) throw new IllegalArgumentException("NativeFunction type can't be null");
 	}
 	
 	public NativeFunctionScanner set(NativeFunctions nf) throws Exception {

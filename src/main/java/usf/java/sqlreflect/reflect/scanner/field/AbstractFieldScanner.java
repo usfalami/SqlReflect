@@ -8,6 +8,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.AbstractItemMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 
 public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
@@ -46,7 +47,7 @@ public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
 	@Override
 	protected void validateArgs() {
 		super.validateArgs();
-		if(getMapper() == null) throw new IllegalArgumentException("Mapper can't be  is null");
+		if(Utils.isNull(getMapper())) throw new IllegalArgumentException("Mapper can't be  is null");
 	}
 	
 	protected abstract ResultSet runExecution(DatabaseMetaData dm) throws Exception;

@@ -42,11 +42,11 @@ public class TransactionProxy implements Transaction {
 		return new TransactionProxy(multiTransactionClazz.newInstance(), methodName);
 	}
 	public static <T extends MultiTransaction> TransactionProxy get(Class<T> clazz, String methodName) throws Exception {
-		if(clazz == null || Utils.isEmptyString(methodName)) throw new Exception(""); //TODO check this exception
+		if(Utils.isNull(clazz) || Utils.isEmptyString(methodName)) throw new Exception(""); //TODO check this exception
 		return new TransactionProxy(clazz.newInstance(), methodName);
 	}
 	public static <T extends MultiTransaction> TransactionProxy get(MultiTransaction mt, String methodName) throws Exception {
-		if(mt == null || Utils.isEmptyString(methodName)) throw new Exception(""); //TODO check this exception
+		if(Utils.isNull(mt) || Utils.isEmptyString(methodName)) throw new Exception(""); //TODO check this exception
 		return new TransactionProxy(mt, methodName);
 	}
 	

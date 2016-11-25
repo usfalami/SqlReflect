@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class ConnectionManagerImpl implements ConnectionManager {
@@ -35,7 +36,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	
 	@Override
 	public void close(ResultSet rs) {
-		if(rs != null){
+		if(Utils.isNotNull(rs)){
 			try {
 				rs.close();
 			} catch (SQLException e) {
@@ -45,7 +46,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	}
 	@Override
 	public void close(Statement stmt) {
-		if(stmt != null){
+		if(Utils.isNotNull(stmt)){
 			try {
 				stmt.close();
 			} catch (SQLException e) {
@@ -56,7 +57,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	@Override
 	public void close() {
 		try {
-			if(connection != null)
+			if(Utils.isNotNull(connection))
 				connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,7 +74,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	@Override
 	public <P> Statement prepare(String query, P args, Binder<P> binder) throws SQLException {
 		Connection cnx = getConnection();
-		if(args == null || binder == null) //TODO : check args.isEmpty 
+		if(Utils.isNull(args, binder)) //TODO : check args.isEmpty 
 			return cnx.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		Statement stmt = query.toUpperCase().startsWith("CALL") ?
 				cnx.prepareCall(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY) : 
@@ -87,7 +88,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 		ResultSet rs = null;
 		rs = stmt instanceof PreparedStatement ? 
 				((PreparedStatement)stmt).executeQuery() : stmt.executeQuery(query);
-		if(binder != null)
+		if(Utils.isNotNull(binder))
 			binder.post(stmt, args);
 		return rs;
 	}

@@ -38,7 +38,7 @@ public class BatchExecutor<A> extends AbstractStatementExecutor<Integer[]> {
 		if(Utils.isEmptyArray(queries)) throw new IllegalArgumentException("Query can't be null or empty");
 		if(queries.length==1){
 			if(Utils.isEmptyString(queries[0])) throw new IllegalArgumentException("Query can't be null or empty");
-			if(!Utils.isLegalArgs(argsList, binder)) throw new IllegalArgumentException("Query parameters are not valid");
+			if(Utils.isIllegalArgs(argsList, binder)) throw new IllegalArgumentException("Query parameters are not valid");
 		}
 		else if(queries.length > 1 && !Utils.isEmpty(argsList, binder))
 			throw new IllegalArgumentException("Incohérent params");

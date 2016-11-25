@@ -3,6 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;
@@ -25,7 +26,7 @@ public class ProcedureMapper extends AbstractItemMapper<Procedure> {
 		writer.writeString(SqlConstants.DATABASE_NAME, procedure.getDatabaseName());
 		writer.writeString(SqlConstants.PROCEDURE_NAME, procedure.getName());
 		writer.writeString(SqlConstants.PROCEDURE_TYPE, procedure.getType());
-		if(procedure.getArguments() != null){
+		if(Utils.isNotNull(procedure.getArguments())){
 			ArgumentMapper cm = new ArgumentMapper();
 			writer.startList("COLUMNS");
 			for(Argument c : procedure.getArguments())

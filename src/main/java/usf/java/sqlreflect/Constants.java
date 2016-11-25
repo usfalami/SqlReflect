@@ -15,7 +15,5 @@ public interface Constants {
 	String ACTION_EXECUTION 	= "EXECUTION";
 	String ACTION_PROCESSING 	= "PROCESSING";
 	String ACTION_TRANSACTION 	= "TRANSACTION";
-	
-	String ACTION_OK = "OK";
 
 }

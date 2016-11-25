@@ -3,6 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -25,7 +26,7 @@ public class TableMapper extends AbstractItemMapper<Table> {
 		writer.writeString(SqlConstants.TABLE_NAME, table.getName());
 		writer.writeString(SqlConstants.TABLE_TYPE, table.getType());
 		//TODO : Update this
-		if(table.getColumns() != null){
+		if(Utils.isNotNull(table.getColumns())){
 			ColumnMapper cm = new ColumnMapper();
 			writer.startList("COLUMNS");
 			for(Column c : table.getColumns())

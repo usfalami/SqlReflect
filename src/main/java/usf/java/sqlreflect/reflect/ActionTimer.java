@@ -56,7 +56,7 @@ public class ActionTimer {
 	
 	public ActionTimer createAction(){
 		ActionTimer t = new ActionTimer();
-		if(timers == null) timers = new ArrayList<ActionTimer>();
+		if(Utils.isNull(timers)) timers = new ArrayList<ActionTimer>();
 		timers.add(t);
 		return t;
 	}
@@ -67,7 +67,7 @@ public class ActionTimer {
 	}
 
 	public ActionTimer clear() {
-		if(timers != null) timers.clear();
+		if(Utils.isNotNull(timers)) timers.clear();
 		return this;
 	}
 	
