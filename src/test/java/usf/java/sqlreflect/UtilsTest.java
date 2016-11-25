@@ -28,6 +28,25 @@ import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.entry.Table;
 
 public class UtilsTest {
+	
+	@Test
+	public void testIsNull() {
+		assertTrue(Utils.isNull(null));
+		String s = null;
+		assertTrue(Utils.isNull(s));
+		assertFalse(Utils.isNull(""));
+		s="";
+		assertFalse(Utils.isNull(s));
+	}
+	@Test
+	public void testIsNotNull() {
+		assertFalse(Utils.isNotNull(null));
+		String s = null;
+		assertFalse(Utils.isNotNull(s));
+		assertTrue(Utils.isNotNull(""));
+		s="";
+		assertTrue(Utils.isNotNull(s));
+	}
 
 	@Test
 	public void testIsEmptyString() {
