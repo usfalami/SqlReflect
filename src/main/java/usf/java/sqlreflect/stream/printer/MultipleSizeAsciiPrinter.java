@@ -2,6 +2,8 @@ package usf.java.sqlreflect.stream.printer;
 
 import java.io.OutputStream;
 
+import usf.java.sqlreflect.reflect.Utils;
+
 public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
 	
 	private int currentColumn;
@@ -18,7 +20,7 @@ public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
 	
 	@Override
 	protected void init(String... columns) {
-		if(getSizes() == null || getSizes().length == 0){
+		if(Utils.isEmptyPrimitiveArray(getSizes())){
 			int[] sizes = new int[columns.length];
 			for(int i=0; i<sizes.length; i++)
 				sizes[i] = Math.max(Math.abs(DEFAULT_SIZE), columns[i].length());
