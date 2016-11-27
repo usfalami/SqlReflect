@@ -1,13 +1,15 @@
 package usf.java.sqlreflect.stream.printer;
 
 public interface Printer {
-	
-	void setHeaders(String... headers);
-	
-	void appendRow();
-	
-	void appendColumn(String value);
-	
-	void print();
+
+	void startList(String... columns);
+
+	void endList();
+
+	void startObject();
+
+	void endObject();
+
+	void addColumn(Object value);
 
 }

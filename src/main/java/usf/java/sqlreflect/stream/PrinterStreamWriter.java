@@ -19,56 +19,56 @@ public class PrinterStreamWriter implements StreamWriter {
 
 	@Override
 	public void writeBoolean(String name, boolean bool) throws Exception {
-		printer.appendColumn(""+bool);
+		printer.addColumn(bool);
 	}
 
 	@Override
 	public void writeInt(String name, int number) throws Exception {
-		printer.appendColumn(""+number);
+		printer.addColumn(number);
 	}
 
 	@Override
 	public void writeLong(String name, long number) throws Exception {
-		printer.appendColumn(""+number);
+		printer.addColumn(number);
 	}
 
 	@Override
 	public void writeFloat(String name, float number) throws Exception {
-		printer.appendColumn(""+number);
+		printer.addColumn(number);
 	}
 
 	@Override
 	public void writeDouble(String name, double number) throws Exception {
-		printer.appendColumn(""+number);
+		printer.addColumn(number);
 	}
 
 	@Override
 	public void writeString(String name, String string) throws Exception {
-		printer.appendColumn(string);
+		printer.addColumn(string);
 	}
 
 	@Override
 	public void writeDate(String name, Date date) throws Exception {
-		printer.appendColumn(DATE_FORMATTER.format(date));
+		printer.addColumn(DATE_FORMATTER.format(date));
 	}
 	
 	@Override
 	public void startObject(String name) throws Exception {
-		printer.appendRow();
+		printer.startObject();
 	}
 
 	@Override
 	public void endObject() throws Exception {
-
+		printer.endObject();
 	}
 
 	@Override
 	public void startList(String name, String... columns) throws Exception {
-		printer.setHeaders(columns);
+		printer.startList(columns);
 	}
 	@Override
 	public void endList() throws Exception {
-		printer.print();
+		printer.endList();
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import usf.java.sqlreflect.adapter.ListWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImplTest;
@@ -13,7 +14,14 @@ import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
+import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
+import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.sql.entry.Database;
+import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.stream.PrinterStreamWriter;
 
 public class ContextLoader {
 
@@ -89,4 +97,15 @@ public class ContextLoader {
 			else System.out.println("Connection are closed");
 		}
 	}
+	
+	public static void main(String[] args) throws Exception {
+		ConnectionManager cm = getConnectionManager();
+		PrinterStreamWriter ps = new PrinterStreamWriter(System.out);
+		
+		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
+		new TableScanner(cm).set("mysql", null).run(new ListWriter<Table>(ps));
+		new HeaderScanner<Void>(cm).set("show processlist").run(new ListWriter<Header>(ps));
+		
+	}
+	
 }
