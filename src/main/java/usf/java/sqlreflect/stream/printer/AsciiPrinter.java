@@ -19,9 +19,9 @@ public abstract class AsciiPrinter<T> implements Printer {
 	private String line, nullValue;
 	private int reverse = -1;
 	
-	public AsciiPrinter(OutputStream out, T size, String nullValue) {
+	public AsciiPrinter(OutputStream out, T sizes, String nullValue) {
 		this.stream = new PrintStream(out);
-		this.sizes = size;
+		this.sizes = sizes;
 		this.nullValue = nullValue;
 	}
 	
@@ -84,30 +84,6 @@ public abstract class AsciiPrinter<T> implements Printer {
 	protected String buildColumnPattern(int size){
 		return new StringBuilder("%").append(size * reverse).append("s").append(COLOMN_SEPAR).toString();
 	}
-
-
-	public static void main(String[] args) {
-//		AsciiPrinter<?> c = new SimpleAsciiPrinter(System.out, 7);
-		AsciiPrinter<?> c = new MultipleSizeAsciiPrinter(System.out);
-//		DynamicAsciiPrinter c = new DynamicAsciiPrinter(System.out);
-		c.startList("col1","col2","col3","col4","col5");
-		c.startObject();
-		c.addColumn(444);
-		c.addColumn(444);
-		c.addColumn(46);
-		c.addColumn("zegesgdfser");
-		c.addColumn("zeger");
-		c.endObject();
-		c.startObject();
-		c.addColumn(444);
-		c.addColumn(444);
-		c.addColumn(444);
-		c.addColumn("zeger");
-		c.addColumn("zegeergrthr");
-		c.endObject();
-		c.endList();
-	}
-	
 	
 	
 }

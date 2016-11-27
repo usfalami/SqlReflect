@@ -10,19 +10,20 @@ public class DynamicAsciiPrinter implements Printer {
 	
 	private List<String[]> entries;
 	private String[] headers;
-	private int lengths[], row, col;
+	private int lengths[], col;
 	
 	private MultipleSizeAsciiPrinter ascii;
 	
 	public DynamicAsciiPrinter(OutputStream out) {
 		ascii = new MultipleSizeAsciiPrinter(out);
+		entries = new ArrayList<String[]>();
 	}
 	
 	@Override
 	public void startList(String... headers){
-		this.headers = headers;
 		entries = new ArrayList<String[]>();
 		lengths = new int[headers.length];
+		this.headers = headers;
 		for(int i=0; i<headers.length; i++)
 			lengths[i] = headers[i].length();
 	}
@@ -33,36 +34,38 @@ public class DynamicAsciiPrinter implements Printer {
 		ascii.startList(headers);
 		for(String[] list : entries){
 			ascii.startObject();
-			for(String col : list)
-				ascii.addColumn(col);
+			for(String col : list) ascii.addColumn(col);
 			ascii.endObject();
 		}
 		ascii.endList();
+		clear();
 	}
 
 	@Override
 	public void startObject(){
 		entries.add(new String[headers.length]);
-		row = entries.size() - 1;
 		col = 0;
 	}
 	
 	@Override
-	public void endObject() {
-		
-	}
+	public void endObject() { }
 
 	@Override
 	public void addColumn(Object obj){
-		if(Utils.isNull(obj))
-			entries.get(row)[col] = "";
-		else{
-			String value  = obj.toString();
+		int row = entries.size() - 1;
+		if(Utils.isNotNull(obj)){
+			String value = obj.toString();
+			lengths[col] = Math.max(value.length(), lengths[col]);
 			entries.get(row)[col] = value;
-			if(Utils.isNotNull(value))
-				lengths[col] = Math.max(value.length(), lengths[col]);
 		}
 		col++;
+	}
+	
+	protected void clear(){
+		entries.clear();
+		headers = null;
+		lengths = null;
+		col = 0;
 	}
 	
 	

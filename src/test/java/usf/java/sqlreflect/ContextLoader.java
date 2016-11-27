@@ -16,11 +16,14 @@ import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 
 public class ContextLoader {
@@ -104,6 +107,8 @@ public class ContextLoader {
 		
 		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
 		new TableScanner(cm).set("mysql", null).run(new ListWriter<Table>(ps));
+		new TableScanner(cm).set("sys", null, false, TableTypes.VIEW).run(new ListWriter<Table>(ps));
+		new ProcedureScanner(cm).set("sys", "").run(new ListWriter<Procedure>(ps));
 		new HeaderScanner<Void>(cm).set("show processlist").run(new ListWriter<Header>(ps));
 		
 	}
