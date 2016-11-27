@@ -58,16 +58,25 @@ public class UtilsTest {
 	}
 	@Test
 	public void testIsEmptyArray() {
-		assertTrue(Utils.isEmptyArray());
+		assertTrue(Utils.isEmptyArray(null));
 		assertTrue(Utils.isEmptyArray(new Object[]{}));
 		assertTrue(Utils.isEmptyArray(new String[]{}));
-		assertFalse(Utils.isEmptyArray((Object) new String[]{}));
-		assertFalse(Utils.isEmptyArray(0));
-		assertFalse(Utils.isEmptyArray(""));
+		assertFalse(Utils.isEmptyArray(new String[]{""}));
 		String s = null;
-		assertFalse(Utils.isEmptyArray(s));
-		assertFalse(Utils.isEmptyArray("value", "value2"));
+		assertFalse(Utils.isEmptyArray(new String[]{s}));
+		assertFalse(Utils.isEmptyArray(new String[]{"value", "value2"}));
 	}
+	
+	@Test
+	public void testIsEmptyPrimitiveArray() {
+		assertTrue(Utils.isEmptyPrimitiveArray(null));
+		int[] arr = null;
+		assertTrue(Utils.isEmptyPrimitiveArray(arr));
+		assertTrue(Utils.isEmptyPrimitiveArray(new int[]{}));
+		assertFalse(Utils.isEmptyPrimitiveArray(new int[5]));
+		assertFalse(Utils.isEmptyPrimitiveArray(new int[]{0}));
+	}
+	
 	@Test
 	public void testIsEmptyCollection() {
 		assertTrue(Utils.isEmptyCollection(null));

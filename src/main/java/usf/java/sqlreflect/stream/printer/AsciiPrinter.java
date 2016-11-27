@@ -10,7 +10,7 @@ public abstract class AsciiPrinter<T> implements Printer {
 	public static final String COLOMN_SEPAR = "|";
 	public static final String TABLE_CORN = "+";
 	public static final char TABLE_BORDER = '-';
-	public static final int DEFAULT_SIZE = -20;
+	public static final int DEFAULT_SIZE = 20;
 	
 	public static final String DEFAULT_NULL_VALUE = "";
 	

@@ -21,7 +21,10 @@ public class Utils {
 	public static boolean isEmptyString(String arg) {
 		return isNull(arg) || arg.isEmpty();
 	}
-	public static <P> boolean isEmptyArray(P... args) {
+	public static <P> boolean isEmptyArray(P[] args) {
+		return isNull(args) || args.length == 0;
+	}
+	public static boolean isEmptyPrimitiveArray(int... args) {
 		return isNull(args) || args.length == 0;
 	}
 	public static boolean isEmptyCollection(Collection<?> arg) {
