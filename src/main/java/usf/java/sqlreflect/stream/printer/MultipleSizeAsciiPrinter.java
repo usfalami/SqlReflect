@@ -25,7 +25,7 @@ public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
 			for(int i=0; i<sizes.length; i++)
 				sizes[i] = Math.max(Math.abs(DEFAULT_SIZE), columns[i].length());
 			setSizes(sizes);
-		}else if(columns.length != getSizes().length)
+		}else if(columns.length > getSizes().length)
 			throw new IllegalArgumentException();
 		buildLineMultipleSize(getSizes());
 	}
