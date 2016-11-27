@@ -16,7 +16,6 @@ public class DynamicAsciiPrinter implements Printer {
 	
 	public DynamicAsciiPrinter(OutputStream out) {
 		ascii = new MultipleSizeAsciiPrinter(out);
-		entries = new ArrayList<String[]>();
 	}
 	
 	@Override

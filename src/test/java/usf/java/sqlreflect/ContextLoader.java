@@ -13,16 +13,23 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.mapper.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
+import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
+import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.entry.Database;
+import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 
@@ -110,7 +117,11 @@ public class ContextLoader {
 		new TableScanner(cm).set("sys", null, false, TableTypes.VIEW).run(new ListWriter<Table>(ps));
 		new ProcedureScanner(cm).set("sys", "").run(new ListWriter<Procedure>(ps));
 		new HeaderScanner<Void>(cm).set("show processlist").run(new ListWriter<Header>(ps));
+		new PrimaryKeyScanner(cm).set(null, "country").run(new ListWriter<PrimaryKey>(ps));
 		
+
+		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+		rs.set("SELECT * FROM country WHERE name like 'MA%'").run(new ListWriter<Entry>(ps));
 	}
 	
 }
