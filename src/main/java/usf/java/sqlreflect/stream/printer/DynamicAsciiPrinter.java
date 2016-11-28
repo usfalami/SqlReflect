@@ -21,8 +21,8 @@ public class DynamicAsciiPrinter implements Printer {
 	@Override
 	public void startTable(String... headers){
 		entries = new ArrayList<String[]>();
-		lengths = new int[headers.length];
 		this.headers = headers;
+		lengths = new int[headers.length];
 		for(int i=0; i<headers.length; i++)
 			lengths[i] = headers[i].length();
 	}
