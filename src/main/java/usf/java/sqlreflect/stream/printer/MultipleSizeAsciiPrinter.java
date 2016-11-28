@@ -4,18 +4,21 @@ import java.io.OutputStream;
 
 import usf.java.sqlreflect.reflect.Utils;
 
-public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
+public class MultipleSizeAsciiPrinter extends AbstractAsciiPrinter<int[]> {
 	
 	private int currentColumn;
 
 	public MultipleSizeAsciiPrinter(OutputStream out) {
-		super(out, null, DEFAULT_NULL_VALUE);
+		super(out, null, DEFAULT_NULL_VALUE, DEFAULT_MARGING);
 	}	
 	public MultipleSizeAsciiPrinter(OutputStream out, int[] sizes) {
-		super(out, sizes, DEFAULT_NULL_VALUE);
+		super(out, sizes, DEFAULT_NULL_VALUE, DEFAULT_MARGING);
 	}
 	public MultipleSizeAsciiPrinter(OutputStream out, int[] sizes, String nullValue) {
-		super(out, sizes, nullValue);
+		super(out, sizes, nullValue, DEFAULT_MARGING);
+	}
+	public MultipleSizeAsciiPrinter(OutputStream out, int[] sizes, String nullValue, int margin) {
+		super(out, sizes, nullValue, margin);
 	}
 	
 	@Override
@@ -29,16 +32,15 @@ public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
 		}else 
 			if(columns.length > getSizes().length) throw new IllegalArgumentException();
 
-		int width = (sizes.length + 1) * COLOMN_SEPAR.length() - TABLE_CORN.length() * 2;
-		for(int size : sizes) width += Math.abs(size);  
-		String rowPattern = new StringBuilder(TABLE_CORN).append("%-").append(width).append("s").append(TABLE_CORN).toString();
-		setLinePattern(rowPattern);
+		int width = (sizes.length + 1) * COLOMN_SEPAR.length();
+		for(int size : sizes) width += Math.abs(size) + getMarging();
+		setTableWidth(width);
 	}
 	
 	@Override
 	public void startRow() {
-		super.startRow();
 		this.currentColumn = 0;
+		super.startRow();
 	}
 	
 	@Override

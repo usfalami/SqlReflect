@@ -66,5 +66,4 @@ public class DynamicAsciiPrinter implements Printer {
 		col = 0;
 	}
 	
-	
 }

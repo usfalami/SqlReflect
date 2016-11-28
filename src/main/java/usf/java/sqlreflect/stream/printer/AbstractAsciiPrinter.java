@@ -5,17 +5,18 @@ import java.io.PrintStream;
 
 import usf.java.sqlreflect.reflect.Utils;
 
-public abstract class AsciiPrinter<T> implements Printer {
+public abstract class AbstractAsciiPrinter<T> implements Printer {
 	
 	private PrintStream stream;
 	private T sizes;
-	private String linePattern, nullValue;
-	private int reverse = -1;
+	private String line, nullValue;
+	private int width, marging, reverse = -1;
 	
-	public AsciiPrinter(OutputStream out, T sizes, String nullValue) {
+	public AbstractAsciiPrinter(OutputStream out, T sizes, String nullValue, int margin) {
 		this.stream = new PrintStream(out);
 		this.sizes = sizes;
 		this.nullValue = nullValue;
+		this.marging = DEFAULT_MARGING;
 	}
 	
 	@Override
@@ -42,16 +43,34 @@ public abstract class AsciiPrinter<T> implements Printer {
 	public void endRow() {
 		stream.println();
 	}
-	
-	protected void addColumn(String pattern, Object value){
-		getStream().printf(pattern, value == null ? nullValue : value);
+
+	protected void addColumn(String pattern, String value){
+		getStream().printf(pattern, Utils.isNull(value) ? nullValue : value);
 	}
 	
-	public void setSizes(T sizes) {
+	protected String buildColumnPattern(int size){
+		return new StringBuilder("%").append(size * reverse).append("s")
+				.append(String.format("%"+marging+"s", ""))
+				.append(COLOMN_SEPAR)
+				.toString();
+	}
+	
+	protected void setTableWidth(int width) {
+		this.width = width;
+		String linePattern = new StringBuilder(TABLE_CORN)
+				.append("%-").append(width - TABLE_CORN.length() * 2).append("s")
+				.append(TABLE_CORN).toString();
+		this.line = String.format(linePattern, "").replace(" ", TABLE_BORDER+"");
+	}
+	
+	protected void setSizes(T sizes) {
 		this.sizes = sizes;
 	}
-	public T getSizes() {
+	protected T getSizes() {
 		return sizes;
+	}
+	public int getMarging() {
+		return marging;
 	}
 	
 	public void setNullValue(String nullValue) {
@@ -59,10 +78,6 @@ public abstract class AsciiPrinter<T> implements Printer {
 	}
 	public String getNullValue() {
 		return nullValue;
-	}
-	
-	protected void setLinePattern(String linePattern) {
-		this.linePattern = linePattern;
 	}
 
 	protected abstract void init(String... columns); 
@@ -72,12 +87,7 @@ public abstract class AsciiPrinter<T> implements Printer {
 	}
 	
 	protected void underline(){
-		stream.println(String.format(linePattern, "").replace(" ", TABLE_BORDER+""));
+		stream.println(line);
 	}
-	
-	protected String buildColumnPattern(int size){
-		return new StringBuilder("%").append(size * reverse).append("s").append(COLOMN_SEPAR).toString();
-	}
-	
 	
 }

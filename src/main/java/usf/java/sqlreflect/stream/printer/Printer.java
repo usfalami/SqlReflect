@@ -15,8 +15,9 @@ public interface Printer {
 	String COLOMN_SEPAR = "|";
 	String TABLE_CORN = "+";
 	char TABLE_BORDER = '-';
+
 	int DEFAULT_SIZE = 20;
-		
+	int DEFAULT_MARGING = 1;
 	String DEFAULT_NULL_VALUE = "";
 
 }
