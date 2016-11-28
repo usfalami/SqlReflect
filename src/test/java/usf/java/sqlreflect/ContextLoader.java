@@ -121,6 +121,8 @@ public class ContextLoader {
 
 		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
 		rs.set("SELECT * FROM country WHERE name like 'MA%'").run(new FullWriter<Entry>(ps));
+		
+		forceCloseConnectionManager();
 	}
 	
 }
