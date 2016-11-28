@@ -19,7 +19,7 @@ public class DynamicAsciiPrinter implements Printer {
 	}
 	
 	@Override
-	public void startList(String... headers){
+	public void startTable(String... headers){
 		entries = new ArrayList<String[]>();
 		lengths = new int[headers.length];
 		this.headers = headers;
@@ -28,34 +28,33 @@ public class DynamicAsciiPrinter implements Printer {
 	}
 	
 	@Override
-	public void endList() {
+	public void endTable() {
 		ascii.setSizes(lengths);
-		ascii.startList(headers);
+		ascii.startTable(headers);
 		for(String[] list : entries){
-			ascii.startObject();
+			ascii.startRow();
 			for(String col : list) ascii.addColumn(col);
-			ascii.endObject();
+			ascii.endRow();
 		}
-		ascii.endList();
+		ascii.endTable();
 		clear();
 	}
 
 	@Override
-	public void startObject(){
+	public void startRow(){
 		entries.add(new String[headers.length]);
 		col = 0;
 	}
 	
 	@Override
-	public void endObject() { }
+	public void endRow() { }
 
 	@Override
-	public void addColumn(Object obj){
+	public void addColumn(String value){
 		int row = entries.size() - 1;
-		if(Utils.isNotNull(obj)){
-			String value = obj.toString();
-			lengths[col] = Math.max(value.length(), lengths[col]);
+		if(Utils.isNotNull(value)){
 			entries.get(row)[col] = value;
+			lengths[col] = Math.max(value.length(), lengths[col]);
 		}
 		col++;
 	}

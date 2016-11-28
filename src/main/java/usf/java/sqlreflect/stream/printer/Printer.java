@@ -2,14 +2,21 @@ package usf.java.sqlreflect.stream.printer;
 
 public interface Printer {
 
-	void startList(String... columns);
+	void startTable(String... columns);
 
-	void endList();
+	void endTable();
 
-	void startObject();
+	void startRow();
 
-	void endObject();
+	void endRow();
 
-	void addColumn(Object value);
+	void addColumn(String value);
+	
+	String COLOMN_SEPAR = "|";
+	String TABLE_CORN = "+";
+	char TABLE_BORDER = '-';
+	int DEFAULT_SIZE = 20;
+		
+	String DEFAULT_NULL_VALUE = "";
 
 }

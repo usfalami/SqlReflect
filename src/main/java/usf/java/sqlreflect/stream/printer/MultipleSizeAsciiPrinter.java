@@ -20,27 +20,34 @@ public class MultipleSizeAsciiPrinter extends AsciiPrinter<int[]> {
 	
 	@Override
 	protected void init(String... columns) {
-		if(Utils.isEmptyPrimitiveArray(getSizes())){
-			int[] sizes = new int[columns.length];
+		int[] sizes = getSizes();
+		if(Utils.isEmptyPrimitiveArray(sizes)){
+			sizes = new int[columns.length];
 			for(int i=0; i<sizes.length; i++)
 				sizes[i] = Math.max(Math.abs(DEFAULT_SIZE), columns[i].length());
 			setSizes(sizes);
-		}else if(columns.length > getSizes().length)
-			throw new IllegalArgumentException();
-		buildLineMultipleSize(getSizes());
+		}else 
+			if(columns.length > getSizes().length) throw new IllegalArgumentException();
+
+		int width = (sizes.length + 1) * COLOMN_SEPAR.length() - TABLE_CORN.length() * 2;
+		for(int size : sizes) width += Math.abs(size);  
+		String rowPattern = new StringBuilder(TABLE_CORN).append("%-").append(width).append("s").append(TABLE_CORN).toString();
+		setLinePattern(rowPattern);
 	}
 	
 	@Override
-	public void startObject() {
-		super.startObject();
+	public void startRow() {
+		super.startRow();
 		this.currentColumn = 0;
 	}
 	
 	@Override
-	public void addColumn(Object value) {
+	public void addColumn(String value) {
 		String columnPattern = buildColumnPattern(getSizes()[currentColumn++]);
 		addColumn(columnPattern, value);
 	}
 	
+	protected void buildLineMultipleSize(int... sizes){
+	}
 
 }

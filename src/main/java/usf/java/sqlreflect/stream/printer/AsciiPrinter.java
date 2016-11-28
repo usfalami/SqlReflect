@@ -7,16 +7,9 @@ import usf.java.sqlreflect.reflect.Utils;
 
 public abstract class AsciiPrinter<T> implements Printer {
 	
-	public static final String COLOMN_SEPAR = "|";
-	public static final String TABLE_CORN = "+";
-	public static final char TABLE_BORDER = '-';
-	public static final int DEFAULT_SIZE = 20;
-	
-	public static final String DEFAULT_NULL_VALUE = "";
-	
 	private PrintStream stream;
 	private T sizes;
-	private String line, nullValue;
+	private String linePattern, nullValue;
 	private int reverse = -1;
 	
 	public AsciiPrinter(OutputStream out, T sizes, String nullValue) {
@@ -26,27 +19,32 @@ public abstract class AsciiPrinter<T> implements Printer {
 	}
 	
 	@Override
-	public void startList(String... columns) {
+	public void startTable(String... columns) {
 		if(Utils.isEmptyArray(columns)) throw new IllegalArgumentException();
 		init(columns);
 		underline();
-		startObject();
+		startRow();
 		for(String s : columns) addColumn(s);
-		endObject();
+		endRow();
 		underline();
 	}
 	@Override
-	public void endList() {
+	public void endTable() {
 		underline();
+		stream.println();
 	}
 
 	@Override
-	public void startObject() {
+	public void startRow() {
 		stream.print(COLOMN_SEPAR);
 	}
 	@Override
-	public void endObject() {
+	public void endRow() {
 		stream.println();
+	}
+	
+	protected void addColumn(String pattern, Object value){
+		getStream().printf(pattern, value == null ? nullValue : value);
 	}
 	
 	public void setSizes(T sizes) {
@@ -56,8 +54,15 @@ public abstract class AsciiPrinter<T> implements Printer {
 		return sizes;
 	}
 	
-	protected void addColumn(String pattern, Object value){
-		getStream().printf(pattern, value == null ? nullValue : value);
+	public void setNullValue(String nullValue) {
+		this.nullValue = nullValue;
+	}
+	public String getNullValue() {
+		return nullValue;
+	}
+	
+	protected void setLinePattern(String linePattern) {
+		this.linePattern = linePattern;
 	}
 
 	protected abstract void init(String... columns); 
@@ -67,20 +72,9 @@ public abstract class AsciiPrinter<T> implements Printer {
 	}
 	
 	protected void underline(){
-		stream.println(line);
+		stream.println(String.format(linePattern, "").replace(" ", TABLE_BORDER+""));
 	}
 	
-	protected void buildLine(int cols, int size){
-		int width = cols * Math.abs(size) + COLOMN_SEPAR.length() * (cols+1) - TABLE_CORN.length() * 2;
-		String rowPattern = new StringBuilder(TABLE_CORN).append("%-").append(width).append("s").append(TABLE_CORN).toString();
-		this.line = String.format(rowPattern, "").replace(" ", TABLE_BORDER+"");
-	}
-	protected void buildLineMultipleSize(int... sizes){
-		int width = (sizes.length + 1) * COLOMN_SEPAR.length() - TABLE_CORN.length() * 2;
-		for(int size : sizes) width += Math.abs(size);  
-		String rowPattern = new StringBuilder(TABLE_CORN).append("%-").append(width).append("s").append(TABLE_CORN).toString();
-		this.line =  String.format(rowPattern, "").replace(" ", TABLE_BORDER+"");
-	}
 	protected String buildColumnPattern(int size){
 		return new StringBuilder("%").append(size * reverse).append("s").append(COLOMN_SEPAR).toString();
 	}
