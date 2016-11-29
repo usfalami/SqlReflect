@@ -30,6 +30,7 @@ import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
+import usf.java.sqlreflect.stream.JsonStreamWriter;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.stream.XmlStreamWriter;
@@ -113,19 +114,20 @@ public class ContextLoader {
 		ConnectionManager cm = getConnectionManager();
 		StringWriter c = new StringWriter();
 //		StreamWriter ps = new XmlStreamWriter(c);
-		StreamWriter ps = new PrinterStreamWriter(System.out);
+		StreamWriter ps = new JsonStreamWriter(c);
+//		StreamWriter ps = new PrinterStreamWriter(System.out);
 		ps.start();
 		
 		new DatabaseScanner(cm).run(new FullWriter<Database>(ps));
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
-		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
-		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));
-		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
-		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
-
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
-		rs.set("SELECT * FROM country WHERE name like 'MA%'").run(new FullWriter<Entry>(ps));
-		
+//		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
+//		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));
+//		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
+//		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
+//
+//		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+//		rs.set("SELECT * FROM country WHERE name like 'MA%'").run(new FullWriter<Entry>(ps));
+//		
 		ps.end();
 		System.out.println(c);
 		forceCloseConnectionManager();
