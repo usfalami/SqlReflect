@@ -66,7 +66,7 @@ public class JsonStreamWriter implements StreamWriter {
 	@Override
 	public void endObject() throws JSONException {
 		jwriter.endObject();
-		debug(level--, "endObject");
+		debug(level--, "end");
 	}
 	
 	@Override
@@ -78,7 +78,7 @@ public class JsonStreamWriter implements StreamWriter {
 	@Override
 	public void endList() throws Exception {
 		jwriter.endArray();
-		debug(level--, "endArray");
+		debug(level--, "end");
 	}
 	
 	@Override
@@ -89,12 +89,12 @@ public class JsonStreamWriter implements StreamWriter {
 	@Override
 	public void end() throws Exception {
 		jwriter.endArray();
-		debug(0, "endArray");
+		debug(0, "end");
 	}
 	
 	private void debug(int level, String text) {
 		if(level == 0) System.out.println(text);
-		else System.out.println(String.format("%" + level + "s", "").replace(" ", "|......") + text);
+		else System.out.println(String.format("%" + level + "s", "").replace(" ", "⁞....") + text);
 	}
 	
 }
