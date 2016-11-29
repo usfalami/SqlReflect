@@ -20,7 +20,7 @@ public interface StreamWriter {
 	void startList(String name, String... columns) throws Exception;
 	void endList() throws Exception;
 
-	void start(String name) throws Exception;
+	void start() throws Exception;
 	void end() throws Exception;
 
 	DateFormat DATE_FORMATTER = new SimpleDateFormat("dd/MM/yyyy");

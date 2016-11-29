@@ -19,7 +19,9 @@ public class ActionTimerMapper implements Mapper<ActionTimer> {
 
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
+		writer.startList("Times", getColumnNames());
 		recusiveWrite(writer, at, 0);
+		writer.endList();
 	}
 
 	@Override
@@ -28,11 +30,11 @@ public class ActionTimerMapper implements Mapper<ActionTimer> {
 	}
 	
 	private void recusiveWrite(StreamWriter writer, ActionTimer action, int level) throws Exception {
-		writer.startObject("");
+		writer.startObject("ActionTimer");
 		writer.writeString("Action", action.getName());
 		writer.writeString("Start", StreamWriter.TIME_FORMATTER.format(action.getStart()));
-		writer.writeString("end", StreamWriter.TIME_FORMATTER.format(action.getEnd()));
-		writer.writeString("Duration", String.format("%5d", action.duration()));
+		writer.writeString("End", StreamWriter.TIME_FORMATTER.format(action.getEnd()));
+		writer.writeLong("Duration", action.duration());
 		writer.endObject();
 		if(Utils.isNotNull(action.getTimers()))
 			for(ActionTimer t : action.getTimers())

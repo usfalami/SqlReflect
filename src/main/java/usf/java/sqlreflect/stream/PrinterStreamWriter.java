@@ -52,27 +52,33 @@ public class PrinterStreamWriter implements StreamWriter {
 		printer.addColumn(DATE_FORMATTER.format(date));
 	}
 	
+	boolean list = false;
+	
 	@Override
 	public void startObject(String name) throws Exception {
-		printer.startRow();
+		if(list)
+			printer.startRow();
 	}
 
 	@Override
 	public void endObject() throws Exception {
-		printer.endRow();
+		if(list)
+			printer.endRow();
 	}
 
 	@Override
 	public void startList(String name, String... columns) throws Exception {
 		printer.startTable(columns);
+		list = true;
 	}
 	@Override
 	public void endList() throws Exception {
 		printer.endTable();
+		list = false;
 	}
 
 	@Override
-	public void start(String name) throws Exception {}
+	public void start() throws Exception {}
 
 	@Override
 	public void end() throws Exception {}

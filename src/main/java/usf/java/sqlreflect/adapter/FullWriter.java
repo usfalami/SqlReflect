@@ -12,13 +12,16 @@ public class FullWriter<T> extends ListWriter<T> {
 	}
 	
 	@Override
+	public void start() throws Exception {
+		getWriter().startObject("COMLEX");
+		super.start();
+	}
+	
+	@Override
 	public void end(ActionTimer time) throws Exception {
 		super.end(time);
 		Mapper<ActionTimer> mapper = new ActionTimerMapper();
-		getWriter().start("LIST");
-		getWriter().startList("LIST", mapper.getColumnNames());
 		mapper.write(getWriter(), time);
-		getWriter().endList();
-		getWriter().end();
+		getWriter().endObject();
 	}
 }

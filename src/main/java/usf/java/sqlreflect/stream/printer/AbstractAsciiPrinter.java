@@ -21,7 +21,6 @@ public abstract class AbstractAsciiPrinter<T> implements Printer {
 	
 	@Override
 	public void startTable(String... columns) {
-		if(Utils.isEmptyArray(columns)) throw new IllegalArgumentException();
 		init(columns);
 		underline();
 		startRow();

@@ -68,7 +68,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void start(String name) throws Exception {}
+	public void start() throws Exception {}
 	@Override
 	public void end() throws Exception {}
 	

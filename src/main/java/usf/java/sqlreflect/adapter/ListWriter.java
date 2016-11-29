@@ -14,9 +14,7 @@ public class ListWriter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void start() throws Exception {
-		writer.start("LIST");
-	}
+	public void start() throws Exception { }
 	
 	@Override
 	public void prepare(Mapper<T> mapper) throws Exception {
@@ -32,7 +30,6 @@ public class ListWriter<T> implements Adapter<T> {
 	@Override
 	public void end(ActionTimer time) throws Exception {
 		writer.endList();
-		writer.end();
 	}
 	
 	public StreamWriter getWriter() {

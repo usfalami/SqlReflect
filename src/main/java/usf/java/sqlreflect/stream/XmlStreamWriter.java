@@ -83,13 +83,11 @@ public class XmlStreamWriter implements StreamWriter {
 		xmlStreamWriter.writeEndElement();
 	}
 	@Override
-	public void start(String name) throws Exception {
+	public void start() throws Exception {
 		xmlStreamWriter.writeStartDocument();
-		startList(name);
 	}
 	@Override
 	public void end() throws Exception {
-		endList();
 		xmlStreamWriter.writeEndDocument();
 		xmlStreamWriter.flush();
 		//close stream
