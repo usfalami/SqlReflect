@@ -32,7 +32,7 @@ import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.DebugProxyStream;
-import usf.java.sqlreflect.stream.JsonStreamWriter;
+import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ContextLoader {
@@ -114,11 +114,14 @@ public class ContextLoader {
 		ConnectionManager cm = getConnectionManager();
 		StringWriter c = new StringWriter();
 //		StreamWriter ps = new XmlStreamWriter(c);
-		StreamWriter ps = new JsonStreamWriter(c);
-//		StreamWriter ps = new PrinterStreamWriter(System.out);
+//		StreamWriter ps = new JsonStreamWriter(c);
+		StreamWriter ps = new PrinterStreamWriter(System.out);
 		
-		ps = new DebugProxyStream<StreamWriter>(ps);
+//		ps = new DebugProxyStream<StreamWriter>(ps); //debug
+		
 		ps.start();
+		
+		String query = "SELECT * FROM country WHERE name like 'MA%'";
 		
 		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
@@ -128,8 +131,10 @@ public class ContextLoader {
 		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
 
 		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
-		rs.set("SELECT * FROM country WHERE name like 'MA%'").run(new FullWriter<Entry>(ps));
+		rs.set(query).run(new FullWriter<Entry>(ps));
 		
+		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps));
+//		
 		ps.end();
 		System.out.println(c);
 		forceCloseConnectionManager();
