@@ -32,9 +32,7 @@ import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.DebugProxyStream;
 import usf.java.sqlreflect.stream.JsonStreamWriter;
-import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
-import usf.java.sqlreflect.stream.XmlStreamWriter;
 
 public class ContextLoader {
 

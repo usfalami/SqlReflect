@@ -62,7 +62,7 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	@Override
 	public void endObject() throws Exception {
 		sw.endObject();
-		debug(level--, "end");
+		debug(level--, "End");
 	}
 
 	@Override
@@ -74,25 +74,25 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	@Override
 	public void endList() throws Exception {
 		sw.endList();
-		debug(level--, "end");
+		debug(level--, "End");
 	}
 
 	@Override
 	public void start() throws Exception {
 		sw.start();
-		debug(0, "array");		
+		debug(0, "Root");		
 	}
 
 	@Override
 	public void end() throws Exception {
 		sw.end();
-		debug(0, "end");
+		debug(0, "End");
 	}
 	
 	
 	private void debug(int level, Object text) {
 		if(level == 0) System.out.println(text);
-		else System.out.println(String.format("%" + level + "s", "").replace(" ", "⁞....") + text);
+		else System.out.println(String.format("%" + level + "s", "").replace(" ", "⁞... ") + text);
 	}
 
 }
