@@ -2,6 +2,7 @@ package usf.java.sqlreflect.stream;
 
 import java.io.Writer;
 import java.sql.Date;
+import java.util.Stack;
 
 import org.json.JSONException;
 import org.json.JSONWriter;
@@ -10,8 +11,11 @@ public class JsonStreamWriter implements StreamWriter {
 	
 	protected JSONWriter jwriter;
 	
+	private Stack<Boolean> keys;
+	
 	public JsonStreamWriter(Writer writer) {
-		jwriter = new JSONWriter(writer); 
+		jwriter = new JSONWriter(writer);
+		keys = new Stack<Boolean>();
 	}
 
 	@Override
@@ -51,31 +55,40 @@ public class JsonStreamWriter implements StreamWriter {
 
 	@Override
 	public void startObject(String name) throws JSONException {
-		jwriter.object();
+		key(name).object();
+		keys.push(true);
 	}
 	@Override
 	public void endObject() throws JSONException {
 		jwriter.endObject();
+		keys.pop();
 	}
 	
 	@Override
 	public void startList(String name, String... columns) throws Exception {
-		jwriter.key(name);
-		jwriter.array();
+		key(name).array();
+		keys.push(false);
 	}
 	@Override
 	public void endList() throws Exception {
 		jwriter.endArray();
+		keys.pop();
 	}
 	
 	@Override
 	public void start() throws Exception {
 		jwriter.array();
+		keys.push(false);
 	}
 	@Override
 	public void end() throws Exception {
 		jwriter.endArray();
+		keys.pop();
 	}
 
+	
+	protected JSONWriter key(String key) throws JSONException{
+		return keys.peek() ? jwriter.key(key) : jwriter;
+	}
 	
 }

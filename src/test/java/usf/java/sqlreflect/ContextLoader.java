@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import usf.java.sqlreflect.adapter.FullWriter;
+import usf.java.sqlreflect.adapter.ListWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImplTest;
@@ -119,7 +120,7 @@ public class ContextLoader {
 		ps = new DebugProxyStream<StreamWriter>(ps);
 		ps.start();
 		
-		new DatabaseScanner(cm).run(new FullWriter<Database>(ps));
+		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
 		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
 		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));

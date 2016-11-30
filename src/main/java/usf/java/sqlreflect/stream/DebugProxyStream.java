@@ -56,7 +56,7 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	@Override
 	public void startObject(String name) throws Exception {
 		sw.startObject(name);
-		debug(++level, name);
+		debug(++level, "{" + name+ "}");
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	@Override
 	public void startList(String name, String... columns) throws Exception {
 		sw.startList(name, columns);
-		debug(++level, name);
+		debug(++level, "[" + name + "]");
 	}
 
 	@Override
