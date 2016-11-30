@@ -13,7 +13,7 @@ public class FullWriter<T> extends ListWriter<T> {
 	
 	@Override
 	public void start() throws Exception {
-		getWriter().startObject("COMLEX");
+		getWriter().startObject("ComplexType");
 		super.start();
 	}
 	

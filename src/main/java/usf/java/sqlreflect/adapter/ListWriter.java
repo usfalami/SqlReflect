@@ -19,7 +19,7 @@ public class ListWriter<T> implements Adapter<T> {
 	@Override
 	public void prepare(Mapper<T> mapper) throws Exception {
 		this.mapper = mapper;
-		writer.startList("LIST", mapper.getColumnNames());
+		writer.startList("Entries", mapper.getColumnNames());
 	}
 
 	@Override
