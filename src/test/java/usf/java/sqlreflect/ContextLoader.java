@@ -121,19 +121,19 @@ public class ContextLoader {
 		
 		ps.start();
 		
-		String query = "SELECT * FROM country WHERE name like 'MA%'";
+		String query = "SELECT * FROM country";
 		
-		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
-		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
-		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
-		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));
-		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
-		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
+//		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
+//		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
+//		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
+//		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));
+//		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
+//		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
 
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new usf.java.sqlreflect.mapper.tmp.EntryMapper<Entry>(Entry.class));
 		rs.set(query).run(new FullWriter<Entry>(ps));
 		
-		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps));
+//		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps));
 //		
 		ps.end();
 		System.out.println(c);
