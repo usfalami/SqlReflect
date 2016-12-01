@@ -1,20 +1,20 @@
 package usf.java.sqlreflect.mapper.tmp;
 
-public class ColumnTransformer {
+public class MapperFilter {
 	
 	private String columnName;
 	private String mappedName;
 	private ValueConverter<?> valueConverter;
 	
-	public ColumnTransformer(String columnName, String mappedName, ValueConverter<?> valueConverter) {
+	public MapperFilter(String columnName, String mappedName, ValueConverter<?> valueConverter) {
 		this.columnName = columnName;
 		this.mappedName = mappedName;
 		this.valueConverter = valueConverter;
 	}
-	public ColumnTransformer(String columnName, ValueConverter<?> valueConverter) {
+	public MapperFilter(String columnName, ValueConverter<?> valueConverter) {
 		this(columnName, columnName, valueConverter);
 	}
-	public ColumnTransformer(String columnName, String mappedName) {
+	public MapperFilter(String columnName, String mappedName) {
 		this(columnName, mappedName, new DefaultTransformer());
 	}
 

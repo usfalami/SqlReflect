@@ -50,6 +50,10 @@ public class Utils {
 		return isEmptyCollection(args) ^ isNull(binder);
 	}
 	
+	public static boolean isIllegalClass(Class<?> clazz){
+		return clazz == null || clazz.isInterface();
+	}
+	
 	public static Integer[] convert(int... values){
 		if(isNull(values)) return null;
 		Integer[] arr = new Integer[values.length];

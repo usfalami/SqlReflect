@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import usf.java.sqlreflect.adapter.FullWriter;
-import usf.java.sqlreflect.adapter.ListWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImplTest;
@@ -15,23 +14,14 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.mapper.EntryMapper;
+import usf.java.sqlreflect.mapper.tmp.AdvancedEntryMapper;
+import usf.java.sqlreflect.mapper.tmp.IndexEnumFilter;
 import usf.java.sqlreflect.reflect.Utils;
-import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
-import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
-import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
-import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Entry;
-import usf.java.sqlreflect.sql.entry.Header;
-import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.sql.entry.Procedure;
-import usf.java.sqlreflect.sql.entry.Table;
-import usf.java.sqlreflect.sql.type.TableTypes;
-import usf.java.sqlreflect.stream.DebugProxyStream;
+import usf.java.sqlreflect.sql.type.ProcedureTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -126,12 +116,26 @@ public class ContextLoader {
 //		new DatabaseScanner(cm).run(new ListWriter<Database>(ps));
 //		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
 //		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
-//		new ProcedureScanner(cm).set("sys", "%show%").run(new FullWriter<Procedure>(ps));
 //		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
 //		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
+		
+		AdvancedEntryMapper<Procedure> mapper = new AdvancedEntryMapper<Procedure>(Procedure.class, "PROCEDURE_NAME", "PROCEDURE_TYPE");
+		mapper.addMapperFilter(SqlConstants.PROCEDURE_TYPE, null, new IndexEnumFilter<ProcedureTypes>(ProcedureTypes.class));
+		mapper.addMapperFilter(cm.getServer().getDatabaseType().PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME, null);
 
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new usf.java.sqlreflect.mapper.tmp.EntryMapper<Entry>(Entry.class));
-		rs.set(query).run(new FullWriter<Entry>(ps));
+		ProcedureScanner proc = new ProcedureScanner(cm);
+		proc.setMapper(mapper);
+		proc.set("sys", "%").run(new FullWriter<Procedure>(ps));
+		
+		
+//		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps));
+		
+//		Mapper<Entry> mapper = new usf.java.sqlreflect.mapper.tmp.EntryMapper<Entry>(Entry.class);
+
+//		Mapper<Entry> mapper = new usf.java.sqlreflect.mapper.EntryMapper<Entry>(Entry.class);
+
+//		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, mapper);
+//		rs.set(query).run(new FullWriter<Entry>(ps));
 		
 //		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps));
 //		

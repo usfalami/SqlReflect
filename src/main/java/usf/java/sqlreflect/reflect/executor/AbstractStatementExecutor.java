@@ -23,16 +23,19 @@ public abstract class AbstractStatementExecutor<R> extends AbstractExecutor<R> {
 		Statement stmt = null;
 		try {
 
-			ActionTimer action = at.startAction(Constants.ACTION_PREPARATION);
+			ActionTimer action = at.startAction(Constants.ACTION_BINDING);
 			stmt = runPreparation();
 			action.end();//ACTION_STATEMENT end
 
 			action = at.startAction(Constants.ACTION_EXECUTION);
 			R r = runExecution(stmt);
 			action.end();//ACTION_EXECUTION end
+			
+			action = at.startAction(Constants.ACTION_PREPARATION);
+			adapter.prepare(null);
+			action.end();
 
 			action = at.startAction(Constants.ACTION_PROCESSING);
-			adapter.prepare(null);
 			adapter.adapte(r, 1);
 			action.end();//ACTION_ADAPT end
 			
