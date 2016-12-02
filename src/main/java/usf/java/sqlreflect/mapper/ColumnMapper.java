@@ -16,21 +16,9 @@ public class ColumnMapper extends AdvancedEntryMapper<Column> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 		super.prepare(rs, type);
-		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 	}
-
-//	@Override
-//	public Column map(ResultSet rs, int row) throws Exception {
-//		Column c = new Column();
-//		c.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
-//		c.setTableName(rs.getString(SqlConstants.TABLE_NAME));
-//		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
-//		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
-//		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
-//		c.setSize(rs.getInt(SqlConstants.COLUMN_SIZE));
-//		return c;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Column parameter) throws Exception {

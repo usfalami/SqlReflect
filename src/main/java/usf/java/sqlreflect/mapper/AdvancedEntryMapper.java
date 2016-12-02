@@ -33,8 +33,8 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		T item = getClazz().newInstance();
 		for(java.util.Map.Entry<String, MapperFilter> c : mapperFilters.entrySet()) {
 			MapperFilter trans = c.getValue();
-			Object value = rs.getObject(c.getKey());
-			item.set(trans.getMappedName(), trans.getValueConverter().transformer(value));
+			Object value = rs.getObject(trans.getMappedName());
+			item.set(trans.getColumnName(), trans.getValueConverter().transformer(value));
 		}
 		return item;
 	}

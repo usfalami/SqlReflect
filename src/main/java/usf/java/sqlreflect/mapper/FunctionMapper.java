@@ -16,18 +16,9 @@ public class FunctionMapper extends AdvancedEntryMapper<Function> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.FUNCTION_DATABASE);
 		super.prepare(rs, type);
-		addMapperFilter(type.FUNCTION_DATABASE, SqlConstants.DATABASE_NAME);
 	}
-
-//	@Override
-//	public Function map(ResultSet rs, int row) throws Exception {
-//		Function f = new Function();
-//		f.setDatabaseName(rs.getString(getServerConstants().FUNCTION_DATABASE));
-//		f.setName(rs.getString(SqlConstants.FUNCTION_NAME));
-//		f.setType(FunctionTypes.values()[rs.getInt(SqlConstants.FUNCTION_TYPE)].toString());
-//		return f;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Function function) throws Exception {

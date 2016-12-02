@@ -20,19 +20,10 @@ public class ProcedureMapper extends AdvancedEntryMapper<Procedure> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		super.prepare(rs, type);
-		addMapperFilter(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME);
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
 		addMapperFilter(SqlConstants.PROCEDURE_TYPE, new IndexEnumFilter<ProcedureTypes>(ProcedureTypes.class));
+		super.prepare(rs, type);
 	}
-
-//	@Override
-//	public Procedure map(ResultSet rs, int row) throws Exception {
-//		Procedure p = new Procedure();
-//		p.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
-//		p.setName(rs.getString(SqlConstants.PROCEDURE_NAME));
-//		p.setType(ProcedureTypes.values()[rs.getInt(SqlConstants.PROCEDURE_TYPE)].toString());
-//		return p;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Procedure procedure) throws Exception {

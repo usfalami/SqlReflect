@@ -18,18 +18,9 @@ public class TableMapper extends AdvancedEntryMapper<Table> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 		super.prepare(rs, type);
-		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 	}
-	
-//	@Override
-//	public Table map(ResultSet rs, int row) throws Exception {
-//		Table t = new Table();
-//		t.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
-//		t.setName(rs.getString(SqlConstants.TABLE_NAME));
-//		t.setType(rs.getString(SqlConstants.TABLE_TYPE));
-//		return t;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Table table) throws Exception {
@@ -47,10 +38,5 @@ public class TableMapper extends AdvancedEntryMapper<Table> {
 		}
 		writer.endObject();
 	}
-
-	@Override
-	public String[] getColumnNames() {
-		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.TABLE_TYPE};
-	}
-
+	
 }

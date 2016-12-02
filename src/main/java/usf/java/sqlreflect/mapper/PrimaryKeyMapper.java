@@ -16,20 +16,9 @@ public class PrimaryKeyMapper extends AdvancedEntryMapper<PrimaryKey> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 		super.prepare(rs, type);
-		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 	}
-
-//	@Override
-//	public PrimaryKey map(ResultSet rs, int row) throws Exception {
-//		PrimaryKey pk = new PrimaryKey();
-//		pk.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
-//		pk.setTableName(rs.getString(SqlConstants.TABLE_NAME));
-//		pk.setColumnName(rs.getString(SqlConstants.COLUMN_NAME));
-//		pk.setName(rs.getString(SqlConstants.PK_NAME));
-//		pk.setKeySequence(rs.getInt(SqlConstants.KEY_SEQ));
-//		return pk;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, PrimaryKey primaryKey) throws Exception {

@@ -10,7 +10,6 @@ public class IndexEnumFilter<T extends Enum<T>> implements ValueConverter<String
 
 	@Override
 	public String transformer(Object obj) {
-		if(obj == null) return null;
 		Integer index = (Integer) obj;
 		return clazz.getEnumConstants()[index].toString();
 	}

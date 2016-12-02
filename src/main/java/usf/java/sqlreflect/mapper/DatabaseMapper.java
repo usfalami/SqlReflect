@@ -16,16 +16,9 @@ public class DatabaseMapper extends AdvancedEntryMapper<Database> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 		super.prepare(rs, type);
-		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 	}
-	
-//	@Override
-//	public Database map(ResultSet rs, int row) throws Exception {
-//		Database d = new Database();
-//		d.setName(rs.getString(getServerConstants().TABLE_DATABASE));
-//		return d;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Database database) throws Exception {

@@ -18,23 +18,10 @@ public class ArgumentMapper extends AdvancedEntryMapper<Argument> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		super.prepare(rs, type);
-		addMapperFilter(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME);
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
 		addMapperFilter(SqlConstants.COLUMN_TYPE, new IndexEnumFilter<ParameterTypes>(ParameterTypes.class));
+		super.prepare(rs, type);
 	}
-
-//	@Override
-//	public Argument map(ResultSet rs, int row) throws Exception {
-//		Argument c = new Argument();
-//		c.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
-//		c.setCallableName(rs.getString(SqlConstants.PROCEDURE_NAME));
-//		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
-//		c.setType(ParameterTypes.values()[rs.getInt(SqlConstants.COLUMN_TYPE)].toString());
-//		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
-//		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
-//		c.setSize(rs.getInt(SqlConstants.LENGTH));
-//		return c;
-//	}
 
 	@Override
 	public void write(StreamWriter writer, Argument parameter) throws Exception {
