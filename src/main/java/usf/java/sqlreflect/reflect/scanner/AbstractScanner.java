@@ -40,7 +40,4 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 	public Mapper<R> getMapper() {
 		return mapper;
 	}
-	public void setMapper(Mapper<R> mapper) {
-		this.mapper = mapper;
-	}
 }

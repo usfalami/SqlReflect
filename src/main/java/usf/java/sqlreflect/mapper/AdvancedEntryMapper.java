@@ -11,7 +11,7 @@ import usf.java.sqlreflect.mapper.filter.ValueConverter;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> implements AdvancedMapper<T> {
+public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> implements HasFilters {
 
 	private Map<String, MapperFilter> mapperFilters;
 
@@ -25,7 +25,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		super.prepare(rs, type);
 		for(String column : super.getColumnNames()){
 			if(mapperFilters.get(column) == null)
-				mapperFilters.put(column, new MapperFilter(column, column));
+				mapperFilters.put(column, new MapperFilter(column));
 		}
 	}
 	

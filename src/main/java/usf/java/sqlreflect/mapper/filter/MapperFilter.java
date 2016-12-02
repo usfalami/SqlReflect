@@ -1,8 +1,8 @@
 package usf.java.sqlreflect.mapper.filter;
 
-import usf.java.sqlreflect.reflect.Utils;
-
 public class MapperFilter {
+	
+	private static final ValueConverter<?> DEFAULT_VALUE_CONVERTER = new DefaultTransformer();
 	
 	private String columnName;
 	private String mappedName;
@@ -10,14 +10,17 @@ public class MapperFilter {
 	
 	public MapperFilter(String columnName, String mappedName, ValueConverter<?> valueConverter) {
 		this.columnName = columnName;
-		this.mappedName = Utils.isEmptyString(mappedName) ? columnName : mappedName;
-		this.valueConverter = Utils.isNull(valueConverter) ? new DefaultTransformer() : valueConverter;
+		this.mappedName = mappedName;
+		this.valueConverter = valueConverter;
 	}
 	public MapperFilter(String columnName, ValueConverter<?> valueConverter) {
-		this(columnName, null, valueConverter);
+		this(columnName, columnName, valueConverter);
 	}
 	public MapperFilter(String columnName, String mappedName) {
-		this(columnName, mappedName, null);
+		this(columnName, mappedName, DEFAULT_VALUE_CONVERTER);
+	}
+	public MapperFilter(String columnName) {
+		this(columnName, columnName, DEFAULT_VALUE_CONVERTER);
 	}
 
 	public String getColumnName() {
