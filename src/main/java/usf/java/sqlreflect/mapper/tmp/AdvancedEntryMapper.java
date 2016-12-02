@@ -8,7 +8,7 @@ import java.util.Map;
 
 import usf.java.sqlreflect.sql.entry.Entry;
 
-public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> {
+public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> implements AdvancedMapper<T> {
 
 	private Map<String, MapperFilter> mapperFilters;
 
@@ -35,12 +35,18 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> {
 		}
 		return item;
 	}
-		
+
+	@Override
 	public void addMapperFilter(String columnName, String mappedName, ValueConverter<?> converter) {
-		if(columnName == null) return;
-		mappedName = mappedName == null ? columnName : mappedName;
-		converter = converter == null ? new DefaultTransformer() : converter;
 		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName, converter));
+	}
+	@Override
+	public void addMapperFilter(String columnName, String mappedName) {
+		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName));
+	}
+	@Override
+	public void addMapperFilter(String columnName, ValueConverter<?> converter) {
+		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
 	}
 	
 	@Override

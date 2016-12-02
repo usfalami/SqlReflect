@@ -21,22 +21,11 @@ public class MapperFilter {
 	public String getColumnName() {
 		return columnName;
 	}
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
-	}
-
 	public String getMappedName() {
 		return mappedName;
 	}
-	public void setMappedName(String mappedName) {
-		this.mappedName = mappedName;
-	}
-
 	public ValueConverter<?> getValueConverter() {
 		return valueConverter;
-	}
-	public void setValueConverter(ValueConverter<?> valueConverter) {
-		this.valueConverter = valueConverter;
 	}
 	
 }
