@@ -1,6 +1,6 @@
-package usf.java.sqlreflect.mapper.tmp;
+package usf.java.sqlreflect.mapper;
 
-import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.mapper.filter.ValueConverter;
 
 public interface AdvancedMapper<T> extends Mapper<T> {
 	

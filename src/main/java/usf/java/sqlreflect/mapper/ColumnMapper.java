@@ -1,24 +1,36 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.Column;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ColumnMapper extends AbstractItemMapper<Column> {
-
-	@Override
-	public Column map(ResultSet rs, int row) throws Exception {
-		Column c = new Column();
-		c.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
-		c.setTableName(rs.getString(SqlConstants.TABLE_NAME));
-		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
-		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
-		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
-		c.setSize(rs.getInt(SqlConstants.COLUMN_SIZE));
-		return c;
+public class ColumnMapper extends AdvancedEntryMapper<Column> {
+	
+	public ColumnMapper() {
+		super(Column.class, SqlConstants.COLUMNS_COLUMNS);
 	}
+	
+	@Override
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		super.prepare(rs, type);
+		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
+	}
+
+//	@Override
+//	public Column map(ResultSet rs, int row) throws Exception {
+//		Column c = new Column();
+//		c.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
+//		c.setTableName(rs.getString(SqlConstants.TABLE_NAME));
+//		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
+//		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
+//		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
+//		c.setSize(rs.getInt(SqlConstants.COLUMN_SIZE));
+//		return c;
+//	}
 
 	@Override
 	public void write(StreamWriter writer, Column parameter) throws Exception {
@@ -30,11 +42,6 @@ public class ColumnMapper extends AbstractItemMapper<Column> {
 		writer.writeString(SqlConstants.TYPE_NAME, parameter.getDataTypeName());
 		writer.writeInt(SqlConstants.COLUMN_SIZE, parameter.getSize());
 		writer.endObject();
-	}
-	
-	@Override
-	public String[] getColumnNames() {
-		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE};
 	}
 	
 }

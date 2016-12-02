@@ -6,12 +6,13 @@ import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class HeaderMapper implements Mapper<Header> {
 	
 	@Override
-	public void prepare(ResultSet rs) throws SQLException {}
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {}
 
 	@Override
 	public Header map(ResultSet rs, int row) throws Exception {

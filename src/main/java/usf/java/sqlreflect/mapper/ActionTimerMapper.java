@@ -5,12 +5,13 @@ import java.sql.SQLException;
 
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerMapper implements Mapper<ActionTimer> {
 
 	@Override
-	public void prepare(ResultSet rs) throws SQLException {}
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {}
 	
 	@Override
 	public ActionTimer map(ResultSet rs, int row) throws Exception {

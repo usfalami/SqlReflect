@@ -1,23 +1,35 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class TableMapper extends AbstractItemMapper<Table> {
+public class TableMapper extends AdvancedEntryMapper<Table> {
+	
+	public TableMapper() {
+		super(Table.class, SqlConstants.TABLE_COLUMNS);
+	}
 	
 	@Override
-	public Table map(ResultSet rs, int row) throws Exception {
-		Table t = new Table();
-		t.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
-		t.setName(rs.getString(SqlConstants.TABLE_NAME));
-		t.setType(rs.getString(SqlConstants.TABLE_TYPE));
-		return t;
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		super.prepare(rs, type);
+		addMapperFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 	}
+	
+//	@Override
+//	public Table map(ResultSet rs, int row) throws Exception {
+//		Table t = new Table();
+//		t.setDatabaseName(rs.getString(getServerConstants().TABLE_DATABASE));
+//		t.setName(rs.getString(SqlConstants.TABLE_NAME));
+//		t.setType(rs.getString(SqlConstants.TABLE_TYPE));
+//		return t;
+//	}
 
 	@Override
 	public void write(StreamWriter writer, Table table) throws Exception {

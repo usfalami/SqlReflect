@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.tmp;
+package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import usf.java.sqlreflect.mapper.filter.MapperFilter;
+import usf.java.sqlreflect.mapper.filter.ValueConverter;
 import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> implements AdvancedMapper<T> {
 
@@ -18,8 +21,8 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	}
 
 	@Override
-	public void prepare(ResultSet rs) throws SQLException {
-		super.prepare(rs);
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		super.prepare(rs, type);
 		for(String column : super.getColumnNames()){
 			if(mapperFilters.get(column) == null)
 				mapperFilters.put(column, new MapperFilter(column, column));

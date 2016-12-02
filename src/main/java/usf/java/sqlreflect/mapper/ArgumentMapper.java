@@ -1,26 +1,40 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.mapper.filter.IndexEnumFilter;
 import usf.java.sqlreflect.sql.entry.Argument;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ArgumentMapper extends AbstractItemMapper<Argument> {
-
-	@Override
-	public Argument map(ResultSet rs, int row) throws Exception {
-		Argument c = new Argument();
-		c.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
-		c.setCallableName(rs.getString(SqlConstants.PROCEDURE_NAME));
-		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
-		c.setType(ParameterTypes.values()[rs.getInt(SqlConstants.COLUMN_TYPE)].toString());
-		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
-		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
-		c.setSize(rs.getInt(SqlConstants.LENGTH));
-		return c;
+public class ArgumentMapper extends AdvancedEntryMapper<Argument> {
+	
+	public ArgumentMapper() {
+		super(Argument.class, SqlConstants.ARGUMENT_COLUMNS);
 	}
+	
+	@Override
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		super.prepare(rs, type);
+		addMapperFilter(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME);
+		addMapperFilter(SqlConstants.COLUMN_TYPE, new IndexEnumFilter<ParameterTypes>(ParameterTypes.class));
+	}
+
+//	@Override
+//	public Argument map(ResultSet rs, int row) throws Exception {
+//		Argument c = new Argument();
+//		c.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
+//		c.setCallableName(rs.getString(SqlConstants.PROCEDURE_NAME));
+//		c.setName(rs.getString(SqlConstants.COLUMN_NAME));
+//		c.setType(ParameterTypes.values()[rs.getInt(SqlConstants.COLUMN_TYPE)].toString());
+//		c.setDataType(rs.getInt(SqlConstants.DATA_TYPE));
+//		c.setDataTypeName(rs.getString(SqlConstants.TYPE_NAME));
+//		c.setSize(rs.getInt(SqlConstants.LENGTH));
+//		return c;
+//	}
 
 	@Override
 	public void write(StreamWriter writer, Argument parameter) throws Exception {
@@ -35,8 +49,4 @@ public class ArgumentMapper extends AbstractItemMapper<Argument> {
 		writer.endObject();
 	}
 	
-	@Override
-	public String[] getColumnNames() {
-		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.LENGTH};
-	}
 }

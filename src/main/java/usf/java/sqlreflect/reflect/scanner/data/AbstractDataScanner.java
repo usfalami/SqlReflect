@@ -42,7 +42,7 @@ public abstract class AbstractDataScanner<A, R> extends AbstractScanner<R> {
 				action.end(); //ACTION_EXECUTION end
 				
 				action = at.startAction(Constants.ACTION_PREPARATION);
-				getMapper().prepare(rs);
+				getMapper().prepare(rs, getConnectionManager().getServer().getDatabaseType());
 				adapter.prepare(getMapper());
 				action.end();
 				

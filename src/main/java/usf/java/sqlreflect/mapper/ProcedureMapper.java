@@ -1,24 +1,38 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.mapper.filter.IndexEnumFilter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.entry.Procedure;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ProcedureMapper extends AbstractItemMapper<Procedure> {
-
-	@Override
-	public Procedure map(ResultSet rs, int row) throws Exception {
-		Procedure p = new Procedure();
-		p.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
-		p.setName(rs.getString(SqlConstants.PROCEDURE_NAME));
-		p.setType(ProcedureTypes.values()[rs.getInt(SqlConstants.PROCEDURE_TYPE)].toString());
-		return p;
+public class ProcedureMapper extends AdvancedEntryMapper<Procedure> {
+	
+	public ProcedureMapper() {
+		super(Procedure.class, SqlConstants.PROCEDURE_COLUMNS);
 	}
+	
+	@Override
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		super.prepare(rs, type);
+		addMapperFilter(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME);
+		addMapperFilter(SqlConstants.PROCEDURE_TYPE, new IndexEnumFilter<ProcedureTypes>(ProcedureTypes.class));
+	}
+
+//	@Override
+//	public Procedure map(ResultSet rs, int row) throws Exception {
+//		Procedure p = new Procedure();
+//		p.setDatabaseName(rs.getString(getServerConstants().PROCEDURE_DATABASE));
+//		p.setName(rs.getString(SqlConstants.PROCEDURE_NAME));
+//		p.setType(ProcedureTypes.values()[rs.getInt(SqlConstants.PROCEDURE_TYPE)].toString());
+//		return p;
+//	}
 
 	@Override
 	public void write(StreamWriter writer, Procedure procedure) throws Exception {
@@ -34,11 +48,6 @@ public class ProcedureMapper extends AbstractItemMapper<Procedure> {
 			writer.endList();
 		}
 		writer.endObject();
-	}
-	
-	@Override
-	public String[] getColumnNames() {
-		return new String[]{SqlConstants.DATABASE_NAME, SqlConstants.PROCEDURE_NAME, SqlConstants.PROCEDURE_TYPE};
 	}
 	
 }

@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.tmp;
+package usf.java.sqlreflect.mapper.filter;
 
 public class IndexEnumFilter<T extends Enum<T>> implements ValueConverter<String> {
 	
