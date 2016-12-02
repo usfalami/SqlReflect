@@ -3,7 +3,6 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
@@ -32,10 +31,9 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	
 	public T map(ResultSet rs, int row) throws Exception {
 		T item = getClazz().newInstance();
-		for(java.util.Map.Entry<String, MapperFilter> c : mapperFilters.entrySet()) {
-			MapperFilter trans = c.getValue();
-			Object value = rs.getObject(trans.getMappedName());
-			item.set(trans.getColumnName(), trans.getValueConverter().transformer(value));
+		for(MapperFilter filter : mapperFilters.values()) {
+			Object value = rs.getObject(filter.getMappedName());
+			item.set(filter.getColumnName(), filter.getValueConverter().transformer(value));
 		}
 		return item;
 	}
