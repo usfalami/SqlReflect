@@ -7,6 +7,7 @@ import java.util.Map;
 
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
 import usf.java.sqlreflect.mapper.filter.ValueConverter;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
@@ -22,9 +23,10 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		super.prepare(rs, type);
-		String[] columnNames = super.getColumnNames(); 
+		String[] columnNames = getColumnNames(); 
 		for(String column : columnNames){
-			if(mapperFilters.get(column) == null)
+			MapperFilter filter = mapperFilters.get(column);
+			if(Utils.isNull(filter))
 				mapperFilters.put(column, new MapperFilter(column));
 		}
 	}
@@ -41,10 +43,12 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 
 	@Override
 	public void addMapperFilter(String columnName, String mappedName, ValueConverter<?> converter) {
+		mapperFilters.remove(mappedName);
 		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName, converter));
 	}
 	@Override
 	public void addMapperFilter(String columnName, String mappedName) {
+		mapperFilters.remove(mappedName);
 		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName));
 	}
 	@Override

@@ -18,8 +18,8 @@ public class TableMapper extends AdvancedEntryMapper<Table> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 		super.prepare(rs, type);
+		addMapperFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
 	}
 
 	@Override
