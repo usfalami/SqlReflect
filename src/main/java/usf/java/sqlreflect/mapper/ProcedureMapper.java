@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.filter.IndexEnumFilter;
+import usf.java.sqlreflect.mapper.filter.IntegerEnumConverter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.entry.Procedure;
@@ -21,7 +21,7 @@ public class ProcedureMapper extends AdvancedEntryMapper<Procedure> {
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
-		addMapperFilter(SqlConstants.PROCEDURE_TYPE, new IndexEnumFilter<ProcedureTypes>(ProcedureTypes.class));
+		addMapperFilter(SqlConstants.PROCEDURE_TYPE, new IntegerEnumConverter<ProcedureTypes>(ProcedureTypes.class));
 		super.prepare(rs, type);
 	}
 

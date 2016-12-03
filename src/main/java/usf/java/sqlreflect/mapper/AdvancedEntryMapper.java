@@ -28,7 +28,8 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 				mapperFilters.put(column, new MapperFilter(column));
 		}
 	}
-	
+
+	@Override
 	public T map(ResultSet rs, int row) throws Exception {
 		T item = getClazz().newInstance();
 		for(MapperFilter filter : mapperFilters.values()) {

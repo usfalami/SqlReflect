@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.filter.IndexEnumFilter;
+import usf.java.sqlreflect.mapper.filter.IntegerEnumConverter;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
@@ -19,7 +19,7 @@ public class ArgumentMapper extends AdvancedEntryMapper<Argument> {
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
-		addMapperFilter(SqlConstants.COLUMN_TYPE, new IndexEnumFilter<ParameterTypes>(ParameterTypes.class));
+		addMapperFilter(SqlConstants.COLUMN_TYPE, new IntegerEnumConverter<ParameterTypes>(ParameterTypes.class));
 		super.prepare(rs, type);
 	}
 

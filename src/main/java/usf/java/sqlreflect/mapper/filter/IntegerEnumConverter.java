@@ -1,10 +1,10 @@
 package usf.java.sqlreflect.mapper.filter;
 
-public class IndexEnumFilter<T extends Enum<T>> implements ValueConverter<String> {
+public class IntegerEnumConverter<T extends Enum<T>> implements ValueConverter<String> {
 	
 	private Class<T> clazz;
 	
-	public IndexEnumFilter(Class<T> clazz) {
+	public IntegerEnumConverter(Class<T> clazz) {
 		this.clazz = clazz;
 	}
 
