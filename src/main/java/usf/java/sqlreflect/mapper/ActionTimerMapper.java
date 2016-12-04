@@ -1,33 +1,17 @@
 package usf.java.sqlreflect.mapper;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
-import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.Writer;
 
-public class ActionTimerMapper implements Mapper<ActionTimer> {
-
-	@Override
-	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {}
-	
-	@Override
-	public ActionTimer map(ResultSet rs, int row) throws Exception {
-		return new ActionTimer();
-	}
+public class ActionTimerMapper implements Writer<ActionTimer> {
 
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
-		writer.startList("Times", getColumnNames());
+		writer.startList("Times", "Action", "Start", "End", "Duration");
 		recusiveWrite(writer, at, 0);
 		writer.endList();
-	}
-
-	@Override
-	public String[] getColumnNames() {
-		return new String[]{"Action", "Start", "End", "Duration"};
 	}
 	
 	private void recusiveWrite(StreamWriter writer, ActionTimer action, int level) throws Exception {
