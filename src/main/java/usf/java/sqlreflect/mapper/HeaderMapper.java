@@ -40,7 +40,7 @@ public class HeaderMapper implements Mapper<Header> {
 	}
 	
 	@Override
-	public String[] getColumnNames() {
+	public String[] getSelectedColumns() {
 		return new String[]{SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
 	}

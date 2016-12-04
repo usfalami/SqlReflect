@@ -25,7 +25,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		super.prepare(rs, type);
-		String[] columnNames = super.getColumnNames(); 
+		String[] columnNames = super.getSelectedColumns(); 
 		for(String column : columnNames){
 			if(Utils.isNull(mapperFilters.get(column)))
 				mapperFilters.put(column, new MapperFilter(column));
@@ -44,7 +44,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	}
 	
 	@Override
-	public String[] getColumnNames() {
+	public String[] getSelectedColumns() {
 		Collection<MapperFilter> filters = mapperFilters.values();
 		String[] columns = new String[filters.size()]; int i=0;
 		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
@@ -64,6 +64,5 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	public void addFilter(String columnName, ValueConverter<?> converter) {
 		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
 	}
-	
 	
 }

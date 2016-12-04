@@ -12,6 +12,6 @@ public interface Mapper<T> extends Writer<T> {
 	
 	T map(ResultSet rs, int row) throws Exception;
 
-	String[] getColumnNames();
+	String[] getSelectedColumns();
 	
 }

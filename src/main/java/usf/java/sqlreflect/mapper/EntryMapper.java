@@ -33,13 +33,13 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 	}
 
 	@Override
-	public String[] getColumnNames() {
+	public String[] getSelectedColumns() {
 		return columnNames;
 	}
 	@Override
 	public void write(StreamWriter writer, T bean) throws Exception {
 		writer.startObject("Entry");
-		String columns[] = getColumnNames();
+		String columns[] = getSelectedColumns();
 		for(String column : columns)
 			writer.writeString(column, bean.get(column)+"");
 		writer.endObject();
