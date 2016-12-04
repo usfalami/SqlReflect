@@ -32,8 +32,7 @@ public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
 			action.end(); //ACTION_EXECUTION end
 			
 			action = at.startAction(Constants.ACTION_PREPARATION);
-			getMapper().prepare(rs, getConnectionManager().getServer().getDatabaseType());
-			adapter.prepare(getMapper());
+			runPreparation(adapter, rs);
 			action.end();
 			
 			action = at.startAction(Constants.ACTION_PROCESSING);
