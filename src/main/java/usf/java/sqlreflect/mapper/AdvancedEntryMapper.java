@@ -59,8 +59,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public String[] getColumnNames() {
 		Collection<MapperFilter> filters = mapperFilters.values();
-		String[] columns = new String[filters.size()];
-		int i=0;
+		String[] columns = new String[filters.size()]; int i=0;
 		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
 			columns[i] = it.next().getMappedName();
 		return columns;
