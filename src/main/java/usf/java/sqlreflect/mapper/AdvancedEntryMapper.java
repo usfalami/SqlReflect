@@ -42,6 +42,15 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		}
 		return item;
 	}
+	
+	@Override
+	public String[] getColumnNames() {
+		Collection<MapperFilter> filters = mapperFilters.values();
+		String[] columns = new String[filters.size()]; int i=0;
+		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
+			columns[i] = it.next().getMappedName();
+		return columns;
+	}
 
 	@Override
 	public void addFilter(String columnName, String mappedName, ValueConverter<?> converter) {
@@ -56,13 +65,5 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
 	}
 	
-	@Override
-	public String[] getColumnNames() {
-		Collection<MapperFilter> filters = mapperFilters.values();
-		String[] columns = new String[filters.size()]; int i=0;
-		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
-			columns[i] = it.next().getMappedName();
-		return columns;
-	}
 	
 }

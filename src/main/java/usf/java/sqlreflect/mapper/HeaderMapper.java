@@ -18,6 +18,7 @@ public class HeaderMapper implements Mapper<Header> {
 	public Header map(ResultSet rs, int row) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
 		Header h = new Header();
+		h.setTableName(md.getTableName(row));
 		h.setName(md.getColumnName(row));
 		h.setType(md.getColumnType(row));
 		h.setTypeName(md.getColumnTypeName(row));
@@ -29,6 +30,7 @@ public class HeaderMapper implements Mapper<Header> {
 	@Override
 	public void write(StreamWriter writer, Header column) throws Exception {
 		writer.startObject("HEADER");
+		writer.writeString(SqlConstants.TABLE_NAME, column.getTableName());
 		writer.writeString(SqlConstants.COLUMN_NAME, column.getName());
 		writer.writeInt(SqlConstants.COLUMN_TYPE, column.getType());
 		writer.writeString(SqlConstants.TYPE_NAME, column.getTypeName());
@@ -39,6 +41,7 @@ public class HeaderMapper implements Mapper<Header> {
 	
 	@Override
 	public String[] getColumnNames() {
-		return new String[]{SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
+		return new String[]{SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
+				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
 	}
 }

@@ -38,4 +38,12 @@ public class Header extends Entry {
 	public void setClassName(String dataTypeName) {
 		set(SqlConstants.COLUMN_CLASS, dataTypeName);
 	}
+	
+	public String getTableName() {
+		return getString(SqlConstants.TABLE_NAME);
+	}
+	public void setTableName(String tableName) {
+		set(SqlConstants.TABLE_NAME, tableName);
+	}
+	
 }
