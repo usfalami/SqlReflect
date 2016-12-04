@@ -20,9 +20,9 @@ public class ProcedureMapper extends AdvancedEntryMapper<Procedure> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
+		addFilter(SqlConstants.PROCEDURE_TYPE, new IntegerEnumConverter<ProcedureTypes>(ProcedureTypes.class));
 		super.prepare(rs, type);
-		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
-		addMapperFilter(SqlConstants.PROCEDURE_TYPE, new IntegerEnumConverter<ProcedureTypes>(ProcedureTypes.class));
 	}
 
 	@Override

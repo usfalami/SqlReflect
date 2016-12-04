@@ -31,6 +31,11 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 			item.set(column, rs.getObject(column));
 		return item;
 	}
+
+	@Override
+	public String[] getColumnNames() {
+		return columnNames;
+	}
 	@Override
 	public void write(StreamWriter writer, T bean) throws Exception {
 		writer.startObject("Entry");
@@ -40,11 +45,6 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 		writer.endObject();
 	}
 
-	@Override
-	public String[] getColumnNames() {
-		return columnNames;
-	}
-	
 	public Class<T> getClazz() {
 		return clazz;
 	}

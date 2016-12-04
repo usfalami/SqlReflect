@@ -4,10 +4,10 @@ import usf.java.sqlreflect.mapper.filter.ValueConverter;
 
 public interface HasFilters {
 	
-	void addMapperFilter(String columnName, String mappedName, ValueConverter<?> converter) ;
+	void addFilter(String columnName, String mappedName, ValueConverter<?> converter) ;
 	
-	void addMapperFilter(String columnName, String mappedName);
+	void addFilter(String columnName, String mappedName);
 	
-	void addMapperFilter(String columnName, ValueConverter<?> converter);
+	void addFilter(String columnName, ValueConverter<?> converter);
 	
 }

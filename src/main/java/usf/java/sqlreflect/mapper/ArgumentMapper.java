@@ -18,9 +18,9 @@ public class ArgumentMapper extends AdvancedEntryMapper<Argument> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		addFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
+		addFilter(SqlConstants.COLUMN_TYPE, new IntegerEnumConverter<ParameterTypes>(ParameterTypes.class));
 		super.prepare(rs, type);
-		addMapperFilter(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE);
-		addMapperFilter(SqlConstants.COLUMN_TYPE, new IntegerEnumConverter<ParameterTypes>(ParameterTypes.class));
 	}
 
 	@Override
