@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
@@ -53,6 +54,16 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public void addFilter(String columnName, ValueConverter<?> converter) {
 		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
+	}
+	
+	@Override
+	public String[] getColumnNames() {
+		Collection<MapperFilter> filters = mapperFilters.values();
+		String[] columns = new String[filters.size()];
+		int i=0;
+		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
+			columns[i] = it.next().getMappedName();
+		return columns;
 	}
 	
 }
