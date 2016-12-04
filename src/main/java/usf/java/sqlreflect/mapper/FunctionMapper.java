@@ -16,7 +16,7 @@ public class FunctionMapper extends AdvancedEntryMapper<Function> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		addFilter(SqlConstants.DATABASE_NAME, type.FUNCTION_DATABASE);
+		addFilter(type.FUNCTION_DATABASE, SqlConstants.DATABASE_NAME);
 		super.prepare(rs, type);
 	}
 

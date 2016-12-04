@@ -16,7 +16,7 @@ public class PrimaryKeyMapper extends AdvancedEntryMapper<PrimaryKey> {
 	
 	@Override
 	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		addFilter(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE);
+		addFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 		super.prepare(rs, type);
 	}
 

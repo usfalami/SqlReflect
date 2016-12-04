@@ -2,6 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,21 +34,20 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
 		T item = getClazz().newInstance();
-		for(MapperFilter filter : mapperFilters.values()) {
-			Object value = rs.getObject(filter.getMappedName());
-			item.set(filter.getColumnName(), filter.getValueConverter().transformer(value));
+		Collection<MapperFilter> filters = mapperFilters.values();
+		for(MapperFilter filter : filters) {
+			Object value = rs.getObject(filter.getColumnName());
+			item.set(filter.getMappedName(), filter.getValueConverter().transformer(value));
 		}
 		return item;
 	}
 
 	@Override
 	public void addFilter(String columnName, String mappedName, ValueConverter<?> converter) {
-		mapperFilters.remove(mappedName);
 		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName, converter));
 	}
 	@Override
 	public void addFilter(String columnName, String mappedName) {
-		mapperFilters.remove(mappedName);
 		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName));
 	}
 	@Override
