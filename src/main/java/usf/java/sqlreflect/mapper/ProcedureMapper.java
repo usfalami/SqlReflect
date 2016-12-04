@@ -15,7 +15,8 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ProcedureMapper extends AdvancedEntryMapper<Procedure> {
 	
 	public ProcedureMapper() {
-		super(Procedure.class, SqlConstants.PROCEDURE_COLUMNS);
+		super(Procedure.class, 
+				SqlConstants.PROCEDURE_NAME, SqlConstants.PROCEDURE_TYPE);
 	}
 	
 	@Override

@@ -13,7 +13,9 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ArgumentMapper extends AdvancedEntryMapper<Argument> {
 	
 	public ArgumentMapper() {
-		super(Argument.class, SqlConstants.ARGUMENT_COLUMNS);
+		super(Argument.class, 
+				SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
+				SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.LENGTH);
 	}
 	
 	@Override

@@ -11,7 +11,9 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class PrimaryKeyMapper extends AdvancedEntryMapper<PrimaryKey> {
 	
 	public PrimaryKeyMapper() {
-		super(PrimaryKey.class, SqlConstants.PRIMARY_KEY_COLUMNS);
+		super(PrimaryKey.class, 
+				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, 
+				SqlConstants.PK_NAME, SqlConstants.KEY_SEQ);
 	}
 	
 	@Override

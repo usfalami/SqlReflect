@@ -11,7 +11,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class DatabaseMapper extends AdvancedEntryMapper<Database> {
 
 	public DatabaseMapper() {
-		super(Database.class, SqlConstants.DATABASE_COLUMNS);
+		super(Database.class);
 	}
 	
 	@Override

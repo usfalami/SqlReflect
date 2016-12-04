@@ -11,7 +11,8 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class FunctionMapper extends AdvancedEntryMapper<Function> {
 	
 	public FunctionMapper() {
-		super(Function.class, SqlConstants.FUNCTION_COLUMNS);
+		super(Function.class, 
+				SqlConstants.FUNCTION_NAME, SqlConstants.FUNCTION_TYPE);
 	}
 	
 	@Override

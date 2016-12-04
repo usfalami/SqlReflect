@@ -4,16 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.sql.type.DatabaseType;
-import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.Writer;
 
-public interface Mapper<T> {
+public interface Mapper<T> extends Writer<T> {
 	
 	void prepare(ResultSet rs, DatabaseType type) throws SQLException;
 	
 	T map(ResultSet rs, int row) throws Exception;
 
-	void write(StreamWriter writer, T field) throws Exception;
-	
 	String[] getColumnNames();
 	
 }

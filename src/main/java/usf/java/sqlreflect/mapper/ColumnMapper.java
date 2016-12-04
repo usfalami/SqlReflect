@@ -11,7 +11,9 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ColumnMapper extends AdvancedEntryMapper<Column> {
 	
 	public ColumnMapper() {
-		super(Column.class, SqlConstants.COLUMNS_COLUMNS);
+		super(Column.class, 
+				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE,
+				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE);
 	}
 	
 	@Override
