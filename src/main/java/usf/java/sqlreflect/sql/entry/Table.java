@@ -26,7 +26,7 @@ public class Table extends Entry {
 	public void setType(String type) {
 		set(SqlConstants.TABLE_TYPE, type);
 	}
-	public Collection<Column> getColumns() {
+	public Collection<Column> getColumnNames() {
 		return columns;
 	}
 	public void setColumns(Collection<Column> columns) {

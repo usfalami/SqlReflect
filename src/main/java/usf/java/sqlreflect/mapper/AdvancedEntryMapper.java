@@ -3,8 +3,8 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
@@ -19,7 +19,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 
 	public AdvancedEntryMapper(Class<T> clazz, String... columnNames) {
 		super(clazz, columnNames);
-		mapperFilters = new HashMap<String, MapperFilter>();
+		mapperFilters = new LinkedHashMap<String, MapperFilter>();
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package usf.java.sqlreflect.mapper;
 
+import java.util.Map;
+
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -7,6 +9,13 @@ import usf.java.sqlreflect.writer.Writer;
 
 public class ActionTimerMapper implements Writer<ActionTimer> {
 
+	
+	@Override
+	public void prepare(Map<String, String> columnTypes) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
 		writer.startList("Times", "Action", "Start", "End", "Duration");

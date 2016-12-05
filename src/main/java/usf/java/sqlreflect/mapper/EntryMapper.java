@@ -2,6 +2,7 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Entry;
@@ -47,6 +48,12 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 
 	public Class<T> getClazz() {
 		return clazz;
+	}
+	
+	@Override
+	public void prepare(Map<String, String> columnTypes) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

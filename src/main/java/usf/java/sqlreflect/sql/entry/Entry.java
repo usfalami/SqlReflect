@@ -31,5 +31,9 @@ public class Entry {
 	protected Integer getInteger(String key){
 		return (Integer) fields.get(key);
 	}
+	
+	public Map<String, Object> getFields() {
+		return fields;
+	}
 
 }

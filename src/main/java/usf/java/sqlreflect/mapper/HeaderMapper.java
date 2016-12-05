@@ -3,6 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Map;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.Header;
@@ -43,5 +44,11 @@ public class HeaderMapper implements Mapper<Header> {
 	public String[] getSelectedColumns() {
 		return new String[]{SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
+	}
+	
+	@Override
+	public void prepare(Map<String, String> columnTypes) {
+		// TODO Auto-generated method stub
+		
 	}
 }

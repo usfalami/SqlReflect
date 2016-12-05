@@ -29,10 +29,10 @@ public class TableMapper extends AdvancedEntryMapper<Table> {
 		writer.writeString(SqlConstants.TABLE_NAME, table.getName());
 		writer.writeString(SqlConstants.TABLE_TYPE, table.getType());
 		//TODO : Update this
-		if(Utils.isNotNull(table.getColumns())){
+		if(Utils.isNotNull(table.getColumnNames())){
 			ColumnMapper cm = new ColumnMapper();
 			writer.startList("COLUMNS");
-			for(Column c : table.getColumns())
+			for(Column c : table.getColumnNames())
 				cm.write(writer, c);
 			writer.endList();
 		}
