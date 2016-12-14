@@ -5,10 +5,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.binder.Binder;
+import usf.java.sqlreflect.mapper.filter.DefaultConverter;
+import usf.java.sqlreflect.mapper.filter.MapperFilter;
+import usf.java.sqlreflect.mapper.filter.ValueConverter;
 import usf.java.sqlreflect.server.User;
+import usf.java.sqlreflect.writer.TypeWriter;
 
 public class Utils {
 
@@ -70,11 +75,70 @@ public class Utils {
 		return columns;
 	}
 	
+	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm) throws SQLException {
+		int size = rm.getColumnCount();
+		Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
+		for(int i=1; i<=size; i++) {
+			TypeWriter tw = TypeWriter.writerfor(rm.getColumnClassName(i));
+			map.put(rm.getColumnName(i), tw);
+		}
+		return map;
+	}
+	
+	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm, String... columnNames) throws SQLException {
+		if(isEmptyArray(columnNames)) return columnTypes(rm);
+		int size = rm.getColumnCount();
+		Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
+		for(int i=1; i<=size; i++){
+			String columnName = rm.getColumnName(i);
+			if(arraySearch(columnName, columnNames) > -1) {
+				TypeWriter tw = TypeWriter.writerfor(rm.getColumnClassName(i));
+				map.put(rm.getColumnName(i), tw);
+			}
+		}
+		return map;
+	}
+	
+	public static <T extends ValueConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
+		return clazz.getDeclaredMethod("transformer", Object.class).getReturnType();
+	}
+	
+	public static <T> int arraySearch(T value, T[] array){
+		for(int i=0; i<array.length; i++)
+			if(array[i].equals(value)) return i;
+		return -1;
+	}
+	
+	
+	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm, Map<String, MapperFilter> filters) throws SQLException {
+		try{
+			int size = rm.getColumnCount();
+			Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
+			for(int i=1; i<=size; i++){
+				String columnName = rm.getColumnName(i);
+				MapperFilter filter = filters.get(columnName);
+				if(filter != null) {
+					ValueConverter<?> conv = filter.getValueConverter();
+					if(conv.getClass().equals(DefaultConverter.class)){
+						map.put(filter.getMappedName(), TypeWriter.writerfor(rm.getColumnClassName(i)));
+					}
+					else {
+						Class<?> clazz = methodeType(conv.getClass());
+						map.put(filter.getMappedName(), TypeWriter.writerfor(clazz.getName()));
+					}
+				}
+			}
+			return map;
+		}catch (Exception e) {
+			throw new SQLException(e);
+		}
+	}
+	
 	public static boolean sameClass(Object o, Class<?> c) {
 		return c.getName().equals(o.getClass().getName());
 	}
 	
-	public static Method findMethod(Object o, String methodName, Object... args) throws Error {
+	public static Method findMethod(Object o, String methodName, Object... args) throws Exception {
 		Method[] methods = null; int index = 0; boolean found = false;
 		methods = o.getClass().getDeclaredMethods();
 		while(index<methods.length && !found){
@@ -88,11 +152,10 @@ public class Utils {
 			}
 			index++;
 		}
-		if(!found) throw new NoSuchMethodError();
+		if(!found) throw new NoSuchMethodException();
 		return methods[index-1];
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(true^false);
-	}
+
+	
 }

@@ -19,27 +19,27 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void writeBoolean(String name, boolean bool) throws JSONException {
+	public void writeBoolean(String name, Boolean bool) throws JSONException {
 		jwriter.key(name).value(bool);
 	}
 
 	@Override
-	public void writeInt(String name, int number) throws JSONException {
+	public void writeInt(String name, Integer number) throws JSONException {
 		jwriter.key(name).value(number);
 	}
 
 	@Override
-	public void writeLong(String name, long number) throws JSONException {
+	public void writeLong(String name, Long number) throws JSONException {
 		jwriter.key(name).value(number);
 	}
 
 	@Override
-	public void writeFloat(String name, float number) throws JSONException {
+	public void writeFloat(String name, Float number) throws JSONException {
 		jwriter.key(name).value(number);
 	}
 
 	@Override
-	public void writeDouble(String name, double number) throws JSONException {
+	public void writeDouble(String name, Double number) throws JSONException {
 		jwriter.key(name).value(number);
 	}
 

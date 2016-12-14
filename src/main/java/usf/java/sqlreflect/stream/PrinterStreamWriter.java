@@ -18,27 +18,27 @@ public class PrinterStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void writeBoolean(String name, boolean bool) throws Exception {
+	public void writeBoolean(String name, Boolean bool) throws Exception {
 		printer.addColumn(bool+"");
 	}
 
 	@Override
-	public void writeInt(String name, int number) throws Exception {
+	public void writeInt(String name, Integer number) throws Exception {
 		printer.addColumn(number+"");
 	}
 
 	@Override
-	public void writeLong(String name, long number) throws Exception {
+	public void writeLong(String name, Long number) throws Exception {
 		printer.addColumn(number+"");
 	}
 
 	@Override
-	public void writeFloat(String name, float number) throws Exception {
+	public void writeFloat(String name, Float number) throws Exception {
 		printer.addColumn(number+"");
 	}
 
 	@Override
-	public void writeDouble(String name, double number) throws Exception {
+	public void writeDouble(String name, Double number) throws Exception {
 		printer.addColumn(number+"");
 	}
 

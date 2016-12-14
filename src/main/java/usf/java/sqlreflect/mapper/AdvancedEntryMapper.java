@@ -12,6 +12,7 @@ import usf.java.sqlreflect.mapper.filter.ValueConverter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.type.DatabaseType;
+import usf.java.sqlreflect.writer.TypeWriter;
 
 public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> implements HasFilters {
 
@@ -34,7 +35,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T item = getClazz().newInstance();
+		T item = getMappedClass().newInstance();
 		Collection<MapperFilter> filters = mapperFilters.values();
 		for(MapperFilter filter : filters) {
 			Object value = rs.getObject(filter.getColumnName());
@@ -63,6 +64,11 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	@Override
 	public void addFilter(String columnName, ValueConverter<?> converter) {
 		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
+	}
+	
+	@Override
+	public Map<String, TypeWriter> getTypes() throws SQLException {
+		return Utils.columnTypes(getResultSet().getMetaData(), mapperFilters);
 	}
 	
 }

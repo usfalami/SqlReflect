@@ -7,7 +7,7 @@ public interface Adapter<T> {
 	
 	void start() throws Exception;
 
-	void prepare(Mapper<T> mapper) throws Exception;
+	void prepare(Mapper<T> mapper) throws Exception; //add mappedClass parameter
 	
 	void adapte(T field, int index) throws Exception;
 	

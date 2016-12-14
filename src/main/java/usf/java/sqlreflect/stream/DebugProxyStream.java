@@ -12,31 +12,31 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	}
 
 	@Override
-	public void writeBoolean(String name, boolean bool) throws Exception {
+	public void writeBoolean(String name, Boolean bool) throws Exception {
 		sw.writeBoolean(name, bool);
 		debug(level+1, bool);
 	}
 
 	@Override
-	public void writeInt(String name, int number) throws Exception {
+	public void writeInt(String name, Integer number) throws Exception {
 		sw.writeInt(name, number);
 		debug(level+1, number);
 	}
 
 	@Override
-	public void writeLong(String name, long number) throws Exception {
+	public void writeLong(String name, Long number) throws Exception {
 		sw.writeLong(name, number);
 		debug(level+1, number);
 	}
 
 	@Override
-	public void writeFloat(String name, float number) throws Exception {
+	public void writeFloat(String name, Float number) throws Exception {
 		sw.writeFloat(name, number);
 		debug(level+1, number);
 	}
 
 	@Override
-	public void writeDouble(String name, double number) throws Exception {
+	public void writeDouble(String name, Double number) throws Exception {
 		sw.writeDouble(name, number);
 		debug(level+1, number);
 	}

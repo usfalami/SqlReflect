@@ -3,12 +3,13 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
-import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.TypeWriter;
 
 public class HeaderMapper implements Mapper<Header> {
 	
@@ -29,26 +30,15 @@ public class HeaderMapper implements Mapper<Header> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, Header column) throws Exception {
-		writer.startObject("HEADER");
-		writer.writeString(SqlConstants.TABLE_NAME, column.getTableName());
-		writer.writeString(SqlConstants.COLUMN_NAME, column.getName());
-		writer.writeInt(SqlConstants.COLUMN_TYPE, column.getType());
-		writer.writeString(SqlConstants.TYPE_NAME, column.getTypeName());
-		writer.writeInt(SqlConstants.COLUMN_SIZE, column.getSize());
-		writer.writeString(SqlConstants.COLUMN_CLASS, column.getClassName());
-		writer.endObject();
+	public Map<String, TypeWriter> getTypes() throws SQLException {
+		Map<String, TypeWriter> types = new HashMap<String, TypeWriter>();
+		types.put(SqlConstants.TABLE_NAME, TypeWriter.STRING);
+		types.put(SqlConstants.COLUMN_NAME, TypeWriter.STRING);
+		types.put(SqlConstants.COLUMN_TYPE, TypeWriter.INTEGER);
+		types.put(SqlConstants.TYPE_NAME, TypeWriter.STRING);
+		types.put(SqlConstants.COLUMN_SIZE, TypeWriter.INTEGER);
+		types.put(SqlConstants.COLUMN_CLASS, TypeWriter.STRING);
+		return types;
 	}
-	
-	@Override
-	public String[] getSelectedColumns() {
-		return new String[]{SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
-				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, SqlConstants.COLUMN_CLASS};
-	}
-	
-	@Override
-	public void prepare(Map<String, String> columnTypes) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

@@ -3,13 +3,15 @@ package usf.java.sqlreflect.adapter;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.Writer;
 
 public class ListWriter<T> implements Adapter<T> {
 
-	private StreamWriter writer;
-	private Mapper<T> mapper;
+	private StreamWriter stream;
+	private Writer<T> writer;
 
-	public ListWriter(StreamWriter writer) {
+	public ListWriter(StreamWriter stream, Writer<T> writer) {
+		this.stream = stream;
 		this.writer = writer;
 	}
 
@@ -18,22 +20,22 @@ public class ListWriter<T> implements Adapter<T> {
 	
 	@Override
 	public void prepare(Mapper<T> mapper) throws Exception {
-		this.mapper = mapper;
-		writer.startList("Entries", mapper.getSelectedColumns());
+		writer.prepare(mapper);
+		stream.startList("Entries", writer.getSelectedColumns());
 	}
 
 	@Override
 	public void adapte(T field, int index) throws Exception {
-		mapper.write(writer, field);
+		writer.write(stream, field);
 	}
 
 	@Override
 	public void end(ActionTimer time) throws Exception {
-		writer.endList();
+		stream.endList();
 	}
 	
-	public StreamWriter getWriter() {
-		return writer;
+	public StreamWriter getStream() {
+		return stream;
 	}
 	
 }

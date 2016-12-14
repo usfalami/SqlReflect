@@ -32,6 +32,7 @@ import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.EntryWriter;
 
 public class ContextLoader {
 
@@ -119,20 +120,18 @@ public class ContextLoader {
 		
 		ps.start();
 		
-		String query = "SELECT * FROM country";
+		String query = "SELECT * FROM country where Code2 = 'AQ'";
 		
-		new DatabaseScanner(cm).run(new FullWriter<Database>(ps));
-		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps));
-		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps));
-		new HeaderScanner<Void>(cm).set("show processlist").run(new FullWriter<Header>(ps));
-		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps));
-////		
-		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps));
-		
+		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
+		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+		new TableScanner(cm).set("sys", "%io", false, TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
+		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
+		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
+//		
 		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
-		rs.set(query).run(new FullWriter<Entry>(ps));
-		
-		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps));
+		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
+//		
 //		
 		ps.end();
 		System.out.println(c);

@@ -1,20 +1,16 @@
-package usf.java.sqlreflect.mapper;
+package usf.java.sqlreflect.writer;
 
-import java.util.Map;
+import java.sql.SQLException;
 
+import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
-import usf.java.sqlreflect.writer.Writer;
 
-public class ActionTimerMapper implements Writer<ActionTimer> {
+public class ActionTimerWriter implements Writer<ActionTimer> {
 
-	
 	@Override
-	public void prepare(Map<String, String> columnTypes) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void prepare(Mapper<ActionTimer> mapper) throws SQLException { }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
@@ -33,6 +29,11 @@ public class ActionTimerMapper implements Writer<ActionTimer> {
 		if(Utils.isNotNull(action.getTimers()))
 			for(ActionTimer t : action.getTimers())
 				recusiveWrite(writer, t, level+1);
+	}
+	
+	@Override
+	public String[] getSelectedColumns() {
+		return new String[]{"Times", "Action", "Start", "End", "Duration"};
 	}
 	
 }

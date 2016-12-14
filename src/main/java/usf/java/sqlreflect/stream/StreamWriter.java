@@ -6,11 +6,11 @@ import java.text.SimpleDateFormat;
 
 public interface StreamWriter {
 	
-	void writeBoolean(String name, boolean bool) throws Exception;
-	void writeInt(String name, int number) throws Exception;
-	void writeLong(String name, long number) throws Exception;
-	void writeFloat(String name, float number) throws Exception;
-	void writeDouble(String name, double number) throws Exception;
+	void writeBoolean(String name, Boolean bool) throws Exception;
+	void writeInt(String name, Integer number) throws Exception;
+	void writeLong(String name, Long number) throws Exception;
+	void writeFloat(String name, Float number) throws Exception;
+	void writeDouble(String name, Double number) throws Exception;
 	void writeString(String name, String string) throws Exception;
 	void writeDate(String name, Date date) throws Exception;
 
