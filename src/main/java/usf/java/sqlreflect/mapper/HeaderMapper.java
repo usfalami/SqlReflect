@@ -11,15 +11,33 @@ import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.writer.TypeWriter;
 
-public class HeaderMapper implements Mapper<Header> {
+public class HeaderMapper extends EntryMapper<Header> {
 	
+	private DatabaseType type;
+
+	public HeaderMapper() {
+		super(Header.class, new String[]{
+				SqlConstants.DATABASE_NAME,
+				SqlConstants.TABLE_NAME,
+				SqlConstants.COLUMN_NAME, 
+				SqlConstants.COLUMN_TYPE, 
+				SqlConstants.TYPE_NAME,
+				SqlConstants.COLUMN_SIZE, 
+				SqlConstants.COLUMN_CLASS,
+		});
+	}
+
 	@Override
-	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {}
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		this.type = type;
+	}
 
 	@Override
 	public Header map(ResultSet rs, int row) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
 		Header h = new Header();
+		h.setDatabaseName(DatabaseType.CATALOG.equals(type) ?
+				md.getCatalogName(row) : md.getSchemaName(row));
 		h.setTableName(md.getTableName(row));
 		h.setName(md.getColumnName(row));
 		h.setType(md.getColumnType(row));

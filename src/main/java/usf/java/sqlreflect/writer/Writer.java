@@ -9,10 +9,8 @@ public interface Writer<T> {
 	
 	void prepare(Mapper<T> mapper) throws SQLException;
 	
-	String[] getSelectedColumns();
-	
 	void write(StreamWriter writer, T obj) throws Exception;
 	
+	String[] getSelectedColumns();
 	
-
 }

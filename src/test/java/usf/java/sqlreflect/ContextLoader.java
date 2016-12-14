@@ -120,7 +120,7 @@ public class ContextLoader {
 		
 		ps.start();
 		
-		String query = "SELECT * FROM country where Code2 = 'AQ'";
+		String query = "SELECT * FROM country";
 		
 		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));

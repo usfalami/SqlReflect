@@ -46,4 +46,11 @@ public class Header extends Entry {
 		set(SqlConstants.TABLE_NAME, tableName);
 	}
 	
+	public String getDatabaseName() {
+		return getString(SqlConstants.TABLE_NAME);
+	}
+	public void setDatabaseName(String databaseName) {
+		set(SqlConstants.DATABASE_NAME, databaseName);
+	}
+	
 }
