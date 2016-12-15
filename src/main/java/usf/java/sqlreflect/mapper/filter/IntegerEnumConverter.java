@@ -9,7 +9,7 @@ public class IntegerEnumConverter<T extends Enum<T>> implements ValueConverter<S
 	}
 
 	@Override
-	public String transformer(Object obj) {
+	public String convert(Object obj) {
 		Integer index = (Integer) obj;
 		return clazz.getEnumConstants()[index].toString();
 	}

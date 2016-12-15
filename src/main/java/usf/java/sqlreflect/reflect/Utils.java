@@ -107,7 +107,7 @@ public class Utils {
 	}
 	
 	public static <T extends ValueConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
-		return clazz.getDeclaredMethod("transformer", Object.class).getReturnType();
+		return clazz.getDeclaredMethod("convert", Object.class).getReturnType();
 	}
 	
 	public static <T> int arraySearch(T value, T[] array){
@@ -127,11 +127,11 @@ public class Utils {
 				if(filter != null) {
 					ValueConverter<?> conv = filter.getValueConverter();
 					if(conv.getClass().equals(DefaultConverter.class)){
-						map.put(filter.getMappedName(), TypeWriter.writerfor(rm.getColumnClassName(i)));
+						map.put(filter.getPropertyName(), TypeWriter.writerfor(rm.getColumnClassName(i)));
 					}
 					else {
 						Class<?> clazz = methodeType(conv.getClass());
-						map.put(filter.getMappedName(), TypeWriter.writerfor(clazz.getName()));
+						map.put(filter.getPropertyName(), TypeWriter.writerfor(clazz.getName()));
 					}
 				}
 			}

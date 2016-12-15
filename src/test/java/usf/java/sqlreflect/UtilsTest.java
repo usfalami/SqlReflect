@@ -171,11 +171,11 @@ public class UtilsTest {
 		testFindMethodTrue("", "equals", new Double(5)); //Double->Object
 		testFindMethodTrue(new ArrayList<Entry>(), "add", new Table());//Table->Entry
 	}
-	@Test(expected=NoSuchMethodError.class)
+	@Test(expected=NoSuchMethodException.class)
 	public void testFindMethod2() throws Exception {
 		Utils.findMethod(new Integer(0), "intValue", "");
 	}
-	@Test(expected=NoSuchMethodError.class)
+	@Test(expected=NoSuchMethodException.class)
 	public void testFindMethod3() throws Exception {
 		Utils.findMethod("", "concat", 99);//Integer # String
 	}

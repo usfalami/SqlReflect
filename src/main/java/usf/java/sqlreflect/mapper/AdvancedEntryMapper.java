@@ -39,7 +39,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		Collection<MapperFilter> filters = mapperFilters.values();
 		for(MapperFilter filter : filters) {
 			Object value = rs.getObject(filter.getColumnName());
-			item.set(filter.getMappedName(), filter.getValueConverter().transformer(value));
+			item.set(filter.getPropertyName(), filter.getValueConverter().convert(value));
 		}
 		return item;
 	}
@@ -49,17 +49,17 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		Collection<MapperFilter> filters = mapperFilters.values();
 		String[] columns = new String[filters.size()]; int i=0;
 		for(Iterator<MapperFilter> it = filters.iterator(); it.hasNext(); i++)
-			columns[i] = it.next().getMappedName();
+			columns[i] = it.next().getPropertyName();
 		return columns;
 	}
 
 	@Override
-	public void addFilter(String columnName, String mappedName, ValueConverter<?> converter) {
-		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName, converter));
+	public void addFilter(String columnName, String propertyName, ValueConverter<?> converter) {
+		mapperFilters.put(columnName, new MapperFilter(columnName, propertyName, converter));
 	}
 	@Override
-	public void addFilter(String columnName, String mappedName) {
-		mapperFilters.put(columnName, new MapperFilter(columnName, mappedName));
+	public void addFilter(String columnName, String propertyName) {
+		mapperFilters.put(columnName, new MapperFilter(columnName, propertyName));
 	}
 	@Override
 	public void addFilter(String columnName, ValueConverter<?> converter) {

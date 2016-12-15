@@ -5,7 +5,7 @@ import java.util.Date;
 public class DateLongConverter implements ValueConverter<Long> {
 
 	@Override
-	public Long transformer(Object obj) {
+	public Long convert(Object obj) {
 		Date date = (Date)obj;
 		return date.getTime();
 	}
