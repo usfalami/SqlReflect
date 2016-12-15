@@ -37,8 +37,12 @@ public class TeradataServer implements Server {
 		return dm.getColumns(null, databasePattern, tablePattern, columnPattern);
 	}
 	@Override
-	public ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
+	public ResultSet getPrimaryKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
 		return dm.getPrimaryKeys(null, databasePattern, tablePattern);
+	}
+	@Override
+	public ResultSet getImportedKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
+		return dm.getImportedKeys(null, databasePattern, databasePattern);
 	}
 	@Override
 	public ResultSet getProcedures(DatabaseMetaData dm, String databasePattern, String procedurePattern) throws SQLException {
@@ -52,5 +56,4 @@ public class TeradataServer implements Server {
 	public ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException {
 		return dm.getFunctions(null, databasePattern, functionPattern);
 	}
-	
 }

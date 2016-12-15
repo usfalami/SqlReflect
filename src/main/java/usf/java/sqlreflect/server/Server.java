@@ -17,7 +17,8 @@ public interface Server {
 	ResultSet getDatabase(DatabaseMetaData dm, String databasePattern) throws SQLException;
 	ResultSet getTables(DatabaseMetaData dm, String databasePattern, String tablePattern, String... types) throws SQLException;
 	ResultSet getColumns(DatabaseMetaData dm, String databasePattern, String tablePattern, String columnPattern) throws SQLException;
-	ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException;
+	ResultSet getPrimaryKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException;
+	ResultSet getImportedKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException;
 	ResultSet getProcedures(DatabaseMetaData dm, String databasePattern, String procedurePattern) throws SQLException;
 	ResultSet getArguments(DatabaseMetaData dm, String databasePattern, String procedurePattern, String argumentpattern) throws SQLException;
 	ResultSet getFunction(DatabaseMetaData dm, String databasePattern, String functionPattern) throws SQLException;

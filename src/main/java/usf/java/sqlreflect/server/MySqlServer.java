@@ -37,7 +37,11 @@ public class MySqlServer implements Server {
 		return dm.getColumns(databasePattern, null, tablePattern, columnPattern);
 	}
 	@Override
-	public ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
+	public ResultSet getImportedKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
+		return dm.getImportedKeys(databasePattern, null, tablePattern);
+	}
+	@Override
+	public ResultSet getPrimaryKeys(DatabaseMetaData dm, String databasePattern, String tablePattern) throws SQLException {
 		return dm.getPrimaryKeys(databasePattern, null, tablePattern);
 	}
 	@Override

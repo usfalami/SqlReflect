@@ -41,7 +41,7 @@ public class OracleServer implements Server {
 	}
 
 	@Override
-	public ResultSet getPrimaryKes(DatabaseMetaData dm, String databasePattern, String tablePattern)
+	public ResultSet getPrimaryKeys(DatabaseMetaData dm, String databasePattern, String tablePattern)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
@@ -67,6 +67,13 @@ public class OracleServer implements Server {
 	
 	@Override
 	public DatabaseType getDatabaseType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ResultSet getImportedKeys(DatabaseMetaData dm, String databasePattern, String tablePattern)
+			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
