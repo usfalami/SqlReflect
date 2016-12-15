@@ -59,6 +59,13 @@ public class Utils {
 		return clazz == null || clazz.isInterface();
 	}
 	
+	public static <T> String[] toString(T... args){
+		String[] result = new String[args.length];
+		for(int i=0; i<result.length; i++)
+			result[i] = args[i].toString();
+		return result;
+	}
+	
 	public static Integer[] convert(int... values){
 		if(isNull(values)) return null;
 		Integer[] arr = new Integer[values.length];
