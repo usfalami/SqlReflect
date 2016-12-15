@@ -17,10 +17,9 @@ public class HeaderMapper extends EntryMapper<Header> {
 
 	public HeaderMapper() {
 		super(Header.class, new String[]{
-				SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME,
-				SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
-				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, 
-				SqlConstants.COLUMN_CLASS,
+				SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, 
+				SqlConstants.COLUMN_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, 
+				SqlConstants.COLUMN_CLASS
 		});
 	}
 
