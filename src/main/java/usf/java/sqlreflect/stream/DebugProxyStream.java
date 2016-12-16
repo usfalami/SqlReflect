@@ -91,8 +91,8 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	
 	
 	private void debug(int level, Object text) {
-		if(level == 0) System.out.println(text);
-		else System.out.println(String.format("%" + level + "s", "").replace(" ", " ¦ ....") + text);
+		System.out.println(level == 0 ? text : 
+			String.format("%" + level + "s", "").replace(" ", " ¦ ....") + text);
 	}
 
 }
