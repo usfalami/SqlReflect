@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.mapper.filter;
 
-public interface ValueConverter<T> {
+public interface ResultConverter<T> {
 	
 	T convert(Object obj);
 

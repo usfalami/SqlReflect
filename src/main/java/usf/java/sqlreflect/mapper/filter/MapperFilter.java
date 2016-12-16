@@ -2,18 +2,18 @@ package usf.java.sqlreflect.mapper.filter;
 
 public class MapperFilter {
 	
-	private static final ValueConverter<?> DEFAULT_VALUE_CONVERTER = new DefaultConverter();
+	private static final ResultConverter<?> DEFAULT_VALUE_CONVERTER = new DefaultConverter();
 	
 	private String columnName;
 	private String propertyName;
-	private ValueConverter<?> valueConverter;
+	private ResultConverter<?> valueConverter;
 	
-	public MapperFilter(String columnName, String propertyName, ValueConverter<?> valueConverter) {
+	public MapperFilter(String columnName, String propertyName, ResultConverter<?> valueConverter) {
 		this.columnName = columnName;
 		this.propertyName = propertyName;
 		this.valueConverter = valueConverter;
 	}
-	public MapperFilter(String columnName, ValueConverter<?> valueConverter) {
+	public MapperFilter(String columnName, ResultConverter<?> valueConverter) {
 		this(columnName, columnName, valueConverter);
 	}
 	public MapperFilter(String columnName, String propertyName) {
@@ -29,7 +29,7 @@ public class MapperFilter {
 	public String getPropertyName() {
 		return propertyName;
 	}
-	public ValueConverter<?> getValueConverter() {
+	public ResultConverter<?> getValueConverter() {
 		return valueConverter;
 	}
 	

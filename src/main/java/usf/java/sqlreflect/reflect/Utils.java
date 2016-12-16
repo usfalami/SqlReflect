@@ -11,7 +11,7 @@ import java.util.Map;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.mapper.filter.DefaultConverter;
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
-import usf.java.sqlreflect.mapper.filter.ValueConverter;
+import usf.java.sqlreflect.mapper.filter.ResultConverter;
 import usf.java.sqlreflect.server.User;
 import usf.java.sqlreflect.writer.TypeWriter;
 
@@ -106,7 +106,7 @@ public class Utils {
 		return map;
 	}
 	
-	public static <T extends ValueConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
+	public static <T extends ResultConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
 		return clazz.getDeclaredMethod("convert", Object.class).getReturnType();
 	}
 	
@@ -125,7 +125,7 @@ public class Utils {
 				String columnName = rm.getColumnName(i);
 				MapperFilter filter = filters.get(columnName);
 				if(filter != null) {
-					ValueConverter<?> conv = filter.getValueConverter();
+					ResultConverter<?> conv = filter.getValueConverter();
 					if(conv.getClass().equals(DefaultConverter.class)){
 						map.put(filter.getPropertyName(), TypeWriter.writerfor(rm.getColumnClassName(i)));
 					}

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.mapper.filter;
 
 import java.util.Date;
 
-public class DateLongConverter implements ValueConverter<Long> {
+public class DateLongConverter implements ResultConverter<Long> {
 
 	@Override
 	public Long convert(Object obj) {

@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.mapper.filter.MapperFilter;
-import usf.java.sqlreflect.mapper.filter.ValueConverter;
+import usf.java.sqlreflect.mapper.filter.ResultConverter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.type.DatabaseType;
@@ -54,7 +54,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 	}
 
 	@Override
-	public void addFilter(String columnName, String propertyName, ValueConverter<?> converter) {
+	public void addFilter(String columnName, String propertyName, ResultConverter<?> converter) {
 		mapperFilters.put(columnName, new MapperFilter(columnName, propertyName, converter));
 	}
 	@Override
@@ -62,7 +62,7 @@ public class AdvancedEntryMapper<T extends Entry> extends EntryMapper<T> impleme
 		mapperFilters.put(columnName, new MapperFilter(columnName, propertyName));
 	}
 	@Override
-	public void addFilter(String columnName, ValueConverter<?> converter) {
+	public void addFilter(String columnName, ResultConverter<?> converter) {
 		mapperFilters.put(columnName, new MapperFilter(columnName, converter));
 	}
 	
