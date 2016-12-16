@@ -22,7 +22,7 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 	}
 
 	@Override
-	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {//return template<R>
 		this.resultSet = rs;
 		if(Utils.isEmptyArray(columnNames)) // set all column if no column was set
 			columnNames = Utils.columnNames(rs);
