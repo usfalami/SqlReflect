@@ -17,7 +17,7 @@ public class EntryWriter<T extends Entry> implements Writer<T> {
 	}
 	
 	@Override
-	public String[] getSelectedColumns() {
+	public String[] getColumnNames() {
 		return types.keySet().toArray(new String[types.size()]);
 	}
 

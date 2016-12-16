@@ -32,7 +32,7 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 	}
 	
 	@Override
-	public String[] getSelectedColumns() {
+	public String[] getColumnNames() {
 		return new String[]{"Times", "Action", "Start", "End", "Duration"};
 	}
 	

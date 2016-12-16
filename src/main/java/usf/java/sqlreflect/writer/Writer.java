@@ -11,6 +11,6 @@ public interface Writer<T> {
 	
 	void write(StreamWriter writer, T obj) throws Exception;
 	
-	String[] getSelectedColumns();
+	String[] getColumnNames();
 	
 }

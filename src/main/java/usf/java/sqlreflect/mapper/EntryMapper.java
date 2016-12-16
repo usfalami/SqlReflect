@@ -36,15 +36,15 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 		return item;
 	}
 
-	public String[] getSelectedColumns() {
-		return columnNames;
-	}
-	
 	@Override
 	public Map<String, TypeWriter> getTypes() throws SQLException {
 		return Utils.columnTypes(resultSet.getMetaData(), getSelectedColumns());
 	}
 
+	public String[] getSelectedColumns() {
+		return columnNames;
+	}
+	
 	public Class<T> getMappedClass() {
 		return mappedClass;
 	}

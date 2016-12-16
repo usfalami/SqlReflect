@@ -21,7 +21,7 @@ public class ListWriter<T> implements Adapter<T> {
 	@Override
 	public void prepare(Mapper<T> mapper) throws Exception {
 		writer.prepare(mapper);
-		stream.startList("Entries", writer.getSelectedColumns());
+		stream.startList("Entries", writer.getColumnNames());
 	}
 
 	@Override

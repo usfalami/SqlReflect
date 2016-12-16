@@ -6,12 +6,12 @@ public class MapperFilter {
 	
 	private String columnName;
 	private String propertyName;
-	private ResultConverter<?> valueConverter;
+	private ResultConverter<?> resultConverter;
 	
-	public MapperFilter(String columnName, String propertyName, ResultConverter<?> valueConverter) {
+	public MapperFilter(String columnName, String propertyName, ResultConverter<?> resultConverter) {
 		this.columnName = columnName;
 		this.propertyName = propertyName;
-		this.valueConverter = valueConverter;
+		this.resultConverter = resultConverter;
 	}
 	public MapperFilter(String columnName, ResultConverter<?> valueConverter) {
 		this(columnName, columnName, valueConverter);
@@ -30,7 +30,7 @@ public class MapperFilter {
 		return propertyName;
 	}
 	public ResultConverter<?> getValueConverter() {
-		return valueConverter;
+		return resultConverter;
 	}
 	
 }
