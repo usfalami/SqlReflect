@@ -18,13 +18,13 @@ public class HeaderMapper implements Mapper<Header> {
 	public Collection<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		this.type = type;
 		return Arrays.asList(
-				new Header(SqlConstants.DATABASE_NAME, String.class.getName()),
-				new Header(SqlConstants.TABLE_NAME, String.class.getName()),
-				new Header(SqlConstants.COLUMN_NAME, String.class.getName()),
-				new Header(SqlConstants.COLUMN_TYPE, String.class.getName()),
-				new Header(SqlConstants.TYPE_NAME, String.class.getName()),
-				new Header(SqlConstants.COLUMN_SIZE, Integer.class.getName()),
-				new Header(SqlConstants.COLUMN_CLASS, String.class.getName())
+				new Header(SqlConstants.DATABASE_NAME, 	String.class.getName()),
+				new Header(SqlConstants.TABLE_NAME, 	String.class.getName()),
+				new Header(SqlConstants.COLUMN_NAME, 	String.class.getName()),
+				new Header(SqlConstants.COLUMN_TYPE, 	String.class.getName()),
+				new Header(SqlConstants.TYPE_NAME, 		String.class.getName()),
+				new Header(SqlConstants.COLUMN_SIZE,	Integer.class.getName()),
+				new Header(SqlConstants.COLUMN_CLASS, 	String.class.getName())
 			);
 	}
 

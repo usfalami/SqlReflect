@@ -14,8 +14,7 @@ import usf.java.sqlreflect.sql.type.ProcedureTypes;
 public class ProcedureMapper extends FiltredEntryMapper<Procedure> {
 	
 	public ProcedureMapper() {
-		super(Procedure.class, 
-				SqlConstants.PROCEDURE_NAME, SqlConstants.PROCEDURE_TYPE);
+		super(Procedure.class, SqlConstants.PROCEDURE_NAME);
 	}
 	
 	@Override

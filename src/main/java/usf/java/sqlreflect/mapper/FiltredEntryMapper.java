@@ -31,6 +31,7 @@ public class FiltredEntryMapper<T extends Entry> implements Mapper<T>, HasFilter
 
 	@Override
 	public Collection<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		
 		return Utils.isEmptyMap(mapperFilters) ? 
 				SqlUtils.allColumnNames(rs, mapperFilters) : SqlUtils.columnNames(rs, mapperFilters);
 	}
