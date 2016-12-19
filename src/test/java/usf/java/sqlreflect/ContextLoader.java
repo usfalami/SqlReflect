@@ -124,16 +124,16 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 //		
-		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
-		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
+//		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
+//		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+//		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+//		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
 		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
-		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
+//		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
+////		
+//		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+//		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
 //		
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
-		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
-		
 		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, new EntryWriter<ImportedKey>()));
 		
 		ps.end();

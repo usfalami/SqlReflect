@@ -81,7 +81,6 @@ public class SqlUtils {
 					header.setName(filter.getPropertyName());
 					if(!filter.getValueConverter().equals(MapperFilter.DEFAULT_VALUE_CONVERTER)){
 						Class<?> clazz = Utils.methodeType(filter.getValueConverter().getClass());
-						System.out.println(filter.getValueConverter() + " "+ clazz.getName());
 						header.setClassName(clazz.getName());
 					}
 					list.add(header);
