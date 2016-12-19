@@ -36,7 +36,7 @@ public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {
 			action.end();
 			
 			action = at.startAction(Constants.ACTION_PROCESSING);
-			runAdapt(rs, adapter, at);
+			runProcessing(rs, adapter, at);
 			action.end();
 			
 		}finally {

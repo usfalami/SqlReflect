@@ -15,8 +15,7 @@ public class ImportedKeyMapper extends AdvancedEntryMapper<ImportedKey> {
 		super(ImportedKey.class,
 				SqlConstants.PKTABLE_NAME, SqlConstants.PKCOLUMN_NAME, SqlConstants.PK_NAME, 
 				SqlConstants.KEY_SEQ,
-				SqlConstants.FKTABLE_NAME, SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME
-				);
+				SqlConstants.FKTABLE_NAME, SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME);
 	}
 	
 	@Override

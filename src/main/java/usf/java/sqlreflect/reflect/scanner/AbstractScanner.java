@@ -29,7 +29,7 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		return adapter.getList();
 	}
 	
-	protected void runAdapt(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
+	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
 		int row = 0;
 		while(rs.next()){
 			R field = getMapper().map(rs, row+1);
