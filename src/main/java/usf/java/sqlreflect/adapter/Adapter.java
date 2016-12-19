@@ -1,13 +1,15 @@
 package usf.java.sqlreflect.adapter;
 
-import usf.java.sqlreflect.mapper.Mapper;
+import java.util.Collection;
+
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.sql.entry.Header;
 
 public interface Adapter<T> {
 	
 	void start() throws Exception;
 
-	void prepare(Mapper<T> mapper) throws Exception; //add mappedClass parameter
+	void prepare(Collection<Header> headers) throws Exception; //add mappedClass parameter
 	
 	void adapte(T field, int index) throws Exception;
 	

@@ -33,13 +33,15 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			action.end(); //ACTION_CONNECTION end
 
 			run(adapter, timer);
+			
+			timer.end();
+			adapter.end(timer);
+			
 		}catch (Exception e) {
 			timer.last().setMessage("Error : "+e.getMessage());
 			throw e;
 		} finally {
 			getConnectionManager().close();
-			timer.end();
-			adapter.end(timer);
 		}
 	}
 	

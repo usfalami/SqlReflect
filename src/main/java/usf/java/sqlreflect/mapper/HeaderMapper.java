@@ -3,29 +3,33 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
-import usf.java.sqlreflect.writer.TypeWriter;
 
-public class HeaderMapper extends EntryMapper<Header> {
+public class HeaderMapper implements Mapper<Header> {
 	
 	private DatabaseType type;
 
 	public HeaderMapper() {
-		super(Header.class, new String[]{
-				SqlConstants.DATABASE_NAME, SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, 
-				SqlConstants.COLUMN_TYPE, SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE, 
-				SqlConstants.COLUMN_CLASS
-		});
+		
 	}
 
 	@Override
-	public void prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		this.type = type;
+		return Arrays.asList(
+				new Header(SqlConstants.DATABASE_NAME, String.class.getName()),
+				new Header(SqlConstants.TABLE_NAME, String.class.getName()),
+				new Header(SqlConstants.COLUMN_NAME, String.class.getName()),
+				new Header(SqlConstants.COLUMN_TYPE, String.class.getName()),
+				new Header(SqlConstants.TYPE_NAME, String.class.getName()),
+				new Header(SqlConstants.COLUMN_SIZE, Integer.class.getName()),
+				new Header(SqlConstants.COLUMN_CLASS, String.class.getName())
+			);
 	}
 
 	@Override
@@ -41,18 +45,6 @@ public class HeaderMapper extends EntryMapper<Header> {
 		h.setSize(md.getColumnDisplaySize(row));
 		h.setClassName(md.getColumnClassName(row));
 		return h;
-	}
-
-	@Override
-	public Map<String, TypeWriter> getTypes() throws SQLException {
-		Map<String, TypeWriter> types = new HashMap<String, TypeWriter>();
-		types.put(SqlConstants.TABLE_NAME, TypeWriter.STRING);
-		types.put(SqlConstants.COLUMN_NAME, TypeWriter.STRING);
-		types.put(SqlConstants.COLUMN_TYPE, TypeWriter.INTEGER);
-		types.put(SqlConstants.TYPE_NAME, TypeWriter.STRING);
-		types.put(SqlConstants.COLUMN_SIZE, TypeWriter.INTEGER);
-		types.put(SqlConstants.COLUMN_CLASS, TypeWriter.STRING);
-		return types;
 	}
 
 }

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.mapper.filter;
 
 public class MapperFilter {
 	
-	private static final ResultConverter<?> DEFAULT_VALUE_CONVERTER = new DefaultConverter();
+	public static final ResultConverter<?> DEFAULT_VALUE_CONVERTER = new DefaultConverter();
 	
 	private String columnName;
 	private String propertyName;

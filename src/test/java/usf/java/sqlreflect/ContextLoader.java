@@ -16,11 +16,22 @@ import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
+import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ImportedKeyScanner;
+import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
+import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.entry.ImportedKey;
+import usf.java.sqlreflect.sql.entry.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.Procedure;
+import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.EntryWriter;
@@ -113,16 +124,15 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 //		
-//		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
-//		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-//		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-//		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
-//		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
-//		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
-////		
-//		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
-//		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
-////		
+		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
+		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
+		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
+		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
+		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
+//		
+		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
 		
 		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, new EntryWriter<ImportedKey>()));
 		

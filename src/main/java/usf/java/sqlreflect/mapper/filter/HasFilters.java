@@ -1,6 +1,4 @@
-package usf.java.sqlreflect.mapper;
-
-import usf.java.sqlreflect.mapper.filter.ResultConverter;
+package usf.java.sqlreflect.mapper.filter;
 
 public interface HasFilters {
 	

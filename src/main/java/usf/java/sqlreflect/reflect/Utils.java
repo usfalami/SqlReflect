@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.reflect;
 
 import java.lang.reflect.Method;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -72,39 +71,8 @@ public class Utils {
 		for(int i=0; i<values.length; i++)
 			arr[i] = values[i];
 		return arr;
-	} 
-	
-	public static final String[] columnNames(ResultSet rs) throws SQLException {
-		ResultSetMetaData rm = rs.getMetaData();
-		String[] columns = new String[rm.getColumnCount()];
-		for(int i=0; i<columns.length; i++)
-			columns[i] = rm.getColumnName(i+1);
-		return columns;
 	}
 	
-	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm) throws SQLException {
-		int size = rm.getColumnCount();
-		Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
-		for(int i=1; i<=size; i++) {
-			TypeWriter tw = TypeWriter.writerfor(rm.getColumnClassName(i));
-			map.put(rm.getColumnName(i), tw);
-		}
-		return map;
-	}
-	
-	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm, String... columnNames) throws SQLException {
-		if(isEmptyArray(columnNames)) return columnTypes(rm);
-		int size = rm.getColumnCount();
-		Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
-		for(int i=1; i<=size; i++){
-			String columnName = rm.getColumnName(i);
-			if(arraySearch(columnName, columnNames) > -1) {
-				TypeWriter tw = TypeWriter.writerfor(rm.getColumnClassName(i));
-				map.put(rm.getColumnName(i), tw);
-			}
-		}
-		return map;
-	}
 	
 	public static <T extends ResultConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
 		return clazz.getDeclaredMethod("convert", Object.class).getReturnType();
@@ -162,7 +130,5 @@ public class Utils {
 		if(!found) throw new NoSuchMethodException();
 		return methods[index-1];
 	}
-	
-
 	
 }
