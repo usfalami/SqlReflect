@@ -14,10 +14,6 @@ public class HeaderMapper implements Mapper<Header> {
 	
 	private DatabaseType type;
 
-	public HeaderMapper() {
-		
-	}
-
 	@Override
 	public Collection<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		this.type = type;

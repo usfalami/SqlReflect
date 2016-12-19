@@ -79,7 +79,7 @@ public class SqlUtils {
 				if(Utils.isNotNull(filter)){
 					Header header = mapper.map(rs, i);
 					header.setName(filter.getPropertyName());
-					if(!filter.getValueConverter().equals(MapperFilter.DEFAULT_VALUE_CONVERTER)){
+					if(!MapperFilter.DEFAULT_VALUE_CONVERTER.equals(filter.getValueConverter())){
 						Class<?> clazz = Utils.methodeType(filter.getValueConverter().getClass());
 						header.setClassName(clazz.getName());
 					}

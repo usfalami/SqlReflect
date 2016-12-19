@@ -14,8 +14,7 @@ import usf.java.sqlreflect.sql.type.FunctionTypes;
 public class FunctionMapper extends FiltredEntryMapper<Function> {
 	
 	public FunctionMapper() {
-		super(Function.class, 
-				SqlConstants.FUNCTION_NAME, SqlConstants.FUNCTION_TYPE);
+		super(Function.class, SqlConstants.FUNCTION_NAME);
 	}
 	
 	@Override

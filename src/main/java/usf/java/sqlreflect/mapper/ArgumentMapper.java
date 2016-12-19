@@ -15,7 +15,7 @@ public class ArgumentMapper extends FiltredEntryMapper<Argument> {
 	
 	public ArgumentMapper() {
 		super(Argument.class, 
-				SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.COLUMN_TYPE, 
+				SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, 
 				SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.LENGTH);
 	}
 	
