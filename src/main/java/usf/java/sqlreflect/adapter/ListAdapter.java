@@ -21,7 +21,7 @@ public class ListAdapter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void prepare(Collection<Header> headers) {
+	public void prepare(Collection<Header> headers, Class<T> clazz) {
 		
 	}
 	

@@ -21,7 +21,7 @@ public class ListWriter<T> implements Adapter<T> {
 	public void start() throws Exception { }
 	
 	@Override
-	public void prepare(Collection<Header> headers) throws Exception {
+	public void prepare(Collection<Header> headers, Class<T> clazz) throws Exception {
 		writer.prepare(headers);
 		stream.startList("Entries", writer.getColumnNames());
 	}

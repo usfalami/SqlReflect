@@ -39,4 +39,8 @@ public class EntryMapper<T extends Entry> implements Mapper<T> {
 		return item;
 	}
 	
+	@Override
+	public Class<T> getMappedClass() {
+		return mappedClass;
+	}
 }

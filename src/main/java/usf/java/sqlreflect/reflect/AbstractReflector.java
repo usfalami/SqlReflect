@@ -34,14 +34,15 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 
 			run(adapter, timer);
 			
-			timer.end();
-			adapter.end(timer);
-			
 		}catch (Exception e) {
 			timer.last().setMessage("Error : "+e.getMessage());
 			throw e;
 		} finally {
 			getConnectionManager().close();
+			try {
+				timer.end();
+				adapter.end(timer);
+			} catch (Exception e2) {}
 		}
 	}
 	

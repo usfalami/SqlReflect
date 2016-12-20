@@ -13,4 +13,5 @@ public interface Mapper<T> {
 	
 	T map(ResultSet rs, int row) throws Exception;
 	
+	Class<T> getMappedClass();
 }

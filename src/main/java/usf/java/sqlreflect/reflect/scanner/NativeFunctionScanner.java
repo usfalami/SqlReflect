@@ -29,7 +29,7 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		action.end();//ACTION_EXECUTION end
 		
 		action = at.startAction(Constants.ACTION_PREPARATION);
-		adapter.prepare(null);
+		adapter.prepare(null, String.class);
 		action.end();
 
 		action = at.startAction(Constants.ACTION_PROCESSING);

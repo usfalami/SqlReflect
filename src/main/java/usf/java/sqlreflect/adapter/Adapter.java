@@ -9,7 +9,7 @@ public interface Adapter<T> {
 	
 	void start() throws Exception;
 
-	void prepare(Collection<Header> headers) throws Exception; //add mappedClass parameter
+	void prepare(Collection<Header> headers, Class<T> clazz) throws Exception; //add mappedClass parameter
 	
 	void adapte(T field, int index) throws Exception;
 	

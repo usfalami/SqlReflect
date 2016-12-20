@@ -42,5 +42,10 @@ public class HeaderMapper implements Mapper<Header> {
 		h.setClassName(md.getColumnClassName(row));
 		return h;
 	}
+	
+	@Override
+	public Class<Header> getMappedClass() {
+		return Header.class;
+	}
 
 }
