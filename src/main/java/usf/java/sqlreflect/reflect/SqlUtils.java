@@ -21,9 +21,8 @@ public class SqlUtils {
 		int cols = md.getColumnCount();
 		List<Header> headers = new ArrayList<Header>(cols);
 		for(int i=1; i<=cols; i++){
-			String columnName = md.getColumnName(i);
 			Header header = mapper.map(rs, i);
-			header.setPropertyName(columnName);
+			header.setPropertyName(header.getColumnName());
 			headers.add(header);
 		}
 		return headers;

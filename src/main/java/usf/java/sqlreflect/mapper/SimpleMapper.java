@@ -18,8 +18,8 @@ public class SimpleMapper<T> implements Mapper<T> {
 
 	public SimpleMapper(Class<T> clazz, PropertyMapper<T> propertyMapper, String... selectedColumnNames) {
 		this.mappedClass = clazz;
-		this.columnNames = selectedColumnNames;
 		this.propertyMapper = propertyMapper;
+		this.columnNames = selectedColumnNames;
 	}
 
 	@Override
