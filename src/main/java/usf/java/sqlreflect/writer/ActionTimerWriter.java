@@ -1,7 +1,7 @@
 package usf.java.sqlreflect.writer;
 
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
 
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
@@ -11,7 +11,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 public class ActionTimerWriter implements Writer<ActionTimer> {
 
 	@Override
-	public void prepare(Collection<Header> headers) throws SQLException { }
+	public void prepare(List<Header> headers) throws SQLException { }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {

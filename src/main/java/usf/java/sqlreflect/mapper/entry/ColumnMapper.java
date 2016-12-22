@@ -1,24 +1,26 @@
-package usf.java.sqlreflect.mapper;
+package usf.java.sqlreflect.mapper.entry;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.mapper.EntryPropertyMapper;
+import usf.java.sqlreflect.mapper.FiltredMapper;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class ColumnMapper extends FiltredEntryMapper<Column> {
+public class ColumnMapper extends FiltredMapper<Column> {
 	
 	public ColumnMapper() {
-		super(Column.class, 
+		super(Column.class, new EntryPropertyMapper<Column>(),
 				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE,
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE);
 	}
 	
 	@Override
-	public Collection<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public List<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		addFilter(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME);
 		return super.prepare(rs, type);
 	}

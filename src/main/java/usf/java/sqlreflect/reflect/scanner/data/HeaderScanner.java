@@ -5,7 +5,7 @@ import java.sql.ResultSetMetaData;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.mapper.HeaderMapper;
+import usf.java.sqlreflect.mapper.entry.HeaderMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.entry.Header;
 

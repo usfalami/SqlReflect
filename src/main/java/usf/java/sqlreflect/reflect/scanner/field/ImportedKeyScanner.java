@@ -4,7 +4,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.mapper.ImportedKeyMapper;
+import usf.java.sqlreflect.mapper.entry.ImportedKeyMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.entry.ImportedKey;
 

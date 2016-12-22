@@ -3,7 +3,6 @@ package usf.java.sqlreflect;
 public interface SqlConstants {
 
 	String DATABASE_NAME = "DATABASE_NAME";
-	
 
 	String PK_DATABASE_NAME = "PK_DATABASE_NAME";
 	String PKTABLE_NAME  = "PKTABLE_NAME";
@@ -31,7 +30,10 @@ public interface SqlConstants {
 	String COLUMN_NAME  = "COLUMN_NAME";
 	String COLUMN_TYPE  = "COLUMN_TYPE";
 	String COLUMN_SIZE  = "COLUMN_SIZE";
-	String COLUMN_CLASS = "COLUMN_CLASS"; 
+	String COLUMN_CLASS = "COLUMN_CLASS";
+	
+	String COLUMN_FILTER = "COLUMN_FILTER";
+	String PROPERTY_NAME = "PROPERTY_NAME";
 	
 	String DATA_TYPE = "DATA_TYPE";
 	String TYPE_NAME = "TYPE_NAME";

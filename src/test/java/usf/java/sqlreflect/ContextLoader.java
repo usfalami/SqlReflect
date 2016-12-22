@@ -14,7 +14,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.mapper.EntryMapper;
+import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
@@ -130,10 +130,10 @@ public class ContextLoader {
 		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
 		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
 		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
-//		
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper<Entry>(Entry.class));
+		
+		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper());
 		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
-//		
+		
 		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, new EntryWriter<ImportedKey>()));
 		
 		ps.end();

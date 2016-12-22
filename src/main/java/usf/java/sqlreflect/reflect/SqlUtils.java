@@ -7,88 +7,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.HeaderMapper;
-import usf.java.sqlreflect.mapper.filter.MapperFilter;
+import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.mapper.Filter;
+import usf.java.sqlreflect.mapper.entry.HeaderMapper;
+import usf.java.sqlreflect.mapper.filter.ResultConverter;
 import usf.java.sqlreflect.sql.entry.Header;
 
 public class SqlUtils {
 
-	public static final List<Header> allColumnNames(ResultSet rs) throws SQLException  {
-		try {
-			List<Header> list = new ArrayList<Header>();
-			ResultSetMetaData md = rs.getMetaData();
-			HeaderMapper mapper = new HeaderMapper();
-			int cols = md.getColumnCount();
-			for(int i=0; i<cols; i++){
-				Header header = mapper.map(rs, i+1);
-				list.add(header);
-			}
-			return list;
-		}catch (Exception e) {
-			throw new SQLException(e);
+	public static final List<Header> allColumnFilters(ResultSet rs) throws SQLException  {
+		ResultSetMetaData md = rs.getMetaData();
+		HeaderMapper mapper = new HeaderMapper();
+		int cols = md.getColumnCount();
+		List<Header> headers = new ArrayList<Header>(cols);
+		for(int i=1; i<=cols; i++){
+			String columnName = md.getColumnName(i);
+			Header header = mapper.map(rs, i);
+			header.set(SqlConstants.COLUMN_FILTER, new Filter(columnName));
+			header.setPropertyName(columnName);
+			headers.add(header);
 		}
-	}
-
-	public static final List<Header> columnNames(ResultSet rs, String[] columnNames) throws SQLException {
-		try {
-			List<Header> list = new ArrayList<Header>();
-			ResultSetMetaData md = rs.getMetaData();
-			HeaderMapper mapper = new HeaderMapper();
-			int cols = md.getColumnCount();
-			for(int i=0; i<cols; i++){
-				String columnName = md.getColumnName(i);
-				if(Utils.arraySearch(columnName, columnNames) > -1) {
-					Header header = mapper.map(rs, i);
-					list.add(header);
-				}
-			}
-			return list;
-		}catch (Exception e) {
-			throw new SQLException(e);
-		}
+		return headers;
 	}
 	
-	public static final List<Header> allColumnNames(ResultSet rs, Map<String, MapperFilter> filters) throws SQLException  {
-		try {
-			List<Header> list = new ArrayList<Header>();
-			ResultSetMetaData md = rs.getMetaData();
-			HeaderMapper mapper = new HeaderMapper();
-			int cols = md.getColumnCount();
-			for(int i=1; i<=cols; i++){
+	public static final List<Header> columnFilters(ResultSet rs, Map<String, Filter> filters) throws SQLException {
+		ResultSetMetaData md = rs.getMetaData();
+		HeaderMapper mapper = new HeaderMapper();
+		int cols = md.getColumnCount();
+		List<Header> headers = new ArrayList<Header>(filters.size());
+		for(int i=1; i<=cols; i++){
+			String columnName = md.getColumnName(i);
+			Filter filter = filters.get(columnName);
+			if(Utils.isNotNull(filter)){
 				Header header = mapper.map(rs, i);
-				list.add(header);
-				String columnName = header.getName();
-				filters.put(columnName, new MapperFilter(columnName));
-			}
-			return list;
-		}catch (Exception e) {
-			throw new SQLException(e);
-		}
-	}
-
-	
-	public static final List<Header> columnNames(ResultSet rs, Map<String, MapperFilter> filters) throws SQLException  {
-		try {
-			List<Header> list = new ArrayList<Header>();
-			ResultSetMetaData md = rs.getMetaData();
-			HeaderMapper mapper = new HeaderMapper();
-			int cols = md.getColumnCount();
-			for(int i=1; i<=cols; i++){
-				String columnName = md.getColumnName(i);
-				MapperFilter filter = filters.get(columnName);
-				if(Utils.isNotNull(filter)){
-					Header header = mapper.map(rs, i);
-					header.setName(filter.getPropertyName());
-					if(!MapperFilter.DEFAULT_VALUE_CONVERTER.equals(filter.getValueConverter())){
-						Class<?> clazz = Utils.methodeType(filter.getValueConverter().getClass());
-						header.setClassName(clazz.getName());
+				header.setPropertyName(filter.getPropertyName());
+				header.set(SqlConstants.COLUMN_FILTER, filter);
+				ResultConverter<?> conv = filter.getConverter();
+				if(!conv.equals(Filter.DEFAULT_VALUE_CONVERTER)){
+					try {
+						String className = Utils.methodeType(conv.getClass()).getName();
+						header.setColumnClassName(className);
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-					list.add(header);
 				}
+				headers.add(header);
 			}
-			return list;
-		}catch (Exception e) {
-			throw new SQLException(e);
 		}
+		return headers;
 	}
 }

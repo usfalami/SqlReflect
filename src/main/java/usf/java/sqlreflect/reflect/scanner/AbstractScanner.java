@@ -2,6 +2,7 @@ package usf.java.sqlreflect.reflect.scanner;
 
 import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.List;
 
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
@@ -38,9 +39,9 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		}
 	}
 	
-	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception{
+	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
 		Mapper<R> mapper = getMapper();
-		Collection<Header> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
+		List<Header> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
 		Class<R> mappedClass = mapper.getMappedClass();
 		adapter.prepare(headers, mappedClass);
 	}
