@@ -33,8 +33,10 @@ public class FiltredMapper<T> implements Mapper<T>, HasFilters {
 
 	@Override
 	public List<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		return headers = Utils.isEmptyMap(mapperFilters) ?
+		headers = Utils.isEmptyMap(mapperFilters) ?
 			SqlUtils.allColumnFilters(rs) : SqlUtils.columnFilters(rs, mapperFilters);
+		propertyMapper.prepare(headers);
+		return headers;
 	}
 
 	@Override

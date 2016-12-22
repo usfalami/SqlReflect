@@ -14,6 +14,37 @@ import usf.java.sqlreflect.mapper.filter.ResultConverter;
 import usf.java.sqlreflect.sql.entry.Header;
 
 public class SqlUtils {
+	
+	public static final List<Header> allColumn(ResultSet rs) throws SQLException  {
+		ResultSetMetaData md = rs.getMetaData();
+		HeaderMapper mapper = new HeaderMapper();
+		int cols = md.getColumnCount();
+		List<Header> headers = new ArrayList<Header>(cols);
+		for(int i=1; i<=cols; i++){
+			String columnName = md.getColumnName(i);
+			Header header = mapper.map(rs, i);
+			header.setPropertyName(columnName);
+			headers.add(header);
+		}
+		return headers;
+	}
+	
+	
+	public static final List<Header> columns(ResultSet rs, String[] columnNames) throws SQLException  {
+		ResultSetMetaData md = rs.getMetaData();
+		HeaderMapper mapper = new HeaderMapper();
+		int cols = md.getColumnCount();
+		List<Header> headers = new ArrayList<Header>(cols);
+		for(int i=1; i<=cols; i++){
+			String columnName = md.getColumnName(i);
+			if(Utils.arraySearch(columnName, columnNames) > -1) {
+				Header header = mapper.map(rs, i);
+				header.setPropertyName(columnName);
+				headers.add(header);
+			}
+		}
+		return headers;
+	}
 
 	public static final List<Header> allColumnFilters(ResultSet rs) throws SQLException  {
 		ResultSetMetaData md = rs.getMetaData();

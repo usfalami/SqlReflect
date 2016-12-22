@@ -1,13 +1,15 @@
 package usf.java.sqlreflect.mapper;
 
-import java.util.Collection;
+import java.sql.SQLException;
+import java.util.List;
 
 import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Header;
 
 public class EntryPropertyMapper<T extends Entry> implements PropertyMapper<T> {
 
 	@Override
-	public void prepare(Collection<Filter> headers) throws Exception {
+	public void prepare(List<Header> headers) throws SQLException {
 		
 	}
 
