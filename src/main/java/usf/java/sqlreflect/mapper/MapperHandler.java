@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.mapper.filter.Metadata;
 
-public interface PropertyMapper<T> {
+public interface MapperHandler<T> {
 
 	void prepare(Collection<Metadata> headers) throws SQLException;
 	

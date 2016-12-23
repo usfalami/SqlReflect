@@ -5,16 +5,16 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryPropertyMapper;
-import usf.java.sqlreflect.mapper.FiltredMapper;
+import usf.java.sqlreflect.mapper.EntryMapperHandler;
+import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class ColumnMapper extends FiltredMapper<Column> {
+public class ColumnMapper extends GenericMapper<Column> {
 	
 	public ColumnMapper() {
-		super(Column.class, new EntryPropertyMapper<Column>(),
+		super(Column.class, new EntryMapperHandler<Column>(),
 				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE,
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE);
 	}

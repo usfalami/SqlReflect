@@ -3,26 +3,27 @@ package usf.java.sqlreflect.mapper.filter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.sqlreflect.mapper.filter.converter.Converter;
 import usf.java.sqlreflect.reflect.Utils;
 
 public class MetadataConverter extends Metadata {
 	
-	private ResultConverter<?> converter;
+	private Converter<?> converter;
 	
-	public MetadataConverter(String columnName, ResultConverter<?> converter) {
+	public MetadataConverter(String columnName, Converter<?> converter) {
 		super(columnName);
 		this.converter = converter;
 	}
 	
-	public MetadataConverter(String columnName, String propertyName, ResultConverter<?> converter) {
+	public MetadataConverter(String columnName, String propertyName, Converter<?> converter) {
 		super(columnName, propertyName);
 		this.converter = converter;
 	}
 	
-	public ResultConverter<?> getConverter() {
+	public Converter<?> getConverter() {
 		return converter;
 	}
-	public void setConverter(ResultConverter<?> converter) {
+	public void setConverter(Converter<?> converter) {
 		this.converter = converter;
 	}
 
@@ -34,7 +35,7 @@ public class MetadataConverter extends Metadata {
 	@Override
 	public Metadata setColumnClassName(String columnClassName) {
 		try {
-			columnClassName = Utils.methodeType(converter.getClass()).getName();
+			columnClassName = Utils.converterReturnType(converter.getClass()).getName();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

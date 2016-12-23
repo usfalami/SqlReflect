@@ -1,18 +1,12 @@
 package usf.java.sqlreflect.reflect;
 
 import java.lang.reflect.Method;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.binder.Binder;
-import usf.java.sqlreflect.mapper.filter.DefaultConverter;
-import usf.java.sqlreflect.mapper.filter.MapperFilter;
-import usf.java.sqlreflect.mapper.filter.ResultConverter;
+import usf.java.sqlreflect.mapper.filter.converter.Converter;
 import usf.java.sqlreflect.server.User;
-import usf.java.sqlreflect.writer.TypeWriter;
 
 public class Utils {
 
@@ -73,40 +67,8 @@ public class Utils {
 		return arr;
 	}
 	
-	
-	public static <T extends ResultConverter<?>> Class<?> methodeType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
+	public static <T extends Converter<?>> Class<?> converterReturnType(Class<T> clazz) throws NoSuchMethodException, SecurityException {
 		return clazz.getDeclaredMethod("convert", Object.class).getReturnType();
-	}
-	
-	public static <T> int arraySearch(T value, T[] array){
-		for(int i=0; i<array.length; i++)
-			if(array[i].equals(value)) return i;
-		return -1;
-	}
-	
-	
-	public static final Map<String, TypeWriter> columnTypes(ResultSetMetaData rm, Map<String, MapperFilter> filters) throws SQLException {
-		try{
-			int size = rm.getColumnCount();
-			Map<String, TypeWriter> map = new HashMap<String, TypeWriter>();
-			for(int i=1; i<=size; i++){
-				String columnName = rm.getColumnName(i);
-				MapperFilter filter = filters.get(columnName);
-				if(filter != null) {
-					ResultConverter<?> conv = filter.getValueConverter();
-					if(conv.getClass().equals(DefaultConverter.class)){
-						map.put(filter.getPropertyName(), TypeWriter.writerfor(rm.getColumnClassName(i)));
-					}
-					else {
-						Class<?> clazz = methodeType(conv.getClass());
-						map.put(filter.getPropertyName(), TypeWriter.writerfor(clazz.getName()));
-					}
-				}
-			}
-			return map;
-		}catch (Exception e) {
-			throw new SQLException(e);
-		}
 	}
 	
 	public static boolean sameClass(Object o, Class<?> c) {

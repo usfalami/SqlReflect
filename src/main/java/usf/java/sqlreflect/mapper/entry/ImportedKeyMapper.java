@@ -5,18 +5,18 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryPropertyMapper;
-import usf.java.sqlreflect.mapper.FiltredMapper;
-import usf.java.sqlreflect.mapper.filter.LabelIndexConverter;
+import usf.java.sqlreflect.mapper.EntryMapperHandler;
+import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.filter.converter.LabelIndexConverter;
 import usf.java.sqlreflect.sql.entry.ImportedKey;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 
-public class ImportedKeyMapper extends FiltredMapper<ImportedKey> {
+public class ImportedKeyMapper extends GenericMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(ImportedKey.class, new EntryPropertyMapper<ImportedKey>(),
+		super(ImportedKey.class, new EntryMapperHandler<ImportedKey>(),
 				SqlConstants.PKTABLE_NAME, SqlConstants.PKCOLUMN_NAME, SqlConstants.PK_NAME, 
 				SqlConstants.KEY_SEQ,
 				SqlConstants.FKTABLE_NAME, SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME);

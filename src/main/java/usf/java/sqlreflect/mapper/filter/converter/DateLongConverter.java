@@ -1,8 +1,8 @@
-package usf.java.sqlreflect.mapper.filter;
+package usf.java.sqlreflect.mapper.filter.converter;
 
 import java.util.Date;
 
-public class DateLongConverter implements ResultConverter<Long> {
+public class DateLongConverter implements Converter<Long> {
 
 	@Override
 	public Long convert(Object obj) {

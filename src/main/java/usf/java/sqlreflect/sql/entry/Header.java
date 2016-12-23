@@ -52,6 +52,5 @@ public class Header extends Entry {
 	public void setDatabaseName(String databaseName) {
 		set(SqlConstants.DATABASE_NAME, databaseName);
 	}
-
 	
 }
