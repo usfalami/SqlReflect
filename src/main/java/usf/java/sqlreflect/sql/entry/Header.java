@@ -4,15 +4,6 @@ import usf.java.sqlreflect.SqlConstants;
 
 public class Header extends Entry {
 
-	public Header() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Header(String name, String className) {
-		setPropertyName(name);
-		setColumnClassName(name);
-	}
-	
 	public String getColumnName() {
 		return getString(SqlConstants.COLUMN_NAME);
 	}
@@ -61,12 +52,6 @@ public class Header extends Entry {
 	public void setDatabaseName(String databaseName) {
 		set(SqlConstants.DATABASE_NAME, databaseName);
 	}
-	
-	public String getPropertyName() {
-		return getString(SqlConstants.PROPERTY_NAME);
-	}
-	public void setPropertyName(String tableName) {
-		set(SqlConstants.PROPERTY_NAME, tableName);
-	}
+
 	
 }

@@ -1,6 +1,7 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,7 +11,6 @@ import usf.java.sqlreflect.mapper.filter.HasFilters;
 import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.mapper.filter.MetadataConverter;
 import usf.java.sqlreflect.mapper.filter.ResultConverter;
-import usf.java.sqlreflect.reflect.SqlUtils;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
@@ -34,15 +34,14 @@ public class FiltredMapper<T> implements Mapper<T>, HasFilters {
 
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		metadataList = Utils.isEmptyMap(metadataMap) ? 
-				SqlUtils.allColumn(rs, metadataMap) : SqlUtils.columns(rs, metadataMap);
+		metadataList = Utils.isEmptyMap(metadataMap) ? selectAllColumns(rs) : selectColumns(rs);
 		propertyMapper.prepare(metadataList);
 		return metadataList;
 	}
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T object = getMappedClass().newInstance();
+		T object = mappedClass.newInstance();
 		for(Metadata metadata : metadataList) {
 			Object value = metadata.get(rs);
 			propertyMapper.setProperty(object, metadata.getPropertyName(), value);
@@ -66,6 +65,27 @@ public class FiltredMapper<T> implements Mapper<T>, HasFilters {
 	@Override
 	public Class<T> getMappedClass() {
 		return mappedClass;
+	}
+	
+	protected Collection<Metadata> selectAllColumns(ResultSet rs) throws SQLException  {
+		ResultSetMetaData md = rs.getMetaData();
+		int cols = md.getColumnCount();
+		for(int i=1; i<=cols; i++){
+			Metadata mt = Metadata.get(md, i);
+			metadataMap.put(mt.getColumnName(), mt);
+		}
+		return metadataMap.values();
+	}
+	protected Collection<Metadata> selectColumns(ResultSet rs) throws SQLException  {
+		ResultSetMetaData md = rs.getMetaData();
+		int cols = md.getColumnCount();
+		for(int i=1; i<=cols; i++){
+			String columnName = md.getColumnName(i);
+			Metadata mt = metadataMap.get(columnName);
+			if(Utils.isNotNull(mt))
+				mt.setColumnClassName(md.getColumnClassName(i));
+		}
+		return metadataMap.values();
 	}
 	
 }

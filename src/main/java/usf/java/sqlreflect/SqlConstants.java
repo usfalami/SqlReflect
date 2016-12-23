@@ -32,9 +32,6 @@ public interface SqlConstants {
 	String COLUMN_SIZE  = "COLUMN_SIZE";
 	String COLUMN_CLASS = "COLUMN_CLASS";
 	
-	String COLUMN_FILTER = "COLUMN_FILTER";
-	String PROPERTY_NAME = "PROPERTY_NAME";
-	
 	String DATA_TYPE = "DATA_TYPE";
 	String TYPE_NAME = "TYPE_NAME";
 	String LENGTH = "LENGTH";
