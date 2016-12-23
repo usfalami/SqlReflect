@@ -34,7 +34,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		metadataList = Utils.isEmptyMap(metadataMap) ? selectAllColumns(rs) : selectColumns(rs);
+		metadataList = Utils.isEmptyMap(metadataMap) ? fillAllColumns(rs) : fillselectedColumns(rs);
 		mapperHandler.prepare(metadataList);
 		return metadataList;
 	}
@@ -67,7 +67,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 		return mappedClass;
 	}
 	
-	protected Collection<Metadata> selectAllColumns(ResultSet rs) throws SQLException  {
+	private Collection<Metadata> fillAllColumns(ResultSet rs) throws SQLException  {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		for(int i=1; i<=cols; i++){
@@ -76,7 +76,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 		}
 		return metadataMap.values();
 	}
-	protected Collection<Metadata> selectColumns(ResultSet rs) throws SQLException  {
+	private Collection<Metadata> fillselectedColumns(ResultSet rs) throws SQLException  {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		for(int i=1; i<=cols; i++){
