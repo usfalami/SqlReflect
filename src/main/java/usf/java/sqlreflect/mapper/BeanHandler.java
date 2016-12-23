@@ -5,9 +5,12 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.mapper.filter.Metadata;
 
-public interface MapperHandler<T> {
+public interface BeanHandler<T> {
 
 	void prepare(Collection<Metadata> headers) throws SQLException;
 	
-	void setProperty(T obj, String propertyName, Object value) throws Exception; 
+	void setProperty(T obj, String propertyName, Object value) throws Exception;
+
+	Class<T> getBeanClass();
+
 }

@@ -9,7 +9,7 @@ import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class EntryWriter<T extends Entry> implements Writer<T> {
+public class EntryWriter implements Writer<Entry> {
 	
 	private Map<String, TypeWriter> types;
 
@@ -26,7 +26,7 @@ public class EntryWriter<T extends Entry> implements Writer<T> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, T obj) throws Exception {
+	public void write(StreamWriter writer, Entry obj) throws Exception {
 		writer.startObject("");
 		for(java.util.Map.Entry<String, TypeWriter> entry : types.entrySet()) {
 			String propertyName = entry.getKey();

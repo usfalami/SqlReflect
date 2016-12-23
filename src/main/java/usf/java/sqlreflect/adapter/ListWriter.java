@@ -10,9 +10,9 @@ import usf.java.sqlreflect.writer.Writer;
 public class ListWriter<T> implements Adapter<T> {
 
 	private StreamWriter stream;
-	private Writer<T> writer;
+	private Writer<? super T> writer;
 
-	public ListWriter(StreamWriter stream, Writer<T> writer) {
+	public ListWriter(StreamWriter stream, Writer<? super T> writer) {
 		this.stream = stream;
 		this.writer = writer;
 	}

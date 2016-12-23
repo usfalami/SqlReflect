@@ -7,7 +7,7 @@ import usf.java.sqlreflect.writer.Writer;
 
 public class FullWriter<T> extends ListWriter<T> {
 	
-	public FullWriter(StreamWriter stream, Writer<T> writer) {
+	public FullWriter(StreamWriter stream, Writer<? super T> writer) {
 		super(stream, writer);
 	}
 

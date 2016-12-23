@@ -41,8 +41,7 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
 		Mapper<R> mapper = getMapper();
 		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
-		Class<R> mappedClass = mapper.getMappedClass();
-		adapter.prepare(headers, mappedClass);
+		adapter.prepare(headers, null);
 	}
 	
 	public Mapper<R> getMapper() {

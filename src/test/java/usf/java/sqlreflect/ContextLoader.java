@@ -35,6 +35,7 @@ import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.EntryWriter;
+import usf.java.sqlreflect.writer.Writer;
 
 public class ContextLoader {
 
@@ -124,17 +125,22 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 		
-		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, new EntryWriter<Database>()));
-		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, new EntryWriter<Table>()));
-		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, new EntryWriter<Header>()));
-		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, new EntryWriter<PrimaryKey>()));
-		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, new EntryWriter<Procedure>()));
+		Writer<Entry> writer = new EntryWriter();
+		
+		//select * database
+		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, writer));
+		
+		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, writer));
+		
+		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, writer));
+		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, writer));
+		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, writer));
+		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, writer));
 //		
-		RowScanner<Void, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper());
-		rs.set(query).run(new FullWriter<Entry>(ps, new EntryWriter<Entry>()));
+		RowScanner<?, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper());
+		rs.set(query).run(new FullWriter<Entry>(ps, writer));
 //		
-		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, new EntryWriter<ImportedKey>()));
+		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, writer));
 		
 		ps.end();
 		System.out.println(c);

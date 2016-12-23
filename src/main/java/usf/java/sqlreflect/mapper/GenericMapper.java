@@ -7,24 +7,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.mapper.filter.HasFilters;
 import usf.java.sqlreflect.mapper.filter.Metadata;
-import usf.java.sqlreflect.mapper.filter.MetadataConverter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class GenericMapper<T> implements Mapper<T>, HasFilters {
 	
-	private Class<T> mappedClass;
 	private Map<String, Metadata> metadataMap;
-	private MapperHandler<T> mapperHandler;
+	private BeanHandler<T> handler;
 	
 	private Collection<Metadata> metadataList;
 
-	public GenericMapper(Class<T> clazz, MapperHandler<T> mapperHandler, String... selectedColumnNames) {
-		this.mappedClass = clazz;
-		this.mapperHandler = mapperHandler;
+	public GenericMapper(BeanHandler<T> mapperHandler, String... selectedColumnNames) {
+		this.handler = mapperHandler;
 		this.metadataMap = new HashMap<String, Metadata>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
 			for(String columnName : selectedColumnNames)
@@ -35,36 +31,23 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		metadataList = Utils.isEmptyMap(metadataMap) ? fillAllColumns(rs) : fillselectedColumns(rs);
-		mapperHandler.prepare(metadataList);
+		handler.prepare(metadataList);
 		return metadataList;
 	}
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T object = mappedClass.newInstance();
+		T object = handler.getBeanClass().newInstance();
 		for(Metadata metadata : metadataList) {
 			Object value = metadata.get(rs);
-			mapperHandler.setProperty(object, metadata.getPropertyName(), value);
+			handler.setProperty(object, metadata.getPropertyName(), value);
 		}
 		return object;
 	}
 
 	@Override
-	public void addFilter(String columnName, String propertyName) {
-		metadataMap.put(columnName, new Metadata(columnName, propertyName));
-	}
-	@Override
-	public void addFilter(String columnName, Converter<?> converter) {
-		metadataMap.put(columnName, new MetadataConverter(columnName, converter));
-	}
-	@Override
-	public void addFilter(String columnName, String propertyName, Converter<?> converter) {
-		metadataMap.put(columnName, new MetadataConverter(columnName, propertyName, converter));
-	}
-	
-	@Override
-	public Class<T> getMappedClass() {
-		return mappedClass;
+	public void addFilter(Metadata metadata) {
+		metadataMap.put(metadata.getColumnName(), metadata);
 	}
 	
 	private Collection<Metadata> fillAllColumns(ResultSet rs) throws SQLException  {
