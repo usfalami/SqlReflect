@@ -5,11 +5,11 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryBuilder;
 import usf.java.sqlreflect.mapper.GenericMapper;
+import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.MetadataConverter;
+import usf.java.sqlreflect.mapper.builder.EntryBuilder;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
-import usf.java.sqlreflect.mapper.filter.Metadata;
-import usf.java.sqlreflect.mapper.filter.MetadataConverter;
 import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;

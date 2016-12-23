@@ -7,12 +7,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.filter.HasFilters;
-import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.builder.Builder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class GenericMapper<T> implements Mapper<T>, HasFilters {
+public class GenericMapper<T> implements Mapper<T> {
 
 	private Class<T> mappedClassName;
 	private Map<String, Metadata> metadataMap;
@@ -47,7 +46,6 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 		return object;
 	}
 
-	@Override
 	public void addFilter(Metadata metadata) {
 		metadataMap.put(metadata.getColumnName(), metadata);
 	}

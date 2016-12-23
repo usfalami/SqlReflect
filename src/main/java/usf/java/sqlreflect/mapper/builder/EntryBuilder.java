@@ -1,9 +1,9 @@
-package usf.java.sqlreflect.mapper;
+package usf.java.sqlreflect.mapper.builder;
 
 import java.sql.SQLException;
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.sql.entry.Entry;
 
 public class EntryBuilder implements Builder<Entry> {

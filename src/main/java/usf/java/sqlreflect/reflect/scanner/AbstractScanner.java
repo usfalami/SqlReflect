@@ -7,7 +7,7 @@ import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
 

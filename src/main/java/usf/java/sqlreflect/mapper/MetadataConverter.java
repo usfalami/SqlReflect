@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.filter;
+package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class MetadataConverter extends Metadata {
 		return converter.convert(super.get(rs));
 	}
 	
-	@Override
+	@Override //TODO update this => throws except.
 	public Metadata setColumnClassName(String columnClassName) {
 		try {
 			columnClassName = Utils.converterReturnType(converter.getClass()).getName();

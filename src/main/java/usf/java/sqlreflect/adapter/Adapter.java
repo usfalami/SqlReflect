@@ -2,7 +2,7 @@ package usf.java.sqlreflect.adapter;
 
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.ActionTimer;
 
 public interface Adapter<T> {

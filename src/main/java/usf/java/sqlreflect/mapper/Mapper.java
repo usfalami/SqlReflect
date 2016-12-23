@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public interface Mapper<T> {
