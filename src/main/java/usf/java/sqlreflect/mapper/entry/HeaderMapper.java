@@ -4,10 +4,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
@@ -16,17 +17,17 @@ public class HeaderMapper implements Mapper<Header> {
 	private DatabaseType type;
 
 	@Override
-	public List<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		this.type = type;
-		String stringClassName = String.class.getName();
+		String strClassName = String.class.getName(), intClassName = Integer.class.getName();
 		return Arrays.asList(
-				new Header(SqlConstants.DATABASE_NAME, 	stringClassName),
-				new Header(SqlConstants.TABLE_NAME, 	stringClassName),
-				new Header(SqlConstants.COLUMN_NAME, 	stringClassName),
-				new Header(SqlConstants.COLUMN_TYPE, 	stringClassName),
-				new Header(SqlConstants.TYPE_NAME, 		stringClassName),
-				new Header(SqlConstants.COLUMN_SIZE,	Integer.class.getName()),
-				new Header(SqlConstants.COLUMN_CLASS, 	stringClassName)
+				new Metadata(SqlConstants.DATABASE_NAME).setColumnClassName(strClassName),
+				new Metadata(SqlConstants.TABLE_NAME)	.setColumnClassName(strClassName),
+				new Metadata(SqlConstants.COLUMN_NAME)	.setColumnClassName(strClassName),
+				new Metadata(SqlConstants.COLUMN_TYPE)	.setColumnClassName(intClassName),
+				new Metadata(SqlConstants.TYPE_NAME)	.setColumnClassName(strClassName),
+				new Metadata(SqlConstants.COLUMN_SIZE)	.setColumnClassName(intClassName),
+				new Metadata(SqlConstants.COLUMN_CLASS)	.setColumnClassName(strClassName)
 			);
 	}
 
@@ -44,7 +45,6 @@ public class HeaderMapper implements Mapper<Header> {
 		header.setColumnClassName(md.getColumnClassName(row));
 		return header;
 	}
-	
 	
 	@Override
 	public Class<Header> getMappedClass() {

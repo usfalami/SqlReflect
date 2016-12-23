@@ -1,9 +1,9 @@
 package usf.java.sqlreflect.adapter;
 
-import java.util.List;
+import java.util.Collection;
 
+import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.Writer;
 
@@ -21,8 +21,8 @@ public class ListWriter<T> implements Adapter<T> {
 	public void start() throws Exception { }
 	
 	@Override
-	public void prepare(List<Header> headers, Class<T> clazz) throws Exception {
-		writer.prepare(headers);
+	public void prepare(Collection<Metadata> metadata, Class<T> clazz) throws Exception {
+		writer.prepare(metadata);
 		stream.startList("Entries", writer.getColumnNames());
 	}
 

@@ -2,10 +2,9 @@ package usf.java.sqlreflect.adapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
+import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.entry.Header;
 
 public class ListAdapter<T> implements Adapter<T> {
 
@@ -22,7 +21,7 @@ public class ListAdapter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void prepare(List<Header> headers, Class<T> clazz) {
+	public void prepare(Collection<Metadata> metadata, Class<T> clazz) {
 		
 	}
 	

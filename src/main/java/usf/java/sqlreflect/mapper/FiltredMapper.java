@@ -2,67 +2,65 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.filter.HasFilters;
+import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.filter.MetadataConverter;
 import usf.java.sqlreflect.mapper.filter.ResultConverter;
 import usf.java.sqlreflect.reflect.SqlUtils;
 import usf.java.sqlreflect.reflect.Utils;
-import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class FiltredMapper<T> implements Mapper<T>, HasFilters {
 	
 	private Class<T> mappedClass;
-	private Map<String, Filter> mapperFilters;
+	private Map<String, Metadata> metadataMap;
 	private PropertyMapper<T> propertyMapper;
-	private List<Header> headers;
+	
+	private Collection<Metadata> metadataList;
 
 	public FiltredMapper(Class<T> clazz, PropertyMapper<T> propertyMapper, String... selectedColumnNames) {
 		this.mappedClass = clazz;
 		this.propertyMapper = propertyMapper;
-		this.mapperFilters = new HashMap<String, Filter>();
+		this.metadataMap = new HashMap<String, Metadata>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
 			for(String columnName : selectedColumnNames)
-				mapperFilters.put(columnName, new Filter(columnName));
+				metadataMap.put(columnName, new Metadata(columnName));
 		}
 	}
 
 	@Override
-	public List<Header> prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		headers = Utils.isEmptyMap(mapperFilters) ?
-			SqlUtils.allColumnFilters(rs) : SqlUtils.columnFilters(rs, mapperFilters);
-		propertyMapper.prepare(headers);
-		return headers;
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		metadataList = Utils.isEmptyMap(metadataMap) ? 
+				SqlUtils.allColumn(rs, metadataMap) : SqlUtils.columns(rs, metadataMap);
+		propertyMapper.prepare(metadataList);
+		return metadataList;
 	}
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T item = getMappedClass().newInstance();
-		for(Header header : headers) {
-			Object value = rs.getObject(header.getColumnName());
-			Filter filter = (Filter) header.get(SqlConstants.COLUMN_FILTER);
-			value = filter.getConverter().convert(value);
-			propertyMapper.setProperty(item, filter.getPropertyName(), value);
+		T object = getMappedClass().newInstance();
+		for(Metadata metadata : metadataList) {
+			Object value = metadata.get(rs);
+			propertyMapper.setProperty(object, metadata.getPropertyName(), value);
 		}
-		return item;
+		return object;
 	}
-	
-	@Override
-	public void addFilter(String columnName, String propertyName, ResultConverter<?> converter) {
-		mapperFilters.put(columnName, 
-				new Filter(columnName, propertyName, converter));
-	}
+
 	@Override
 	public void addFilter(String columnName, String propertyName) {
-		mapperFilters.put(columnName, new Filter(columnName, propertyName));
+		metadataMap.put(columnName, new Metadata(columnName, propertyName));
 	}
 	@Override
 	public void addFilter(String columnName, ResultConverter<?> converter) {
-		mapperFilters.put(columnName, new Filter(columnName, converter));
+		metadataMap.put(columnName, new MetadataConverter(columnName, converter));
+	}
+	@Override
+	public void addFilter(String columnName, String propertyName, ResultConverter<?> converter) {
+		metadataMap.put(columnName, new MetadataConverter(columnName, propertyName, converter));
 	}
 	
 	@Override

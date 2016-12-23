@@ -8,9 +8,6 @@ public class Header extends Entry {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Header(String name) {
-		setColumnName(name);
-	}
 	public Header(String name, String className) {
 		setPropertyName(name);
 		setColumnClassName(name);
