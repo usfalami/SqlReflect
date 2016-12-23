@@ -7,10 +7,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.mapper.filter.HasFilters;
 import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.mapper.filter.MetadataConverter;
-import usf.java.sqlreflect.mapper.filter.converter.Converter;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 

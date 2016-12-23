@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import usf.java.sqlreflect.binder.Binder;
-import usf.java.sqlreflect.mapper.filter.converter.Converter;
+import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.server.User;
 
 public class Utils {

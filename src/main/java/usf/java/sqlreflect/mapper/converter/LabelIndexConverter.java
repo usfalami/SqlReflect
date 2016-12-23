@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.filter.converter;
+package usf.java.sqlreflect.mapper.converter;
 
 public class LabelIndexConverter<T extends Enum<T>> implements Converter<String> {
 	

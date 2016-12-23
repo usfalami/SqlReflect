@@ -7,8 +7,9 @@ import java.util.Collection;
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryMapperHandler;
 import usf.java.sqlreflect.mapper.GenericMapper;
+import usf.java.sqlreflect.mapper.converter.Converter;
+import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
 import usf.java.sqlreflect.mapper.filter.Metadata;
-import usf.java.sqlreflect.mapper.filter.converter.LabelIndexConverter;
 import usf.java.sqlreflect.sql.entry.ImportedKey;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
@@ -24,10 +25,11 @@ public class ImportedKeyMapper extends GenericMapper<ImportedKey> {
 	
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+		Converter<?> converter = new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class);
 		addFilter(type.PK_TABLE_DATABASE, SqlConstants.PK_DATABASE_NAME);
 		addFilter(type.FK_TABLE_DATABASE, SqlConstants.FK_DATABASE_NAME);
-		addFilter(SqlConstants.UPDATE_RULE, new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class));
-		addFilter(SqlConstants.DELETE_RULE, new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class));
+		addFilter(SqlConstants.UPDATE_RULE, converter);
+		addFilter(SqlConstants.DELETE_RULE, converter);
 		return super.prepare(rs, type);
 	}
 
