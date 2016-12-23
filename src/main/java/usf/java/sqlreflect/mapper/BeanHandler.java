@@ -11,6 +11,4 @@ public interface BeanHandler<T> {
 	
 	void setProperty(T obj, String propertyName, Object value) throws Exception;
 
-	Class<T> getBeanClass();
-
 }

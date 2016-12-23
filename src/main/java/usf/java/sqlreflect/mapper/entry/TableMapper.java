@@ -14,7 +14,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class TableMapper extends GenericMapper<Table> {
 	
 	public TableMapper() {
-		super(new EntryHandler<Table>(Table.class), 
+		super(Table.class, new EntryHandler(), 
 				SqlConstants.TABLE_NAME, SqlConstants.TABLE_TYPE);
 	}
 	

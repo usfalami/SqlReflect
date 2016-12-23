@@ -17,7 +17,7 @@ import usf.java.sqlreflect.sql.type.FunctionTypes;
 public class FunctionMapper extends GenericMapper<Function> {
 	
 	public FunctionMapper() {
-		super(new EntryHandler<Function>(Function.class),
+		super(Function.class, new EntryHandler(),
 				SqlConstants.FUNCTION_NAME);
 	}
 	

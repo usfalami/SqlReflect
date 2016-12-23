@@ -13,13 +13,16 @@ import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class GenericMapper<T> implements Mapper<T>, HasFilters {
+
+	private Class<T> mappedClassName;
 	
 	private Map<String, Metadata> metadataMap;
-	private BeanHandler<T> handler;
+	private BeanHandler<? super T> handler;
 	
 	private Collection<Metadata> metadataList;
 
-	public GenericMapper(BeanHandler<T> mapperHandler, String... selectedColumnNames) {
+	public GenericMapper(Class<T> mappedClassName, BeanHandler<? super T> mapperHandler, String... selectedColumnNames) {
+		this.mappedClassName = mappedClassName;
 		this.handler = mapperHandler;
 		this.metadataMap = new HashMap<String, Metadata>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
@@ -37,7 +40,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T object = handler.getBeanClass().newInstance();
+		T object = mappedClassName.newInstance();
 		for(Metadata metadata : metadataList) {
 			Object value = metadata.get(rs);
 			handler.setProperty(object, metadata.getPropertyName(), value);

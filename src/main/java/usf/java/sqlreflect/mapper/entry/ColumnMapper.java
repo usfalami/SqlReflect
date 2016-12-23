@@ -14,7 +14,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class ColumnMapper extends GenericMapper<Column> {
 	
 	public ColumnMapper() {
-		super(new EntryHandler<Column>(Column.class),
+		super(Column.class, new EntryHandler(),
 				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE,
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE);
 	}

@@ -18,7 +18,7 @@ import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 public class ImportedKeyMapper extends GenericMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(new EntryHandler<ImportedKey>(ImportedKey.class),
+		super(ImportedKey.class, new EntryHandler(),
 				SqlConstants.PKTABLE_NAME, SqlConstants.PKCOLUMN_NAME, SqlConstants.PK_NAME, 
 				SqlConstants.KEY_SEQ,
 				SqlConstants.FKTABLE_NAME, SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME);

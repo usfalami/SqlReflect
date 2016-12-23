@@ -17,7 +17,7 @@ import usf.java.sqlreflect.sql.type.ParameterTypes;
 public class ArgumentMapper extends GenericMapper<Argument> {
 	
 	public ArgumentMapper() {
-		super(new EntryHandler<Argument>(Argument.class),
+		super(Argument.class, new EntryHandler(),
 				SqlConstants.PROCEDURE_NAME, SqlConstants.COLUMN_NAME, 
 				SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME, SqlConstants.LENGTH);
 	}

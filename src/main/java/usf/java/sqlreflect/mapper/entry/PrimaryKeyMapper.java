@@ -14,7 +14,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class PrimaryKeyMapper extends GenericMapper<PrimaryKey> {
 	
 	public PrimaryKeyMapper() {
-		super(new EntryHandler<PrimaryKey>(PrimaryKey.class),
+		super(PrimaryKey.class, new EntryHandler(),
 				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, 
 				SqlConstants.PK_NAME, SqlConstants.KEY_SEQ);
 	}

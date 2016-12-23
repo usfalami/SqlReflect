@@ -7,7 +7,7 @@ import usf.java.sqlreflect.sql.entry.Entry;
 public class EntryMapper extends GenericMapper<Entry> {
 
 	public EntryMapper(String... selectedColumnNames) {
-		super(new EntryHandler<Entry>(Entry.class), selectedColumnNames);
+		super(Entry.class, new EntryHandler(), selectedColumnNames);
 	}
 
 }

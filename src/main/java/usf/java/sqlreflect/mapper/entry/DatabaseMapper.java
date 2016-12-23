@@ -14,7 +14,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class DatabaseMapper extends GenericMapper<Database> {
 
 	public DatabaseMapper() {
-		super(new EntryHandler<Database>(Database.class));
+		super(Database.class, new EntryHandler());
 	}
 	
 	@Override

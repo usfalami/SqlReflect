@@ -17,7 +17,7 @@ import usf.java.sqlreflect.sql.type.ProcedureTypes;
 public class ProcedureMapper extends GenericMapper<Procedure> {
 	
 	public ProcedureMapper() {
-		super(new EntryHandler<Procedure>(Procedure.class), 
+		super(Procedure.class, new EntryHandler(), 
 				SqlConstants.PROCEDURE_NAME);
 	}
 	
