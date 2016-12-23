@@ -15,15 +15,14 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class GenericMapper<T> implements Mapper<T>, HasFilters {
 
 	private Class<T> mappedClassName;
-	
 	private Map<String, Metadata> metadataMap;
-	private BeanHandler<? super T> handler;
+	private Builder<? super T> builder;
 	
 	private Collection<Metadata> metadataList;
 
-	public GenericMapper(Class<T> mappedClassName, BeanHandler<? super T> mapperHandler, String... selectedColumnNames) {
+	public GenericMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
 		this.mappedClassName = mappedClassName;
-		this.handler = mapperHandler;
+		this.builder = mapperHandler;
 		this.metadataMap = new HashMap<String, Metadata>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
 			for(String columnName : selectedColumnNames)
@@ -34,7 +33,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
 		metadataList = Utils.isEmptyMap(metadataMap) ? fillAllColumns(rs) : fillselectedColumns(rs);
-		handler.prepare(metadataList);
+		builder.prepare(metadataList);
 		return metadataList;
 	}
 
@@ -43,7 +42,7 @@ public class GenericMapper<T> implements Mapper<T>, HasFilters {
 		T object = mappedClassName.newInstance();
 		for(Metadata metadata : metadataList) {
 			Object value = metadata.get(rs);
-			handler.setProperty(object, metadata.getPropertyName(), value);
+			builder.setProperty(object, metadata.getPropertyName(), value);
 		}
 		return object;
 	}

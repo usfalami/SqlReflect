@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryHandler;
+import usf.java.sqlreflect.mapper.EntryBuilder;
 import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.entry.Column;
@@ -14,7 +14,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class ColumnMapper extends GenericMapper<Column> {
 	
 	public ColumnMapper() {
-		super(Column.class, new EntryHandler(),
+		super(Column.class, new EntryBuilder(),
 				SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME, SqlConstants.DATA_TYPE,
 				SqlConstants.TYPE_NAME, SqlConstants.COLUMN_SIZE);
 	}

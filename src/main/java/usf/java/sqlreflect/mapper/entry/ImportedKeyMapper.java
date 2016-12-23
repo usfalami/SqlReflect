@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryHandler;
+import usf.java.sqlreflect.mapper.EntryBuilder;
 import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
@@ -18,7 +18,7 @@ import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 public class ImportedKeyMapper extends GenericMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(ImportedKey.class, new EntryHandler(),
+		super(ImportedKey.class, new EntryBuilder(),
 				SqlConstants.PKTABLE_NAME, SqlConstants.PKCOLUMN_NAME, SqlConstants.PK_NAME, 
 				SqlConstants.KEY_SEQ,
 				SqlConstants.FKTABLE_NAME, SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME);

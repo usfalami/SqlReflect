@@ -4,9 +4,10 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.reflect.Handler;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public interface Writer<T> {
+public interface Writer<T> extends Handler {
 	
 	void prepare(Collection<Metadata> metadata) throws SQLException;
 	

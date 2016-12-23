@@ -6,10 +6,10 @@ import java.util.Collection;
 import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.sql.entry.Entry;
 
-public class EntryHandler implements BeanHandler<Entry> {
+public class EntryBuilder implements Builder<Entry> {
 	
 	@Override
-	public void prepare(Collection<Metadata> headers) throws SQLException {
+	public void prepare(Collection<Metadata> metadata) throws SQLException {
 		
 	}
 

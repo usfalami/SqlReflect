@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryHandler;
+import usf.java.sqlreflect.mapper.EntryBuilder;
 import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
 import usf.java.sqlreflect.mapper.filter.Metadata;
@@ -17,7 +17,7 @@ import usf.java.sqlreflect.sql.type.ProcedureTypes;
 public class ProcedureMapper extends GenericMapper<Procedure> {
 	
 	public ProcedureMapper() {
-		super(Procedure.class, new EntryHandler(), 
+		super(Procedure.class, new EntryBuilder(), 
 				SqlConstants.PROCEDURE_NAME);
 	}
 	
