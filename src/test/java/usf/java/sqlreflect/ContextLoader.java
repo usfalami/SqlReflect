@@ -26,10 +26,6 @@ import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Entry;
-import usf.java.sqlreflect.sql.entry.Header;
-import usf.java.sqlreflect.sql.entry.ImportedKey;
-import usf.java.sqlreflect.sql.entry.PrimaryKey;
-import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
@@ -129,18 +125,19 @@ public class ContextLoader {
 		
 		//select * database
 		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, writer));
-		
+
+		//select * database
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, writer));
 		
-		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).run(new FullWriter<Table>(ps, writer));
-		new HeaderScanner<Void>(cm).set(query).run(new FullWriter<Header>(ps, writer));
-		new PrimaryKeyScanner(cm).set(null, "country").run(new FullWriter<PrimaryKey>(ps, writer));
-		new ProcedureScanner(cm).set("sys", "%").run(new FullWriter<Procedure>(ps, writer));
+		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
+		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
+		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
+		new ProcedureScanner(cm).set("sys", "%").writeAll(ps, writer);
 //		
 		RowScanner<?, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper());
-		rs.set(query).run(new FullWriter<Entry>(ps, writer));
+		rs.set(query).writeAll(ps, writer);
 //		
-		new ImportedKeyScanner(cm).set("", "countrylanguage").run(new FullWriter<ImportedKey>(ps, writer));
+		new ImportedKeyScanner(cm).set("", "countrylanguage").writeAll(ps, writer);
 		
 		ps.end();
 		System.out.println(c);

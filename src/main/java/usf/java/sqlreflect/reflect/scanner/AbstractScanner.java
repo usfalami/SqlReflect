@@ -4,12 +4,16 @@ import java.sql.ResultSet;
 import java.util.Collection;
 
 import usf.java.sqlreflect.adapter.Adapter;
+import usf.java.sqlreflect.adapter.FullWriter;
 import usf.java.sqlreflect.adapter.ListAdapter;
+import usf.java.sqlreflect.adapter.ListWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.Writer;
 
 public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
 	
@@ -28,6 +32,15 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
 		return adapter.getList();
+	}
+	
+	public final void write(StreamWriter sw, Writer<? super R> writer) throws Exception {
+		Adapter<R> adapter = new ListWriter<R>(sw, writer);
+		run(adapter);
+	}
+	public final void writeAll(StreamWriter sw, Writer<? super R> writer) throws Exception {
+		Adapter<R> adapter = new FullWriter<R>(sw, writer);
+		run(adapter);
 	}
 	
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
