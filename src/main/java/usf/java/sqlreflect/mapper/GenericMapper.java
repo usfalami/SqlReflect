@@ -3,6 +3,7 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,10 @@ public class GenericMapper<T> implements Mapper<T> {
 
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
-		metadataList = Utils.isEmptyMap(metadataMap) ? fillAllColumns(rs) : fillselectedColumns(rs);
+		if(Utils.isEmptyMap(metadataMap))
+			fillAllColumns(rs);
+		else
+			fillselectedColumns(rs);
 		builder.prepare(metadataList);
 		return metadataList;
 	}
@@ -50,25 +54,27 @@ public class GenericMapper<T> implements Mapper<T> {
 		metadataMap.put(metadata.getColumnName(), metadata);
 	}
 	
-	private Collection<Metadata> fillAllColumns(ResultSet rs) throws SQLException  {
+	private void fillAllColumns(ResultSet rs) throws SQLException  {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
+		metadataList = new ArrayList<Metadata>(cols);
 		for(int i=1; i<=cols; i++){
 			Metadata mt = Metadata.get(md, i);
-			metadataMap.put(mt.getColumnName(), mt);
+			metadataList.add(mt);
 		}
-		return metadataMap.values();
 	}
-	private Collection<Metadata> fillselectedColumns(ResultSet rs) throws SQLException  {
+	private void fillselectedColumns(ResultSet rs) throws SQLException  {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
+		metadataList = new ArrayList<Metadata>(cols);
 		for(int i=1; i<=cols; i++){
 			String columnName = md.getColumnName(i);
 			Metadata mt = metadataMap.get(columnName);
-			if(Utils.isNotNull(mt))
+			if(Utils.isNotNull(mt)) {
 				mt.setColumnClassName(md.getColumnClassName(i));
+				metadataList.add(mt);
+			}
 		}
-		return metadataMap.values();
 	}
 	
 }
