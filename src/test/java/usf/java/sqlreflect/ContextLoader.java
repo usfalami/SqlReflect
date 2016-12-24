@@ -1,7 +1,6 @@
 package usf.java.sqlreflect;
 
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -18,6 +17,7 @@ import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ImportedKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
@@ -110,37 +110,35 @@ public class ContextLoader {
 	
 	public static void main(String[] args) throws Exception {
 		ConnectionManager cm = getConnectionManager();
-		StringWriter c = new StringWriter();
-//		StreamWriter ps = new XmlStreamWriter(c);
 //		StreamWriter ps = new JsonStreamWriter(c);
 		StreamWriter ps = new PrinterStreamWriter(System.out);
 		
+		Writer<Entry> writer = new EntryWriter();
 //		ps = new DebugProxyStream<StreamWriter>(ps); //debug
-		
 		ps.start();
 		
 		String query = "SELECT * FROM country";
 		
-		Writer<Entry> writer = new EntryWriter();
-		
-		//select * database
+		//[database]	select * 
 		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, writer));
-
-		//select * database
+		//[Table] 		select mysql.time_zone%
 		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, writer));
-		
+		//[View] 		sys.%io
 		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
-		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
-		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
+		//[Column] 		world_x .*
+		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
+		//[Procedure] 			sys.%
 		new ProcedureScanner(cm).set("sys", "%").writeAll(ps, writer);
-//		
-		RowScanner<?, Entry> rs = new RowScanner<Void, Entry>(cm, new EntryMapper());
-		rs.set(query).writeAll(ps, writer);
-//		
+		//[PK] 			country
+		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
+		//[FK]	
 		new ImportedKeyScanner(cm).set("", "countrylanguage").writeAll(ps, writer);
+		//[Row] 		SELECT * FROM country
+		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
+		//[Header] 		SELECT * FROM country
+		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		
 		ps.end();
-		System.out.println(c);
 		forceCloseConnectionManager();
 	}
 	

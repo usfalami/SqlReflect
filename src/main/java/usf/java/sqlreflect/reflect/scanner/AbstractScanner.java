@@ -27,13 +27,30 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		super(cm, at);
 		this.mapper = mapper;
 	}
+
+	
+	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
+		Mapper<R> mapper = getMapper();
+		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
+		adapter.prepare(headers, null);
+	}
+	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
+		int row = 0;
+		while(rs.next()){
+			R field = getMapper().map(rs, row+1);
+			adapter.adapte(field, row++);
+		}
+	}
+	
+	public Mapper<R> getMapper() {
+		return mapper;
+	}
 	
 	public final Collection<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
 		return adapter.getList();
 	}
-	
 	public final void write(StreamWriter sw, Writer<? super R> writer) throws Exception {
 		Adapter<R> adapter = new ListWriter<R>(sw, writer);
 		run(adapter);
@@ -43,21 +60,4 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		run(adapter);
 	}
 	
-	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		int row = 0;
-		while(rs.next()){
-			R field = getMapper().map(rs, row+1);
-			adapter.adapte(field, row++);
-		}
-	}
-	
-	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
-		Mapper<R> mapper = getMapper();
-		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
-		adapter.prepare(headers, null);
-	}
-	
-	public Mapper<R> getMapper() {
-		return mapper;
-	}
 }
