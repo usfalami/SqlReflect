@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import usf.java.sqlreflect.adapter.FullWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImplTest;
@@ -24,9 +23,7 @@ import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Entry;
-import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -120,9 +117,9 @@ public class ContextLoader {
 		String query = "SELECT * FROM country";
 		
 		//[database]	select * 
-		new DatabaseScanner(cm).run(new FullWriter<Database>(ps, writer));
+		new DatabaseScanner(cm).writeAll(ps, writer);
 		//[Table] 		select mysql.time_zone%
-		new TableScanner(cm).set("mysql", "time_zone%").run(new FullWriter<Table>(ps, writer));
+		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps, writer);
 		//[View] 		sys.%io
 		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
 		//[Column] 		world_x .*
