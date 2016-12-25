@@ -42,7 +42,7 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			timer.end();
 			try {
 				adapter.end(timer);
-			} catch (Exception e2) {}
+			} catch (Exception e) {}
 		}
 	}
 	
