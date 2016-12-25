@@ -9,10 +9,8 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public interface Writer<T> extends Handler {
 	
-	void prepare(Collection<Metadata> metadata) throws SQLException;
+	 <D extends T> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) throws SQLException;
 	
 	void write(StreamWriter writer, T obj) throws Exception;
-	
-	String[] getColumnNames();
 	
 }

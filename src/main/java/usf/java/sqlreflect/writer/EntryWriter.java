@@ -14,25 +14,18 @@ public class EntryWriter implements Writer<Entry> {
 	private Map<String, TypeWriter> types;
 
 	@Override
-	public void prepare(Collection<Metadata> metadata) throws SQLException {
+	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) throws SQLException {
 		types = new HashMap<String, TypeWriter>();
 		for(Metadata header : metadata)
 			types.put(header.getPropertyName(), TypeWriter.writerfor(header.getColumnClassName()));
 	}
-	
-	@Override
-	public String[] getColumnNames() {
-		return types.keySet().toArray(new String[types.size()]);
-	}
 
 	@Override
 	public void write(StreamWriter writer, Entry obj) throws Exception {
-		writer.startObject("");
 		for(java.util.Map.Entry<String, TypeWriter> entry : types.entrySet()) {
 			String propertyName = entry.getKey();
 			entry.getValue().write(writer, propertyName, obj.get(propertyName));
 		}
-		writer.endObject();
 	}
 
 }

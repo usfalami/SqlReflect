@@ -2,7 +2,9 @@ package usf.java.sqlreflect.stream;
 
 import java.io.OutputStream;
 import java.sql.Date;
+import java.util.Collection;
 
+import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.stream.printer.DynamicAsciiPrinter;
 import usf.java.sqlreflect.stream.printer.Printer;
 
@@ -67,7 +69,10 @@ public class PrinterStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, String... columns) throws Exception {
+	public void startList(String name, Collection<Metadata> metadatas) throws Exception {
+		String[] columns = new String[metadatas.size()]; int i=0;
+		for(Metadata metadata : metadatas)
+			columns[i++] = metadata.getPropertyName();
 		printer.startTable(columns);
 		list = true;
 	}

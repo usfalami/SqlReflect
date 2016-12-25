@@ -36,7 +36,6 @@ public class GenericMapper<T> implements Mapper<T> {
 			fillAllColumns(rs);
 		else
 			fillselectedColumns(rs);
-		builder.prepare(metadataList, mappedClass);
 		return metadataList;
 	}
 
@@ -49,6 +48,11 @@ public class GenericMapper<T> implements Mapper<T> {
 		}
 		return object;
 	}
+	
+	@Override
+	public Class<T> getMappedClass() {
+		return mappedClass;
+	}
 
 	public void addFilter(Metadata metadata) {
 		metadataMap.put(metadata.getColumnName(), metadata);
@@ -60,6 +64,7 @@ public class GenericMapper<T> implements Mapper<T> {
 		metadataList = new ArrayList<Metadata>(cols);
 		for(int i=1; i<=cols; i++){
 			Metadata mt = Metadata.get(md, i);
+			builder.prepareProperty(mappedClass, mt);
 			metadataList.add(mt);
 		}
 	}
@@ -72,6 +77,7 @@ public class GenericMapper<T> implements Mapper<T> {
 			Metadata mt = metadataMap.get(columnName);
 			if(Utils.isNotNull(mt)) {
 				mt.setColumnClassName(md.getColumnClassName(i));
+				builder.prepareProperty(mappedClass, mt);
 				metadataList.add(mt);
 			}
 		}

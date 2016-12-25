@@ -1,6 +1,7 @@
 package usf.java.sqlreflect.writer;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
 
 import usf.java.sqlreflect.Constants;
@@ -11,17 +12,19 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private String[] columNames = {
-		Constants.TIMER_ACTION, Constants.TIMER_START, 
-		Constants.TIMER_END, Constants.TIMER_DURATION
-	};
+	private Collection<Metadata> metadata = Arrays.asList(
+		new Metadata(Constants.TIMER_ACTION), 
+		new Metadata(Constants.TIMER_START),
+		new Metadata(Constants.TIMER_END), 
+		new Metadata(Constants.TIMER_DURATION)
+	);
 
 	@Override
-	public void prepare(Collection<Metadata> metadata) throws SQLException { }
+	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) throws SQLException { }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
-		writer.startList("Times", columNames);
+		writer.startList("Times", metadata);
 		recusiveWrite(writer, at, 0);
 		writer.endList();
 	}
@@ -36,11 +39,6 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 		if(Utils.isNotNull(action.getTimers()))
 			for(ActionTimer t : action.getTimers())
 				recusiveWrite(writer, t, level+1);
-	}
-	
-	@Override
-	public String[] getColumnNames() {
-		return columNames;
 	}
 	
 }

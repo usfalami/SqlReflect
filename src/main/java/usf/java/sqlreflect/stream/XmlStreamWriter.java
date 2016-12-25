@@ -2,10 +2,13 @@ package usf.java.sqlreflect.stream;
 
 import java.io.Writer;
 import java.sql.Date;
+import java.util.Collection;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
+import usf.java.sqlreflect.mapper.Metadata;
 
 public class XmlStreamWriter implements StreamWriter {
 
@@ -66,7 +69,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, String... columns) throws Exception {
+	public void startList(String name, Collection<Metadata> metadata) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override

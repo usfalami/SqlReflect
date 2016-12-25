@@ -75,6 +75,13 @@ public class Utils {
 		return c.getName().equals(o.getClass().getName());
 	}
 	
+	public static final String setterOf(String str){
+		return "set" + Character.toUpperCase(str.charAt(0)) + str.substring(1);
+	}
+	public static final String getterOf(String str){
+		return "get" + Character.toUpperCase(str.charAt(0)) + str.substring(1);
+	}
+	
 	public static Method findMethod(Object o, String methodName, Object... args) throws Exception {
 		Method[] methods = null; int index = 0; boolean found = false;
 		methods = o.getClass().getDeclaredMethods();

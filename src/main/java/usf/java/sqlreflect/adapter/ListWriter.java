@@ -22,13 +22,15 @@ public class ListWriter<T> implements Adapter<T> {
 	
 	@Override
 	public void prepare(Collection<Metadata> metadata, Class<T> clazz) throws Exception {
-		writer.prepare(metadata);
-		stream.startList("Entries", writer.getColumnNames());
+		writer.prepare(clazz, metadata);
+		stream.startList("Entries", metadata);
 	}
 
 	@Override
 	public void adapte(T field, int index) throws Exception {
+		stream.startObject("");
 		writer.write(stream, field);
+		stream.endObject();
 	}
 
 	@Override

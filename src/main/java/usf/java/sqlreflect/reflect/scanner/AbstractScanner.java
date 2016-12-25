@@ -32,7 +32,7 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
 		Mapper<R> mapper = getMapper();
 		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
-		adapter.prepare(headers, null);
+		adapter.prepare(headers, mapper.getMappedClass());
 	}
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
 		int row = 0;

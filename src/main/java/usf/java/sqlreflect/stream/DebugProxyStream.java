@@ -1,6 +1,9 @@
 package usf.java.sqlreflect.stream;
 
 import java.sql.Date;
+import java.util.Collection;
+
+import usf.java.sqlreflect.mapper.Metadata;
 
 public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	
@@ -66,8 +69,8 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, String... columns) throws Exception {
-		sw.startList(name, columns);
+	public void startList(String name, Collection<Metadata> metadata) throws Exception {
+		sw.startList(name, metadata);
 		debug(++level, "[" + name + "]");
 	}
 
