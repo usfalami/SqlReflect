@@ -6,10 +6,10 @@ import java.util.Collection;
 import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.Handler;
 
-public interface Builder<T> extends Handler {
+public interface Builder<C> extends Handler {
 
-	void prepare(Collection<Metadata> metadata) throws SQLException;
+	 <D extends C> void prepare(Collection<Metadata> metadata, Class<D> derivedClass) throws SQLException;
 	
-	void setProperty(T obj, String propertyName, Object value) throws Exception;
+	 void setProperty(C obj, String propertyName, Object value) throws Exception;
 
 }

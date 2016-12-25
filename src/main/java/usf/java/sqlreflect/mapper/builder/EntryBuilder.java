@@ -9,7 +9,7 @@ import usf.java.sqlreflect.sql.entry.Entry;
 public class EntryBuilder implements Builder<Entry> {
 	
 	@Override
-	public void prepare(Collection<Metadata> metadata) throws SQLException {
+	public <D extends Entry> void prepare(Collection<Metadata> metadata, Class<D> derivedClass) throws SQLException {
 		
 	}
 

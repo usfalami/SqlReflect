@@ -14,14 +14,14 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class GenericMapper<T> implements Mapper<T> {
 
-	private Class<T> mappedClassName;
-	private Map<String, Metadata> metadataMap;
+	private Class<T> mappedClass;
 	private Builder<? super T> builder;
+	private Map<String, Metadata> metadataMap;
 	
 	private Collection<Metadata> metadataList;
 
 	public GenericMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
-		this.mappedClassName = mappedClassName;
+		this.mappedClass = mappedClassName;
 		this.builder = mapperHandler;
 		this.metadataMap = new HashMap<String, Metadata>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
@@ -36,13 +36,13 @@ public class GenericMapper<T> implements Mapper<T> {
 			fillAllColumns(rs);
 		else
 			fillselectedColumns(rs);
-		builder.prepare(metadataList);
+		builder.prepare(metadataList, mappedClass);
 		return metadataList;
 	}
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		T object = mappedClassName.newInstance();
+		T object = mappedClass.newInstance();
 		for(Metadata metadata : metadataList) {
 			Object value = metadata.get(rs);
 			builder.setProperty(object, metadata.getPropertyName(), value);

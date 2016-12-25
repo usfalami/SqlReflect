@@ -39,8 +39,8 @@ public abstract class AbstractReflector<C extends ConnectionManager, R> implemen
 			throw e;
 		} finally {
 			getConnectionManager().close();
+			timer.end();
 			try {
-				timer.end();
 				adapter.end(timer);
 			} catch (Exception e2) {}
 		}
