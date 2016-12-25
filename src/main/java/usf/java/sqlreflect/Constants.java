@@ -17,9 +17,9 @@ public interface Constants {
 	String ACTION_PROCESSING 	= "PROCESSING";
 	String ACTION_TRANSACTION 	= "TRANSACTION";
 
-	String TIMER_ACTION = "Action";
-	String TIMER_START = "Start";
-	String TIMER_END = "End";
-	String TIMER_DURATION = "Duration";
+	String TIMER_ACTION 	= "Action";
+	String TIMER_START 		= "Start";
+	String TIMER_END 		= "End";
+	String TIMER_DURATION 	= "Duration";
 	
 }
