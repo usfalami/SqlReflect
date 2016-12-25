@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.writer;
 
 import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,16 +19,12 @@ public class ObjectReflectWriter implements Writer<Object> {
 	}
 
 	@Override
-	public <D extends Object> void prepare(Class<D> derivedClass, Collection<Metadata> metadatas) throws SQLException {
-		try {
-			for(Metadata metadata : metadatas) {
-				String name = metadata.getPropertyName();
-				Method method = derivedClass.getMethod(Utils.getterOf(name));
-				TypeWriter tw = TypeWriter.writerfor(metadata.getColumnClassName());
-				methodMap.put(name, new MethodTypeWriter(tw, method));
-			}
-		} catch (Exception  e) {
-			e.printStackTrace();
+	public <D extends Object> void prepare(Class<D> derivedClass, Collection<Metadata> metadatas) throws Exception {
+		for(Metadata metadata : metadatas) {
+			String name = metadata.getPropertyName();
+			Method method = derivedClass.getMethod(Utils.getterOf(name));
+			TypeWriter tw = TypeWriter.writerfor(metadata.getColumnClassName());
+			methodMap.put(name, new MethodTypeWriter(tw, method));
 		}
 	}
 

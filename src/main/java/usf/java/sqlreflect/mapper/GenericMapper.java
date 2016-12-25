@@ -31,10 +31,11 @@ public class GenericMapper<T> implements Mapper<T> {
 
 	@Override
 	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
+		ResultSetMetaData md = rs.getMetaData();
 		if(Utils.isEmptyMap(metadataMap))
-			fillAllColumns(rs);
+			fillAllColumns(md);
 		else
-			fillSelectedColumns(rs);
+			fillSelectedColumns(md);
 		return metadataList;
 	}
 
@@ -57,25 +58,23 @@ public class GenericMapper<T> implements Mapper<T> {
 		metadataMap.put(metadata.getColumnName(), metadata);
 	}
 	
-	private void fillAllColumns(ResultSet rs) throws Exception {
-		ResultSetMetaData md = rs.getMetaData();
-		int cols = md.getColumnCount();
+	private void fillAllColumns(ResultSetMetaData rm) throws Exception {
+		int cols = rm.getColumnCount();
 		metadataList = new ArrayList<Metadata>(cols);
 		for(int i=1; i<=cols; i++){
-			Metadata mt = Metadata.get(md, i);
+			Metadata mt = Metadata.get(rm, i);
 			builder.prepareProperty(mappedClass, mt);
 			metadataList.add(mt);
 		}
 	}
-	private void fillSelectedColumns(ResultSet rs) throws Exception {
-		ResultSetMetaData md = rs.getMetaData();
-		int cols = md.getColumnCount();
+	private void fillSelectedColumns(ResultSetMetaData rm) throws Exception {
+		int cols = rm.getColumnCount();
 		metadataList = new ArrayList<Metadata>(cols);
 		for(int i=1; i<=cols; i++){
-			String columnName = md.getColumnName(i);
+			String columnName = rm.getColumnName(i);
 			Metadata mt = metadataMap.get(columnName);
 			if(Utils.isNotNull(mt)) {
-				mt.setColumnClassName(md.getColumnClassName(i));
+				mt.setColumnClassName(rm.getColumnClassName(i));
 				builder.prepareProperty(mappedClass, mt);
 				metadataList.add(mt);
 			}

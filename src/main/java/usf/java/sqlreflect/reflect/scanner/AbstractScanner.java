@@ -30,23 +30,15 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 	}
 		
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
-		try{
-			DatabaseType type = getConnectionManager().getServer().getDatabaseType();
-			Collection<Metadata> headers = mapper.prepare(rs, type);
-			adapter.prepare(mapper.getMappedClass(), headers);
-		}catch (Exception e) {
-			throw new Exception("Error while preparing metadata", e);
-		}
+		DatabaseType type = getConnectionManager().getServer().getDatabaseType();
+		Collection<Metadata> headers = mapper.prepare(rs, type);
+		adapter.prepare(mapper.getMappedClass(), headers);
 	}
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		try{
-			int row = 0;
-			while(rs.next()){
-				R field = getMapper().map(rs, row+1);
-				adapter.adapte(field, row++);
-			}
-		}catch (Exception e) {
-			throw new Exception("Error while processing results", e);
+		int row = 0;
+		while(rs.next()){
+			R field = getMapper().map(rs, row+1);
+			adapter.adapte(field, row++);
 		}
 	}
 	
