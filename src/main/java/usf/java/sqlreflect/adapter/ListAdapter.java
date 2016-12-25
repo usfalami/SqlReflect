@@ -21,7 +21,7 @@ public class ListAdapter<T> implements Adapter<T> {
 	}
 
 	@Override
-	public void prepare(Collection<Metadata> metadata, Class<T> clazz) {
+	public void prepare(Class<T> clazz, Collection<Metadata> metadata) {
 		
 	}
 	

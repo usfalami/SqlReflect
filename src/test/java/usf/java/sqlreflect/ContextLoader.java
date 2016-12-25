@@ -124,18 +124,19 @@ public class ContextLoader {
 		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
 		//[Column] 		world_x .*
 		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
-		//[Procedure] 			sys.%
-		new ProcedureScanner(cm).set("sys", "%").writeAll(ps, writer);
+		//[Procedure] 			sys.*
+		new ProcedureScanner(cm).set("sys", null).writeAll(ps, writer);
 		//[PK] 			country
 		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
 		//[FK]	
-		new ImportedKeyScanner(cm).set("", "countrylanguage").writeAll(ps, writer);
+		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
 		//[Row] 		SELECT * FROM country
 		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		
 		ps.end();
+		
 		forceCloseConnectionManager();
 	}
 	

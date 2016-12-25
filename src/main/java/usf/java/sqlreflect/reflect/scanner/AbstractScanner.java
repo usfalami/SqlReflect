@@ -27,12 +27,11 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		super(cm, at);
 		this.mapper = mapper;
 	}
-
 	
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
 		Mapper<R> mapper = getMapper();
 		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
-		adapter.prepare(headers, mapper.getMappedClass());
+		adapter.prepare(mapper.getMappedClass(), headers);
 	}
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
 		int row = 0;
@@ -52,12 +51,10 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		return adapter.getList();
 	}
 	public final void write(StreamWriter sw, Writer<? super R> writer) throws Exception {
-		Adapter<R> adapter = new ListWriter<R>(sw, writer);
-		run(adapter);
+		run(new ListWriter<R>(sw, writer));
 	}
 	public final void writeAll(StreamWriter sw, Writer<? super R> writer) throws Exception {
-		Adapter<R> adapter = new FullWriter<R>(sw, writer);
-		run(adapter);
+		run(new FullWriter<R>(sw, writer));
 	}
 	
 }

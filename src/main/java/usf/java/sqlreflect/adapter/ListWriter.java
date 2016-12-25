@@ -21,7 +21,7 @@ public class ListWriter<T> implements Adapter<T> {
 	public void start() throws Exception { }
 	
 	@Override
-	public void prepare(Collection<Metadata> metadata, Class<T> clazz) throws Exception {
+	public void prepare(Class<T> clazz, Collection<Metadata> metadata) throws Exception {
 		writer.prepare(clazz, metadata);
 		stream.startList("Entries", metadata);
 	}
