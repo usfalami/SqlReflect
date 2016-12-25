@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper.entry;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
@@ -25,7 +24,7 @@ public class ImportedKeyMapper extends GenericMapper<ImportedKey> {
 	}
 	
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		Converter<?> converter = new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class);
 		addFilter(new Metadata(type.PK_TABLE_DATABASE, SqlConstants.PK_DATABASE_NAME));
 		addFilter(new Metadata(type.FK_TABLE_DATABASE, SqlConstants.FK_DATABASE_NAME));

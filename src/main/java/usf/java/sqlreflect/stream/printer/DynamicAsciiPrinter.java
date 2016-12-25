@@ -50,7 +50,7 @@ public class DynamicAsciiPrinter implements Printer {
 	public void endRow() { }
 
 	@Override
-	public void addColumn(String value){
+	public void addColumn(String value) {
 		int row = entries.size() - 1;
 		if(Utils.isNotNull(value)){
 			entries.get(row)[col] = value;

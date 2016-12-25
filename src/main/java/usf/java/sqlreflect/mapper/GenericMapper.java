@@ -2,7 +2,6 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,11 +30,11 @@ public class GenericMapper<T> implements Mapper<T> {
 	}
 
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		if(Utils.isEmptyMap(metadataMap))
 			fillAllColumns(rs);
 		else
-			fillselectedColumns(rs);
+			fillSelectedColumns(rs);
 		return metadataList;
 	}
 
@@ -58,7 +57,7 @@ public class GenericMapper<T> implements Mapper<T> {
 		metadataMap.put(metadata.getColumnName(), metadata);
 	}
 	
-	private void fillAllColumns(ResultSet rs) throws SQLException  {
+	private void fillAllColumns(ResultSet rs) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		metadataList = new ArrayList<Metadata>(cols);
@@ -68,7 +67,7 @@ public class GenericMapper<T> implements Mapper<T> {
 			metadataList.add(mt);
 		}
 	}
-	private void fillselectedColumns(ResultSet rs) throws SQLException  {
+	private void fillSelectedColumns(ResultSet rs) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
 		int cols = md.getColumnCount();
 		metadataList = new ArrayList<Metadata>(cols);

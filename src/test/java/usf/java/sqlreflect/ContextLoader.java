@@ -108,7 +108,7 @@ public class ContextLoader {
 	public static void main(String[] args) throws Exception {
 		ConnectionManager cm = getConnectionManager();
 //		StreamWriter ps = new JsonStreamWriter(c);
-		StreamWriter ps = new PrinterStreamWriter(System.out);
+		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
 		Writer<Entry> writer = new EntryWriter();
 //		ps = new DebugProxyStream<StreamWriter>(ps); //debug

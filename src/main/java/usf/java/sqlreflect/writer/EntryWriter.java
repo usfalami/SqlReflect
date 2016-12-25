@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.writer;
 
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,7 @@ public class EntryWriter implements Writer<Entry> {
 	private Map<String, TypeWriter> types;
 
 	@Override
-	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) throws SQLException {
+	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) {
 		types = new HashMap<String, TypeWriter>();
 		for(Metadata header : metadata)
 			types.put(header.getPropertyName(), TypeWriter.writerfor(header.getColumnClassName()));

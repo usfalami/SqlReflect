@@ -12,6 +12,7 @@ import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.Writer;
 
@@ -27,16 +28,25 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		super(cm, at);
 		this.mapper = mapper;
 	}
-	
+		
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
-		Collection<Metadata> headers = mapper.prepare(rs, getConnectionManager().getServer().getDatabaseType());
-		adapter.prepare(mapper.getMappedClass(), headers);
+		try{
+			DatabaseType type = getConnectionManager().getServer().getDatabaseType();
+			Collection<Metadata> headers = mapper.prepare(rs, type);
+			adapter.prepare(mapper.getMappedClass(), headers);
+		}catch (Exception e) {
+			throw new Exception("Error while preparing metadata", e);
+		}
 	}
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {
-		int row = 0;
-		while(rs.next()){
-			R field = getMapper().map(rs, row+1);
-			adapter.adapte(field, row++);
+		try{
+			int row = 0;
+			while(rs.next()){
+				R field = getMapper().map(rs, row+1);
+				adapter.adapte(field, row++);
+			}
+		}catch (Exception e) {
+			throw new Exception("Error while processing results", e);
 		}
 	}
 	

@@ -1,6 +1,5 @@
 package usf.java.sqlreflect.writer;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -20,7 +19,7 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 	);
 
 	@Override
-	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) throws SQLException { }
+	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Metadata> metadata){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {

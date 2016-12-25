@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper.entry;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
@@ -22,7 +21,7 @@ public class FunctionMapper extends GenericMapper<Function> {
 	}
 	
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		addFilter(new Metadata(type.FUNCTION_DATABASE, SqlConstants.DATABASE_NAME));
 		addFilter(new MetadataConverter(
 				SqlConstants.FUNCTION_TYPE, 

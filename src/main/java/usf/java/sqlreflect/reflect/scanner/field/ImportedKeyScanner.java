@@ -31,5 +31,4 @@ public class ImportedKeyScanner extends AbstractFieldScanner<ImportedKey> {
 		return this;
 	}
 
-
 }

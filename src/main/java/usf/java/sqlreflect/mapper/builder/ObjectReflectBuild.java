@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.mapper.builder;
 
 import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,22 +16,16 @@ public class ObjectReflectBuild implements Builder<Object> {
 	}
 
 	@Override
-	public <D extends Object> void prepareProperty(Class<D> derivedClass, Metadata metadata) throws SQLException {
-		try {
-			String name = metadata.getPropertyName();
-			Method method = derivedClass.getMethod(
-					Utils.setterOf(name), Class.forName(metadata.getColumnClassName()));
-			methodMap.put(name, method);
-		} catch (Exception  e) {
-			e.printStackTrace();
-		}
-		
+	public <D extends Object> void prepareProperty(Class<D> derivedClass, Metadata metadata) throws Exception {
+		String name = metadata.getPropertyName();
+		Class<?> clazz = Class.forName(metadata.getColumnClassName());
+		Method method = derivedClass.getMethod(Utils.setterOf(name), clazz);
+		methodMap.put(name, method);
 	}
 
 	@Override
 	public void setProperty(Object obj, String propertyName, Object value) throws Exception {
 		methodMap.get(propertyName).invoke(obj, value);
 	}
-	
 
 }

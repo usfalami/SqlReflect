@@ -51,7 +51,6 @@ public class ObjectReflectWriter implements Writer<Object> {
 			this.tw = tw;
 			this.method = method;
 		}
-		
 	}
 
 }

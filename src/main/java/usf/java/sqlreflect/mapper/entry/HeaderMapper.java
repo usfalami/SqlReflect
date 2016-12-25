@@ -17,7 +17,7 @@ public class HeaderMapper implements Mapper<Header> {
 	private DatabaseType type;
 
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws SQLException {
+	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) {
 		this.type = type;
 		String strClassName = String.class.getName(), intClassName = Integer.class.getName();
 		return Arrays.asList(

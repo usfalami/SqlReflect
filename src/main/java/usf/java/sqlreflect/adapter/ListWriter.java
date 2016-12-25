@@ -28,7 +28,7 @@ public class ListWriter<T> implements Adapter<T> {
 
 	@Override
 	public void adapte(T field, int index) throws Exception {
-		stream.startObject("");
+		stream.startObject("Object");
 		writer.write(stream, field);
 		stream.endObject();
 	}
