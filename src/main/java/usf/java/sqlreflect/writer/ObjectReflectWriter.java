@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -19,11 +19,11 @@ public class ObjectReflectWriter implements Writer<Object> {
 	}
 
 	@Override
-	public <D extends Object> void prepare(Class<D> derivedClass, Collection<Metadata> metadatas) throws Exception {
-		for(Metadata metadata : metadatas) {
-			String name = metadata.getPropertyName();
+	public <D extends Object> void prepare(Class<D> derivedClass, Collection<Property> Properties) throws Exception {
+		for(Property property : Properties) {
+			String name = property.getName();
 			Method method = derivedClass.getMethod(Utils.getterOf(name));
-			TypeWriter tw = TypeWriter.writerfor(metadata.getColumnClassName());
+			TypeWriter tw = TypeWriter.writerfor(property.getClassName());
 			methodMap.put(name, new MethodTypeWriter(tw, method));
 		}
 	}

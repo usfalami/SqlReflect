@@ -6,16 +6,16 @@ import java.sql.SQLException;
 import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.reflect.Utils;
 
-public class MetadataConverter extends Metadata {
+public class PropertyConverter extends Property {
 	
 	private Converter<?> converter;
 	
-	public MetadataConverter(String columnName, Converter<?> converter) {
+	public PropertyConverter(String columnName, Converter<?> converter) {
 		super(columnName);
 		this.converter = converter;
 	}
 	
-	public MetadataConverter(String columnName, String propertyName, Converter<?> converter) {
+	public PropertyConverter(String columnName, String propertyName, Converter<?> converter) {
 		super(columnName, propertyName);
 		this.converter = converter;
 	}
@@ -32,16 +32,13 @@ public class MetadataConverter extends Metadata {
 		return converter.convert(super.get(rs));
 	}
 	
-	@Override //TODO update this => throws except.
-	public Metadata setColumnClassName(String columnClassName) {
+	@Override
+	public String getClassName() {
 		try {
-			columnClassName = Utils.converterReturnType(converter.getClass()).getName();
-		} catch (Exception e) {
+			return Utils.converterReturnType(converter.getClass()).getName();
+		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
-		}finally {
-			super.setColumnClassName(columnClassName);
 		}
-		return this;
+		return null;
 	}
-
 }

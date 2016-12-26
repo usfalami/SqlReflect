@@ -8,7 +8,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 
 public class XmlStreamWriter implements StreamWriter {
 
@@ -69,7 +69,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, Collection<Metadata> metadata) throws Exception {
+	public void startList(String name, Collection<Property> property) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override

@@ -15,36 +15,36 @@ public class GenericMapper<T> implements Mapper<T> {
 
 	private Class<T> mappedClass;
 	private Builder<? super T> builder;
-	private Map<String, Metadata> metadataMap;
+	private Map<String, Property> propertiesMap;
 	
-	private Collection<Metadata> metadataList;
+	private Collection<Property> propertiesList;
 
 	public GenericMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
 		this.mappedClass = mappedClassName;
 		this.builder = mapperHandler;
-		this.metadataMap = new HashMap<String, Metadata>();
+		this.propertiesMap = new HashMap<String, Property>();
 		if(!Utils.isEmptyArray(selectedColumnNames)){
 			for(String columnName : selectedColumnNames)
-				metadataMap.put(columnName, new Metadata(columnName));
+				propertiesMap.put(columnName, new Property(columnName));
 		}
 	}
 
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
+	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		ResultSetMetaData md = rs.getMetaData();
-		if(Utils.isEmptyMap(metadataMap))
+		if(Utils.isEmptyMap(propertiesMap))
 			fillAllColumns(md);
 		else
 			fillSelectedColumns(md);
-		return metadataList;
+		return propertiesList;
 	}
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
 		T object = mappedClass.newInstance();
-		for(Metadata metadata : metadataList) {
-			Object value = metadata.get(rs);
-			builder.setProperty(object, metadata.getPropertyName(), value);
+		for(Property property : propertiesList) {
+			Object value = property.get(rs);
+			builder.set(object, property.getName(), value);
 		}
 		return object;
 	}
@@ -54,29 +54,30 @@ public class GenericMapper<T> implements Mapper<T> {
 		return mappedClass;
 	}
 
-	public void addFilter(Metadata metadata) {
-		metadataMap.put(metadata.getColumnName(), metadata);
+	public void addPropertyFilter(Property property) {
+		propertiesMap.put(property.getColumnName(), property);
 	}
+	
 	
 	private void fillAllColumns(ResultSetMetaData rm) throws Exception {
 		int cols = rm.getColumnCount();
-		metadataList = new ArrayList<Metadata>(cols);
+		propertiesList = new ArrayList<Property>(cols);
 		for(int i=1; i<=cols; i++){
-			Metadata mt = Metadata.get(rm, i);
-			builder.prepareProperty(mappedClass, mt);
-			metadataList.add(mt);
+			Property mt = Property.get(rm, i);
+			builder.prepare(mappedClass, mt);
+			propertiesList.add(mt);
 		}
 	}
 	private void fillSelectedColumns(ResultSetMetaData rm) throws Exception {
 		int cols = rm.getColumnCount();
-		metadataList = new ArrayList<Metadata>(cols);
+		propertiesList = new ArrayList<Property>(cols);
 		for(int i=1; i<=cols; i++){
 			String columnName = rm.getColumnName(i);
-			Metadata mt = metadataMap.get(columnName);
+			Property mt = propertiesMap.get(columnName);
 			if(Utils.isNotNull(mt)) {
-				mt.setColumnClassName(rm.getColumnClassName(i));
-				builder.prepareProperty(mappedClass, mt);
-				metadataList.add(mt);
+				mt.setClassName(rm.getColumnClassName(i));
+				builder.prepare(mappedClass, mt);
+				propertiesList.add(mt);
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.GenericMapper;
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.builder.EntryBuilder;
 import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.type.DatabaseType;
@@ -17,8 +17,8 @@ public class DatabaseMapper extends GenericMapper<Database> {
 	}
 	
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		addFilter(new Metadata(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME));
+	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
+		addPropertyFilter(new Property(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME));
 		return super.prepare(rs, type);
 	}
 	

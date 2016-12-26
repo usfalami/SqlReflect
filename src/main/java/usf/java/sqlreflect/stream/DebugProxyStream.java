@@ -3,7 +3,7 @@ package usf.java.sqlreflect.stream;
 import java.sql.Date;
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 
 public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	
@@ -69,8 +69,8 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, Collection<Metadata> metadata) throws Exception {
-		sw.startList(name, metadata);
+	public void startList(String name, Collection<Property> properties) throws Exception {
+		sw.startList(name, properties);
 		debug(++level, "[" + name + "]");
 	}
 

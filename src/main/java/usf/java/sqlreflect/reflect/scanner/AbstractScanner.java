@@ -9,7 +9,7 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.adapter.ListWriter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.type.DatabaseType;
@@ -31,7 +31,7 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		
 	protected void runPreparation(Adapter<R> adapter, ResultSet rs) throws Exception {
 		DatabaseType type = getConnectionManager().getServer().getDatabaseType();
-		Collection<Metadata> headers = mapper.prepare(rs, type);
+		Collection<Property> headers = mapper.prepare(rs, type);
 		adapter.prepare(mapper.getMappedClass(), headers);
 	}
 	protected void runProcessing(ResultSet rs, Adapter<R> adapter, ActionTimer at) throws Exception {

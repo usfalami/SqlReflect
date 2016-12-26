@@ -7,7 +7,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public interface Mapper<T> {
 	
-	 Collection<Metadata> prepare(ResultSet rs, DatabaseType type) throws Exception;
+	 Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception;
 	
 	T map(ResultSet rs, int row) throws Exception;
 	

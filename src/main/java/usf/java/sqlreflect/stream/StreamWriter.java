@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 
 public interface StreamWriter {
 	
@@ -20,7 +20,7 @@ public interface StreamWriter {
 	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
-	void startList(String name, Collection<Metadata> list) throws Exception;
+	void startList(String name, Collection<Property> list) throws Exception;
 	void endList() throws Exception;
 
 	void start() throws Exception;

@@ -4,26 +4,26 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import usf.java.sqlreflect.Constants;
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private Collection<Metadata> metadata = Arrays.asList(
-		new Metadata(Constants.TIMER_ACTION), 
-		new Metadata(Constants.TIMER_START),
-		new Metadata(Constants.TIMER_END), 
-		new Metadata(Constants.TIMER_DURATION)
+	private Collection<Property> properties = Arrays.asList(
+		new Property(Constants.TIMER_ACTION), 
+		new Property(Constants.TIMER_START),
+		new Property(Constants.TIMER_END), 
+		new Property(Constants.TIMER_DURATION)
 	);
 
 	@Override
-	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Metadata> metadata){ }
+	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Property> properties){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
-		writer.startList("Times", metadata);
+		writer.startList("Times", properties);
 		recusiveWrite(writer, at, 0);
 		writer.endList();
 	}

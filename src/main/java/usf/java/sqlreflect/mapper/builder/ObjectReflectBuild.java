@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.Utils;
 
 public class ObjectReflectBuild implements Builder<Object> {
@@ -16,15 +16,15 @@ public class ObjectReflectBuild implements Builder<Object> {
 	}
 
 	@Override
-	public <D extends Object> void prepareProperty(Class<D> derivedClass, Metadata metadata) throws Exception {
-		String name = metadata.getPropertyName();
-		Class<?> clazz = Class.forName(metadata.getColumnClassName());
-		Method method = derivedClass.getMethod(Utils.setterOf(name), clazz);
+	public <D extends Object> void prepare(Class<D> derivedClass, Property property) throws Exception {
+		String name = property.getName();
+		Class<?> argClazz = Class.forName(property.getClassName());
+		Method method = derivedClass.getMethod(Utils.setterOf(name), argClazz);
 		methodMap.put(name, method);
 	}
 
 	@Override
-	public void setProperty(Object obj, String propertyName, Object value) throws Exception {
+	public void set(Object obj, String propertyName, Object value) throws Exception {
 		methodMap.get(propertyName).invoke(obj, value);
 	}
 

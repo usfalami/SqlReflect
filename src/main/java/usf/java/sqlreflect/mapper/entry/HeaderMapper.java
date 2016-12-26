@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
@@ -17,18 +17,9 @@ public class HeaderMapper implements Mapper<Header> {
 	private DatabaseType type;
 
 	@Override
-	public Collection<Metadata> prepare(ResultSet rs, DatabaseType type) {
+	public Collection<Property> prepare(ResultSet rs, DatabaseType type) {
 		this.type = type;
-		String strClassName = String.class.getName(), intClassName = Integer.class.getName();
-		return Arrays.asList(
-				new Metadata(SqlConstants.DATABASE_NAME).setColumnClassName(strClassName),
-				new Metadata(SqlConstants.TABLE_NAME)	.setColumnClassName(strClassName),
-				new Metadata(SqlConstants.COLUMN_NAME)	.setColumnClassName(strClassName),
-				new Metadata(SqlConstants.COLUMN_TYPE)	.setColumnClassName(intClassName),
-				new Metadata(SqlConstants.TYPE_NAME)	.setColumnClassName(strClassName),
-				new Metadata(SqlConstants.COLUMN_SIZE)	.setColumnClassName(intClassName),
-				new Metadata(SqlConstants.COLUMN_CLASS)	.setColumnClassName(strClassName)
-			);
+		return properties;
 	}
 
 	@Override
@@ -51,4 +42,14 @@ public class HeaderMapper implements Mapper<Header> {
 		return Header.class;
 	}
 
+	private static final Collection<Property> properties = Arrays.asList(
+			new Property(SqlConstants.DATABASE_NAME).setClassName(String.class.getName()),
+			new Property(SqlConstants.TABLE_NAME)	.setClassName(String.class.getName()),
+			new Property(SqlConstants.COLUMN_NAME)	.setClassName(String.class.getName()),
+			new Property(SqlConstants.COLUMN_TYPE)	.setClassName(Integer.class.getName()),
+			new Property(SqlConstants.TYPE_NAME)	.setClassName(String.class.getName()),
+			new Property(SqlConstants.COLUMN_SIZE)	.setClassName(Integer.class.getName()),
+			new Property(SqlConstants.COLUMN_CLASS)	.setClassName(String.class.getName())
+		);
+	
 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.stream.StreamWriter;
 
@@ -13,10 +13,10 @@ public class EntryWriter implements Writer<Entry> {
 	private Map<String, TypeWriter> types;
 
 	@Override
-	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Metadata> metadata) {
+	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Property> properties) {
 		types = new HashMap<String, TypeWriter>();
-		for(Metadata header : metadata)
-			types.put(header.getPropertyName(), TypeWriter.writerfor(header.getColumnClassName()));
+		for(Property property : properties)
+			types.put(property.getName(), TypeWriter.writerfor(property.getClassName()));
 	}
 
 	@Override

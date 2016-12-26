@@ -8,7 +8,7 @@ import java.util.Stack;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 
 public class JsonStreamWriter implements StreamWriter {
 	
@@ -68,7 +68,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void startList(String name, Collection<Metadata> metadata) throws Exception {
+	public void startList(String name, Collection<Property> properties) throws Exception {
 		key(name).array();
 		keys.push(false);
 	}
