@@ -20,8 +20,7 @@ public class FullWriter<T> extends ListWriter<T> {
 	@Override
 	public void end(ActionTimer time) throws Exception {
 		super.end(time);
-		Writer<ActionTimer> writer = new ActionTimerWriter();
-		writer.write(getStream(), time);
+		new ActionTimerWriter().write(getStream(), time);
 		getStream().endObject();
 	}
 }
