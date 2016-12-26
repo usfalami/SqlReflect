@@ -10,18 +10,18 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public class EntryWriter implements Writer<Entry> {
 	
-	private Map<String, TypeWriter> types;
+	private Map<String, WriterTypes> types;
 
 	@Override
 	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Property> properties) {
-		types = new HashMap<String, TypeWriter>();
+		types = new HashMap<String, WriterTypes>();
 		for(Property property : properties)
-			types.put(property.getName(), TypeWriter.writerfor(property.getClassName()));
+			types.put(property.getName(), WriterTypes.writerfor(property.getClassName()));
 	}
 
 	@Override
 	public void write(StreamWriter writer, Entry obj) throws Exception {
-		for(java.util.Map.Entry<String, TypeWriter> entry : types.entrySet()) {
+		for(java.util.Map.Entry<String, WriterTypes> entry : types.entrySet()) {
 			String propertyName = entry.getKey();
 			entry.getValue().write(writer, propertyName, obj.get(propertyName));
 		}

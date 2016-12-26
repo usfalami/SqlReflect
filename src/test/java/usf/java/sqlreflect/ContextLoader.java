@@ -12,6 +12,10 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.mapper.GenericMapper;
+import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.builder.Builder;
+import usf.java.sqlreflect.mapper.builder.ObjectReflectBuild;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
@@ -24,10 +28,13 @@ import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Table;
+import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.EntryWriter;
+import usf.java.sqlreflect.writer.ObjectReflectWriter;
 import usf.java.sqlreflect.writer.Writer;
 
 public class ContextLoader {
@@ -115,29 +122,47 @@ public class ContextLoader {
 		ps.start();
 		
 		String query = "SELECT * FROM country";
-		
-		//[database]	select * 
-		new DatabaseScanner(cm).writeAll(ps, writer);
+
+		ex1();
+//		
+//		//[database]	select * 
+//		new DatabaseScanner(cm).writeAll(ps, writer);
 		//[Table] 		select mysql.time_zone%
 		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps, writer);
 		//[View] 		sys.%io
-		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
-		//[Column] 		world_x .*
-		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
-		//[Procedure] 			sys.*
-		new ProcedureScanner(cm).set("sys", null).writeAll(ps, writer);
-		//[PK] 			country
-		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
-		//[FK]	
-		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
-		//[Row] 		SELECT * FROM country
-		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
-		//[Header] 		SELECT * FROM country
-		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
+//		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
+//		//[Column] 		world_x .*
+//		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
+//		//[Procedure] 			sys.*
+//		new ProcedureScanner(cm).set("sys", null).writeAll(ps, writer);
+//		//[PK] 			country
+//		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
+//		//[FK]	
+//		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
+//		//[Row] 		SELECT * FROM country
+//		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
+//		//[Header] 		SELECT * FROM country
+//		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
+		
 		
 		ps.end();
 		
 		forceCloseConnectionManager();
+	}
+	
+	public static void ex1() throws Exception{
+
+		StreamWriter ps = new PrinterStreamWriter(System.out); 
+		
+		Builder<Object> builder = new ObjectReflectBuild();
+		GenericMapper<Table> mapper = new GenericMapper<Table>(Table.class, builder);
+		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_NAME, "name"));
+		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_TYPE, "type"));
+		mapper.addPropertyFilter(new Property(DatabaseType.CATALOG.TABLE_DATABASE, "databaseName"));
+		Writer<Object> writer = new ObjectReflectWriter();
+		TableScanner ts = new TableScanner(getConnectionManager()).set(null, null);
+		ts.setMapper(mapper);
+		ts.writeAll(ps, writer);
 	}
 	
 }

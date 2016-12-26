@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public enum TypeWriter {
+public enum WriterTypes {
 	
 	BOOLEAN {
 		@Override
@@ -58,8 +58,8 @@ public enum TypeWriter {
 	
 	public abstract void write(StreamWriter sw, String name, Object obj) throws Exception;
 	
-	public static final TypeWriter writerfor(String className){
-		TypeWriter[] classNames = values();
+	public static final WriterTypes writerfor(String className){
+		WriterTypes[] classNames = values();
 		int i=0, size = classNames.length -1;
 		int index = className.lastIndexOf(".");
 		className = className.substring(index+1, className.length()).toUpperCase();

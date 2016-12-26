@@ -23,7 +23,7 @@ public class ObjectReflectWriter implements Writer<Object> {
 		for(Property property : Properties) {
 			String name = property.getName();
 			Method method = derivedClass.getMethod(Utils.getterOf(name));
-			TypeWriter tw = TypeWriter.writerfor(property.getClassName());
+			WriterTypes tw = WriterTypes.writerfor(property.getClassName());
 			methodMap.put(name, new MethodTypeWriter(tw, method));
 		}
 	}
@@ -39,10 +39,10 @@ public class ObjectReflectWriter implements Writer<Object> {
 	
 	private static class MethodTypeWriter {
 		
-		TypeWriter tw;
+		WriterTypes tw;
 		Method method;
 		
-		public MethodTypeWriter(TypeWriter tw, Method method) {
+		public MethodTypeWriter(WriterTypes tw, Method method) {
 			this.tw = tw;
 			this.method = method;
 		}

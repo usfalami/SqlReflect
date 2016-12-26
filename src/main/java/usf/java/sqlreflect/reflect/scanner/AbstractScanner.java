@@ -46,6 +46,10 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		return mapper;
 	}
 	
+	public void setMapper(Mapper<R> mapper) {
+		this.mapper = mapper;
+	}
+	
 	public final Collection<R> run() throws Exception {
 		ListAdapter<R> adapter = new ListAdapter<R>();
 		run(adapter);
