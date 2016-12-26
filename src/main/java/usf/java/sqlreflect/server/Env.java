@@ -3,6 +3,7 @@ package usf.java.sqlreflect.server;
 import java.util.Properties;
 
 import usf.java.sqlreflect.Constants;
+import usf.java.sqlreflect.reflect.Utils;
 
 public class Env {
 
@@ -16,7 +17,7 @@ public class Env {
 	public Env(String host, String database, int port, String params) {
 		this.host = host;
 		this.database = database;
-		this.params = params == null ? "" : params;
+		this.params = Utils.isNull(params) ? "" : params;
 		this.port = port;
 	}
 	

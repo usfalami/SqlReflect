@@ -7,6 +7,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 
+import usf.java.sqlreflect.reflect.Utils;
+
 public class ParameterFactory {
 	
 	//BIT wrapper
@@ -57,11 +59,11 @@ public class ParameterFactory {
 	}	
 	// VARCHAR wrapper
 	public static final Parameter<String> VARCHAR_WRAPPER(Object obj){
-		return new Parameter<String>(Types.VARCHAR, obj == null ? null : obj.toString());  
+		return new Parameter<String>(Types.VARCHAR, Utils.isNull(obj) ? null : obj.toString());  
 	}
 	// LONGVARCHAR wrapper
 	public static final Parameter<String> LONGVARCHAR_WRAPPER(Object obj){
-		return new Parameter<String>(Types.LONGVARCHAR, obj == null ? null : obj.toString());  
+		return new Parameter<String>(Types.LONGVARCHAR, Utils.isNull(obj) ? null : obj.toString());  
 	}
 	// Array wrapper
 	public static final <T> Parameter<T[]> ARRAY_WRAPPER(T[] arr){
@@ -75,7 +77,7 @@ public class ParameterFactory {
 		return new Parameter<Date>(Types.DATE, value);  
 	}
 	public static final Parameter<Date> DATE_WRAPPER(java.util.Date value){
-		return new Parameter<Date>(Types.DATE, value == null ? null : new Date(value.getTime()));  
+		return new Parameter<Date>(Types.DATE, Utils.isNull(value) ? null : new Date(value.getTime()));  
 	}
 	// TIMESTAMP wrapper
 	public static final Parameter<Timestamp> TIMESTAMP_WRAPPER(long value){
@@ -85,7 +87,7 @@ public class ParameterFactory {
 		return new Parameter<Timestamp>(Types.TIMESTAMP, value);  
 	}
 	public static final Parameter<Timestamp> TIMESTAMP_WRAPPER(java.util.Date value){
-		return new Parameter<Timestamp>(Types.TIMESTAMP, value == null ? null : new Timestamp(value.getTime()));  
+		return new Parameter<Timestamp>(Types.TIMESTAMP, Utils.isNull(value) ? null : new Timestamp(value.getTime()));  
 	}
 	// TIME wrapper
 	public static final Parameter<Time> TIME_WRAPPER(long value){
@@ -95,7 +97,7 @@ public class ParameterFactory {
 		return new Parameter<Time>(Types.TIME, value);  
 	}
 	public static final Parameter<Time> TIME_WRAPPER(java.util.Date value){
-		return new Parameter<Time>(Types.TIME, value == null ? null : new Time(value.getTime()));  
+		return new Parameter<Time>(Types.TIME, Utils.isNull(value) ? null : new Time(value.getTime()));  
 	}
 	// Object wrapper
 	public static final Parameter<Object> OBJECT_WRAPPER(Object obj){

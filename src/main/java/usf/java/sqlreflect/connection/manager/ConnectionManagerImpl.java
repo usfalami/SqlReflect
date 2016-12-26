@@ -68,7 +68,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
 	
 	@Override
 	public boolean isClosed() throws SQLException {
-		return connection == null || connection.isClosed();
+		return Utils.isNull(connection) || connection.isClosed();
 	}
 	
 	@Override
