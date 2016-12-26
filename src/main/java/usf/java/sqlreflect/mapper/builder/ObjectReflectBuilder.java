@@ -7,11 +7,11 @@ import java.util.Map;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.Utils;
 
-public class ObjectReflectBuild implements Builder<Object> {
+public class ObjectReflectBuilder implements Builder<Object> {
 	
 	private Map<String, Method> methodMap;
 	
-	public ObjectReflectBuild() {
+	public ObjectReflectBuilder() {
 		methodMap = new HashMap<String, Method>();
 	}
 

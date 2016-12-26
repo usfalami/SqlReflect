@@ -15,7 +15,7 @@ import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.GenericMapper;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.builder.Builder;
-import usf.java.sqlreflect.mapper.builder.ObjectReflectBuild;
+import usf.java.sqlreflect.mapper.builder.ObjectReflectBuilder;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
@@ -125,8 +125,8 @@ public class ContextLoader {
 
 		ex1();
 //		
-//		//[database]	select * 
-//		new DatabaseScanner(cm).writeAll(ps, writer);
+		//[database]	select * 
+		new DatabaseScanner(cm).writeAll(ps, writer);
 		//[Table] 		select mysql.time_zone%
 		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps, writer);
 		//[View] 		sys.%io
@@ -154,7 +154,7 @@ public class ContextLoader {
 
 		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
-		Builder<Object> builder = new ObjectReflectBuild();
+		Builder<Object> builder = new ObjectReflectBuilder();
 		GenericMapper<Table> mapper = new GenericMapper<Table>(Table.class, builder);
 		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_NAME, "name"));
 		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_TYPE, "type"));
