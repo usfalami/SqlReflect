@@ -18,8 +18,8 @@ public class ObjectReflectBuilder implements Builder<Object> {
 	@Override
 	public <D extends Object> void prepare(Class<D> derivedClass, Property property) throws Exception {
 		String name = property.getName();
-		Class<?> argClazz = Class.forName(property.getClassName());
-		Method method = derivedClass.getMethod(Utils.setterOf(name), argClazz);
+		Class<?> argClass = Class.forName(property.getClassName());
+		Method method = derivedClass.getMethod(Utils.setterOf(name), argClass);
 		methodMap.put(name, method);
 	}
 
