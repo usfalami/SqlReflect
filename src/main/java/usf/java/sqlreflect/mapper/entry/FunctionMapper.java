@@ -22,9 +22,8 @@ public class FunctionMapper extends DefaultMapper<Function> {
 	
 	@Override
 	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		addPropertyFilter(new Property(type.FUNCTION_DATABASE, SqlConstants.DATABASE_NAME));
-		addPropertyFilter(new PropertyConverter(
-				SqlConstants.FUNCTION_TYPE, 
+		addPropertyFilter(new Property(SqlConstants.DATABASE_NAME, type.FUNCTION_DATABASE));
+		addPropertyFilter(new PropertyConverter(SqlConstants.FUNCTION_TYPE, 
 				new LabelIndexConverter<FunctionTypes>(FunctionTypes.class)
 			));
 		return super.prepare(rs, type);

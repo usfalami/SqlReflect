@@ -26,8 +26,8 @@ public class ImportedKeyMapper extends DefaultMapper<ImportedKey> {
 	@Override
 	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		Converter<?> converter = new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class);
-		addPropertyFilter(new Property(type.PK_TABLE_DATABASE, SqlConstants.PK_DATABASE_NAME));
-		addPropertyFilter(new Property(type.FK_TABLE_DATABASE, SqlConstants.FK_DATABASE_NAME));
+		addPropertyFilter(new Property(SqlConstants.PK_DATABASE_NAME, type.PK_TABLE_DATABASE));
+		addPropertyFilter(new Property(SqlConstants.FK_DATABASE_NAME, type.FK_TABLE_DATABASE));
 		addPropertyFilter(new PropertyConverter(SqlConstants.UPDATE_RULE, converter));
 		addPropertyFilter(new PropertyConverter(SqlConstants.DELETE_RULE, converter));
 		return super.prepare(rs, type);

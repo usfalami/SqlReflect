@@ -22,9 +22,8 @@ public class ProcedureMapper extends DefaultMapper<Procedure> {
 	
 	@Override
 	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		addPropertyFilter(new Property(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME));
-		addPropertyFilter(new PropertyConverter(
-				SqlConstants.PROCEDURE_TYPE, 
+		addPropertyFilter(new Property(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE));
+		addPropertyFilter(new PropertyConverter(SqlConstants.PROCEDURE_TYPE, 
 				new LabelIndexConverter<ProcedureTypes>(ProcedureTypes.class)
 			));
 		return super.prepare(rs, type);

@@ -123,27 +123,28 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 
-		ex1();
 //		
 		//[database]	select * 
 		new DatabaseScanner(cm).writeAll(ps, writer);
 		//[Table] 		select mysql.time_zone%
 		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps, writer);
 		//[View] 		sys.%io
-//		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
-//		//[Column] 		world_x .*
-//		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
-//		//[Procedure] 			sys.*
-//		new ProcedureScanner(cm).set("sys", null).writeAll(ps, writer);
-//		//[PK] 			country
-//		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
-//		//[FK]	
-//		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
-//		//[Row] 		SELECT * FROM country
-//		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
-//		//[Header] 		SELECT * FROM country
-//		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
+		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps, writer);
+		//[Column] 		world_x .*
+		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps, writer);
+		//[Procedure] 			sys.*
+		new ProcedureScanner(cm).set("sys", null).writeAll(ps, writer);
+		//[PK] 			country
+		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps, writer);
+		//[FK]	
+		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
+		//[Row] 		SELECT * FROM country
+		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
+		//[Header] 		SELECT * FROM country
+		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		
+
+		ex1();
 		
 		ps.end();
 		
@@ -156,9 +157,9 @@ public class ContextLoader {
 		
 		Builder<Object> builder = new ObjectReflectBuilder();
 		DefaultMapper<Table> mapper = new DefaultMapper<Table>(Table.class, builder);
-		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_NAME, "name"));
-		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_TYPE, "type"));
-		mapper.addPropertyFilter(new Property(DatabaseType.CATALOG.TABLE_DATABASE, "databaseName"));
+		mapper.addPropertyFilter(new Property("name", SqlConstants.TABLE_NAME));
+		mapper.addPropertyFilter(new Property("type", SqlConstants.TABLE_TYPE));
+		mapper.addPropertyFilter(new Property("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
 		Writer<Object> writer = new ObjectReflectWriter();
 		TableScanner ts = new TableScanner(getConnectionManager()).set(null, null);
 		ts.setMapper(mapper);

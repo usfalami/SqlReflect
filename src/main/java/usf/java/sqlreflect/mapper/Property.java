@@ -11,9 +11,9 @@ public class Property {
 	public Property(String columnName) {
 		this(columnName, columnName);
 	}
-	public Property(String columnName, String propertyName) {
+	public Property(String name, String columnName) {
+		this.name = name;
 		this.columnName = columnName;
-		this.name = propertyName;
 	}
 
 	public String getColumnName() {

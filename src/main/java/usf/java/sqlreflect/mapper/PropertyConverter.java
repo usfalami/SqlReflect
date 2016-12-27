@@ -15,8 +15,8 @@ public class PropertyConverter extends Property {
 		this.converter = converter;
 	}
 	
-	public PropertyConverter(String columnName, String propertyName, Converter<?> converter) {
-		super(columnName, propertyName);
+	public PropertyConverter(String name, String columnName, Converter<?> converter) {
+		super(name, columnName);
 		this.converter = converter;
 	}
 	
@@ -34,11 +34,13 @@ public class PropertyConverter extends Property {
 	
 	@Override
 	public String getClassName() {
+		String className = null;
 		try {
-			return Utils.converterReturnType(converter.getClass()).getName();
+			className = Utils.converterReturnType(converter.getClass()).getName();
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
+			className = super.getClassName();
 		}
-		return null;
+		return className;
 	}
 }

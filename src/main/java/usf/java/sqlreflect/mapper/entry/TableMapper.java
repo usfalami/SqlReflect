@@ -19,7 +19,7 @@ public class TableMapper extends DefaultMapper<Table> {
 	
 	@Override
 	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		addPropertyFilter(new Property(type.TABLE_DATABASE, SqlConstants.DATABASE_NAME));
+		addPropertyFilter(new Property(SqlConstants.DATABASE_NAME, type.TABLE_DATABASE));
 		return super.prepare(rs, type);
 	}
 

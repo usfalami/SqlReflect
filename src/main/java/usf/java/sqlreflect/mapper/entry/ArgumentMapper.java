@@ -23,10 +23,10 @@ public class ArgumentMapper extends DefaultMapper<Argument> {
 	
 	@Override
 	public Collection<Property> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		addPropertyFilter(new Property(type.PROCEDURE_DATABASE, SqlConstants.DATABASE_NAME));
-		addPropertyFilter(new PropertyConverter(
-				SqlConstants.COLUMN_TYPE, 
-				new LabelIndexConverter<ParameterTypes>(ParameterTypes.class)));
+		addPropertyFilter(new Property(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE));
+		addPropertyFilter(new PropertyConverter(SqlConstants.COLUMN_TYPE, 
+				new LabelIndexConverter<ParameterTypes>(ParameterTypes.class)
+			));
 		return super.prepare(rs, type);
 	}
 
