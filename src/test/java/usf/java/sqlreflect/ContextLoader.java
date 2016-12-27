@@ -12,7 +12,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.mapper.GenericMapper;
+import usf.java.sqlreflect.mapper.DefaultMapper;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.builder.Builder;
 import usf.java.sqlreflect.mapper.builder.ObjectReflectBuilder;
@@ -155,7 +155,7 @@ public class ContextLoader {
 		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
 		Builder<Object> builder = new ObjectReflectBuilder();
-		GenericMapper<Table> mapper = new GenericMapper<Table>(Table.class, builder);
+		DefaultMapper<Table> mapper = new DefaultMapper<Table>(Table.class, builder);
 		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_NAME, "name"));
 		mapper.addPropertyFilter(new Property(SqlConstants.TABLE_TYPE, "type"));
 		mapper.addPropertyFilter(new Property(DatabaseType.CATALOG.TABLE_DATABASE, "databaseName"));

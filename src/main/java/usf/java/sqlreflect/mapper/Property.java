@@ -41,9 +41,9 @@ public class Property {
 	}
 
 	public static Property get(ResultSetMetaData md, int index) throws SQLException {
-		Property peoperty = new Property(md.getColumnName(index));
-		peoperty.setClassName(md.getColumnClassName(index));
-		return peoperty;
+		Property property = new Property(md.getColumnName(index));
+		property.setClassName(md.getColumnClassName(index));
+		return property;
 	}
 	
 	public Object get(ResultSet rs) throws SQLException{

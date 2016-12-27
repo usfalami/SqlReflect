@@ -11,7 +11,7 @@ import usf.java.sqlreflect.mapper.builder.Builder;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class GenericMapper<T> implements Mapper<T> {
+public class DefaultMapper<T> implements Mapper<T> {
 
 	private Class<T> mappedClass;
 	private Builder<? super T> builder;
@@ -19,7 +19,7 @@ public class GenericMapper<T> implements Mapper<T> {
 	
 	private Collection<Property> propertiesList;
 
-	public GenericMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
+	public DefaultMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
 		this.mappedClass = mappedClassName;
 		this.builder = mapperHandler;
 		this.propertiesMap = new HashMap<String, Property>();
