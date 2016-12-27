@@ -3,10 +3,10 @@ package usf.java.sqlreflect.reflect.executor;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 
 public class UpdateExecutor<A> extends AbstractStatementExecutor<Integer> {
 

@@ -3,10 +3,10 @@ package usf.java.sqlreflect.reflect.scanner;
 import java.sql.DatabaseMetaData;
 
 import usf.java.sqlreflect.Constants;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
 public class NativeFunctionScanner extends AbstractScanner<String> {

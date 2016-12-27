@@ -3,7 +3,7 @@ package usf.java.sqlreflect.server;
 import java.util.Properties;
 
 import usf.java.sqlreflect.Constants;
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public class Env {
 

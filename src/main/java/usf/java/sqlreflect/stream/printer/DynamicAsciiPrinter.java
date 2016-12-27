@@ -4,7 +4,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public class DynamicAsciiPrinter implements Printer {
 	

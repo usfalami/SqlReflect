@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.server.User;

@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Property;
-import usf.java.sqlreflect.reflect.Utils;
 
 public class ObjectReflectBuilder implements Builder<Object> {
 	

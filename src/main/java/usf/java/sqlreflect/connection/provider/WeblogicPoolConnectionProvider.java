@@ -7,7 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.server.User;
 
 public class WeblogicPoolConnectionProvider extends DataSourceConnectionProvider {

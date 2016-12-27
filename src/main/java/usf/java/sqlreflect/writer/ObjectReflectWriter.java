@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Property;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ObjectReflectWriter implements Writer<Object> {

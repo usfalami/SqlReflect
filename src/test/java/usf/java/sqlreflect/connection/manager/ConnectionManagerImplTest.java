@@ -20,11 +20,11 @@ import org.junit.Test;
 import usf.java.sqlreflect.ContextLoader;
 import usf.java.sqlreflect.Queries;
 import usf.java.sqlreflect.Queries.Helper;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.BinderProxy;
 import usf.java.sqlreflect.binder.EntryMultiBinder;
 import usf.java.sqlreflect.binder.ParameterBinder;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.entry.Entry;
 

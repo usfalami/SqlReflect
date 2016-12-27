@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.Server;
 
 public class ConnectionManagerImpl implements ConnectionManager {

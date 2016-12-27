@@ -3,8 +3,8 @@ package usf.java.sqlreflect.transaction;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.reflect.ReflectorFactory;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Transaction;
 
 public class TransactionProxy implements Transaction {

@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import usf.java.sqlreflect.Constants;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {

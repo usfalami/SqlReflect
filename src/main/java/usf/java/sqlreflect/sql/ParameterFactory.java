@@ -7,7 +7,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public class ParameterFactory {
 	

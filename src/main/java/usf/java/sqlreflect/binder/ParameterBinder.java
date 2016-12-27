@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.List;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
 

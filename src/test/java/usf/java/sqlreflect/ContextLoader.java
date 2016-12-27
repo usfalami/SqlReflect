@@ -17,7 +17,6 @@ import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.builder.Builder;
 import usf.java.sqlreflect.mapper.builder.ObjectReflectBuilder;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;

@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.reflect;
+package usf.java.sqlreflect;
 
 import java.lang.reflect.Method;
 import java.util.Collection;

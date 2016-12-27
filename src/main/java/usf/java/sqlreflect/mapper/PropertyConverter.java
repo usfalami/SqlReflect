@@ -3,8 +3,8 @@ package usf.java.sqlreflect.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.converter.Converter;
-import usf.java.sqlreflect.reflect.Utils;
 
 public class PropertyConverter extends Property {
 	

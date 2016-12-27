@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public class BinderProxy<T> implements Binder<T> {
 

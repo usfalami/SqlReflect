@@ -3,7 +3,7 @@ package usf.java.sqlreflect.stream.printer;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public abstract class AbstractAsciiPrinter<T> implements Printer {
 	

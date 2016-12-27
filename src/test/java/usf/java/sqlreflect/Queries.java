@@ -2,7 +2,6 @@ package usf.java.sqlreflect;
 
 import java.util.List;
 
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;

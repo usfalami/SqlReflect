@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.builder.Builder;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class DefaultMapper<T> implements Mapper<T> {

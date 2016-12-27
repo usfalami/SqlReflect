@@ -1,6 +1,7 @@
 package usf.java.sqlreflect.reflect;
 
 import usf.java.sqlreflect.Constants;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 

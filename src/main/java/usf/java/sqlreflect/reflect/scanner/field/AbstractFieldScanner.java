@@ -4,11 +4,11 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.Constants;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.AbstractScanner;
 
 public abstract class AbstractFieldScanner<R> extends AbstractScanner<R> {

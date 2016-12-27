@@ -3,7 +3,7 @@ package usf.java.sqlreflect.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.sql.Runnable;
 import usf.java.sqlreflect.sql.SqlQuery;
 import usf.java.sqlreflect.sql.entry.Callable;

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.stream.printer;
 
 import java.io.OutputStream;
 
-import usf.java.sqlreflect.reflect.Utils;
+import usf.java.sqlreflect.Utils;
 
 public class MultipleSizeAsciiPrinter extends AbstractAsciiPrinter<int[]> {
 	

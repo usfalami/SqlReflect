@@ -20,7 +20,6 @@ import java.util.Vector;
 import org.junit.Test;
 
 import usf.java.sqlreflect.binder.ParameterBinder;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.server.User;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
