@@ -22,4 +22,8 @@ public interface Constants {
 	String TIMER_END 		= "End";
 	String TIMER_DURATION 	= "Duration";
 	
+	String PROPERTY_SETTER = "SETTER";
+	String PROPERTY_GETTER = "GETTER";
+	String OBJECT_WRITER 	= "WRITER";
+	
 }
