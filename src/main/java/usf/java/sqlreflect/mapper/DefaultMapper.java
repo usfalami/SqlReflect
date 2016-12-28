@@ -44,7 +44,7 @@ public class DefaultMapper<T> implements Mapper<T> {
 		T object = mappedClass.newInstance();
 		for(Property property : propertiesList) {
 			Object value = property.get(rs);
-			builder.set(object, property.getName(), value);
+			builder.set(object, property, value);
 		}
 		return object;
 	}

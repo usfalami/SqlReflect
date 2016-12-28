@@ -11,8 +11,8 @@ public class EntryBuilder implements Builder<Entry> {
 	}
 
 	@Override
-	public void set(Entry obj, String propertyName, Object value) {
-		obj.set(propertyName, value);
+	public void set(Entry obj, Property property, Object value) {
+		obj.set(property.getName(), value);
 	}
 
 }

@@ -19,7 +19,7 @@ public class ObjectReflectWriter implements Writer<Object> {
 			Method method = derivedClass.getMethod(Utils.getterOf(name));
 			WriterTypes tw = WriterTypes.writerfor(property.getClassName());
 			property.setField("writer", tw);
-			property.setField("setter", method);
+			property.setField("getter", method);
 		}
 	}
 
@@ -27,7 +27,7 @@ public class ObjectReflectWriter implements Writer<Object> {
 	public void write(StreamWriter writer, Object obj) throws Exception {
 		for(Property property : properties) {
 			WriterTypes type = property.getField("writer");
-			Method method = property.getField("setter");
+			Method method = property.getField("getter");
 			String name = property.getName();
 			Object value = method.invoke(obj);
 			type.write(writer, name, value);

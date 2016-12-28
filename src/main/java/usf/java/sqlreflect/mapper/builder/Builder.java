@@ -7,6 +7,6 @@ public interface Builder<C> extends Handler {
 
 	 <D extends C> void prepare(Class<D> derivedClass, Property property) throws Exception;
 	
-	 void set(C obj, String propertyName, Object value) throws Exception;
+	 void set(C obj, Property property, Object value) throws Exception;
 
 }
