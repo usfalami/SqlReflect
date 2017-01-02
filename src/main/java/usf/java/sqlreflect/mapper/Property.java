@@ -9,7 +9,7 @@ import java.util.Map;
 public class Property {
 	
 	private String columnName, name, className;
-	private Map<String, Object> map;
+	private Map<String, Object> attributes;
 	
 	public Property(String columnName) {
 		this(columnName, columnName);
@@ -17,7 +17,7 @@ public class Property {
 	public Property(String name, String columnName) {
 		this.name = name;
 		this.columnName = columnName;
-		this.map = new HashMap<String, Object>();
+		this.attributes = new HashMap<String, Object>();
 	}
 
 	public String getColumnName() {
@@ -45,10 +45,10 @@ public class Property {
 	}
 	
 	public void setField(String key, Object obj) {
-		map.put(key, obj);
+		attributes.put(key, obj);
 	}
 	public <T> T getField(String key) {
-		return (T) map.get(key);
+		return (T) attributes.get(key);
 	}
 	
 	public Object get(ResultSet rs) throws SQLException{
