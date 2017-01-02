@@ -17,7 +17,7 @@ public class Property {
 	public Property(String name, String columnName) {
 		this.name = name;
 		this.columnName = columnName;
-		map = new HashMap<String, Object>();
+		this.map = new HashMap<String, Object>();
 	}
 
 	public String getColumnName() {
@@ -48,7 +48,7 @@ public class Property {
 		map.put(key, obj);
 	}
 	public <T> T getField(String key) {
-		return (T)map.get(key);
+		return (T) map.get(key);
 	}
 	
 	public Object get(ResultSet rs) throws SQLException{

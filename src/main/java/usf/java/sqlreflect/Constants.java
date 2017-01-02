@@ -16,6 +16,7 @@ public interface Constants {
 	String ACTION_PREPARATION 	= "PREPARATION";
 	String ACTION_PROCESSING 	= "PROCESSING";
 	String ACTION_TRANSACTION 	= "TRANSACTION";
+	String ACTION_ROLLBACK 		= "ROLLBACK";
 
 	String TIMER_ACTION 	= "Action";
 	String TIMER_START 		= "Start";
