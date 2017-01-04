@@ -6,7 +6,7 @@ import usf.java.sqlreflect.sql.entry.Entry;
 public class EntryBuilder implements Builder<Entry> {
 	
 	@Override
-	public <D extends Entry> void prepare(Class<D> derivedClass, Property property) {
+	public void prepare(Class<? extends Entry> derivedClass, Property property) {
 		
 	}
 

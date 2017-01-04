@@ -9,7 +9,7 @@ import usf.java.sqlreflect.mapper.Property;
 public class ObjectReflectBuilder implements Builder<Object> {
 
 	@Override
-	public <D extends Object> void prepare(Class<D> derivedClass, Property property) throws Exception {
+	public void prepare(Class<? extends Object> derivedClass, Property property) throws Exception {
 		String name = property.getName();
 		Class<?> argClass = Class.forName(property.getClassName());
 		Method method = derivedClass.getMethod(Utils.setterOf(name), argClass);
