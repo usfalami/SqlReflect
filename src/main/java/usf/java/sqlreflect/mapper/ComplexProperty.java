@@ -16,16 +16,16 @@ public class ComplexProperty<T> extends Field<T> {
 	private Generic<T> proxy;
 
 	@Override
-	public T get(ResultSet rs) throws Exception {
-		return proxy.get(rs);
-	}
-	
-	@Override
 	public void prepare(Class<?> parentClass) throws Exception {
 		super.prepare(parentClass);
 		proxy = Utils.isNull(id) ? new NoIdMapperProxy() : new IdMapperProxy();
 		for(Field<?> field : fields)
 			field.prepare(type);
+	}
+	
+	@Override
+	public T get(ResultSet rs) throws Exception {
+		return proxy.get(rs);
 	}
 	
 	private class NoIdMapperProxy implements Generic<T> {
@@ -40,12 +40,15 @@ public class ComplexProperty<T> extends Field<T> {
 		}
 	}
 	private class IdMapperProxy implements Generic<T> {
+		
+		private Generic<T> noIdMapperProxy = new NoIdMapperProxy();
+		
 		@Override
 		public T get(ResultSet rs) throws Exception {
 			Object key = id.get(rs);
 			T obj = map.get(key);
 			if(Utils.isNull(obj)){
-				obj = new NoIdMapperProxy().get(rs);
+				obj = noIdMapperProxy.get(rs);
 				id.set(obj, key);
 				map.put(key, obj);
 			}else{
