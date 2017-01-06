@@ -6,10 +6,10 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Property;
 
-public class ObjectReflectBuilder implements Builder<Object> {
+public class ObjectReflectBuilder implements Builder {
 
 	@Override
-	public void prepare(Class<? extends Object> derivedClass, Property property) throws Exception {
+	public void prepare(Class<?> derivedClass, Property property) throws Exception {
 		String name = property.getName();
 		Class<?> argClass = Class.forName(property.getClassName());
 		Method method = derivedClass.getMethod(Utils.setterOf(name), argClass);

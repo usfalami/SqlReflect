@@ -13,7 +13,7 @@ public class ObjectReflectWriter implements Writer<Object> {
 	private Collection<Property> properties;
 
 	@Override
-	public <D extends Object> void prepare(Class<D> derivedClass, Collection<Property> properties) throws Exception {
+	public void prepare(Class<? extends Object> derivedClass, Collection<Property> properties) throws Exception {
 		this.properties = properties;
 		for(Property property : properties) {
 			String name = property.getName();

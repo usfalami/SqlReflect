@@ -154,7 +154,7 @@ public class ContextLoader {
 
 		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
-		Builder<Object> builder = new ObjectReflectBuilder();
+		Builder builder = new ObjectReflectBuilder();
 		DefaultMapper<Table> mapper = new DefaultMapper<Table>(Table.class, builder);
 		mapper.addPropertyFilter(new Property("name", SqlConstants.TABLE_NAME));
 		mapper.addPropertyFilter(new Property("type", SqlConstants.TABLE_TYPE));

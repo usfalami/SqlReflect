@@ -8,7 +8,7 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public interface Writer<T> extends Handler {
 	
-	 <D extends T> void prepare(Class<D> derivedClass, Collection<Property> properties) throws Exception;
+	 void prepare(Class<? extends T> derivedClass, Collection<Property> properties) throws Exception;
 	
 	void write(StreamWriter writer, T obj) throws Exception;
 	

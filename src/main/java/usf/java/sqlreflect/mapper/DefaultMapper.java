@@ -14,12 +14,12 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class DefaultMapper<T> implements Mapper<T> {
 
 	private Class<T> mappedClass;
-	private Builder<? super T> builder;
+	private Builder builder;
 	private Map<String, Property> propertiesMap;
 	
 	private Collection<Property> propertiesList;
 
-	public DefaultMapper(Class<T> mappedClassName, Builder<? super T> mapperHandler, String... selectedColumnNames) {
+	public DefaultMapper(Class<T> mappedClassName, Builder mapperHandler, String... selectedColumnNames) {
 		this.mappedClass = mappedClassName;
 		this.builder = mapperHandler;
 		this.propertiesMap = new HashMap<String, Property>();
@@ -75,6 +75,7 @@ public class DefaultMapper<T> implements Mapper<T> {
 			String columnName = rm.getColumnName(i);
 			Property mt = propertiesMap.get(columnName);
 			if(Utils.isNotNull(mt)) {
+				//if className isEmpty
 				mt.setClassName(rm.getColumnClassName(i));
 				builder.prepare(mappedClass, mt);
 				propertiesList.add(mt);

@@ -19,7 +19,7 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 	);
 
 	@Override
-	public <D extends ActionTimer> void prepare(Class<D> derivedClass, Collection<Property> properties){ }
+	public void prepare(Class<? extends ActionTimer> derivedClass, Collection<Property> properties){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {

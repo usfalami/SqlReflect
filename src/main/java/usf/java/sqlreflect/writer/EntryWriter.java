@@ -11,7 +11,7 @@ public class EntryWriter implements Writer<Entry> {
 	private Collection<Property> properties;
 
 	@Override
-	public<D extends Entry> void prepare(Class<D> derivedClass, Collection<Property> properties) {
+	public void prepare(Class<? extends Entry> derivedClass, Collection<Property> properties) {
 		this.properties = properties;
 		for(Property property : properties) {
 			WriterTypes tw = WriterTypes.writerfor(property.getClassName());
