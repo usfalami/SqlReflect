@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.DefaultMapper;
+import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.builder.EntryBuilder;
 import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
-public class PrimaryKeyMapper extends DefaultMapper<PrimaryKey> {
+public class PrimaryKeyMapper extends SimpleObjectMapper<PrimaryKey> {
 	
 	public PrimaryKeyMapper() {
 		super(PrimaryKey.class, new EntryBuilder(),

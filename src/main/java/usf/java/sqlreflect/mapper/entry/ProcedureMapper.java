@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.DefaultMapper;
+import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.mapper.PropertyConverter;
 import usf.java.sqlreflect.mapper.builder.EntryBuilder;
@@ -13,7 +13,7 @@ import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;
 
-public class ProcedureMapper extends DefaultMapper<Procedure> {
+public class ProcedureMapper extends SimpleObjectMapper<Procedure> {
 	
 	public ProcedureMapper() {
 		super(Procedure.class, new EntryBuilder(), 
