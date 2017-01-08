@@ -137,7 +137,7 @@ public class ContextLoader {
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps);
 		
-//		new NativeFunctionScanner(cm).set(NativeFunctions.TIME_DATE).writeAll(ps);
+		new NativeFunctionScanner(cm).set(NativeFunctions.TIME_DATE).writeAll(ps);
 		
 		ex1();
 

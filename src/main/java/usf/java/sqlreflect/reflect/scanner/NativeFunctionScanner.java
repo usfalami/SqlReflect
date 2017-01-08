@@ -6,6 +6,7 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
+import usf.java.sqlreflect.mapper.BasicProperty;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
@@ -51,5 +52,5 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		return this;
 	}
 	
-	private Template<String> template = new SimpleProperty<String>("NativeFunction", String.class);
+	private Template<String> template = new BasicProperty<String>("NativeFunction", String.class);
 }
