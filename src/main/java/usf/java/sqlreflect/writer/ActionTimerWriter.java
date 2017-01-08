@@ -14,15 +14,14 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private static final ObjectTemplate<ActionTimer> complexObject;
+	private static final List<Field<?>> ACTIONTIMER_FIELDS;
 	
-
 	@Override
 	public void prepare(Template<? extends ActionTimer> complexObject){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
-		writer.startList("Times", complexObject);
+		writer.startList("Times", ACTIONTIMER_FIELDS);
 		recusiveWrite(writer, at, 0);
 		writer.endList();
 	}
@@ -40,11 +39,10 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 	}
 
 	static {
-		List<Field<?>> fields = new ArrayList<Field<?>>();
-		fields.add(new SimpleProperty<String>(Constants.TIMER_ACTION));
-		fields.add(new SimpleProperty<String>(Constants.TIMER_START));
-		fields.add(new SimpleProperty<String>(Constants.TIMER_END));
-		fields.add(new SimpleProperty<String>(Constants.TIMER_DURATION));
-		complexObject = new ObjectTemplate<ActionTimer>(ActionTimer.class, fields);
+		ACTIONTIMER_FIELDS = new ArrayList<Field<?>>();
+		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_ACTION));
+		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_START));
+		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_END));
+		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_DURATION));
 	}
 }

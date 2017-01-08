@@ -2,7 +2,7 @@ package usf.java.sqlreflect.sql.entry;
 
 import usf.java.sqlreflect.SqlConstants;
 
-public class ImportedKey extends Entry {
+public class ImportedKey extends GenericType {
 	
 	
 	public String getPrimaryKeyTable() {

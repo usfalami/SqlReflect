@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ComplexProperty<T> extends Field<T> {
 
@@ -52,6 +53,14 @@ public class ComplexProperty<T> extends Field<T> {
 			field.setValue(obj, value);
 		}
 		return obj;
+	}
+	
+	@Override
+	public void write(StreamWriter sw, T obj) throws Exception {
+		sw.startObject(type.getSimpleName());
+		for(Field field : fields)
+			field.write(sw, field.getValue(obj));
+		sw.endObject();
 	}
 	
 }

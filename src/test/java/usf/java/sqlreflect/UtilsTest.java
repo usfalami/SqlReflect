@@ -23,7 +23,7 @@ import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.server.User;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.GenericType;
 import usf.java.sqlreflect.sql.entry.Table;
 
 public class UtilsTest {
@@ -168,7 +168,7 @@ public class UtilsTest {
 		//		testTrueFindMethod("", "substring", 1, 2); //TODO check primitive variables
 		testFindMethodTrue("", "concat", "");
 		testFindMethodTrue("", "equals", new Double(5)); //Double->Object
-		testFindMethodTrue(new ArrayList<Entry>(), "add", new Table());//Table->Entry
+		testFindMethodTrue(new ArrayList<GenericType>(), "add", new Table());//Table->Entry
 	}
 	@Test(expected=NoSuchMethodException.class)
 	public void testFindMethod2() throws Exception {

@@ -9,15 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Entry {
+public class GenericType {
 	
 	private Map<String, Object> fields;
 	
-	public Entry() {
+	public GenericType() {
 		fields = new HashMap<String, Object>();
 	}
 	
-	public Entry set(String key, Object value) {
+	public GenericType set(String key, Object value) {
 		fields.put(key, value);
 		return this;
 	}

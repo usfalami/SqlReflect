@@ -6,6 +6,7 @@ import java.util.Map;
 
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.stream.StreamWriter;
 
 public abstract class Field<T> implements Generic<T> {
 
@@ -40,12 +41,13 @@ public abstract class Field<T> implements Generic<T> {
 		if(Utils.isNotNull(type))
 			type = (Class<T>) parentGetter.getReturnType();
 		parentSetter = parentClass.getMethod(Utils.setterOf(name), type);
-		//TODO compare type & getter/setter param class
 	}
 	
 	protected void prepare(Map<String, Header> headers) throws Exception {}
 
 	protected void update(Object o, ResultSet rs) throws Exception {}
+	
+	public abstract void write(StreamWriter sw, T obj) throws Exception;
 	
 	public void setValue(Object parent, Object value) throws Exception {
 		parentSetter.invoke(parent, value);

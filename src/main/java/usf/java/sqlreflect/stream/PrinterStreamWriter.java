@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.List;
 
 import usf.java.sqlreflect.mapper.Field;
-import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.stream.printer.DynamicAsciiPrinter;
 import usf.java.sqlreflect.stream.printer.Printer;
 
@@ -70,8 +69,7 @@ public class PrinterStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name,  Template<?> complexObject) throws Exception {
-		List<Field<?>> fields = complexObject.getFields();
+	public void startList(String name, List<Field<?>> fields) throws Exception {
 		String[] columns = new String[fields.size()]; int i=0;
 		for(Field<?> field : fields)
 			columns[i++] = field.getName();

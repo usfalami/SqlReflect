@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.SimpleProperty;
-import usf.java.sqlreflect.mapper.EntryTemplate;
+import usf.java.sqlreflect.mapper.GenericTypeTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.PrimaryKey;
@@ -13,7 +13,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class PrimaryKeyMapper extends SimpleObjectMapper<PrimaryKey> {
 	
 	public PrimaryKeyMapper() {
-		super(new EntryTemplate<PrimaryKey>(PrimaryKey.class, 
+		super(new GenericTypeTemplate<PrimaryKey>(PrimaryKey.class, 
 			SqlConstants.TABLE_NAME,
 			SqlConstants.COLUMN_NAME,
 			SqlConstants.PK_NAME,

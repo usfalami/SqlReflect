@@ -5,7 +5,7 @@ import static junit.framework.TestCase.assertNotNull;
 
 import org.junit.Test;
 
-import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.GenericType;
 
 public class BinderProxyTest {
 
@@ -42,12 +42,12 @@ public class BinderProxyTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_1() throws Exception {
-		Class<MultipleBinder<Entry>> className = null;
+		Class<MultipleBinder<GenericType>> className = null;
 		BinderProxy.get(className, null);
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_2() throws Exception {
-		Class<MultipleBinder<Entry>> className = null;
+		Class<MultipleBinder<GenericType>> className = null;
 		BinderProxy.get(className, "");
 	}
 	@Test(expected=IllegalArgumentException.class)
@@ -62,22 +62,22 @@ public class BinderProxyTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_1() throws Exception {
-		MultipleBinder<Entry> obj = null;
+		MultipleBinder<GenericType> obj = null;
 		BinderProxy.get(obj, null);
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_2() throws Exception {
-		MultipleBinder<Entry> obj = null;
+		MultipleBinder<GenericType> obj = null;
 		BinderProxy.get(obj, "");
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_3() throws Exception {
-		MultipleBinder<Entry> obj = new EntryMultiBinder();
+		MultipleBinder<GenericType> obj = new EntryMultiBinder();
 		BinderProxy.get(obj, null);
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_4() throws Exception {
-		MultipleBinder<Entry> obj = new EntryMultiBinder();
+		MultipleBinder<GenericType> obj = new EntryMultiBinder();
 		BinderProxy.get(obj, "");
 	}
 	
@@ -88,13 +88,13 @@ public class BinderProxyTest {
 	@Test
 	public void testGet5() throws Exception {
 		String method = "findCityByCountryAndDistrict";
-		BinderProxy<Entry> b1 =  BinderProxy.get(EntryMultiBinder.class.getName(), method);
+		BinderProxy<GenericType> b1 =  BinderProxy.get(EntryMultiBinder.class.getName(), method);
 		assertNotNull(b1.getBinder());
 		assertNotNull(b1.getBinderMethodName());
-		BinderProxy<Entry> b2 =  BinderProxy.get(EntryMultiBinder.class, method);
+		BinderProxy<GenericType> b2 =  BinderProxy.get(EntryMultiBinder.class, method);
 		assertNotNull(b2.getBinder());
 		assertNotNull(b2.getBinderMethodName());
-		BinderProxy<Entry> b3 =  BinderProxy.get(new EntryMultiBinder(), method);
+		BinderProxy<GenericType> b3 =  BinderProxy.get(new EntryMultiBinder(), method);
 		assertNotNull(b3.getBinder());
 		assertNotNull(b3.getBinderMethodName());
 		assertEquals(b1.getBinderMethodName(), method);

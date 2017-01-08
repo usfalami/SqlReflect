@@ -55,11 +55,11 @@ public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionMan
 		run(adapter);
 		return adapter.getList();
 	}
-	public final void write(StreamWriter sw, Writer<? super R> writer) throws Exception {
-		run(new ListWriter<R>(sw, writer));
+	public final void write(StreamWriter sw) throws Exception {
+		run(new ListWriter<R>(sw));
 	}
-	public final void writeAll(StreamWriter sw, Writer<? super R> writer) throws Exception {
-		run(new FullWriter<R>(sw, writer));
+	public final void writeAll(StreamWriter sw) throws Exception {
+		run(new FullWriter<R>(sw));
 	}
 	
 }

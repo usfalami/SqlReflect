@@ -3,12 +3,11 @@ package usf.java.sqlreflect.adapter;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.ActionTimerWriter;
-import usf.java.sqlreflect.writer.Writer;
 
 public class FullWriter<T> extends ListWriter<T> {
 	
-	public FullWriter(StreamWriter stream, Writer<? super T> writer) {
-		super(stream, writer);
+	public FullWriter(StreamWriter stream) {
+		super(stream);
 	}
 
 	@Override

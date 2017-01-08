@@ -2,12 +2,13 @@ package usf.java.sqlreflect.stream;
 
 import java.io.Writer;
 import java.sql.Date;
+import java.util.List;
 import java.util.Stack;
 
 import org.json.JSONException;
 import org.json.JSONWriter;
 
-import usf.java.sqlreflect.mapper.Template;
+import usf.java.sqlreflect.mapper.Field;
 
 public class JsonStreamWriter implements StreamWriter {
 	
@@ -67,7 +68,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void startList(String name, Template<?> complexObject) throws Exception {
+	public void startList(String name, List<Field<?>> fields) throws Exception {
 		key(name).array();
 		keys.push(false);
 	}

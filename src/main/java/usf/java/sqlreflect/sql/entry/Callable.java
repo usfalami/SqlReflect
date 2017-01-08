@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.sql.Runnable;
 
-public abstract class Callable extends Entry implements Runnable {
+public abstract class Callable extends GenericType implements Runnable {
 	
 	private String callable, parameters[];
 	private Collection<Argument> arguments;

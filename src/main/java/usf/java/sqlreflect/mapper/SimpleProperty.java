@@ -6,11 +6,14 @@ import java.util.Map;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.stream.StreamWriter;
+import usf.java.sqlreflect.writer.WriterTypes;
 
 public class SimpleProperty<T> extends Field<T> {
 	
 	private String columnName;
 	private Converter<? extends T> converter;
+	private WriterTypes typeWriter = WriterTypes.DEFAULT;
 	
 	private Generic<T> proxy;
 	
@@ -21,6 +24,11 @@ public class SimpleProperty<T> extends Field<T> {
 	public SimpleProperty(String name, String columnName) {
 		super(name);
 		this.columnName = columnName;
+	}
+	public SimpleProperty(String columnName, Class<T> type) {
+		super(columnName);
+		this.columnName = columnName;
+		this.type = type;
 	}
 	public SimpleProperty(String columnName, Converter<? extends T> converter) {
 		super(columnName);
@@ -44,12 +52,19 @@ public class SimpleProperty<T> extends Field<T> {
 			else
 				type = (Class<T>) Utils.converterReturnType(converter.getClass());
 		}
+		//TODO compare type & getter/setter param class
 		proxy = Utils.isNull(converter) ? new MapOnly() : new MapAndConvert();
+		typeWriter = WriterTypes.writerfor(type.getName());
 	}
 
 	@Override
 	public T map(ResultSet rs) throws Exception {
 		return proxy.map(rs);
+	}
+	
+	@Override
+	public void write(StreamWriter sw, T obj) throws Exception {
+		typeWriter.write(sw, name, obj);
 	}
 	
 	private class MapAndConvert implements Generic<T> {

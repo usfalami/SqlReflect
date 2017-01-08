@@ -5,7 +5,7 @@ import java.util.List;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.ParameterFactory;
 import usf.java.sqlreflect.sql.Parameters;
-import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.GenericType;
 
 public interface Queries {
 
@@ -19,7 +19,7 @@ public interface Queries {
 	List<Parameter<?>> select_country_bind_Params_2 = new Parameters(
 			ParameterFactory.CHAR_WRAPPER(select_country_result_2[0].toString())
 	);
-	Entry select_country_bind_Params_3 = new Entry().set("code", select_country_result_1[0]);
+	GenericType select_country_bind_Params_3 = new GenericType().set("code", select_country_result_1[0]);
 	String select_country_query 		= "SELECT * FROM country where code=%s";
 	
 	Object[] insert_country_result		= new Object[]{"XYZ", "MyCountry", null, "ZZ"};

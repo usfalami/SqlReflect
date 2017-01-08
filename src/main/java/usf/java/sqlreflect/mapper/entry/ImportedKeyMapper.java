@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.SimpleProperty;
-import usf.java.sqlreflect.mapper.EntryTemplate;
+import usf.java.sqlreflect.mapper.GenericTypeTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.Converter;
@@ -16,7 +16,7 @@ import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 public class ImportedKeyMapper extends SimpleObjectMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(new EntryTemplate<ImportedKey>(ImportedKey.class,	
+		super(new GenericTypeTemplate<ImportedKey>(ImportedKey.class,	
 			SqlConstants.PKTABLE_NAME,
 			SqlConstants.PKCOLUMN_NAME,
 			SqlConstants.PK_NAME,

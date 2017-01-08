@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import usf.java.sqlreflect.SqlConstants;
 
-public class Table extends Entry {
+public class Table extends GenericType {
 
 	private Collection<Column> columns;
 	

@@ -2,7 +2,7 @@ package usf.java.sqlreflect.sql.entry;
 
 import usf.java.sqlreflect.SqlConstants;
 
-public class Database extends Entry {
+public class Database extends GenericType {
 
 	public String getName() {
 		return getString(SqlConstants.DATABASE_NAME);

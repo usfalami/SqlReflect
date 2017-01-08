@@ -3,8 +3,9 @@ package usf.java.sqlreflect.stream;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
-import usf.java.sqlreflect.mapper.Template;
+import usf.java.sqlreflect.mapper.Field;
 
 public interface StreamWriter {
 	
@@ -19,7 +20,7 @@ public interface StreamWriter {
 	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
-	void startList(String name, Template<?> complexObject) throws Exception;
+	void startList(String name, List<Field<?>> fields) throws Exception;
 	void endList() throws Exception;
 
 	void start() throws Exception;

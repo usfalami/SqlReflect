@@ -29,4 +29,5 @@ public class ObjectTemplate<T> extends ComplexObject<T> implements Template<T> {
 		}
 		super.prepare(map);
 	}
+	
 }

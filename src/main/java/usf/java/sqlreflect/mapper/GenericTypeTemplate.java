@@ -7,12 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import usf.java.sqlreflect.Utils;
-import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.GenericType;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.stream.StreamWriter;
 
-public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implements Template<T> {
+public class GenericTypeTemplate<T extends GenericType> extends ComplexProperty<T> implements Template<T> {
 	
-	public EntryTemplate(Class<T> type, String... propertiesNames) {
+	public GenericTypeTemplate(Class<T> type, String... propertiesNames) {
 		super(null, type);
 		if(!Utils.isEmptyArray(propertiesNames))
 			for(String propertyName : propertiesNames)
@@ -21,13 +22,15 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 
 	@Override
 	public void prepare(ResultSetMetaData metaData) throws Exception {
-		Map<String, Header> headers = new HashMap<String, Header>();
-		if(Utils.isEmptyCollection(fields))
-			prepareAndFillProperties(metaData, headers);
-		else
-			prepare(metaData, headers);
-		for(Field<?> field : fields)
-			field.prepare(headers);
+		if(Utils.isNotNull(metaData)){
+			Map<String, Header> headers = new HashMap<String, Header>();
+			if(Utils.isEmptyCollection(fields))
+				prepareAndFillProperties(metaData, headers);
+			else
+				prepare(metaData, headers);
+			for(Field<?> field : fields)
+				field.prepare(headers);
+		}
 	}
 	
 	@Override
@@ -38,6 +41,14 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 			obj.set(field.getName(), value);
 		}
 		return obj;
+	}
+	
+	@Override
+	public void write(StreamWriter sw, T obj) throws Exception {
+		sw.startObject(type.getSimpleName());
+		for(Field field : fields)
+			field.write(sw, obj.get(field.getName()));
+		sw.endObject();
 	}
 	
 	private void prepare(ResultSetMetaData metaData, Map<String, Header> headers) throws Exception {

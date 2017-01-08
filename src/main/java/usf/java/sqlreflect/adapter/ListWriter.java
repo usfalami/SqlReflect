@@ -3,41 +3,37 @@ package usf.java.sqlreflect.adapter;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
-import usf.java.sqlreflect.writer.Writer;
 
 public class ListWriter<T> implements Adapter<T> {
 
-	private StreamWriter stream;
-	private Writer<? super T> writer;
+	private StreamWriter sw;
+	private Template<T> template;
 
-	public ListWriter(StreamWriter stream, Writer<? super T> writer) {
-		this.stream = stream;
-		this.writer = writer;
+	public ListWriter(StreamWriter stream) {
+		this.sw = stream;
 	}
 
 	@Override
 	public void start() throws Exception { }
 	
 	@Override
-	public void prepare(Template<T> complexObject) throws Exception {
-		writer.prepare(complexObject);
-		stream.startList("Entries", complexObject);
+	public void prepare(Template<T> template) throws Exception {
+		this.template = template;
+		sw.startList("LIST", template.getFields());
 	}
 
 	@Override
 	public void adapte(T field, int index) throws Exception {
-		stream.startObject("Object");
-		writer.write(stream, field);
-		stream.endObject();
+		template.write(sw, field);
 	}
 
 	@Override
 	public void end(ActionTimer time) throws Exception {
-		stream.endList();
+		sw.endList();
 	}
 	
 	public StreamWriter getStream() {
-		return stream;
+		return sw;
 	}
 	
 }

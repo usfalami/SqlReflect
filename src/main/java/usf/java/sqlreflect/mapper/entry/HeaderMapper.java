@@ -5,8 +5,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryTemplate;
+import usf.java.sqlreflect.mapper.GenericTypeTemplate;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
@@ -36,15 +37,18 @@ public class HeaderMapper implements Mapper<Header> {
 		return header;
 	}
 	
-	private static final Template<Header> complexObject = 
-		new EntryTemplate<Header>(Header.class,
-			SqlConstants.DATABASE_NAME,
-			SqlConstants.TABLE_NAME,
-			SqlConstants.COLUMN_NAME,
-			SqlConstants.COLUMN_TYPE,
-			SqlConstants.TYPE_NAME,
-			SqlConstants.COLUMN_SIZE,
-			SqlConstants.COLUMN_CLASS
-		);
+	private static final Template<Header> complexObject;
 	
+	static {
+		Class<String> stringClass = String.class;
+		Class<Integer> integerClass = Integer.class;
+		complexObject = new GenericTypeTemplate<Header>(Header.class);
+		complexObject.getFields().add(new SimpleProperty<String>(SqlConstants.DATABASE_NAME, stringClass));
+		complexObject.getFields().add(new SimpleProperty<String>(SqlConstants.TABLE_NAME, stringClass));
+		complexObject.getFields().add(new SimpleProperty<String>(SqlConstants.COLUMN_NAME, stringClass));
+		complexObject.getFields().add(new SimpleProperty<Integer>(SqlConstants.COLUMN_TYPE, integerClass));
+		complexObject.getFields().add(new SimpleProperty<String>(SqlConstants.TYPE_NAME, stringClass));
+		complexObject.getFields().add(new SimpleProperty<Integer>(SqlConstants.COLUMN_SIZE, integerClass));
+		complexObject.getFields().add(new SimpleProperty<String>(SqlConstants.COLUMN_CLASS, stringClass));
+	}
 }

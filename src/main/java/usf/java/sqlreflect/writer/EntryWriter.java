@@ -6,10 +6,10 @@ import java.util.Map;
 
 import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.mapper.Template;
-import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.GenericType;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class EntryWriter implements Writer<Entry> {
+public class EntryWriter implements Writer<GenericType> {
 	
 	private Map<String, WriterTypes> map;
 	
@@ -17,7 +17,7 @@ public class EntryWriter implements Writer<Entry> {
 	}
 
 	@Override
-	public void prepare(Template<? extends Entry> complexObject) {
+	public void prepare(Template<? extends GenericType> complexObject) {
 		map = new HashMap<String, WriterTypes>();
 		List<Field<?>> fields = complexObject.getFields();
 		for(Field<?> field : fields) {
@@ -27,7 +27,7 @@ public class EntryWriter implements Writer<Entry> {
 	}
 
 	@Override
-	public void write(StreamWriter writer, Entry obj) throws Exception {
+	public void write(StreamWriter writer, GenericType obj) throws Exception {
 		for(java.util.Map.Entry<String, WriterTypes> entry : map.entrySet()){
 			WriterTypes type = entry.getValue();
 			String name = entry.getKey();

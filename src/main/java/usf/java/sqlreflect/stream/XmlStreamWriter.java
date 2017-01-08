@@ -2,12 +2,13 @@ package usf.java.sqlreflect.stream;
 
 import java.io.Writer;
 import java.sql.Date;
+import java.util.List;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import usf.java.sqlreflect.mapper.Template;
+import usf.java.sqlreflect.mapper.Field;
 
 public class XmlStreamWriter implements StreamWriter {
 
@@ -68,7 +69,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, Template<?> complexObject) throws Exception {
+	public void startList(String name, List<Field<?>> fields) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override
