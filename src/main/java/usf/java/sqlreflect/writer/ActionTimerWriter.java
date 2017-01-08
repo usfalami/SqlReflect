@@ -6,7 +6,6 @@ import java.util.List;
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Field;
-import usf.java.sqlreflect.mapper.ObjectTemplate;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;

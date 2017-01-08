@@ -30,9 +30,6 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
-import usf.java.sqlreflect.writer.EntryWriter;
-import usf.java.sqlreflect.writer.ObjectReflectWriter;
-import usf.java.sqlreflect.writer.Writer;
 
 public class ContextLoader {
 
@@ -119,22 +116,22 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 
-		//[database]	select * 
-		new DatabaseScanner(cm).writeAll(ps);
-		//[Table] 		select mysql.time_zone%
-		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps);
-		//[View] 		sys.%io
-		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps);
-		//[Column] 		world_x .*
-		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps);
-		//[Procedure] 			sys.*
-		new ProcedureScanner(cm).set("sys", null).writeAll(ps);
-		//[PK] 			country
-		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps);
-		//[FK]	
-		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps);
-		//[Row] 		SELECT * FROM country
-		new RowScanner<Void, GenericType>(cm, new GenericTypeMapper()).set(query).writeAll(ps);
+//		//[database]	select * 
+//		new DatabaseScanner(cm).writeAll(ps);
+//		//[Table] 		select mysql.time_zone%
+//		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps);
+//		//[View] 		sys.%io
+//		new TableScanner(cm).set("sys", "%io", TableTypes.VIEW).writeAll(ps);
+//		//[Column] 		world_x .*
+//		new ColumnScanner(cm).set("world_x", null, null).writeAll(ps);
+//		//[Procedure] 			sys.*
+//		new ProcedureScanner(cm).set("sys", null).writeAll(ps);
+//		//[PK] 			country
+//		new PrimaryKeyScanner(cm).set(null, "country").writeAll(ps);
+//		//[FK]	
+//		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps);
+//		//[Row] 		SELECT * FROM country
+//		new RowScanner<Void, GenericType>(cm, new GenericTypeMapper()).set(query).writeAll(ps);
 		
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps);
