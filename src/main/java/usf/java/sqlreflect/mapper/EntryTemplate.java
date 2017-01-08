@@ -16,7 +16,7 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 		super(null, type);
 		if(!Utils.isEmptyArray(propertiesNames))
 			for(String propertyName : propertiesNames)
-				fields.add(new EntryProperty<T>(propertyName));
+				fields.add(new SimpleProperty<T>(propertyName));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 		for(int i=1; i<=count; i++){
 			Header header = buildHeader(metaData, i);
 			headers.put(header.getColumnName(), header);
-			Field<Object> field = new EntryProperty<Object>(header.getColumnName());
+			Field<Object> field = new SimpleProperty<Object>(header.getColumnName());
 			fields.add(field);
 		}
 	}

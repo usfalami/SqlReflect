@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper.entry;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
@@ -25,8 +25,8 @@ public class ArgumentMapper extends SimpleObjectMapper<Argument> {
 	
 	@Override
 	public Template<Argument> prepare(ResultSet rs, DatabaseType type) throws Exception {
-		appendProperty(new EntryProperty<String>(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE));
-		appendProperty(new EntryProperty<String>(SqlConstants.COLUMN_TYPE, 
+		appendProperty(new SimpleProperty<String>(SqlConstants.DATABASE_NAME, type.PROCEDURE_DATABASE));
+		appendProperty(new SimpleProperty<String>(SqlConstants.COLUMN_TYPE, 
 				new LabelIndexConverter<ParameterTypes>(ParameterTypes.class)
 			));
 		return super.prepare(rs, type);

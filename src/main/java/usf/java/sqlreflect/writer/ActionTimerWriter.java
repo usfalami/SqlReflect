@@ -5,9 +5,9 @@ import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
-import usf.java.sqlreflect.mapper.EntryProperty;
 import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.mapper.ObjectTemplate;
+import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -41,10 +41,10 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 
 	static {
 		List<Field<?>> fields = new ArrayList<Field<?>>();
-		fields.add(new EntryProperty<String>(Constants.TIMER_ACTION));
-		fields.add(new EntryProperty<String>(Constants.TIMER_START));
-		fields.add(new EntryProperty<String>(Constants.TIMER_END));
-		fields.add(new EntryProperty<String>(Constants.TIMER_DURATION));
+		fields.add(new SimpleProperty<String>(Constants.TIMER_ACTION));
+		fields.add(new SimpleProperty<String>(Constants.TIMER_START));
+		fields.add(new SimpleProperty<String>(Constants.TIMER_END));
+		fields.add(new SimpleProperty<String>(Constants.TIMER_DURATION));
 		complexObject = new ObjectTemplate<ActionTimer>(ActionTimer.class, fields);
 	}
 }

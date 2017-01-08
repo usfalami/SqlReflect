@@ -3,7 +3,7 @@ package usf.java.sqlreflect.mapper.entry;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
@@ -29,10 +29,10 @@ public class ImportedKeyMapper extends SimpleObjectMapper<ImportedKey> {
 	@Override
 	public Template<ImportedKey> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		Converter<String> converter = new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.PK_DATABASE_NAME, type.PK_TABLE_DATABASE));
-		appendProperty(new EntryProperty<String>(SqlConstants.FK_DATABASE_NAME, type.FK_TABLE_DATABASE));
-		appendProperty(new EntryProperty<String>(SqlConstants.UPDATE_RULE, converter));
-		appendProperty(new EntryProperty<String>(SqlConstants.DELETE_RULE, converter));
+		appendProperty(new SimpleProperty<String>(SqlConstants.PK_DATABASE_NAME, type.PK_TABLE_DATABASE));
+		appendProperty(new SimpleProperty<String>(SqlConstants.FK_DATABASE_NAME, type.FK_TABLE_DATABASE));
+		appendProperty(new SimpleProperty<String>(SqlConstants.UPDATE_RULE, converter));
+		appendProperty(new SimpleProperty<String>(SqlConstants.DELETE_RULE, converter));
 		return super.prepare(rs, type);
 	}
 
