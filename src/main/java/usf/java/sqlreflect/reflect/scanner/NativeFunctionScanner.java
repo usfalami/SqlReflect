@@ -52,5 +52,5 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		return this;
 	}
 	
-	private Template<String> template = new BasicProperty<String>("NativeFunction", String.class);
+	private static final Template<String> template = new BasicProperty<String>("NativeFunction", String.class);
 }
