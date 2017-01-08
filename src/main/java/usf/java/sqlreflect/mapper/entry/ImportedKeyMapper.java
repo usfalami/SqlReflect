@@ -3,9 +3,9 @@ package usf.java.sqlreflect.mapper.entry;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.ComplexObject;
 import usf.java.sqlreflect.mapper.EntryProperty;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
 import usf.java.sqlreflect.sql.entry.ImportedKey;
@@ -26,7 +26,7 @@ public class ImportedKeyMapper extends SimpleObjectMapper<ImportedKey> {
 	}
 	
 	@Override
-	public ComplexObject<ImportedKey> prepare(ResultSet rs, DatabaseType type) throws Exception {
+	public Template<ImportedKey> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		Converter<String> converter = new LabelIndexConverter<ImprotedKeyRule>(ImprotedKeyRule.class);
 		appendProperty(new EntryProperty<String>(SqlConstants.PK_DATABASE_NAME, type.PK_TABLE_DATABASE));
 		appendProperty(new EntryProperty<String>(SqlConstants.FK_DATABASE_NAME, type.FK_TABLE_DATABASE));

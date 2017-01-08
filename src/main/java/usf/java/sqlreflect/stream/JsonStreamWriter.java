@@ -7,7 +7,7 @@ import java.util.Stack;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
-import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Template;
 
 public class JsonStreamWriter implements StreamWriter {
 	
@@ -67,7 +67,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void startList(String name, ComplexObject<?> complexObject) throws Exception {
+	public void startList(String name, Template<?> complexObject) throws Exception {
 		key(name).array();
 		keys.push(false);
 	}

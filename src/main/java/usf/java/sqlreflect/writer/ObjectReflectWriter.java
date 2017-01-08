@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import usf.java.sqlreflect.mapper.ComplexObject;
 import usf.java.sqlreflect.mapper.Field;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ObjectReflectWriter implements Writer<Object> {
 
-	private ComplexObject<? extends Object> complexObject;
+	private Template<? extends Object> complexObject;
 	private Map<String, WriterTypes> map;
 	
 	@Override
-	public void prepare(ComplexObject<? extends Object> complexObject) {
+	public void prepare(Template<? extends Object> complexObject) {
 		this.complexObject = complexObject;
 		this.map = new HashMap<String, WriterTypes>();
 		List<Field<?>> fields = complexObject.getFields();

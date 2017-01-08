@@ -5,7 +5,8 @@ import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
-import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.ObjectTemplate;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.EntryProperty;
 import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.reflect.ActionTimer;
@@ -13,11 +14,11 @@ import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private static final ComplexObject<ActionTimer> complexObject;
+	private static final ObjectTemplate<ActionTimer> complexObject;
 	
 
 	@Override
-	public void prepare(ComplexObject<? extends ActionTimer> complexObject){ }
+	public void prepare(Template<? extends ActionTimer> complexObject){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
@@ -44,6 +45,6 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 		fields.add(new EntryProperty<String>(Constants.TIMER_START));
 		fields.add(new EntryProperty<String>(Constants.TIMER_END));
 		fields.add(new EntryProperty<String>(Constants.TIMER_DURATION));
-		complexObject = new ComplexObject<ActionTimer>(ActionTimer.class, fields);
+		complexObject = new ObjectTemplate<ActionTimer>(ActionTimer.class, fields);
 	}
 }

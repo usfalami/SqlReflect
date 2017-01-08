@@ -6,14 +6,17 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class SimpleObjectMapper<T> implements Mapper<T> {
 
-	private ComplexObject<T> complexObject;
+	private Template<T> complexObject;
 
 	public SimpleObjectMapper(Class<T> mappedClassName) {
-		complexObject = new ComplexObject<T>(mappedClassName);
+		complexObject = new ObjectTemplate<T>(mappedClassName);
+	}
+	public SimpleObjectMapper(Template<T> complexObject) {
+		this.complexObject = complexObject;
 	}
 
 	@Override
-	public ComplexObject<T> prepare(ResultSet rs, DatabaseType type) throws Exception {
+	public Template<T> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		complexObject.prepare(rs.getMetaData());
 		return complexObject;
 	}

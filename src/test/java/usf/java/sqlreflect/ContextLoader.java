@@ -136,6 +136,7 @@ public class ContextLoader {
 		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps, writer);
 		//[Row] 		SELECT * FROM country
 		new RowScanner<Void, Entry>(cm, new EntryMapper()).set(query).writeAll(ps, writer);
+		
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		

@@ -3,9 +3,9 @@ package usf.java.sqlreflect.mapper.entry;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.ComplexObject;
 import usf.java.sqlreflect.mapper.EntryProperty;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
 import usf.java.sqlreflect.sql.entry.Function;
 import usf.java.sqlreflect.sql.type.DatabaseType;
@@ -19,7 +19,7 @@ public class FunctionMapper extends SimpleObjectMapper<Function> {
 	}
 	
 	@Override
-	public ComplexObject<Function> prepare(ResultSet rs, DatabaseType type) throws Exception {
+	public Template<Function> prepare(ResultSet rs, DatabaseType type) throws Exception {
 		appendProperty(new EntryProperty<String>(SqlConstants.DATABASE_NAME, type.FUNCTION_DATABASE));
 		appendProperty(new EntryProperty<String>(SqlConstants.FUNCTION_TYPE, 
 				new LabelIndexConverter<FunctionTypes>(FunctionTypes.class)

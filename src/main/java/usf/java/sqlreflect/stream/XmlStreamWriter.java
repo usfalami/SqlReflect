@@ -7,7 +7,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Template;
 
 public class XmlStreamWriter implements StreamWriter {
 
@@ -68,7 +68,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, ComplexObject<?> complexObject) throws Exception {
+	public void startList(String name, Template<?> complexObject) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override

@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Template;
 
 public interface StreamWriter {
 	
@@ -19,7 +19,7 @@ public interface StreamWriter {
 	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
-	void startList(String name, ComplexObject<?> complexObject) throws Exception;
+	void startList(String name, Template<?> complexObject) throws Exception;
 	void endList() throws Exception;
 
 	void start() throws Exception;

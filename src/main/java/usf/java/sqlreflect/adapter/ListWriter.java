@@ -1,6 +1,6 @@
 package usf.java.sqlreflect.adapter;
 
-import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.Writer;
@@ -19,7 +19,7 @@ public class ListWriter<T> implements Adapter<T> {
 	public void start() throws Exception { }
 	
 	@Override
-	public void prepare(ComplexObject<T> complexObject) throws Exception {
+	public void prepare(Template<T> complexObject) throws Exception {
 		writer.prepare(complexObject);
 		stream.startList("Entries", complexObject);
 	}

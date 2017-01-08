@@ -32,4 +32,5 @@ public class EntryProperty<T> extends SimpleProperty<T> {
 	public Object getValue(Object parent) throws Exception {
 		return ((Entry)parent).get(name);
 	}
+	
 }
