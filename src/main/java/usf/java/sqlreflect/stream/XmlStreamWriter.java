@@ -8,7 +8,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import usf.java.sqlreflect.mapper.Field;
+import usf.java.sqlreflect.mapper.Template;
 
 public class XmlStreamWriter implements StreamWriter {
 
@@ -69,7 +69,7 @@ public class XmlStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, List<Field<?>> fields) throws Exception {
+	public void startList(String name, List<Template<?>> fields) throws Exception {
 		xmlStreamWriter.writeStartElement(name);
 	}
 	@Override

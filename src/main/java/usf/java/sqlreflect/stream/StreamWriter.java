@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import usf.java.sqlreflect.mapper.Field;
+import usf.java.sqlreflect.mapper.Template;
 
 public interface StreamWriter {
 	
@@ -20,7 +20,7 @@ public interface StreamWriter {
 	void startObject(String name) throws Exception;
 	void endObject() throws Exception;
 	
-	void startList(String name, List<Field<?>> fields) throws Exception;
+	void startList(String name, List<Template<?>> fields) throws Exception;
 	void endList() throws Exception;
 
 	void start() throws Exception;

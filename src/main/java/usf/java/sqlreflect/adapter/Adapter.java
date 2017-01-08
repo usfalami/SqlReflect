@@ -7,7 +7,7 @@ public interface Adapter<T> {
 	
 	void start() throws Exception;
 
-	void prepare(Template<T> complexObject) throws Exception; //add mappedClass parameter
+	void prepare(Template<T>  template) throws Exception; //add mappedClass parameter
 	
 	void adapte(T field, int index) throws Exception;
 	

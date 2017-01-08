@@ -3,7 +3,7 @@ package usf.java.sqlreflect.stream;
 import java.sql.Date;
 import java.util.List;
 
-import usf.java.sqlreflect.mapper.Field;
+import usf.java.sqlreflect.mapper.Template;
 
 public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	
@@ -69,7 +69,7 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, List<Field<?>> fields) throws Exception {
+	public void startList(String name, List<Template<?>> fields) throws Exception {
 		sw.startList(name, fields);
 		debug(++level, "[" + name + "]");
 	}

@@ -37,7 +37,7 @@ public class HeaderMapper implements Mapper<Header> {
 		return header;
 	}
 	
-	private static final Template<Header> complexObject;
+	private static final GenericTypeTemplate<Header> complexObject;
 	
 	static {
 		Class<String> stringClass = String.class;

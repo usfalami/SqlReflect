@@ -19,7 +19,7 @@ public class ListAdapter<T> implements Adapter<T> {
 	public void start() { }
 
 	@Override
-	public void prepare(Template<T> complexObject) { }
+	public void prepare(Template<T>  template) { }
 	
 	@Override
 	public void adapte(T field, int index) {

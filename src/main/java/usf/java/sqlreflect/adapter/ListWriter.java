@@ -19,7 +19,7 @@ public class ListWriter<T> implements Adapter<T> {
 	@Override
 	public void prepare(Template<T> template) throws Exception {
 		this.template = template;
-		sw.startList("LIST", template.getFields());
+		sw.startList(template.getClass().getSimpleName(), template.getFields());
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class SimpleObjectMapper<T> implements Mapper<T> {
 	private Template<T> complexObject;
 
 	public SimpleObjectMapper(Class<T> mappedClassName) {
-		complexObject = new ObjectTemplate<T>(mappedClassName);
+		complexObject = new ComplexProperty<T>(mappedClassName);
 	}
 	public SimpleObjectMapper(Template<T> complexObject) {
 		this.complexObject = complexObject;

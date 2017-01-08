@@ -15,6 +15,7 @@ import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.entry.GenericTypeMapper;
+import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;
@@ -27,6 +28,7 @@ import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.sql.entry.GenericType;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.DatabaseType;
+import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 import usf.java.sqlreflect.stream.PrinterStreamWriter;
 import usf.java.sqlreflect.stream.StreamWriter;
@@ -116,7 +118,7 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 
-//		//[database]	select * 
+		//[database]	select * 
 		new DatabaseScanner(cm).writeAll(ps);
 		//[Table] 		select mysql.time_zone%
 		new TableScanner(cm).set("mysql", "time_zone%").writeAll(ps);
@@ -132,9 +134,10 @@ public class ContextLoader {
 		new ImportedKeyScanner(cm).set(null, "countrylanguage").writeAll(ps);
 		//[Row] 		SELECT * FROM country
 		new RowScanner<Void, GenericType>(cm, new GenericTypeMapper()).set(query).writeAll(ps);
-		
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps);
+		
+//		new NativeFunctionScanner(cm).set(NativeFunctions.TIME_DATE).writeAll(ps);
 		
 		ex1();
 

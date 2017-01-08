@@ -6,6 +6,8 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.Adapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
+import usf.java.sqlreflect.mapper.SimpleProperty;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 
@@ -29,7 +31,7 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		action.end();//ACTION_EXECUTION end
 		
 		action = at.startAction(Constants.ACTION_PREPARATION);
-		adapter.prepare(null); //TODO put a Header
+		adapter.prepare(template); //TODO put a Header
 		action.end();
 
 		action = at.startAction(Constants.ACTION_PROCESSING);
@@ -49,4 +51,5 @@ public class NativeFunctionScanner extends AbstractScanner<String> {
 		return this;
 	}
 	
+	private Template<String> template = new SimpleProperty<String>("NativeFunction", String.class);
 }

@@ -1,6 +1,8 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import usf.java.sqlreflect.Utils;
@@ -9,7 +11,7 @@ import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 import usf.java.sqlreflect.writer.WriterTypes;
 
-public class SimpleProperty<T> extends Field<T> {
+public class SimpleProperty<T> extends Template<T> {
 	
 	private String columnName;
 	private Converter<? extends T> converter;
@@ -43,7 +45,6 @@ public class SimpleProperty<T> extends Field<T> {
 	
 	@Override
 	public void prepare(Map<String, Header> headers) throws Exception {
-		super.prepare(headers);
 		if(Utils.isNull(type)){
 			if(Utils.isNull(converter)) {
 				String className = headers.get(columnName).getColumnClassName();
@@ -66,6 +67,13 @@ public class SimpleProperty<T> extends Field<T> {
 	public void write(StreamWriter sw, T obj) throws Exception {
 		typeWriter.write(sw, name, obj);
 	}
+
+	@Override
+	public List<Template<?>> getFields() {
+		List<Template<?>> list = new ArrayList<Template<?>>();
+		list.add(this);
+		return list;
+	}
 	
 	private class MapAndConvert implements Generic<T> {
 		@Override
@@ -79,5 +87,4 @@ public class SimpleProperty<T> extends Field<T> {
 			return type.cast(rs.getObject(columnName));
 		}
 	}
-
 }

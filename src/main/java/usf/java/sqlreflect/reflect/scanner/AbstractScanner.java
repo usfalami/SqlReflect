@@ -14,7 +14,6 @@ import usf.java.sqlreflect.reflect.AbstractReflector;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.stream.StreamWriter;
-import usf.java.sqlreflect.writer.Writer;
 
 public abstract class AbstractScanner<R> extends AbstractReflector<ConnectionManager, R> implements Scanner {
 	

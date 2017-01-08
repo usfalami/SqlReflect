@@ -1,8 +1,6 @@
 package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import usf.java.sqlreflect.Utils;
@@ -18,19 +16,9 @@ public class ComplexObject<T> extends ComplexProperty<T> {
 	
 	public ComplexObject(String name) {
 		super(name);
-		this.fields = new ArrayList<Field<?>>();
 	}
 	public ComplexObject(String name, Class<T> type) {
 		super(name, type);
-		this.fields = new ArrayList<Field<?>>();
-	}
-	public ComplexObject(String name, List<Field<?>> fields) {
-		super(name);
-		this.fields = fields;
-	}
-	public ComplexObject(String name, Class<T> type, List<Field<?>> fields) {
-		super(name, type);
-		this.fields = fields;
 	}
 
 	@Override
@@ -60,7 +48,7 @@ public class ComplexObject<T> extends ComplexProperty<T> {
 				id.setValue(obj, key);
 				dataMap.put(key, obj);
 			}else{
-				for(Field<?> field : fields)
+				for(Template<?> field : fields)
 					field.update(obj, rs);
 			}
 			return obj;

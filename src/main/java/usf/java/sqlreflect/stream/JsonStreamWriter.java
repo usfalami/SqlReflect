@@ -8,7 +8,7 @@ import java.util.Stack;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
-import usf.java.sqlreflect.mapper.Field;
+import usf.java.sqlreflect.mapper.Template;
 
 public class JsonStreamWriter implements StreamWriter {
 	
@@ -68,7 +68,7 @@ public class JsonStreamWriter implements StreamWriter {
 	}
 	
 	@Override
-	public void startList(String name, List<Field<?>> fields) throws Exception {
+	public void startList(String name, List<Template<?>> fields) throws Exception {
 		key(name).array();
 		keys.push(false);
 	}

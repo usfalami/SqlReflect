@@ -2,7 +2,6 @@ package usf.java.sqlreflect.mapper;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -10,18 +9,17 @@ import java.util.Map;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
-public class ListProperty<T extends Collection<C>, C> extends Field<T> {
+public class ListProperty<T extends Collection<C>, C> extends Template<T> {
 
-	private Field<C> field;
+	private Template<C> field;
 	
-	public ListProperty(String name, Field<C> field) {
+	public ListProperty(String name, Template<C> field) {
 		super(name);
 		this.field = field;
 	}
 
 	@Override
 	protected void prepare(Map<String, Header> map) throws Exception {
-		super.prepare(map);
 		field.setAccessorsFrom(type);
 		field.prepare(map);
 	}
@@ -41,12 +39,17 @@ public class ListProperty<T extends Collection<C>, C> extends Field<T> {
 	
 	@Override
 	public void write(StreamWriter sw, T obj) throws Exception {
-		List<Field<?>> list = new ArrayList<Field<?>>();
-		list.add(field);
-		sw.startList("Entries", list);
+		sw.startList("Entries", getFields());
 		for(C propery : obj)
 			field.write(sw, propery);
 		sw.endList();
+	}
+	
+	@Override
+	public List<Template<?>> getFields() {
+		List<Template<?>> list = new ArrayList<Template<?>>();
+		list.add(field);
+		return list;
 	}
 
 }

@@ -5,14 +5,14 @@ import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
-import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.mapper.SimpleProperty;
+import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private static final List<Field<?>> ACTIONTIMER_FIELDS;
+	private static final List<Template<?>> ACTIONTIMER_FIELDS;
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
@@ -34,7 +34,7 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 	}
 
 	static {
-		ACTIONTIMER_FIELDS = new ArrayList<Field<?>>();
+		ACTIONTIMER_FIELDS = new ArrayList<Template<?>>();
 		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_ACTION));
 		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_START));
 		ACTIONTIMER_FIELDS.add(new SimpleProperty<String>(Constants.TIMER_END));
