@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Database;
@@ -12,7 +13,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class DatabaseMapper extends SimpleObjectMapper<Database> {
 
 	public DatabaseMapper() {
-		super(Database.class);
+		super(new EntryTemplate<Database>(Database.class));
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Column;
@@ -12,12 +13,12 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class ColumnMapper extends SimpleObjectMapper<Column> {
 	
 	public ColumnMapper() {
-		super(Column.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.TABLE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.COLUMN_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.DATA_TYPE));
-		appendProperty(new EntryProperty<String>(SqlConstants.TYPE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.COLUMN_SIZE));
+		super(new EntryTemplate<Column>(Column.class, 
+			SqlConstants.TABLE_NAME,
+			SqlConstants.COLUMN_NAME,
+			SqlConstants.DATA_TYPE,
+			SqlConstants.TYPE_NAME,
+			SqlConstants.COLUMN_SIZE));
 	}
 	
 	@Override

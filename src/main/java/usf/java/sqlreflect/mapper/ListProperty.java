@@ -16,22 +16,22 @@ public class ListProperty<T extends Collection<C>, C> extends Field<T> {
 	}
 
 	@Override
-	public void prepare(Class<?> parentClass, Map<String, Header> map) throws Exception {
-		super.prepare(parentClass, map);
-		field.prepare(null, map);
+	protected void prepare(Map<String, Header> map) throws Exception {
+		super.prepare(map);
+		field.prepare(map);
 	}
 
 	@Override
-	public T get(ResultSet rs) throws Exception {
+	public T map(ResultSet rs) throws Exception {
 		T list = type.newInstance();
-		list.add(field.get(rs));
+		list.add(field.map(rs));
 		return list;
 	}
 	
 	@Override
-	public void update(Object parent, ResultSet rs) throws Exception {
+	protected void update(Object parent, ResultSet rs) throws Exception {
 		T list = (T) getValue(parent);
-		list.add(field.get(rs));
+		list.add(field.map(rs));
 	}
 
 }

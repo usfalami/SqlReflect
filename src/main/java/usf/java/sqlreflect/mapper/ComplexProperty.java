@@ -36,17 +36,19 @@ public class ComplexProperty<T> extends Field<T> {
 	}
 	
 	@Override
-	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
-		super.prepare(parentClass, headers);
-		for(Field<?> field : fields)
-			field.prepare(type, headers);
+	protected void prepare(Map<String, Header> headers) throws Exception {
+		super.prepare(headers);
+		for(Field<?> field : fields){
+			field.setAccessors(type);
+			field.prepare(headers);
+		}
 	}
 	
 	@Override
-	public T get(ResultSet rs) throws Exception {
+	public T map(ResultSet rs) throws Exception {
 		T obj = type.newInstance();
 		for(Field<?> field : fields){
-			Object value = field.get(rs);
+			Object value = field.map(rs);
 			field.setValue(obj, value);
 		}
 		return obj;

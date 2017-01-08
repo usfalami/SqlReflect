@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
@@ -14,8 +15,8 @@ import usf.java.sqlreflect.sql.type.FunctionTypes;
 public class FunctionMapper extends SimpleObjectMapper<Function> {
 	
 	public FunctionMapper() {
-		super(Function.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.FUNCTION_NAME));
+		super(new EntryTemplate<Function>(Function.class, 
+				SqlConstants.FUNCTION_NAME));
 	}
 	
 	@Override

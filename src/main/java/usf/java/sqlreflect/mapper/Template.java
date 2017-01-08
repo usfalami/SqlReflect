@@ -8,7 +8,7 @@ public interface Template<T> {
 
 	void prepare(ResultSetMetaData metaData) throws Exception;
 
-	T get(ResultSet rs) throws Exception;
+	T map(ResultSet rs) throws Exception;
 	
 	List<Field<?>> getFields();
 	

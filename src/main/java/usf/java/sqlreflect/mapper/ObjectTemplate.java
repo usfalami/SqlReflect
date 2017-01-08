@@ -27,6 +27,6 @@ public class ObjectTemplate<T> extends ComplexObject<T> implements Template<T> {
 			header.setColumnClassName(rm.getColumnClassName(i));
 			map.put(header.getColumnName(), header);
 		}
-		super.prepare(null, map);
+		super.prepare(map);
 	}
 }

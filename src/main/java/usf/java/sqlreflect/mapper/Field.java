@@ -35,14 +35,15 @@ public abstract class Field<T> implements Generic<T> {
 		this.type = type;
 	}
 	
-	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
-		if(Utils.isNotNull(parentClass)){
-			parentGetter = parentClass.getMethod(Utils.getterOf(name));
-			if(Utils.isNotNull(type))
-				type = (Class<T>) parentGetter.getReturnType();
-			parentSetter = parentClass.getMethod(Utils.setterOf(name), type);
-		}
+	protected void setAccessors(Class<?> parentClass) throws Exception {
+		parentGetter = parentClass.getMethod(Utils.getterOf(name));
+		if(Utils.isNotNull(type))
+			type = (Class<T>) parentGetter.getReturnType();
+		parentSetter = parentClass.getMethod(Utils.setterOf(name), type);
+		//TODO compare type & getter/setter param class
 	}
+	
+	protected void prepare(Map<String, Header> headers) throws Exception {}
 
 	protected void update(Object o, ResultSet rs) throws Exception {}
 	

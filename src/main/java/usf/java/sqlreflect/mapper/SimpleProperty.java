@@ -34,7 +34,8 @@ public class SimpleProperty<T> extends Field<T> {
 	}
 	
 	@Override
-	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
+	public void prepare(Map<String, Header> headers) throws Exception {
+		super.prepare(headers);
 		if(Utils.isNull(type)){
 			if(Utils.isNull(converter)) {
 				String className = headers.get(columnName).getColumnClassName();
@@ -44,23 +45,22 @@ public class SimpleProperty<T> extends Field<T> {
 				type = (Class<T>) Utils.converterReturnType(converter.getClass());
 		}
 		proxy = Utils.isNull(converter) ? new MapOnly() : new MapAndConvert();
-		super.prepare(parentClass, headers);
 	}
 
 	@Override
-	public T get(ResultSet rs) throws Exception {
-		return proxy.get(rs);
+	public T map(ResultSet rs) throws Exception {
+		return proxy.map(rs);
 	}
 	
 	private class MapAndConvert implements Generic<T> {
 		@Override
-		public T get(ResultSet rs) throws Exception {
+		public T map(ResultSet rs) throws Exception {
 			return converter.convert(rs.getObject(columnName));
 		}
 	}
 	private class MapOnly implements Generic<T> {
 		@Override
-		public T get(ResultSet rs) throws Exception {
+		public T map(ResultSet rs) throws Exception {
 			return type.cast(rs.getObject(columnName));
 		}
 	}

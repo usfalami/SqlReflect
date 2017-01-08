@@ -1,10 +1,7 @@
 package usf.java.sqlreflect.mapper;
 
-import java.util.Map;
-
 import usf.java.sqlreflect.mapper.converter.Converter;
 import usf.java.sqlreflect.sql.entry.Entry;
-import usf.java.sqlreflect.sql.entry.Header;
 
 public class EntryProperty<T> extends SimpleProperty<T> {
 	
@@ -18,11 +15,6 @@ public class EntryProperty<T> extends SimpleProperty<T> {
 		super(columnName, columnName, converter);
 	}
 
-	@Override
-	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
-		super.prepare(null, headers);
-	}
-		
 	@Override
 	public void setValue(Object parent, Object value) throws Exception {
 		((Entry)parent).set(name, value);

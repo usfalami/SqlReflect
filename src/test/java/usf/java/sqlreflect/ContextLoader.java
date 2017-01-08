@@ -13,6 +13,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
@@ -140,7 +141,7 @@ public class ContextLoader {
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		
-		ex1();
+//		ex1();
 
 		ps.end();
 		forceCloseConnectionManager();

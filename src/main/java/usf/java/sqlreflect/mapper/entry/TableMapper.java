@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Table;
@@ -12,9 +13,9 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 public class TableMapper extends SimpleObjectMapper<Table> {
 	
 	public TableMapper() {
-		super(Table.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.TABLE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.TABLE_TYPE));
+		super(new EntryTemplate<Table>(Table.class, 
+				SqlConstants.TABLE_NAME,
+				SqlConstants.TABLE_TYPE));
 	}
 	
 	@Override

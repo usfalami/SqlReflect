@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
@@ -14,12 +15,12 @@ import usf.java.sqlreflect.sql.type.ParameterTypes;
 public class ArgumentMapper extends SimpleObjectMapper<Argument> {
 	
 	public ArgumentMapper() {
-		super(Argument.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.PROCEDURE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.COLUMN_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.DATA_TYPE));
-		appendProperty(new EntryProperty<String>(SqlConstants.TYPE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.LENGTH));
+		super(new EntryTemplate<Argument>(Argument.class, 
+			SqlConstants.PROCEDURE_NAME,
+			SqlConstants.COLUMN_NAME,
+			SqlConstants.DATA_TYPE,
+			SqlConstants.TYPE_NAME,
+			SqlConstants.LENGTH));
 	}
 	
 	@Override

@@ -34,29 +34,29 @@ public class ComplexObject<T> extends ComplexProperty<T> {
 	}
 
 	@Override
-	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
-		super.prepare(parentClass, headers);
+	public void prepare(Map<String, Header> headers) throws Exception {
+		super.prepare(headers);
 		proxy = Utils.isNull(id) ? new NoIdMapperProxy() : new IdMapperProxy();
 	}
 	
 	@Override
-	public T get(ResultSet rs) throws Exception {
-		return proxy.get(rs);
+	public T map(ResultSet rs) throws Exception {
+		return proxy.map(rs);
 	}
 	
 	private class NoIdMapperProxy implements Generic<T> {
 		@Override
-		public T get(ResultSet rs) throws Exception {
-			return ComplexObject.super.get(rs);
+		public T map(ResultSet rs) throws Exception {
+			return ComplexObject.super.map(rs);
 		}
 	}
 	private class IdMapperProxy implements Generic<T> {
 		@Override
-		public T get(ResultSet rs) throws Exception {
-			Object key = id.get(rs);
+		public T map(ResultSet rs) throws Exception {
+			Object key = id.map(rs);
 			T obj = dataMap.get(key);
 			if(Utils.isNull(obj)){
-				obj = ComplexObject.super.get(rs);
+				obj = ComplexObject.super.map(rs);
 				id.setValue(obj, key);
 				dataMap.put(key, obj);
 			}else{

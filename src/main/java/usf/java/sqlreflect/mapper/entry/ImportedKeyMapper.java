@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
 import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.EntryTemplate;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.Converter;
@@ -15,14 +16,14 @@ import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 public class ImportedKeyMapper extends SimpleObjectMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(ImportedKey.class);
-		appendProperty(new EntryProperty<String>(SqlConstants.PKTABLE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.PKCOLUMN_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.PK_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.KEY_SEQ));
-		appendProperty(new EntryProperty<String>(SqlConstants.FKTABLE_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.FKCOLUMN_NAME));
-		appendProperty(new EntryProperty<String>(SqlConstants.FK_NAME));
+		super(new EntryTemplate<ImportedKey>(ImportedKey.class,	
+			SqlConstants.PKTABLE_NAME,
+			SqlConstants.PKCOLUMN_NAME,
+			SqlConstants.PK_NAME,
+			SqlConstants.KEY_SEQ,
+			SqlConstants.FKTABLE_NAME,
+			SqlConstants.FKCOLUMN_NAME,
+			SqlConstants.FK_NAME));
 	}
 	
 	@Override

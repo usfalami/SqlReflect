@@ -26,14 +26,15 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 			prepareAndFillProperties(metaData, headers);
 		else
 			prepare(metaData, headers);
-		super.prepare(null, headers);
+		for(Field<?> field : fields)
+			field.prepare(headers);
 	}
 	
 	@Override
-	public T get(ResultSet rs) throws Exception {
+	public T map(ResultSet rs) throws Exception {
 		T obj = type.newInstance();
 		for(Field<?> field : fields){
-			Object value = field.get(rs);
+			Object value = field.map(rs);
 			obj.set(field.getName(), value);
 		}
 		return obj;
@@ -52,7 +53,6 @@ public class EntryTemplate<T extends Entry> extends ComplexProperty<T> implement
 			Header header = buildHeader(metaData, i);
 			headers.put(header.getColumnName(), header);
 			Field<Object> field = new EntryProperty<Object>(header.getColumnName());
-			field.setType((Class<Object>) Class.forName(header.getColumnClassName()));
 			fields.add(field);
 		}
 	}

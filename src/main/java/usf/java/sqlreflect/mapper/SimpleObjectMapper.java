@@ -23,7 +23,7 @@ public class SimpleObjectMapper<T> implements Mapper<T> {
 
 	@Override
 	public T map(ResultSet rs, int row) throws Exception {
-		return complexObject.get(rs);
+		return complexObject.map(rs);
 	}
 
 	public void appendProperty(SimpleProperty<?> property) {
