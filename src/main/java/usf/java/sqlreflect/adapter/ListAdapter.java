@@ -3,7 +3,7 @@ package usf.java.sqlreflect.adapter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.ComplexObject;
 import usf.java.sqlreflect.reflect.ActionTimer;
 
 public class ListAdapter<T> implements Adapter<T> {
@@ -19,7 +19,7 @@ public class ListAdapter<T> implements Adapter<T> {
 	public void start() { }
 
 	@Override
-	public void prepare(Class<T> clazz, Collection<Property> properies) { }
+	public void prepare(ComplexObject<T> complexObject) { }
 	
 	@Override
 	public void adapte(T field, int index) {

@@ -32,7 +32,7 @@ public abstract class AbstractStatementExecutor<R> extends AbstractExecutor<R> {
 			action.end();//ACTION_EXECUTION end
 			
 			action = at.startAction(Constants.ACTION_PREPARATION);
-			adapter.prepare(null, null);
+			adapter.prepare(null);
 			action.end();
 
 			action = at.startAction(Constants.ACTION_PROCESSING);

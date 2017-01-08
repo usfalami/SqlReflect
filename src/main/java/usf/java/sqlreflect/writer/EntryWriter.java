@@ -1,29 +1,36 @@
 package usf.java.sqlreflect.writer;
 
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class EntryWriter implements Writer<Entry> {
 	
-	private Collection<Property> properties;
+	private Map<String, WriterTypes> map;
+	
+	public EntryWriter() {
+	}
 
 	@Override
-	public void prepare(Class<? extends Entry> derivedClass, Collection<Property> properties) {
-		this.properties = properties;
-		for(Property property : properties) {
-			WriterTypes tw = WriterTypes.writerfor(property.getClassName());
-			property.setField("writer", tw);
+	public void prepare(ComplexObject<? extends Entry> complexObject) {
+		map = new HashMap<String, WriterTypes>();
+		List<Field<?>> fields = complexObject.getFields();
+		for(Field<?> field : fields) {
+			WriterTypes tw = WriterTypes.writerfor(field.getClass().getName());
+			map.put(field.getName(), tw);
 		}
 	}
 
 	@Override
 	public void write(StreamWriter writer, Entry obj) throws Exception {
-		for(Property property : properties){
-			WriterTypes type = property.getField("writer");
-			String name = property.getName();
+		for(java.util.Map.Entry<String, WriterTypes> entry : map.entrySet()){
+			WriterTypes type = entry.getValue();
+			String name = entry.getKey();
 			type.write(writer, name, obj.get(name));
 		}
 	}

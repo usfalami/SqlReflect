@@ -12,10 +12,8 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.mapper.EntryProperty;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
-import usf.java.sqlreflect.mapper.Property;
-import usf.java.sqlreflect.mapper.builder.Builder;
-import usf.java.sqlreflect.mapper.builder.ObjectReflectBuilder;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
@@ -122,7 +120,6 @@ public class ContextLoader {
 		
 		String query = "SELECT * FROM country";
 
-//		
 		//[database]	select * 
 		new DatabaseScanner(cm).writeAll(ps, writer);
 		//[Table] 		select mysql.time_zone%
@@ -142,11 +139,9 @@ public class ContextLoader {
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps, writer);
 		
-
 		ex1();
-		
+
 		ps.end();
-		
 		forceCloseConnectionManager();
 	}
 	
@@ -154,11 +149,10 @@ public class ContextLoader {
 
 		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
-		Builder builder = new ObjectReflectBuilder();
-		SimpleObjectMapper<Table> mapper = new SimpleObjectMapper<Table>(Table.class, builder);
-		mapper.addPropertyFilter(new Property("name", SqlConstants.TABLE_NAME));
-		mapper.addPropertyFilter(new Property("type", SqlConstants.TABLE_TYPE));
-		mapper.addPropertyFilter(new Property("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
+		SimpleObjectMapper<Table> mapper = new SimpleObjectMapper<Table>(Table.class);
+		mapper.appendProperty(new EntryProperty<String>("name", SqlConstants.TABLE_NAME));
+		mapper.appendProperty(new EntryProperty<String>("type", SqlConstants.TABLE_TYPE));
+		mapper.appendProperty(new EntryProperty<String>("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
 		Writer<Object> writer = new ObjectReflectWriter();
 		TableScanner ts = new TableScanner(getConnectionManager()).set(null, null);
 		ts.setMapper(mapper);

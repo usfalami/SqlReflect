@@ -2,15 +2,26 @@ package usf.java.sqlreflect.mapper;
 
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
+import java.util.Map;
 
 import usf.java.sqlreflect.Utils;
+import usf.java.sqlreflect.sql.entry.Header;
 
 public abstract class Field<T> implements Generic<T> {
 
 	protected String name;
 	protected Class<T> type;
-	protected Method setterMethod, getterMethod;
 	
+	private Method parentSetter, parentGetter;
+	
+	public Field(String name) {
+		this.name = name;
+	}
+	public Field(String name, Class<T> type) {
+		this.name = name;
+		this.type = type;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -24,16 +35,21 @@ public abstract class Field<T> implements Generic<T> {
 		this.type = type;
 	}
 	
-	public void prepare(Class<?> parentClass) throws Exception {
+	public void prepare(Class<?> parentClass, Map<String, Header> headers) throws Exception {
 		if(Utils.isNotNull(parentClass)){
-			setterMethod = parentClass.getMethod(Utils.setterOf(name), type);
-			getterMethod = parentClass.getMethod(Utils.getterOf(name));
+			parentGetter = parentClass.getMethod(Utils.getterOf(name));
+			if(Utils.isNotNull(type))
+				type = (Class<T>) parentGetter.getReturnType();
+			parentSetter = parentClass.getMethod(Utils.setterOf(name), type);
 		}
 	}
 
 	protected void update(Object o, ResultSet rs) throws Exception {}
 	
-	protected void set(Object parent, Object value) throws Exception {
-		setterMethod.invoke(parent, value);
+	public void setValue(Object parent, Object value) throws Exception {
+		parentSetter.invoke(parent, value);
+	}
+	public Object getValue(Object parent) throws Exception {
+		return parentGetter.invoke(parent);
 	}
 }

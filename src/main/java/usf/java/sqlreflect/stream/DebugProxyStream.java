@@ -1,9 +1,8 @@
 package usf.java.sqlreflect.stream;
 
 import java.sql.Date;
-import java.util.Collection;
 
-import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.ComplexObject;
 
 public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	
@@ -69,8 +68,8 @@ public class DebugProxyStream<T extends StreamWriter> implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, Collection<Property> properties) throws Exception {
-		sw.startList(name, properties);
+	public void startList(String name, ComplexObject<?> complexObject) throws Exception {
+		sw.startList(name, complexObject);
 		debug(++level, "[" + name + "]");
 	}
 

@@ -2,9 +2,10 @@ package usf.java.sqlreflect.stream;
 
 import java.io.OutputStream;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 
-import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.stream.printer.DynamicAsciiPrinter;
 import usf.java.sqlreflect.stream.printer.Printer;
 
@@ -69,10 +70,11 @@ public class PrinterStreamWriter implements StreamWriter {
 	}
 
 	@Override
-	public void startList(String name, Collection<Property> properties) throws Exception {
-		String[] columns = new String[properties.size()]; int i=0;
-		for(Property property : properties)
-			columns[i++] = property.getName();
+	public void startList(String name,  ComplexObject<?> complexObject) throws Exception {
+		List<Field<?>> fields = complexObject.getFields();
+		String[] columns = new String[fields.size()]; int i=0;
+		for(Field<?> field : fields)
+			columns[i++] = field.getName();
 		printer.startTable(columns);
 		list = true;
 	}

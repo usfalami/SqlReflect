@@ -1,29 +1,27 @@
 package usf.java.sqlreflect.writer;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
-import usf.java.sqlreflect.mapper.Property;
+import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
-	private Collection<Property> properties = Arrays.asList(
-		new Property(Constants.TIMER_ACTION), 
-		new Property(Constants.TIMER_START),
-		new Property(Constants.TIMER_END), 
-		new Property(Constants.TIMER_DURATION)
-	);
+	private static final ComplexObject<ActionTimer> complexObject;
+	
 
 	@Override
-	public void prepare(Class<? extends ActionTimer> derivedClass, Collection<Property> properties){ }
+	public void prepare(ComplexObject<? extends ActionTimer> complexObject){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {
-		writer.startList("Times", properties);
+		writer.startList("Times", complexObject);
 		recusiveWrite(writer, at, 0);
 		writer.endList();
 	}
@@ -39,5 +37,13 @@ public class ActionTimerWriter implements Writer<ActionTimer> {
 			for(ActionTimer t : action.getTimers())
 				recusiveWrite(writer, t, level+1);
 	}
-	
+
+	static {
+		List<Field<?>> fields = new ArrayList<Field<?>>();
+		fields.add(new EntryProperty<String>(Constants.TIMER_ACTION));
+		fields.add(new EntryProperty<String>(Constants.TIMER_START));
+		fields.add(new EntryProperty<String>(Constants.TIMER_END));
+		fields.add(new EntryProperty<String>(Constants.TIMER_DURATION));
+		complexObject = new ComplexObject<ActionTimer>(ActionTimer.class, fields);
+	}
 }

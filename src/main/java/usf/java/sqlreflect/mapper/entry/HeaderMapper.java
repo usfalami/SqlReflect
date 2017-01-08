@@ -3,23 +3,25 @@ package usf.java.sqlreflect.mapper.entry;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import usf.java.sqlreflect.SqlConstants;
+import usf.java.sqlreflect.mapper.ComplexObject;
+import usf.java.sqlreflect.mapper.EntryProperty;
+import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class HeaderMapper implements Mapper<Header> {
 	
 	private DatabaseType type;
-
+	
 	@Override
-	public Collection<Property> prepare(ResultSet rs, DatabaseType type) {
+	public ComplexObject<Header> prepare(ResultSet rs, DatabaseType type) {
 		this.type = type;
-		return properties;
+		return complexObject;
 	}
 
 	@Override
@@ -36,20 +38,18 @@ public class HeaderMapper implements Mapper<Header> {
 		header.setColumnClassName(md.getColumnClassName(row));
 		return header;
 	}
-	
-	@Override
-	public Class<Header> getMappedClass() {
-		return Header.class;
+	static{
+		List<Field<?>> list = new ArrayList<Field<?>>();
+		complexObject = new ComplexObject<Header>(Header.class, list);
+		list.add(new EntryProperty<String>(SqlConstants.DATABASE_NAME));
+		list.add(new EntryProperty<String>(SqlConstants.TABLE_NAME));
+		list.add(new EntryProperty<String>(SqlConstants.COLUMN_NAME));
+		list.add(new EntryProperty<Integer>(SqlConstants.COLUMN_TYPE));
+		list.add(new EntryProperty<String>(SqlConstants.TYPE_NAME));
+		list.add(new EntryProperty<Integer>(SqlConstants.COLUMN_SIZE));
+		list.add(new EntryProperty<String>(SqlConstants.COLUMN_CLASS));	
 	}
-
-	private static final Collection<Property> properties = Arrays.asList(
-			new Property(SqlConstants.DATABASE_NAME).setClassName(String.class.getName()),
-			new Property(SqlConstants.TABLE_NAME)	.setClassName(String.class.getName()),
-			new Property(SqlConstants.COLUMN_NAME)	.setClassName(String.class.getName()),
-			new Property(SqlConstants.COLUMN_TYPE)	.setClassName(Integer.class.getName()),
-			new Property(SqlConstants.TYPE_NAME)	.setClassName(String.class.getName()),
-			new Property(SqlConstants.COLUMN_SIZE)	.setClassName(Integer.class.getName()),
-			new Property(SqlConstants.COLUMN_CLASS)	.setClassName(String.class.getName())
-		);
+	
+	private static final ComplexObject<Header> complexObject;
 	
 }

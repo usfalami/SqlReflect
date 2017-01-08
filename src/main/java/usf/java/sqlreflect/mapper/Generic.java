@@ -4,6 +4,6 @@ import java.sql.ResultSet;
 
 public interface Generic<T> {
 	
-	public abstract T get(ResultSet rs) throws Exception;
+	T get(ResultSet rs) throws Exception;
 
 }
