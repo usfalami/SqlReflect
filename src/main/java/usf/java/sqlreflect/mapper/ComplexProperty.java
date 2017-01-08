@@ -40,7 +40,7 @@ public class ComplexProperty<T> extends Field<T> {
 	protected void prepare(Map<String, Header> headers) throws Exception {
 		super.prepare(headers);
 		for(Field<?> field : fields){
-			field.setAccessors(type);
+			field.setAccessorsFrom(type);
 			field.prepare(headers);
 		}
 	}

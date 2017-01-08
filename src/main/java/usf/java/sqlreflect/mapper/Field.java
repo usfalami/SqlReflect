@@ -9,7 +9,7 @@ import usf.java.sqlreflect.sql.entry.Header;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public abstract class Field<T> implements Generic<T> {
-
+	
 	protected String name;
 	protected Class<T> type;
 	
@@ -36,10 +36,9 @@ public abstract class Field<T> implements Generic<T> {
 		this.type = type;
 	}
 	
-	protected void setAccessors(Class<?> parentClass) throws Exception {
+	protected void setAccessorsFrom(Class<?> parentClass) throws Exception {
 		parentGetter = parentClass.getMethod(Utils.getterOf(name));
-		if(Utils.isNotNull(type))
-			type = (Class<T>) parentGetter.getReturnType();
+		if(Utils.isNull(type)) type = (Class<T>) parentGetter.getReturnType();
 		parentSetter = parentClass.getMethod(Utils.setterOf(name), type);
 	}
 	

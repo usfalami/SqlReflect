@@ -22,6 +22,7 @@ public class ListProperty<T extends Collection<C>, C> extends Field<T> {
 	@Override
 	protected void prepare(Map<String, Header> map) throws Exception {
 		super.prepare(map);
+		field.setAccessorsFrom(type);
 		field.prepare(map);
 	}
 

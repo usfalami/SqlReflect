@@ -7,16 +7,12 @@ import usf.java.sqlreflect.Constants;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.mapper.Field;
 import usf.java.sqlreflect.mapper.SimpleProperty;
-import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.stream.StreamWriter;
 
 public class ActionTimerWriter implements Writer<ActionTimer> {
 	
 	private static final List<Field<?>> ACTIONTIMER_FIELDS;
-	
-	@Override
-	public void prepare(Template<? extends ActionTimer> complexObject){ }
 	
 	@Override
 	public void write(StreamWriter writer, ActionTimer at) throws Exception {

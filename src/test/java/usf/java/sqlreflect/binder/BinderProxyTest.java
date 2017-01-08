@@ -52,11 +52,11 @@ public class BinderProxyTest {
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_3() throws Exception {
-		BinderProxy.get(EntryMultiBinder.class, null);
+		BinderProxy.get(GenericTypeMultiBinder.class, null);
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet2_4() throws Exception {
-		BinderProxy.get(EntryMultiBinder.class, "");
+		BinderProxy.get(GenericTypeMultiBinder.class, "");
 	}
 	
 	
@@ -72,12 +72,12 @@ public class BinderProxyTest {
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_3() throws Exception {
-		MultipleBinder<GenericType> obj = new EntryMultiBinder();
+		MultipleBinder<GenericType> obj = new GenericTypeMultiBinder();
 		BinderProxy.get(obj, null);
 	}
 	@Test(expected=IllegalArgumentException.class)
 	public void testGet3_4() throws Exception {
-		MultipleBinder<GenericType> obj = new EntryMultiBinder();
+		MultipleBinder<GenericType> obj = new GenericTypeMultiBinder();
 		BinderProxy.get(obj, "");
 	}
 	
@@ -88,19 +88,19 @@ public class BinderProxyTest {
 	@Test
 	public void testGet5() throws Exception {
 		String method = "findCityByCountryAndDistrict";
-		BinderProxy<GenericType> b1 =  BinderProxy.get(EntryMultiBinder.class.getName(), method);
+		BinderProxy<GenericType> b1 =  BinderProxy.get(GenericTypeMultiBinder.class.getName(), method);
 		assertNotNull(b1.getBinder());
 		assertNotNull(b1.getBinderMethodName());
-		BinderProxy<GenericType> b2 =  BinderProxy.get(EntryMultiBinder.class, method);
+		BinderProxy<GenericType> b2 =  BinderProxy.get(GenericTypeMultiBinder.class, method);
 		assertNotNull(b2.getBinder());
 		assertNotNull(b2.getBinderMethodName());
-		BinderProxy<GenericType> b3 =  BinderProxy.get(new EntryMultiBinder(), method);
+		BinderProxy<GenericType> b3 =  BinderProxy.get(new GenericTypeMultiBinder(), method);
 		assertNotNull(b3.getBinder());
 		assertNotNull(b3.getBinderMethodName());
 		assertEquals(b1.getBinderMethodName(), method);
 		assertEquals(b1.getBinderMethodName(), b2.getBinderMethodName());
 		assertEquals(b1.getBinderMethodName(), b3.getBinderMethodName());
-		assertEquals(b1.getBinder().getClass(), EntryMultiBinder.class);
+		assertEquals(b1.getBinder().getClass(), GenericTypeMultiBinder.class);
 		assertEquals(b1.getBinder().getClass(), b2.getBinder().getClass());
 		assertEquals(b1.getBinder().getClass(), b3.getBinder().getClass());
 	}

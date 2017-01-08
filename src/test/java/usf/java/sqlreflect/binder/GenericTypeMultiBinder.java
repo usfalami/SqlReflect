@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import usf.java.sqlreflect.sql.entry.GenericType;
 
-public class EntryMultiBinder implements MultipleBinder<GenericType> {
+public class GenericTypeMultiBinder implements MultipleBinder<GenericType> {
 	
 	public void findCityByCountryAndDistrict(CallableStatement pstmt, GenericType entry) throws SQLException{
 		pstmt.setString(1, entry.get("CountryCode").toString());

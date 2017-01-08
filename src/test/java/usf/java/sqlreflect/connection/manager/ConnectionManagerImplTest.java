@@ -23,7 +23,7 @@ import usf.java.sqlreflect.Queries.Helper;
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.binder.Binder;
 import usf.java.sqlreflect.binder.BinderProxy;
-import usf.java.sqlreflect.binder.EntryMultiBinder;
+import usf.java.sqlreflect.binder.GenericTypeMultiBinder;
 import usf.java.sqlreflect.binder.ParameterBinder;
 import usf.java.sqlreflect.sql.Parameter;
 import usf.java.sqlreflect.sql.entry.GenericType;
@@ -139,7 +139,7 @@ public class ConnectionManagerImplTest {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			BinderProxy<GenericType> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
+			BinderProxy<GenericType> binder = BinderProxy.get(GenericTypeMultiBinder.class, methodName);
 			Connection c = openConnectionTest(cm);
 			stmt = cm.prepare(selectQuery, Queries.select_country_bind_Params_3, binder);
 			assertTrue(stmt instanceof PreparedStatement);
@@ -160,7 +160,7 @@ public class ConnectionManagerImplTest {
 		Connection c = null;
 		Statement stmt = null;
 		try {
-			BinderProxy<GenericType> binder = BinderProxy.get(EntryMultiBinder.class, methodName);
+			BinderProxy<GenericType> binder = BinderProxy.get(GenericTypeMultiBinder.class, methodName);
 			c = openConnectionTest(cm);
 			stmt = cm.prepare(Queries.query1, Queries.select_country_bind_Params_3, binder);
 		}finally{
