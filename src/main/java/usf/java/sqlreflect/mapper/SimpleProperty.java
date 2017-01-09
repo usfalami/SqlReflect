@@ -84,6 +84,7 @@ public class SimpleProperty<T> extends Template<T> {
 	private class MapOnly implements Generic<T> {
 		@Override
 		public T map(ResultSet rs) throws Exception {
+//			return rs.getObject(columnName, type);
 			return type.cast(rs.getObject(columnName));
 		}
 	}

@@ -116,7 +116,9 @@ public class ContextLoader {
 		ps.start();
 		
 		String query = "SELECT * FROM country";
-
+		
+		//[NativeFunction]	Date 
+		new NativeFunctionScanner(cm).set(NativeFunctions.TIME_DATE).writeAll(ps);
 		//[database]	select * 
 		new DatabaseScanner(cm).writeAll(ps);
 		//[Table] 		select mysql.time_zone%
@@ -135,8 +137,6 @@ public class ContextLoader {
 		new GenericScanner<Void>(cm).set(query).writeAll(ps);
 		//[Header] 		SELECT * FROM country
 		new HeaderScanner<Void>(cm).set(query).writeAll(ps);
-		
-		new NativeFunctionScanner(cm).set(NativeFunctions.TIME_DATE).writeAll(ps);
 		
 		ex1();
 
