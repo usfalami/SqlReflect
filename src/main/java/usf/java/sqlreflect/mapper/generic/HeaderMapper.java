@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.entry;
+package usf.java.sqlreflect.mapper.generic;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

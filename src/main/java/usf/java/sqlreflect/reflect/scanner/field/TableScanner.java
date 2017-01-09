@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 
 import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
-import usf.java.sqlreflect.mapper.entry.TableMapper;
+import usf.java.sqlreflect.mapper.generic.TableMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.TableTypes;

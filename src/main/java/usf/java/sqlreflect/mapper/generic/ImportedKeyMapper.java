@@ -1,10 +1,8 @@
-package usf.java.sqlreflect.mapper.entry;
+package usf.java.sqlreflect.mapper.generic;
 
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.GenericTypeTemplate;
-import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.Converter;
@@ -13,17 +11,13 @@ import usf.java.sqlreflect.sql.entry.ImportedKey;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ImprotedKeyRule;
 
-public class ImportedKeyMapper extends SimpleObjectMapper<ImportedKey> {
+public class ImportedKeyMapper extends GenericTypeMapper<ImportedKey> {
 	
 	public ImportedKeyMapper() {
-		super(new GenericTypeTemplate<ImportedKey>(ImportedKey.class,	
-			SqlConstants.PKTABLE_NAME,
-			SqlConstants.PKCOLUMN_NAME,
-			SqlConstants.PK_NAME,
+		super(ImportedKey.class,	
+			SqlConstants.PKTABLE_NAME, SqlConstants.PKCOLUMN_NAME, SqlConstants.PK_NAME,
 			SqlConstants.KEY_SEQ,
-			SqlConstants.FKTABLE_NAME,
-			SqlConstants.FKCOLUMN_NAME,
-			SqlConstants.FK_NAME));
+			SqlConstants.FKTABLE_NAME,SqlConstants.FKCOLUMN_NAME, SqlConstants.FK_NAME);
 	}
 	
 	@Override

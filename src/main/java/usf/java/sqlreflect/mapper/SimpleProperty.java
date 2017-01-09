@@ -57,7 +57,7 @@ public class SimpleProperty<T> extends Template<T> {
 		proxy = Utils.isNull(converter) ? new MapOnly() : new MapAndConvert();
 		typeWriter = WriterTypes.writerfor(type.getName());
 	}
-
+	
 	@Override
 	public T map(ResultSet rs) throws Exception {
 		return proxy.map(rs);

@@ -24,7 +24,7 @@ public abstract class Template<T> implements Generic<T> {
 	public Template(Class<T> type) {
 		this.type = type;
 	}
-	protected Template(String name, Class<T> type) {
+	public Template(String name, Class<T> type) {
 		this.name = name;
 		this.type = type;
 	}

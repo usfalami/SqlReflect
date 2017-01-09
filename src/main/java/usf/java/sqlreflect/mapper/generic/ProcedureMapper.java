@@ -1,10 +1,8 @@
-package usf.java.sqlreflect.mapper.entry;
+package usf.java.sqlreflect.mapper.generic;
 
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.GenericTypeTemplate;
-import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.mapper.converter.LabelIndexConverter;
@@ -12,10 +10,10 @@ import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ProcedureTypes;
 
-public class ProcedureMapper extends SimpleObjectMapper<Procedure> {
+public class ProcedureMapper extends GenericTypeMapper<Procedure> {
 	
 	public ProcedureMapper() {
-		super(new GenericTypeTemplate<Procedure>(Procedure.class, SqlConstants.PROCEDURE_NAME));
+		super(Procedure.class, SqlConstants.PROCEDURE_NAME);
 	}
 	
 	@Override

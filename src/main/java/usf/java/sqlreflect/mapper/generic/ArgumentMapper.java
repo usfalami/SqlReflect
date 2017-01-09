@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.mapper.entry;
+package usf.java.sqlreflect.mapper.generic;
 
 import java.sql.ResultSet;
 
@@ -12,15 +12,15 @@ import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.type.DatabaseType;
 import usf.java.sqlreflect.sql.type.ParameterTypes;
 
-public class ArgumentMapper extends SimpleObjectMapper<Argument> {
+public class ArgumentMapper extends GenericTypeMapper<Argument> {
 	
 	public ArgumentMapper() {
-		super(new GenericTypeTemplate<Argument>(Argument.class, 
+		super(Argument.class, 
 			SqlConstants.PROCEDURE_NAME,
 			SqlConstants.COLUMN_NAME,
 			SqlConstants.DATA_TYPE,
 			SqlConstants.TYPE_NAME,
-			SqlConstants.LENGTH));
+			SqlConstants.LENGTH);
 	}
 	
 	@Override
