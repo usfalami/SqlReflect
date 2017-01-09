@@ -154,7 +154,7 @@ public class ContextLoader {
 		template.getFields().add(new SimpleProperty<String>("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
 
 		SimpleObjectMapper<Table> mapper = new SimpleObjectMapper<Table>(template);
-		TableScanner ts = new TableScanner(getConnectionManager()).set(null, null);
+		TableScanner ts = new TableScanner(getConnectionManager());
 		ts.setMapper(mapper);
 		ts.writeAll(ps);
 	}
