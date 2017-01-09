@@ -6,7 +6,7 @@ import usf.java.sqlreflect.sql.type.DatabaseType;
 
 public class SimpleObjectMapper<T> implements Mapper<T> {
 
-	private Template<T> complexObject;
+	protected Template<T> complexObject;
 
 	public SimpleObjectMapper(Class<T> mappedClassName) {
 		complexObject = new ComplexProperty<T>(mappedClassName);
@@ -26,7 +26,4 @@ public class SimpleObjectMapper<T> implements Mapper<T> {
 		return complexObject.map(rs);
 	}
 
-	public void appendProperty(SimpleProperty<?> property) {
-		complexObject.getFields().add(property);
-	}
 }

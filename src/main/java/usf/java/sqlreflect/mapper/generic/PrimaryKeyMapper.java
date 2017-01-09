@@ -12,8 +12,10 @@ public class PrimaryKeyMapper extends GenericTypeMapper<PrimaryKey> {
 	
 	public PrimaryKeyMapper() {
 		super(PrimaryKey.class, 
-			SqlConstants.TABLE_NAME,SqlConstants.COLUMN_NAME,
-			SqlConstants.PK_NAME,SqlConstants.KEY_SEQ);
+			SqlConstants.TABLE_NAME,
+			SqlConstants.COLUMN_NAME,
+			SqlConstants.PK_NAME,
+			SqlConstants.KEY_SEQ);
 	}
 	
 	@Override

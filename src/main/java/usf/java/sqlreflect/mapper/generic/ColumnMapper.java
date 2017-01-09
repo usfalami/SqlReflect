@@ -3,8 +3,6 @@ package usf.java.sqlreflect.mapper.generic;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.GenericTypeTemplate;
-import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Column;
@@ -14,8 +12,10 @@ public class ColumnMapper extends GenericTypeMapper<Column> {
 	
 	public ColumnMapper() {
 		super(Column.class, 
-			SqlConstants.TABLE_NAME, SqlConstants.COLUMN_NAME,
-			SqlConstants.DATA_TYPE, SqlConstants.TYPE_NAME,
+			SqlConstants.TABLE_NAME, 
+			SqlConstants.COLUMN_NAME,
+			SqlConstants.DATA_TYPE, 
+			SqlConstants.TYPE_NAME,
 			SqlConstants.COLUMN_SIZE);
 	}
 	

@@ -12,6 +12,7 @@ import usf.java.sqlreflect.connection.manager.TransactionManager;
 import usf.java.sqlreflect.connection.manager.TransactionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.mapper.ComplexProperty;
 import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
@@ -147,10 +148,12 @@ public class ContextLoader {
 
 		StreamWriter ps = new PrinterStreamWriter(System.out); 
 		
-		SimpleObjectMapper<Table> mapper = new SimpleObjectMapper<Table>(Table.class);
-		mapper.appendProperty(new SimpleProperty<String>("name", SqlConstants.TABLE_NAME));
-		mapper.appendProperty(new SimpleProperty<String>("type", SqlConstants.TABLE_TYPE));
-		mapper.appendProperty(new SimpleProperty<String>("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
+		ComplexProperty<Table> template = new ComplexProperty<Table>(Table.class);
+		template.getFields().add(new SimpleProperty<String>("name", SqlConstants.TABLE_NAME));
+		template.getFields().add(new SimpleProperty<String>("type", SqlConstants.TABLE_TYPE));
+		template.getFields().add(new SimpleProperty<String>("databaseName", DatabaseType.CATALOG.TABLE_DATABASE));
+
+		SimpleObjectMapper<Table> mapper = new SimpleObjectMapper<Table>(template);
 		TableScanner ts = new TableScanner(getConnectionManager()).set(null, null);
 		ts.setMapper(mapper);
 		ts.writeAll(ps);

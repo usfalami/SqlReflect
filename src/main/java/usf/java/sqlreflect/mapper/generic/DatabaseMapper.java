@@ -3,8 +3,6 @@ package usf.java.sqlreflect.mapper.generic;
 import java.sql.ResultSet;
 
 import usf.java.sqlreflect.SqlConstants;
-import usf.java.sqlreflect.mapper.GenericTypeTemplate;
-import usf.java.sqlreflect.mapper.SimpleObjectMapper;
 import usf.java.sqlreflect.mapper.SimpleProperty;
 import usf.java.sqlreflect.mapper.Template;
 import usf.java.sqlreflect.sql.entry.Database;
